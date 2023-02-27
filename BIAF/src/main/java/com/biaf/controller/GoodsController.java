@@ -5,14 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="/")
-public class MainController {
-	@GetMapping(value="/")
+@RequestMapping(value="/ko")
+public class GoodsController {
+	@GetMapping(value="/goods")
 	public String firstpage() {
-		return "FirstPage";
-	}
-	@GetMapping(value="/ko")
-	public String main() {
-		return "MainPage";
+		return "goods/Goods";
 	}
 }
