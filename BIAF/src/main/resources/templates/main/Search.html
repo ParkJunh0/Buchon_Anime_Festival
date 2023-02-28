@@ -7,14 +7,16 @@ layout:decorate="~{layouts/layout1}">
 <style>
 
 </style>
-<script>
-	function abc(){
-		window.open("popup.html", "a", "width=50, height=50, left=5")
-	}
-</script>
 </th:block>
 <!-- 본문 부분 -->
 <div layout:fragment="content">
-	a
+    <p>입력한 검색어 입니다.</p>
+    <hr>
+	<p class="search_value"></p>
+    <script>
+        var search_val = $('.search_value');
+        const receivedData = location.href.split('?')[1];
+        search_val.append(decodeURI(receivedData));
+    </script>
 </div>
 </html>

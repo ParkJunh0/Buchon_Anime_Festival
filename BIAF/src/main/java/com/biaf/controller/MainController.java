@@ -7,12 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value="/")
 public class MainController {
+	@GetMapping(value="/ko/example")
+	public String example(){
+		return "Example";
+	}
 	@GetMapping(value="/")
 	public String firstpage() {
-		return "FirstPage";
+		return "/main/FirstPage";
 	}
 	@GetMapping(value="/ko")
 	public String main() {
-		return "MainPage";
+		return "/main/MainPage";
+	}
+	@GetMapping(value="/ko/search")
+	public String search(){
+		return "/main/Search";
 	}
 }

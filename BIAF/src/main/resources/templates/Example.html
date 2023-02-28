@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+<!-- css 추가시 -->
+<th:block>
+<style>
+
+</style>
+</th:block>
+<!-- 본문 부분 -->
+<div layout:fragment="content">
+	<!--Script 작성 예시-->
+		<script>
+		function ccc(){
+			alert('aaaa');
+		}
+		</script>
+	<!-- Script 예시 -->
+	<a href="#" th:attr="onclick=('abc();')" onclick="abc();">goods</a>
+	<a href="javascript:ccc();">ccc</a>
+	<!-- img 사이즈 변경 예시 -->
+	<hr>
+	<div>
+	<img src="/mainpage/image/bg5.jpg" width="200" height="300" alt="aaa">
+	</div>
+	<div>
+	<img src="/mainpage/image/bg5.jpg" width="200" height="300" alt="aaa">
+	</div>
+</div>
+</html>

@@ -1,35 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	<link th:href="@{/css/header.css}" rel="stylesheet">
-	<div th:fragment="header">
-	
-<div id="top">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col">
-                <a href="main"><img th:src="@{/image/logo2023.png}" alt=""></a>
-            </div>
-            
-            <div class="col-6">
-               <div id="menu">
-                <div class="row row-cols-4">
-                    <div class="col"><a href=#><b>BIAF</b></a></div>
-                    <div class="col"><a href=#><b>행사</b></a></div>
-                    <div class="col"><a href=#><b>예매</b></a></div>
-                    <div class="col"><a href=#><b>커뮤니티</b></a></div>
-               </div>
+
+<div th:fragment="header" class="header">
+<div id="nav">
+    <div id="nav_logo">
+        <a href="/ko"><img th:src="@{/image/logo2023(modify).png}" alt=""></a>
+    </div>
+    <div id="nav_menu">
+            <div id="biaf_menu" class="menu_item">
+                <a href=#><b>BIAF</b></a>
+                <div id="BIAF_menu" class="menu_popup">
+                    <ul>
+                        <li class="menu_item_s"><a href="#">소개</a></li>
+                        <li class="menu_item_s"><a href="#">굿즈</a></li>
+                        <li class="menu_item_s"><a href="#">로고&이모티콘</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="col">
-               <div id="login">
-                    <a href=#>로그인</a>
-                    <a href=#>회원가입</a>
+            <div id="event_menu" class="menu_item" >
+                <a href=#><b>행사</b></a>
+                <div id="Event_menu" class="menu_popup">
+                    <ul>
+                        <li class="menu_item_s"><a href="#">티켓예매</a></li>
+                        <li class="menu_item_s"><a href="#">상영시간표</a></li>
+                        <li class="menu_item_s"><a href="#">티켓안내</a></li>
+                    </ul>
                 </div>
-                
             </div>
-        </div>
+            <div id="reservation_menu" class="menu_item">
+                <a href=#><b>예매</b></a>
+                <div id="Reservation_menu" class="menu_popup">
+                    <ul>
+                        <li class="menu_item_s"><a href="#">행사장안내</a></li>
+                        <li class="menu_item_s"><a href="#">찾아오시는길</a></li>
+                        <li class="menu_item_s"><a href="#">개막식</a></li>
+                        <li class="menu_item_s"><a href="#">전시</a></li>
+                        <li class="menu_item_s"><a href="#">부대행사</a></li>
+                        <li class="menu_item_s"><a href="#">공모전</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="community_menu" class="menu_item">
+                <a href=#><b>커뮤니티</b></a>
+                <div id="Community_menu" class="menu_popup">
+                    <ul>
+                        <li class="menu_item_s"><a href="#">공지사항</a></li>
+                        <li class="menu_item_s"><a href="#">Q&A</a></li>
+                        <li class="menu_item_s"><a href="#">자유게시판</a></li>
+                    </ul>
+                </div>
+            </div>
     </div>
-       </div>
+    <div id="nav_sub">
+        <a href="#" id="search_btn"><img id="icon_search" src="/image/icon_search.png" widht="22" height="22"></a>
+        <a href=#>로그인</a>
+        <a href=#>회원가입</a>
     </div>
+</div>
+<div id="search">
+    <input type="text" id="search_input" name="search" required placeholder="Search" title="검색어를 입력하세요">
+    <button type="button" class="search_btn" onclick="searchform(search_input.value);"><img src="/image/icon_search.png" widht="26" height="26"></button>
+</div>
+</div>
 </html>
