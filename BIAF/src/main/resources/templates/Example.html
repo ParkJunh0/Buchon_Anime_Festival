@@ -3,29 +3,35 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
 
-<!-- css 추가시 -->
-<th:block>
-<style>
 
-</style>
-</th:block>
 <!-- 본문 부분 -->
 <div layout:fragment="content">
+	<!--외부 css, script 참조법-->
+	<link th:href="@{/css/example.css}" rel="stylesheet">
+	<script th:src="@{/js/example.js}" type="text/javascript"></script>
+	
+	<!-- css 추가시 -->
+	<style>
+	
+	</style>
+
 	<!--Script 작성 예시-->
 		<script>
 		function ccc(){
 			alert('aaaa');
 		}
 		</script>
+
+	<div class="ex_header"></div>
 	<!-- Script 예시 -->
+	<div class="link">
 	<a href="#" th:attr="onclick=('abc();')" onclick="abc();">goods</a>
 	<a href="javascript:ccc();">ccc</a>
+	</div>
 	<!-- img 사이즈 변경 예시 -->
 	<hr>
-	<div>
-	<img src="/mainpage/image/bg5.jpg" width="200" height="300" alt="aaa">
-	</div>
-	<div>
+	<div class="img">
+	<img src="/mainpage/image/bg5.jpg" class="ex_img1"alt="aaa">
 	<img src="/mainpage/image/bg5.jpg" width="200" height="300" alt="aaa">
 	</div>
 </div>

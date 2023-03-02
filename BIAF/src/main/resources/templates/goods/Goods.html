@@ -2,19 +2,28 @@
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
-<!-- css 추가시 -->
-<th:block>
-<style>
 
-</style>
-<script>
-	function abc(){
-		window.open("popup.html", "a", "width=50, height=50, left=5")
-	}
-</script>
-</th:block>
+<link th:href="@{/goods/main.css}" rel="stylesheet">
+
 <!-- 본문 부분 -->
 <div layout:fragment="content">
-	a
+	<!-- css 추가시 -->
+	<style>
+		.content_header{
+			height: 100px;
+			background-image: url("/image/logo2023.png");
+			background-repeat: no-repeat;
+			text-align:center;
+		}
+	</style>
+	<script>
+	
+	</script>
+	<div class="header content_header">
+		<h1>BIAF</h1>
+	</div>
+	<div>
+	<img href="/mainpage/image/bg5.jpg">
+	</div>
 </div>
 </html>
