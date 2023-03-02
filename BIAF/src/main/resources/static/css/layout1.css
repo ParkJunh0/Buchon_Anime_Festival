@@ -31,10 +31,7 @@ body{
 .content{
 	position:relative;
 	min-height: 429px;
-	margin-bottom:100px;
-	margin-top:50px;
-	margin-left:200px;
-	margin-right:200px;
+	margin-bottom: 100px;
 	z-index: 50;
 }
 .header{
