@@ -53,21 +53,21 @@
 					<a href=#><b>BIAF</b></a>
 					<div id="BIAF_menu" class="menu_popup">
 						<ul>
-							<li class="menu_item_s"><a href="#">소개</a></li>
-							<li class="menu_item_s"><a href="/ko/goods">굿즈</a></li>
-							<li class="menu_item_s"><a href="#">로고&이모티콘</a></li>
+							<li id="info_" class="menu_item_s"><a href="#">소개</a></li>
+							<li id="goods_" class="menu_item_s"><a href="#">굿즈</a></li>
+							<li id="logo_emot_" class="menu_item_s"><a href="#">로고&이모티콘</a></li>
 						</ul>
 					</div></div>
 				<div id="event_menu" class="menu_item" >
 					<a href=#><b>행사</b></a>
 					<div id="Event_menu" class="menu_popup">
 						<ul>
-							<li class="menu_item_s"><a href="#">행사장안내</a></li>
-							<li class="menu_item_s"><a href="#">찾아오시는길</a></li>
-							<li class="menu_item_s"><a href="#">개막식</a></li>
-							<li class="menu_item_s"><a href="#">전시</a></li>
-							<li class="menu_item_s"><a href="#">부대행사</a></li>
-							<li class="menu_item_s"><a href="#">공모전</a></li>
+							<li id="eventhall_info_" class="menu_item_s"><a href="#">행사장안내</a></li>
+							<li id="navigation_" class="menu_item_s"><a href="#">찾아오시는길</a></li>
+							<li id="opening_ceremony_" class="menu_item_s"><a href="#">개막식</a></li>
+							<li id="exhibition_" class="menu_item_s"><a href="#">전시</a></li>
+							<li id="incidental_event_" class="menu_item_s"><a href="#">부대행사</a></li>
+							<li id="contest_" class="menu_item_s"><a href="#">공모전</a></li>
 						</ul>
 					</div>
 				</div>
@@ -75,9 +75,9 @@
 					<a href=#><b>예매</b></a>
 					<div id="Reservation_menu" class="menu_popup">
 						<ul>
-							<li class="menu_item_s"><a href="#">티켓예매</a></li>
-							<li class="menu_item_s"><a href="#">상영시간표</a></li>
-							<li class="menu_item_s"><a href="#">티켓안내</a></li>
+							<li id="ticket_reservation_" class="menu_item_s"><a href="#">티켓예매</a></li>
+                       		<li id="schedule_" class="menu_item_s"><a href="#">상영시간표</a></li>
+                        	<li id="ticket_information_"class="menu_item_s"><a href="#">티켓안내</a></li>
 						</ul>
 					</div>
 				</div>
@@ -85,17 +85,17 @@
 					<a href=#><b>커뮤니티</b></a>
 					<div id="Community_menu" class="menu_popup">
 						<ul>
-							<li class="menu_item_s"><a href="#">공지사항</a></li>
-							<li class="menu_item_s"><a href="#">Q&A</a></li>
-							<li class="menu_item_s"><a href="#">자유게시판</a></li>
+							<li id="notice_"class="menu_item_s"><a href="#">공지사항</a></li>
+							<li id="qna_" class="menu_item_s"><a href="#">Q&A</a></li>
+							<li id="freeboard" class="menu_item_s"><a href="#">자유게시판</a></li>
 						</ul>
 					</div>
 				</div>
 		</div>
 		<div id="nav_sub">
 			<a href="#" id="search_btn"><img id="icon_search" src="/image/icon_search.png" widht="22" height="22"></a>
-			<a href=#>로그인</a>
-			<a href=#>회원가입</a>
+			<a id="login" class="sub_nav" href='/ko/login'>로그인</a>
+			<a id="signup" class="sub_nav" href='/ko/signup'>회원가입</a>
 		</div>
 	</div>
 	<div id="search">
@@ -134,11 +134,11 @@
 	<div id="footer" class="section fp-auto-height">
         <div id="footer-top">
 			<ul class="text-left">
-				<li><a href="#">BIAF소개</a></li>
-				<li>| <a href="#"> 이용약관/저작권</a></li>
-				<li>| <a href="#"> 개인정보취급방침</a></li>
-				<li>| <a href="#"> 이메일 무단수집 거부</a></li>
-				<li>| <a href="#"> 찾아오시는길</a></li>
+				<li><a id="info_" class="footer_itme" href="#">BIAF소개</a></li>
+                    <li>| <a id="policy" class="footer_itme"href="#"> 이용약관/저작권</a></li>
+                    <li>| <a id="pri_sta" class="footer_itme"href="#"> 개인정보취급방침</a></li>
+                    <li>| <a id="email_rejection" class="footer_itme"href="#"> 이메일 무단수집 거부</a></li>
+                    <li>| <a id="navigation_" class="footer_itme"href="#"> 찾아오시는길</a></li>
 			</ul>
 			<ul class="sns-icon">
 				<li><a href="https://www.instagram.com/biaf.ani/" target="_blank"><img th:src="@{/image/icon_instagram.png}" alt=""></a></li>
@@ -148,7 +148,7 @@
 		</div>
 	   <div id="footer-bottom">
 		   <div class="footer-bottom-logo">
-			   <a href="#"><img th:src="@{/image/logo_footer_2023.png}" alt=""></a>
+			   <a href="/ko"><img th:src="@{/image/logo_footer_2023.png}" alt=""></a>
 		   </div>
 		   <div class="footer-bottom-text">
 			  <ul>

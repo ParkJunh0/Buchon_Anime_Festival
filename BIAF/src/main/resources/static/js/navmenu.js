@@ -15,6 +15,7 @@ $(function(){
     var menu3_stat=$(".menu_popup");
     var menu4_stat=$(".menu_popup");
 
+    // 헤더 메뉴 마우스 올리면/내리면 세부메뉴 활성화/비활성화
     biaf_menu.hover(function(){
         BIAF_menu.stop().fadeIn(400);
     },function(){
@@ -34,5 +35,28 @@ $(function(){
         Commu_menu.stop().fadeIn(500);
     },function(){
         Commu_menu.stop().fadeOut(500);
+    });
+
+    // 헤더메뉴 클릭시 주소이동
+    $('.menu_item>a').click(function(){
+        if($(this).children().text() == "BIAF"){
+            location.href="/ko/info";
+        }
+        if($(this).children().text() == "행사"){
+            location.href="/ko/eventhall_info";
+        }
+        if($(this).children().text() == "예매"){
+            location.href="/ko/ticket_reservation";
+        }
+        if($(this).children().text() == "커뮤니티"){
+            location.href="/ko/notice";
+        }
+    });
+    // 세부 메뉴 클릭시 주소이동
+    $('.menu_item_s>a').click(function(){
+        location.href="/ko/" + $(this).parent().attr('id').replace('_', '');
+    });
+    $('.sub_nav').click(function(){
+        location.href="/ko/" + $(this).attr('id').replace('_', '');
     });
 });
