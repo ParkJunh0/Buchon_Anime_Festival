@@ -1,5 +1,5 @@
 a{
-    text-decoration: none;
+    
 }
 li{
     list-style: none;
@@ -35,6 +35,7 @@ li{
 .text-left li a{
     margin-left: 10px;
     color: aliceblue; 
+    text-decoration: none;
 }
 /* 풋터 윗줄 오른쪽 sns-icon */
 .sns-icon{

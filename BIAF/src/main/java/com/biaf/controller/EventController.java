@@ -13,7 +13,7 @@ public class EventController {
     }
     @GetMapping(value="/navigation")
     public String navigation(){
-        return "";
+        return "Event/loadmap";
     }
     @GetMapping(value="/opening_ceremony")
     public String opening_ceremony(){
@@ -29,6 +29,10 @@ public class EventController {
     }
     @GetMapping(value="/contest")
     public String contest(){
-        return "";
+        return "Event/contest";
+    }
+    @GetMapping(value="/contest2")
+    public String contest2(){
+        return "Event/contest2";
     }
 }

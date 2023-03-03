@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<div layout:fragment="content" class="content">
+<th:block>
+<style>
+.index{
+        
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 64px 40px;
+        
+    }
+    
+    .mapArea dl {
+    padding: 20px;
+    font-size: 0;
+    border: 1px solid #cfcfcf;
+    border-bottom: none;
+}
+.mapArea dd {
+    display: inline-block;
+    width: 45%;
+    padding-right: 14px;
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+.mapArea dd label, .mapArea dd input[type="text"] {
+    line-height: 40px;
+    height: 40px;
+    border: 1px solid #cfcfcf;
+    vertical-align: middle;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.mapArea dd label {
+    display: inline-block;
+    width: 26%;
+    text-align: center;
+    border-right: none;
+    color: #555453;
+}
+.mapArea dd input[type="text"] {
+    width: 74%;
+    padding: 0 5px;
+}
+.mapArea dd.endPoint {
+    padding-left: 6px;
+}
+.mapArea dd.btn {
+    width: 10%;
+    padding-right: 0;
+    font-size: 16px;
+}
+.mapArea dd.btn input {
+    width: 100%;
+    height: 40px;
+    background: #f2f2f2;
+    border: 1px solid #bbc2c7;
+    vertical-align: middle;
+    color: #1d1d1d;
+    font-size: 14px;
+}
+.mapArea dt {
+    padding-bottom: 14px;
+    font-size: 18px;
+}
+.mapArea dd.startPoint {
+    background: url(/image/arrow_map.gif) right center no-repeat;
+}
+
+
+ .subway li {
+
+                list-style: none;
+                text-align: center;
+            }
+
+
+            table {
+
+                width: 100%;
+
+            }
+
+            table td {
+
+                padding-left: 10px;
+
+            }
+
+
+            table,
+            td,
+            th {
+
+                border: 1px solid #c1c1c1;
+                border-collapse: collapse;
+            }
+
+            .subway_con img {
+
+                margin-left: 35px;
+            }
+
+            span {
+
+                display: inline-block;
+                min-width: 78px;
+                line-height: 25px;
+                padding: 0 20px;
+                background: #ebebeb;
+                border-radius: 20px;
+                box-sizing: border-box;
+            }
+
+            .text {
+            	
+                
+                height:76px;
+                padding: 5px 0 5px 36px;
+    background-position: left center;
+    background-repeat: no-repeat;
+            }
+
+</style>
+    </th:block>
+    
+<div class="cont_header">
+	</div>
+<!-- 지도를 표시할 div 입니다 -->
+<div class=index>
+<h1>BIAF(한국만화영상진흥원) 오시는 길</h1>
+<br>
+<div class=mapArea>
+<form action="https://map.daum.net/" method="get" target="_blank">
+                                    <dl>
+                                        <dt><strong>찾아오시는길</strong></dt>
+                                        <dd class="startPoint">
+                                            <label for="startPoint">출발지</label>
+                                            <input type="text" id="startPoint" name="sName" placeholder="출발지를 입력하세요">
+                                        </dd>
+                                        <dd class="endPoint">
+                                            <label for="reachPoint">도착지</label>
+                                            <input type="text" id="reachPoint" name="eName" value="부천 국제애니메이션페스티벌">
+                                        </dd>
+                                        <dd class="btn"><input type="submit" value="길찾기"></dd>
+                                    </dl>
+                                </form>
+                                </div>
+<div id="map" style="width:100%;height:400px;"></div>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=34a714ae0ffd29edf862739eac190df6"></script>
+<script>
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new kakao.maps.LatLng(37.508438,126.742511), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+// 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); 
+var position =  new kakao.maps.LatLng(37.508438,126.742511);
+
+//마커를 생성합니다
+var marker = new kakao.maps.Marker({
+position: position,
+clickable: true // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+});
+
+//아래 코드는 위의 마커를 생성하는 코드에서 clickable: true 와 같이
+//마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정합니다
+//marker.setClickable(true);
+
+//마커를 지도에 표시합니다.
+marker.setMap(map);
+
+//마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+var iwContent = '<div style="padding:5px;">부천애니페스티벌</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+ iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+
+//인포윈도우를 생성합니다
+var infowindow = new kakao.maps.InfoWindow({
+ content : iwContent,
+ removable : iwRemoveable
+});
+
+//마커에 클릭이벤트를 등록합니다
+kakao.maps.event.addListener(marker, 'click', function() {
+   // 마커 위에 인포윈도우를 표시합니다
+   infowindow.open(map, marker);  
+});
+</script>
+<div class="publictransport">
+			<br><br>
+            <h1>대중교통</h1>
+            <div class="subway">
+                <br><p>지하철</p><br>
+                <table class="subway_con">
+                    <td width="130"><img src="/image/icon_subway7.gif">
+                        <li><span>7호선</span></li>
+                    </td>
+                    <td>[삼산체육관역]에서 하차, 5번 출구 이용, 도보 1분<br>
+                        (1호선 이용 시 온수역에서 7호선으로 환승)</td>
+                    <tr>
+                        <td rowspan="2"><img src="/image/icon_subway1.gif">
+                            <li><span>국철1호선</span></li>
+                        </td>
+                        <td>[송내역] 하차, 2번 출구 이용 송내 북부역 광장에서 버스 53번 이용<br>
+                            [영상문화단지 정문] 정류장 하차(20분 소요)</td>
+                    </tr>
+                    <tr>
+
+                        <td>[부개역] 하차, 2번 출구 이용 버스 79번 이용 <br>
+                            [영상문화단지 정문] 정류장 하차 (15분 소요)</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bus"><br>
+                <p>버스</p><br>
+                <table>
+                    <tr>
+                        <td class="text" width="130"><img src="/image/icon_bus_blue.gif">
+                            <span>79번</span></td>
+                        <td>타는 곳 : 부개 북부역 / 내리는 곳 : 영상문화단지 정문</td>
+                    <tr>
+                        <td class="text"><img src="/image/icon_bus_blue.gif">
+                        <span>37번</span></td>
+                        <td>타는 곳 : 송내 북부역 투나 / 내리는 곳 : 영상문화단지 정문</td>
+                    </tr>
+                    <tr>
+                        <td class="text"><img src="/image/icon_bus_blue.gif">
+                        <span>53번</span></td>
+                        <td>타는 곳 : 송내 북부역 / 내리는 곳 : 영상문화단지 정문</td>
+                    </tr>
+                    <tr>
+                        <td class="text"><img src="/image/icon_bus_blue.gif">
+                            <span>87번</span></td>
+                        <td>타는 곳 : 송내 북부역 영화의 거리 / 내리는 곳 : 삼산체육관역</td>
+                    </tr>
+                    <tr>
+                        <td class="text"><img src="/image/icon_bus_blue.gif">
+                            <span>83번</span></td>
+                        <td>기점 : 영등포 / 내리는 곳 : 영상문화단지 후문<br>
+                            여의도 환승센터 - 유한대학 - 부천남부역 - 영상문화단지 후문 - 부천체육관</td>
+                    </tr>
+                    <tr>
+                        <td class="text"><img src="/image/icon_bus_red.gif">
+                            <span>1200번</span></td>
+                        <td>기점 : 부평구청 / 내리는 곳 : 삼산체육관<br>
+                            서울역 - 신촌 - 홍대 - 삼산체육관 - 인천</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="car"><br>
+                <h1>자가용(네비게이션 목적지 '한국만화박물관')</h1><br>
+
+                <div id="outer_road">
+                    <p>외곽순환도로</p><br>
+                    <table>
+                        <tr>
+                            <td class="text" width="130">판교방면 출발</td>
+                            <td>외곽순환도로 일산방향 - 중동IC(인천방향) - 한국만화박물관<br>
+                                (부천무형문화엑스포 행사장, 야인시대세트장 옆)</td>
+                        <tr>
+                            <td class="text">일산방면 출발</td>
+                            <td>외곽순환도로 판교방향 - 중동IC(인천방향) - 한국만화박물관</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="gyeongin"><br>
+                    <p>경인고속도로</p><br>
+                    <table>
+                        <tr>
+                            <td class="text" width="130">서울방면 출발</td>
+                            <td>경인고속도로(인천방향) - 서운JC에서 외관순환도로 판교방향 - 중동IC(인천방향) - 한국만화박물관</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="bucheon"><br>
+                    <table>
+                        <p>부천</p>
+                        <tr>
+                            <td class="text" width="130">일산방면 출발</td>
+                            <td>계남대로 인천방향 - 중동 IC 지하도 - 한국만화박물관</td>
+                        </tr>
+                    </table>
+
+                </div>
+
+            </div>
+            </div>
+</div>
+</div>
+</html>

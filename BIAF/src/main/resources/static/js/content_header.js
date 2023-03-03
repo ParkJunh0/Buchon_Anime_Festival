@@ -11,7 +11,7 @@ $(function(){
         content_header_html+='<li><a id="goods" class="content_menu_items" href="#">굿즈</a></li>';
         content_header_html+='<li><a id="logo_emot" class="content_menu_items" href="#">로고&이모티콘</a></li></ul>';
     }
-    if(conthref == "eventhall_info" || conthref == "navigation" || conthref == "opening_ceremony" || conthref == "exhibithion" || conthref == "incidental_event" || conthref=="contest"){
+    if(conthref == "eventhall_info" || conthref == "navigation" || conthref == "opening_ceremony" || conthref == "exhibithion" || conthref == "incidental_event" || conthref=="contest" || conthref=="contest2"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>행사</h1></div>';
         content_header_html+='<div class="content_menu">';
@@ -25,10 +25,11 @@ $(function(){
     if(conthref == "ticket_reservation" || conthref == "schedule" || conthref == "ticket_information"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>예매</h1></div>';
-        content_header_html+='<div class="content_menu">';
-        content_header_html+='<ul><li><a id="ticket_reservation" class="content_menu_items" href="#">티켓예매</a></li>';
-        content_header_html+='<li><a id="schedule" class="content_menu_items" href="#">상영시간표</a></li>';
-        content_header_html+='<li><a id="ticket_information" class="content_menu_items" href="#">티켓안내</a></li></ul>';
+        content_header_html+='<div class="content_menu"><ul>';
+        content_header_html+='<li><a id="schedule" class="content_menu_items" href="#">현재 상영작</a></li>';
+        content_header_html+='<li><a id="ticket_reservation" class="content_menu_items" href="#">티켓예매</a></li>';
+        content_header_html+='<li><a id="ticket_information" class="content_menu_items" href="#">티켓안내</a></li>';
+        content_header_html+='</ul>';
     }
     if(conthref == "notice" || conthref == "qna" || conthref == "freeboard"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';

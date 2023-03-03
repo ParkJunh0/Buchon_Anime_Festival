@@ -8,18 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value="/ko")
 public class FooterController {
 
+   
    @GetMapping(value="/policy")
    public String policy() {
-      return "";
+      return "FooterTop/policy";
    }
    
    @GetMapping(value="/pri_sta")
    public String pri_sta() {
-      return "";
+      return "FooterTop/pri_sta";
             
    }
    @GetMapping(value="/email_rejection")
    public String email_rejection() {
-      return "";
+      return "FooterTop/email_rejection";
    }
 }

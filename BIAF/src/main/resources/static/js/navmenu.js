@@ -46,7 +46,7 @@ $(function(){
             location.href="/ko/eventhall_info";
         }
         if($(this).children().text() == "예매"){
-            location.href="/ko/ticket_reservation";
+            location.href="/ko/schedule";
         }
         if($(this).children().text() == "커뮤니티"){
             location.href="/ko/notice";
