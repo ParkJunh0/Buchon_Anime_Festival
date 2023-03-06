@@ -1,46 +1,7 @@
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
-* {
-	box-sizing: border-box
-}
 
 
-
-
-body {
-	font-size: 13px;
-	font-family: 'NanumBarunGothic',Arial,sans-serif;
-	background-color: #fff;
-	z-index: 0;
-}
-a {
-	color: #000;
-	text-decoration: none;
-
-}
-a:hover {
-	text-decoration: none;
-	color: #f67001;
-}
-a:focus {
-	outline: none;
-}
-h1 {
-	text-align: left;
-	margin-left: 10px;
-/*	font-family:"KoreanPDSRR";*/
-	cursor: default;
-	font-size:20px;
-}
-h2 {
-	text-align: left;
-	font-family:'NanumBarunGothic';
-	cursor: default;
-	font-size:12px;
-}
-/* END demo styling */
-
-/*寃  깋*/
 input[name="search"] {
   box-sizing: border-box;
 }
