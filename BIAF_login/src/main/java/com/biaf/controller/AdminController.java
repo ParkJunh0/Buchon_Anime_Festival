@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping(value="/ko")
 public class AdminController {
-	@GetMapping(value="/adminmenu")
+	@GetMapping(value="/adminpage")
 	public String adminmenu() {
-		return "/admin/adminmenu";
+		return "/admin/adminpage";
 	}
 }
