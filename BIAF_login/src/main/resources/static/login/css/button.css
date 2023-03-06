@@ -1,0 +1,116 @@
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+a[class="dosirak"] {
+  text-decoration:none; 
+  font-size:18px;
+  font-weight:normal;
+  color:#cecece;
+}
+
+a[class="dosirak"]:visited, a[class="dosirak"]:link, a[class="dosirak"]:active {
+   
+  font-size:18px;
+  font-weight:normal;
+  color:#cecece;
+}
+   
+a[class="dosirak"]:hover{
+
+  font-size:18px;
+  font-weight:normal;
+   
+  color:#007b73;
+
+}
+
+
+
+
+.btn {
+
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn_rufwo{
+
+  border:dotted 0px white; 
+  background:#f67001;color:#fff;    
+  border-radius:10px 10px 10px 10px;  
+  width:155px; height:50px;   
+  font-size: 20px;
+}
+
+
+.btn_cancel{
+
+  border:dotted 0px white;
+  background:#cecece;
+  color:#fff;    
+  border-radius:10px 10px 10px 10px;  
+  width:155px; 
+  height:50px; 
+  font-size: 20px;
+}
+
+.btn_order{ 
+
+  border:dotted 0px white; 
+  background:#007b73;
+  color:#fff;    
+  border-radius:7px 7px 7px 7px;  
+  width:115px; height:34px;   
+  font-size: 15px;
+}
+
+.btn_cancel1{
+border:dotted 0px white; background:#cecece;color:#fff;    border-radius:7px 7px 7px 7px;   width:115px; height:34px;  font-size: 15px;
+}
+
+.btn_submit{
+border:dotted 0px white; background:#a4dfcb;color:#fff;    border-radius:4px 4px 4px 4px;   width:79px; height:24px;  font-size: 12px;
+}
+
+.btn_cancel2{
+border:dotted 0px white; background:#cecece;color:#fff;    border-radius:4px 4px 4px 4px;   width:79px; height:24px;  font-size: 12px;
+ }
+
+.btn_select{
+border:dotted 0px white; background:#a4dfcb;color:#fff;    border-radius:4px 4px 4px 4px;   width:65px; height:26px;  font-size: 8.86px;
+}
+
+
+ .btn_cancel3{
+border:dotted 0px white; background:#cecece;color:#fff;    border-radius:4px 4px 4px 4px;   width:65px; height:26px;  font-size: 8.86px;
+}
+
+ .btn_login{
+
+border:dotted 0px white; background:#a4dfcb;color:#fff;    border-radius:10px 10px 10px 10px;   width:96px; height:76px;  font-size: 18px;
+
+}
+
+.btn_cancel:hover,
+.btn_cancel1:hover,
+.btn_cancel2:hover,
+.btn_cancel3:hover{
+  background:#007b73;
+}
+
+

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<div layout:fragment="content" class="content">
+
+    <link rel="stylesheet" href="/login/css/join.css">
+    <link rel="stylesheet" href="/login/css/base.css">
+    <link rel="stylesheet" href="/login/css/button.css">
+
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+function kakaopost() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+           document.querySelector("#postcode").value = data.zonecode;
+           document.querySelector("#address").value =  data.address;
+        }
+    }).open();
+}
+</script>
+
+
+   <div class="header" style="width: 100%; height: 70px;"></div>  
+   <center>
+   <table width=960px align=center>
+    <tr>
+      <td>
+    <h4>회원가입</h4>
+    <h1>통합 회원가입</h1>
+    </td>
+    </tr>
+     </table>
+
+    <tr>
+    <td align=center>
+      <div class="stepLine">
+        <div title="약관동의" class="stepDot"></div>
+        <div title="정보입력" class="stepDot activeStep"></div>
+        <div title="가입완료" class="stepDot"></div>
+      </div>
+      <br><br><br>
+    </td>
+    </tr>
+    
+    <form action="register.php" method="post" name="twin">
+        <table>
+            <tr height="40">
+<!--                <td align="center"><b>회원수정</b></td>-->
+            </tr>
+        </table>    
+        <table width="700" height="400" cellpadding="0" style="border-collapse:collapse; font-size:9pt;">
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">아이디</td>
+                <td><input type="text" name="wUserID" />&nbsp;<a href="javascript:id_check()">중복확인</a></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">비밀번호</td>
+                <td><input type="password" name="wUserPW" id="pw" onchange="isSame()" /></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">비밀번호 확인</td>
+                <td><input type="password" name="wUserPWConfirm" id="pwCheck" onchange="isSame()" />&nbsp;&nbsp;<span id="same"></span></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">이 름</td>
+                <td><input type="text" name="wUserName" /></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">성 별</td>
+                <td>
+                    남 성<input type="radio" name="wUserGender" value="1" checked />&nbsp;여 성<input type="radio" name="wUserGender" value="2"/>
+                </td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+          
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">휴대전화</td>
+                <td><input type="tel" name="wUserCellPhone" /></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr /></td>
+            </tr>
+            <tr class="register" height="30">
+                <td width="5%" align="center"></td>
+                <td width="15%">이메일</td>
+                <td><input type="email" name="wUserEmail" /></td>
+            </tr>
+            <tr height="7">
+                <td colspan="3"><hr/></td>
+            </tr>
+            <tr>
+                <td width="5%" align="center"></td>
+                <td width="15%">주 소</td>
+                <td>
+                    <input type="text" size="10" name="postcode" id="postcode" placeholder="우편번호" readonly="readonly" onclick="kakaopost()">
+                    <input type="button" onclick="kakaopost()" value="우편번호 찾기"><br><br />
+                    <input type="text" size="70" name="address" id="address" placeholder="도로명주소" readonly="readonly" onclick="kakaopost()">
+                    <br /><span id="guide" style="color:#999;font-size:10px;"></span>   
+                    <br /><br /><input type="text" name="wRestAddress" placeholder="나머지 주소" size="70" />
+                </td>
+            </tr>
+ 
+        </table>
+            <tr height="40">
+                <a href="/ko/join"> <button type = "button"  class="btn_order" style="margin:10px;">가입완료</button></a>
+            </tr>
+        </table>
+    </form> 
+    </center>
+</div>
+</html>

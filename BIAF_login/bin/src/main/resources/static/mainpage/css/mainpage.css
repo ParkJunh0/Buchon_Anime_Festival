@@ -1,0 +1,26 @@
+/* Style for our header texts
+* --------------------------------------- */
+h1{
+    font-size: 5em;
+    font-family: arial,helvetica;
+    color: #fff;
+    margin:0;
+}
+.intro p{
+    color: #fff;
+}
+
+/* Centered texts in each section
+* --------------------------------------- */
+.section{
+    text-align:center;
+}
+
+/* Overwriting styles for control arrows for slides
+* --------------------------------------- */
+.controlArrow.prev {
+    left: 50px;
+}
+.controlArrow.next{
+    right: 50px;
+}

@@ -1,0 +1,70 @@
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+#footer{
+    height: 268px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+/*  background-color: #003D39;*/
+    bottom: 0;
+}
+/* 풋터 윗줄 */
+#footer-top{
+    background-color: black;
+    height: 68px;
+    /* flex로 정렬 */
+    display: flex;
+    /* 태그 양옆 여백 추가 정렬 */
+    justify-content: space-around;
+    /* 수직 가운데 정렬 */
+    align-items: center;
+}
+/* 풋터 윗줄 왼쪽 글 */
+.text-left{
+    color: aliceblue;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    /* 태그 사이 간격 조정 */
+    flex-grow: 0.06; 
+}
+.text-left li a{
+    margin-left: 10px;
+    color: aliceblue; 
+}
+/* 풋터 윗줄 오른쪽 sns-icon */
+.sns-icon{
+    display: flex;
+    justify-content: space-between;
+    flex-grow: 0.05; 
+
+}
+/* 풋터 아랫줄 */
+#footer-bottom{
+    height: 200px;
+    background: linear-gradient( to bottom, #003D39 80%, #004641 90%);
+    background-color: #003D39;
+    display: flex;
+    /* 태그사이 일정 간격 여백 설정 */
+    justify-content: space-evenly;
+    align-items: center;
+}
+/* 풋터 아랫줄 오른쪽 글 */
+.footer-bottom-text{
+    color: aliceblue;
+    font-size: 15px;
+}
+.footer-bottom-text ul{
+    display: flex;
+    justify-content: left;
+}
+.footer-bottom-text li{
+    margin-right: 15px;
+}
+.footer-bottom-text ul li a{
+    color: aliceblue;
+}

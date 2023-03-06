@@ -1,0 +1,88 @@
+#subbutton{
+	border-radius: 0.5em;
+	background-color: #f67001;
+	padding: 5px 20px; 
+  	border:dotted 0px white; 
+  	color:#fff;      
+ 	font-size: 13px;
+ 	margin-top: 10px;
+}
+
+#join2{
+	background-color: #f67001;
+	padding: 5px; 
+  	border:solid 0px #cecece;     
+ 	font-size: 13px;
+ 	height: 40px;
+ 	width: 100px;
+ 	margin: 0;
+}
+
+#join2no{
+	background-color: #fff;
+	padding: 5px; 
+  	border:solid 1px #cecece;   
+ 	font-size: 13px;
+ 	height: 40px;
+ 	width: 100px;
+ 	margin: 0;
+}
+a[id="jo2"]{
+	color:#fff;
+}
+a[id="jo2"]:hover{
+	color:#fff;
+}
+#cddesign{
+	border:1px solid #cecece; 
+	padding:0px 0px 20px 20px ;
+	margin: 5px;
+}
+input{
+	border: 1px #cecece solid;
+}
+
+
+
+
+
+
+
+
+
+div.stepLine{
+  display: inline-block;
+  border-bottom: 1px solid #53b893;
+  height: 0;
+}
+
+div.stepDot{
+  width: 15px;
+  height: 15px;
+  background-color: #fff;
+  border: 1px solid #cecece;
+  border-radius: 50%;
+  float: left;
+  margin: -8px 40px 0px 40px;
+  color:#cecece;
+}
+
+div.stepDot.activeStep{
+  background-color:#53b893 !important;
+  border-color: #53b893 !important;
+  color: #53b893;
+}
+
+div.stepDot.activeStep ~ div.stepDot{
+  background-color: #fff;
+  border: 1px solid #53b893;
+}
+
+div.stepDot:after{
+  content:  attr(title);
+  white-space: nowrap;
+  position: relative;
+  top: 20px;
+  right: 8px;
+  font: 12px arial, sans-serif;  
+}

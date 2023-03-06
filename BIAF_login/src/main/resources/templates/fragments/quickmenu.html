@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div th:fragment="quickmenu" class="quickmenu">
+    <div id="quick_menu_sns">
+        <ul>
+            <li><a href="https://www.instagram.com/biaf.ani/" target="_blank"><img th:src="@{/image/icon_instagram.png}" alt="" width="28" height="28"></a></li>
+            <li><a href="https://www.facebook.com/ani.biaf" target="_blank"><img th:src="@{/image/icon_facebook.png}" alt="" width="28" height="28"></a></li>
+            <li><a href="https://www.youtube.com/user/anipisaf" target="_blank"><img th:src="@{/image/icon_youtube.png}" alt="" width="28" height="28"></a></li>
+        </ul>
+    </div>
+    <div id="quick_menu">
+        <ul>
+            <li><a id="reservation_" class="sub_nav" href="#">예매</a></li>
+            <li><a id="goods_" class="sub_nav" href="#">굿즈</a></li>
+            <li><a id="navigation_" class="sub_nav" href="#">오시는길</a></li>
+        </ul>
+        <ul>
+            <li id="top_button"><a href="#">top</a></li>  
+        </ul>
+    </div>
+</div>
+</html>
