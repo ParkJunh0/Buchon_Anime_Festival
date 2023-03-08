@@ -1,10 +1,11 @@
 .main_cont{
-    min-width: 780px;
+    min-width: 1000px;
     max-width: 1025px;
     width: 80%;
     margin: 0 auto;
 }
 .goods_items{
+    min-width: 1000px;
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
@@ -85,4 +86,11 @@ strong{
     background: #2e8de5;
     font-size: 16px;
     color: white;
+}
+.cart_modal{
+    width: 100px;
+    height: 100px;
+    background: #2e8de5;
+    color: white;
+    display: none;
 }

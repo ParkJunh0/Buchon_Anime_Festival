@@ -5,10 +5,10 @@ layout:decorate="~{layouts/layout1}">
 
 <!-- 본문 부분 -->
 <th:block layout:fragment="css">
-<link th:href="@{/BIAF/goods/goods.css}" rel="stylesheet">
+<link th:href="@{/BIAF/goods/css/goods.css}" rel="stylesheet">
 </th:block>
 <th:block layout:fragment="script">
-<script th:src="@{/js/goods.js}" type="text/javascript"></script>
+<script th:src="@{/BIAF/goods/js/goods.js}" type="text/javascript"></script>
 </th:block>
 <div layout:fragment="content">
 	<div class="cont_header">
@@ -26,13 +26,13 @@ layout:decorate="~{layouts/layout1}">
 			<div class="goods_items">
 			<div class="goods_item">
 			<div class="goods_item_header">
-				<h3>BIAF 유리컵</h3>
+				<h3 th:text="${goodsDto.goodsNm}"></h3>
 				<img th:src="@{/image/img_goods35.jpg}">
 			</div>
 			<div class="goods_item_description">
-				<p><b>BIAF 투명유리컵</b></p>
-				<p class="goods_price">가격 <strong>3000원</strong></p>
-				<p class="goods_item_detail_description">BIAF의 로고를 담은 투명 유리컵</p>
+				<p><b th:text="${goodsDto.goodsNm}"></b></p>
+				<p class="goods_price">가격 <strong th:text="${goodsDto.price}"></strong></p>
+				<p class="goods_item_detail_description" th:text="${goodsDto.goodsDescription}"></p>
 			</div>
 		</div>
 		<div class="goods_item">
@@ -42,17 +42,17 @@ layout:decorate="~{layouts/layout1}">
 			</div>
 			<div class="goods_item_description">
 				<p><b>BIAF 투명유리컵</b></p>
-				<p class="goods_price">가격 <strong>3000원</strong></p>
+				<p class="goods_price">가격 <strong th:text="${goodsDto.price}"></strong></p>
 				<p class="goods_item_detail_description">BIAF의 로고를 담은 투명 유리컵</p>
 			</div>
 		</div>
 		<div class="goods_detail">
 			<img th:src="@{/image/img_goods35.jpg}">
 			<div class="goods_detail_description">
-				<h1><b>BIAF유리컵</b></h1>
-				<p>가격: <strong>3000원</strong></p>
+				<h1><b th:text="${goodsDto.goodsNm}"></b></h1>
+				<p>가격: <strong th:text="${goodsDto.price}"></strong></p>
 				<p>배달비: 10000원</p>
-				<p>BIAF 로고를 담았고 입구로 조금씩 좁아지는 형태의 투명 유리컵입니다.</p>
+				<p th:text="${goodsDto.goodsDetail}"></p>
 				<div class="goods_btn">
 					<button class="cart_btn">장바구니</button><button class="pay_btn">구매</button>
 				</div>
@@ -73,6 +73,9 @@ layout:decorate="~{layouts/layout1}">
 			</div>
 		</div>
 	</div>
+	</div>
+	<div class="cart_modal"><p>장바구니 등록</p>
+    	<a href="#" class="close">X</a>
 	</div>
 </div>
 </html>
