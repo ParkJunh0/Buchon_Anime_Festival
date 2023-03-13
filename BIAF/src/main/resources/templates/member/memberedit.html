@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+<th:block layout:fragment="script">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+</th:block>
+<th:block layout:fragment="css">    
+   <link rel="stylesheet" href="/login/css/button.css">
+    <style>
+        
+
+        #wrap {
+            width: 1024px;
+            margin: 0 auto;
+/*            border: 1px solid blue;*/
+        }
+
+        
+       
+        #section{
+            position: relative;
+            display: block;
+        }
+        #section #aside{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 400px;
+/*            border: 1px solid green;*/
+        }
+        #section #aside li{
+            list-style: none;
+        }
+        .dep1{
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .dep2{
+            padding-left: 10px;
+            border:1px solid;
+        }
+        .dep2 li{
+            width: 200%;
+            height: 30px;
+        }
+        .dep1 a{
+            text-decoration: none;
+            color: #444;
+        }
+        #slide{
+ 			padding:50px;
+            margin-left: 300px;
+            top: 0;
+            width: 750px;
+        }
+        
+        
+        .all{
+        margin-top: 50px;
+        }
+     
+        
+        #nb{
+        margin-left:200px;
+        margin-top:50px;
+        }
+        
+    </style>
+</th:block>
+<div layout:fragment="content">
+        <div class="himg" style="width: 100%; height: 70px;"></div>
+    <div id="wrap">
+        <div id="section">
+            <div id="aside">
+                <ul class="dep1">
+                    <h2>마이페이지</h2>
+                       <br>
+                        <ul class="dep2">
+                            <li><a href="/ko/memberedit">회원정보수정</a></li>
+                            <li><a href="/ko/cart">장바구니</a></li>
+                            <li><a href="#">상품구매내역</a></li>
+                            <li><a href="#">티켓예매/취소</a></li>
+                            <li><a href="/ko/memberout">회원탈퇴</a></li>
+                        </ul>
+                </ul>
+            </div>
+            <div id="slide">
+    
+    <h4>회원정보</h4>
+    <h1>나의 회원정보</h1>
+   
+
+    
+    <!-- <form method="post" action="#" role="form" th:object="${memberFormDto}"> -->
+		<div class="all">
+			<table>
+				<tr>
+					<td><p>이메일</p></td>
+					<td><input type="email" name="memberEmail"></td>
+				</tr>
+				<tr>
+					<td><p>비밀번호</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr>
+				<!-- <tr>
+					<td><p>비밀번호 확인</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr> -->
+				<tr>
+					<td><p>이름</p></td>
+					<td><input type="text" name="memberName"></td>
+				</tr>
+				<!-- <tr>
+					<td><p>성별</p></td>
+					<td>
+					<input type="radio" name="memberLoc">남자 
+					    <input type="radio" name="memberLoc">여자
+					</td>
+				</tr> -->
+				<tr>
+					<td><p>전화번호</p></td>
+					<td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}"></td>
+				</tr>
+				
+				<tr>
+					<td><p>주소</p></td>
+					<td><input type="text" size="10" name="postcode" id="postcode"
+						placeholder="우편번호" readonly="readonly" onclick="kakaopost()">
+						<input type="button" onclick="kakaopost()" value="우편번호 찾기">
+						<br> <input type="text" name="memberAddress" id="address"
+						placeholder="도로명주소" readonly="readonly" onclick="kakaopost()">
+						<input type="text" name="wRestAddress" placeholder="나머지 주소"></td>
+				</tr>
+			</table>
+		<div id="nb">		
+		 <button type = "submit"  class="btn_order">수정하기</button>
+		</div>
+<!-- 	</form> -->
+    
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</html>
