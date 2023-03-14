@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<div layout:fragment="content" class="content">
+    <th:block>
+        <style>
+        
+            #container_logo_emot2 {
+                position: relative;
+                min-height: 650px;
+            }
+
+            #content_logo_emot2 {
+                position: relative;
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .conTit {
+                padding-top: 54px;
+                color: #000;
+                font-size: 36px;
+                text-align: center;
+            }
+
+            .conTit+.tabMenu {
+                margin-top: 40px;
+            }
+
+            .tabMenu {
+                text-align: center;
+            }
+
+            .tabMenu p {
+                display: none;
+            }
+
+            .tabMenu ul {
+                display: table;
+                table-layout: fixed;
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 36px;
+                font-size: 0;
+            }
+
+            .tabMenu ul li {
+                display: table-cell;
+                border: 1px solid #e0e0e0;
+            }
+
+            .tabMenu ul li a {
+                display: block;
+                padding: 15px 0;
+                line-height: 26px;
+                border-left: 0 none;
+                color: #3b4f4d;
+                font-size: 15px;
+                box-sizing: border-box;
+            }
+
+            .link_a:link,
+            .link_a:visited {
+                text-decoration: none;
+            }
+
+            .link_a:hover {
+                text-decoration: underline;
+            }
+
+            .gallery a:hover {
+                text-decoration: underline;
+            }
+
+            .gallery a {
+                text-decoration: none;
+            }
+
+            .tabMenu ul li.active {
+                background-color: #4a5bbf;
+                border-color: #4a5bbf;
+            }
+
+            .tabMenu ul li.active a {
+                color: #fff;
+            }
+
+            .content_logo_emot2 {
+                max-width: 1024px;
+                margin: 0 auto;
+                padding: 64px 40px;
+                text-align: left;
+            }
+
+            .emotyWrap .gallery {
+                position: relative;
+                margin-bottom: 40px;
+                font-size: 0;
+            }
+
+            .emotyWrap .gallery a {
+                position: relative;
+                display: inline-block;
+                width: 25%;
+                padding: 20px;
+                margin-right: -1px;
+                margin-top: -1px;
+                border: 1px solid #dcdcdc;
+                box-sizing: border-box;
+                text-align: center;
+            }
+
+            .emotyWrap .gallery a img {
+                vertical-align: middle;
+            }
+
+            .btnList {
+                text-align: center;
+            }
+
+            .btnList li {
+                display: inline;
+            }
+
+            .btnStyle.down {
+                background-color: #0f5ba3;
+                border-color: #0f5ba3;
+            }
+
+            .btnStyle {
+                display: inline-block;
+                min-width: 200px;
+                line-height: 52px;
+                background: #153e64;
+                border: 1px solid #153e64;
+                text-align: center;
+                vertical-align: middle;
+                color: #fff;
+                font-size: 15px;
+                font-size: 0.9375rem;
+                font-weight: bold;
+                box-sizing: border-box;
+                cursor: pointer;
+            }
+
+            .emotyWrap .gallery a span {
+                display: block;
+                margin-top: .5em;
+                color: #4a4a4a;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .btnList li>a {
+                text-decoration: none;
+            }
+
+            .btnList li>a:hover {
+                text-decoration: underline;
+            }
+            
+        </style>
+    </th:block>
+    <div class="cont_header">
+    </div>
+
+    <div id="container_logo_emot2">
+        <div id="content_logo_emot2">
+            <h3 class="conTit">로고&amp;이모티콘</h3>
+            <nav class="tabMenu">
+                <ul class="colum2">
+                    <li class="tabList1"><a class="link_a" href="/ko/logo_emot">로고</a></li>
+                    <li class="active tabList2"><a class="link_a" href="/ko/logo_emot2">이모티콘</a></li>
+                </ul>
+            </nav>
+            <div class="content_logo_emot2">
+                <!-- content -->
+                <article class="emotyWrap">
+                    <div class="gallery">
+                        <a href="img/icon_big_emoty01.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty01.png" alt=""><span>우울자랑</span></a>
+                        <a href="img/icon_big_emoty02.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty02.png" alt=""><span>난감사과</span></a>
+                        <a href="img/icon_big_emoty03.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty03.png" alt=""><span>칭찬</span></a>
+                        <a href="img/icon_big_emoty04.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty04.png" alt=""><span>깐깐</span></a>
+                        <a href="img/icon_big_emoty05.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty05.png" alt=""><span>파티</span></a>
+                        <a href="img/icon_big_emoty06.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty06.png" alt=""><span>장난지적</span></a>
+                        <a href="img/icon_big_emoty07.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty07.png" alt=""><span>투정삐짐</span></a>
+                        <a href="img/icon_big_emoty08.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty08.png" alt=""><span>기대</span></a>
+                        <a href="img/icon_big_emoty09.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty09.png" alt=""><span>사랑애교</span></a>
+                        <a href="img/icon_big_emoty10.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty10.png" alt=""><span>단호거절</span></a>
+                        <a href="img/icon_big_emoty11.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty11.png" alt=""><span>부끄러움고백</span></a>
+                        <a href="img/icon_big_emoty12.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty12.png" alt=""><span>자랑놀림</span></a>
+                        <a href="img/icon_big_emoty13.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty13.png" alt=""><span>피곤</span></a>
+                        <a href="img/icon_big_emoty14.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty14.png" alt=""><span>배부름</span></a>
+                        <a href="img/icon_big_emoty15.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty15.png" alt=""><span>화남</span></a>
+                        <a href="img/icon_big_emoty16.png" class="gallery_1"><img src="/BIAF/logo_emot/image/icon_emoty16.png" alt=""><span>신남</span></a>
+                    </div>
+                    
+                    <ul class="btnList">
+                        <li><a href="/data/upload/emoticon.zip" class="btnStyle down" target="_blank" style="width:50%;">이모티콘 다운로드</a></li>
+                    </ul>
+                </article>
+                <!-- //content -->
+            </div>
+        </div>
+
+    </div>
+</div>
+</html>

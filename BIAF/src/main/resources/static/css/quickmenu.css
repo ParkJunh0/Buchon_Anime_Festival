@@ -1,0 +1,24 @@
+/* 퀵메뉴 부분 */
+a{
+    color: black;
+}
+/* sns 아이콘 부분 */
+#quick_menu_sns{
+    padding: 10px 0;
+    background-color: black;
+    text-align: center;
+}
+#quick_menu_sns ul li{
+    margin: 10px 0;
+}
+/* 메뉴들 부분 */
+#quick_menu ul li{ 
+    margin: 10px 0;
+}
+#quick_menu ul li a{
+    width: 100%; 
+}
+#top_button{
+    border-top: solid #cecece;
+    border-width: thin;
+}
