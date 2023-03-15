@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+<th:block layout:fragment="css">
+<style>
+	#wrap {
+            width: 1024px;
+            margin: 0 auto;
+            margin-top: 200px;
+/*            border: 1px solid blue;*/
+            position: relative;
+            top: 50px;
+        }
+        #section{
+            position: relative;
+            display: block;
+        }
+        #section #aside{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 400px;
+/*            border: 1px solid green;*/
+        }
+        #section #aside li{
+            list-style: none;
+        }
+        .dep1{
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .dep2{
+            padding-left: 30px;
+        }
+        .dep2 li{
+            width: 100%;
+            height: 30px;
+        }
+        .dep1 a{
+            text-decoration: none;
+            color: #444;
+            
+       }	
+
+    .wrap1 {
+        width: 100%;
+    }
+
+    .ticket {
+        width: 950px;
+        margin-left: 200px;
+        margin-top: 100px;
+    }
+
+    .ticket_title {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border: 1px solid #444444;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        border: 1px solid #444444;
+        text-align: center;
+        width: 130px;
+    }
+</style>
+</th:block>
+<div layout:fragment="content">
+  <div id="wrap">
+        <div id="section">
+            <div id="aside">
+                <ul class="dep1">
+                    <h2>관리자메뉴</h2>
+                       <br>
+                        <ul class="dep2">
+                       		<li><a href="/ko/memberList">회원관리</a></li>
+                            <li><a href="#">게시판관리</a></li>
+                            <li><a href="/ko/movieForm">영화등록관리</a></li>
+                            <li><a href="#">굿즈관리</a></li>
+                            <li><a href="#">배너관리</a></li>
+                            <li><a href="/ko/reservationadmin">예매관리</a></li>
+                        </ul>
+                </ul>
+            </div>
+            <div id="slide">
+    <div class="wrap1">
+        <div class="ticket">
+            <div class="ticket_title">
+                <h1>티켓 발권</h1>
+            </div>
+            <div class="ticket_con">
+                <table class="ta_con">
+                    <thead>
+                        <tr>
+                            <th>예매 번호</th>
+                            <th>이메일</th>
+                            <th>상영관</th>
+                            <th>영화 제목</th>
+                            <th>상영 날짜</th>
+                            <th>상영 시간</th>
+                            <th>좌석</th>
+                            <th>결제 번호</th>
+                            <th>결제 여부</th>
+                            <th>결제 관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>5555555</td>
+                            <td>test@naver.com</td>
+                            <td>부천CGV3관</td>
+                            <td>슬램덩크</td>
+                            <td>2023-04-01</td>
+                            <td>14:00(1회차)</td>
+                            <td>C4</td>
+                            <td>PAY-555555</td>
+                            <td>T/F</td>
+                            <td>결제 | 발권</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+    </html>

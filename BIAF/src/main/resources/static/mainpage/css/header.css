@@ -1,0 +1,117 @@
+/* 자주 쓰는 태그 값 설정 */
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+/* 헤더 */
+.header{
+    position: fixed;
+    width: 100%;
+    top:0px;
+    z-index: 99;
+}
+/* 헤더 부분 틀 */
+#nav {
+    width: 100%;
+    height:90px;
+    top:0px;
+    display: flex;
+    /* 태그별 양옆 여백 설정 */
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 0 0 3px 3px;
+/*  margin: 0 auto;*/
+}
+/* 상위 메뉴 부분 */
+#nav_menu{
+    display:flex;
+    justify-content: space-evenly;
+    flex-grow: 0.2;
+    align-items: center;
+}
+.menu_item{
+    width:187px;
+    text-align: center;
+}
+.menu_item a{
+    padding: 10px;
+    color:#fff;
+    font-size:27px;
+}
+.menu_item a:hover{
+    color:#53b893;     
+}
+/* 로그인 부분 */
+#nav_sub{
+    display: flex;
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0.07;
+}
+#nav_sub a{
+    font-size:14px;
+    color:#fff;
+}
+#nav_sub a:hover{
+    color:black;
+}
+#nav_sub ul{
+	min-width: 110px;
+	text-aling: center;
+	padding: 0;
+	margin: 0;
+	display:flex;
+	justify-content: space-between;
+}
+/* 검색바 부분 */
+#search{
+    width: 30%;
+    float: right;
+    border-radius: 1px 1px 20px 20px;
+    display: none;
+    z-index: 99;
+}
+#search_input{
+    position: relative;
+    width: 98%;
+    height: 30px;
+    border: 0;
+    border-radius: 0 0 5px 5px;
+    outline: none;
+    background-color:#7CD2B3;
+    color: #fff;
+}
+.search_btn{
+    position: absolute;
+    align-items: center;
+    right: 3px;
+    background: none;
+    border: 0;
+    border-radius: 5px;
+    display:none;
+}
+/* 하위 메뉴 부분 */
+.menu_popup{
+    position: absolute;
+    width: 167px;
+    padding: 10px 10px;
+    background: linear-gradient( to bottom, #7cd2b3e0 5%, #7CD2B3 20%, #72c2a4 70%);
+    border-radius:20px 20px;
+    box-shadow: 1px 1px 0px -0.9px #6ebb9f;
+    display: none;
+    z-index: 99;
+}
+.menu_popup ul{
+    padding-left: 0;
+}
+.menu_item_s{
+    text-align: center;
+    margin: 10px 0;
+}
+.menu_item_s a{
+    color: #fff;
+    font-size: 14pt
+}

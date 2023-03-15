@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<th:block layout:fragment="css">
+<link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
+</th:block>
+<!-- 본문 부분 -->
+<div layout:fragment="content">
+<div class="cont_header"></div>
+	<form method="Get" action="/ko/reservation_sub" role="form" >
+	<div class="movie"><h1>현재 상영작</h1></div>
+	<hr>
+    <div class="movie-image">
+        <div id="first-mv" th:each="movie : ${movieResponseDto}">
+        <a href="/ko/reservation_sub">
+        <img src="${movie.imgUrl}" width="250" height="347" alt=""></a>
+        <h1 th:text="${movie.movieNm}"></h1>
+        <p th:text="${movie.startDay}"></p>
+        <p th:text="${movie.endDay}"></p>
+        <a href="/ko/reservation_sub"><input type="button" value="예매하기"></a>
+        </div>
+        
+        
+
+       <!--  <div id="second-mv">
+        <a href="#"><img src="/reservation/image/szme.jpg" width="250" height="347" alt=""></a>
+        <h1>스즈메의 문단속</h1>
+        <p>2023.03.01~2023.04.28</p>
+        <a href="#"><input type="button" value="예매하기"></a>
+        </div>
+        <div id="third-mv">
+        <a href="#"><img src="/reservation/image/oni.jpg" width="250" height="347" alt=""></a>   
+        <h1>귀멸의 칼날</h1>
+        <p>2023.03.01~2023.04.28</p>
+        <a href="#"><input type="button" value="예매하기"></a>
+        </div> -->
+        
+    </div>
+    </form>
+</div>
+</html>
