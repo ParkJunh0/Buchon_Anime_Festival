@@ -7,7 +7,7 @@ layout:decorate="~{layouts/layout1}">
 
    <th:block layout:fragment="script">
   	  <script type="text/javascript">
-    function Check(){ 
+    function Check(){  /* 체크박스 미선택시 얼럿창 */
     	
     	var arrSelect = document.getElementsByName("chkSelect");
     	var count =0;
@@ -24,6 +24,14 @@ layout:decorate="~{layouts/layout1}">
     	}
     }
     
+    </script>
+    <script>   /* 체크박스 전체선택  */
+        function chkSelect(chkSelect)  { 
+            const checkboxes = document.getElementsByName('chkSelect');
+            checkboxes.forEach((checkbox) => {
+            checkbox.checked = chkSelect.checked;
+            })
+        }         
     </script>
     
 </th:block>
@@ -305,9 +313,11 @@ layout:decorate="~{layouts/layout1}">
             </tr>
             <tr>
               <td>
-                <input type="checkbox" value="2" name="chkSelect" >개인정보 수집 및 이용안내를 숙지하였습니다.
+                <input type="checkbox" value="2" name="chkSelect" >개인정보 수집 및 이용안내를 숙지하였습니다.<br>
+                <input type="checkbox" id="chkSelect" name="chkSelect" value="checkAll" onclick="chkSelect(this)">전체 동의
               </td>
             </tr>
+            
           </table>
 
       </td>

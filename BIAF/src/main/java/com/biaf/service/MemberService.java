@@ -55,16 +55,22 @@ public class MemberService implements UserDetailsService {
 				
 	}
 	
+	public boolean findById(String memberEmail) { //ID중복체크
+		return memberRepository.existsByMemberEmail(memberEmail);
+	}
+	
 	
 
-	   public Page<Member> memList(Pageable pageable){
+	   public Page<Member> memList(Pageable pageable){ //멤버조회,페이징
 		      return memberRepository.findAll(pageable);
 		   }
 
-	   public List<Member> findAll(){
-		   return memberRepository.findAll();
-	   }
+	  
 	
+	   public void memDelete(Long memberId) { //멤버삭제
+		   memberRepository.deleteById(memberId);
+		   
+	   }
 	
 
 }

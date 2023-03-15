@@ -17,7 +17,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberResponseDto {
-	private Long Id;
+	private Long memberId;
 	private String memberName;  
 	private String memberEmail;
 	private String memberTel;
@@ -30,7 +30,7 @@ public class MemberResponseDto {
 		MemberResponseDto memResDto;
 		for(Member mem : memList) {
 			memResDto = new MemberResponseDto();
-			memResDto.Id = mem.getMemberId();
+			memResDto.memberId = mem.getMemberId();
 			memResDto.memberName = mem.getMemberName();
 			memResDto.memberEmail = mem.getMemberEmail();
 			memResDto.memberTel = mem.getMemberTel();

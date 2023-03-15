@@ -274,17 +274,16 @@
                   </div>
                </div>
 
-                <div class="page_wrap">
-                 <div class="pagebtn">
-         <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/board/freeboard(page=${page-1})}" th:text ="${page}"></a>
-            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-        </th:block>
-         </div>
+                <div class="page_wrap">  <!-- 페이징  -->
+       		 	 <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+		            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/memberList(page=${page-1})}" th:text ="${page}"></a>
+		            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+      			  </th:block>
                </div>
             </div>
             
          </div>
+         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
          </form>
       </div>
    </div>
@@ -292,9 +291,23 @@
       <div class="modal1">
             <div class="close">
             <div class="modal_del">회원을 삭제시키시겠습니까?</div>
-            <button type="button" class="del" id="close">탈퇴</button>
+            
+         <form th:action="@{/ko/memdelete}" class="delete_form" th:method="delete"> 
+          <div class="info_submit">
+                <button type="submit" class="del" id="close" >탈퇴</button>
+                <input class="hidden_id" type="hidden" name="id">
+            </div>
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+           </form>
+            
+            <script>  <!-- 회원삭제  -->
+            var id=0;
+            $('.m_del').on('click', function(){
+            	id = $(this).parent().children('.m_no').children().text();
+            	$('.hidden_id').attr('value', id);
+            });
+            </script>
             </div>
       </div>
-      
 </div>
 </html>
