@@ -171,12 +171,6 @@
 	<div id="container">
 		<div id="content">
 			<h3 class="conTit">관리자 굿즈관리</h3>
-			<nav class=tabMenu>
-				<ul class="colum2">
-					<li class="active tabList1"><a href="#">상품등록</a></li>
-					<li class="tabList2"><a href="#">수정/삭제</a></li>
-				</ul>
-			</nav>
 			<form method="post" role="form" th:object="${goodsFormDto}" enctype="multipart/form-data">
 				
 				<div class="admin1_content">
@@ -265,6 +259,12 @@
 						<button th:formaction="@{/admin/goods/}+ ${goodsFormDto.id}" type="submit"
 							class="btn btn-primary">수정</button>
 					</div>
+
+					<div th:unless="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
+						<button th:formaction="@{/admin/goods/delete/}+ ${goodsFormDto.id}" type="submit"
+							class="btn btn-primary">삭제</button>
+					</div>
+					
 
 				</div>
 				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

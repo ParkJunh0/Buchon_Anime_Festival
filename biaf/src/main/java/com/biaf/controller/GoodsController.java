@@ -3,6 +3,10 @@ package com.biaf.controller;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biaf.dto.GoodsFormDto;
+import com.biaf.entity.Goods;
 import com.biaf.service.GoodsService;
 
 import lombok.RequiredArgsConstructor;
@@ -45,7 +50,7 @@ public class GoodsController {
             model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
             return "admin/goodsForm";
         }
-        return "redirect:/ko"; // 정상적으로 등록되었다면 메인페이지로 이동한다.
+        return "redirect:/goodsMng"; // 정상적으로 등록되었다면 메인페이지로 이동한다.
     }
 
     @GetMapping(value = "/admin/goods/{goodsId}") // url 경로 변수는 { } 표현한다.
@@ -53,7 +58,7 @@ public class GoodsController {
         try {
             GoodsFormDto goodsFormDto = goodsService.getGoodsDtl(goodsId); // 조회한 상품 데이터를 모델에 담아 뷰로 전달한다.
             model.addAttribute("goodsFormDto", goodsFormDto);
-           
+
         } catch (EntityNotFoundException e) { // 상품 엔티티가 존재하지 않을 경우 에러 메시지를 담아 상품 등록 페이지로 이동한다.
             model.addAttribute("errorMessage", "존재하지 않는 상품 입니다.");
             model.addAttribute("goodsFormDto", new GoodsFormDto());
@@ -78,7 +83,20 @@ public class GoodsController {
             model.addAttribute("errorMessage", "상품 수정 중 에러가 발생하였습니다.");
             return "admin/goodsForm";
         }
-        return "redirect:/ko";
+        return "redirect:/goodsMng";
     }
 
+    @PostMapping("admin/goods/delete/{goodsId}")
+    public String Goodsdelete(@PathVariable Long goodsId, @RequestParam("goodsImgIds") Long imgId) {
+        goodsService.goodsDelete(goodsId, imgId);
+
+        return "redirect:/goodsMng";
+    }
+
+
+    @GetMapping(value = "/goodsMng") // 굿즈등록관리(굿즈리스트)
+   public String goodsMng(Model model) {
+      model.addAttribute("goodsDto", goodsService.findAll());
+      return "admin/goodsMng";
+   }
 }
