@@ -178,9 +178,10 @@
 				</ul>
 			</nav>
 			<form method="post" role="form" th:object="${goodsFormDto}" enctype="multipart/form-data">
+				
 				<div class="admin1_content">
 
-					<!--  	<input type="hidden" th:field="*{id}">  -->
+					<input type="hidden" th:field="*{id}">
 					<div class="form-group">
 						<select th:field="*{goodsSellStatus}" class="custom-select">
 							<option value="SELL">판매중</option>
@@ -235,7 +236,7 @@
 					<div th:if="${#lists.isEmpty(goodsFormDto.goodsImgDtoList)}">
 						<div class="form-group">
 							<div class="custom-file img-div">
-								<input type="file" class="custom-file-input" name="goodsImgFile">
+								<input type="file" class="custom-file-input" name="goodsImgFile" >
 								<label class="custom-file-label" th:text="상품이미지 + ${num}"></label>
 							</div>
 						</div>
@@ -244,7 +245,7 @@
 					<div th:if="${not #lists.isEmpty(goodsFormDto.goodsImgDtoList)}">
 						<div class="form-group" th:each="goodsImgDto, status: ${goodsFormDto.goodsImgDtoList}">
 							<div class="custom-file img-div">
-								<input type="file" class="custom-file-input" name="goodsImgFile">
+								<input type="file" class="custom-file-input" name="goodsImgFile" >
 								<input type="hidden" name="goodsImgIds" th:value="${goodsImgDto.id}">
 								<label class="custom-file-label" th:text="${not #strings.isEmpty(goodsImgDto.oriImgName)} ? ${goodsImgDto.oriImgName} : '굿즈이미지' +
 					${status.index+1}"></label>
@@ -261,7 +262,7 @@
 					</div>
 
 					<div th:unless="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
-						<button th:formaction="@{'/admin/goods/' + ${goodsFormDto.id} }" type="submit"
+						<button th:formaction="@{/admin/goods/}+ ${goodsFormDto.id}" type="submit"
 							class="btn btn-primary">수정</button>
 					</div>
 

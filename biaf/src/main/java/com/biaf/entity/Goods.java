@@ -4,12 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.biaf.constant.GoodsSellStatus;
@@ -28,7 +26,8 @@ public class Goods extends baseEntity {
 
 	@Id
 	@Column(name = "goods_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "goods_seq")
+	@SequenceGenerator(name = "goods_seq", sequenceName = "goods_seq", allocationSize = 1)
 	private Long id; // 상품 코드
 
 	@Column(nullable = false, length = 50)
