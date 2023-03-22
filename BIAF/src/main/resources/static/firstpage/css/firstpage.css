@@ -21,7 +21,6 @@ a{
 .inner{
     min-width: 380px;
     font-size: 24px;
-    width: 25%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -39,7 +38,6 @@ a{
 }
 .mainArt{
     min-width: 327px;
-    width: 70%;
     text-align: right;
 }
 .mainArt img{

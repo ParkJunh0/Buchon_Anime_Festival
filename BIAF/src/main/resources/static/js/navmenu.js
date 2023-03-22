@@ -14,6 +14,7 @@ $(function(){
     // 메뉴들 공통클래스 변수 선언
     var menu_item_s=$(".menu_item_s");
 
+	console.log(biaf_menu);
     // 헤더 메뉴 마우스 올리면/내리면 세부메뉴 활성화/비활성화
     biaf_menu.hover(function(){
         BIAF_menu.clearQueue().stop().fadeIn(400);
