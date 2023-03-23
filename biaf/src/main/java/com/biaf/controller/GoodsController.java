@@ -39,10 +39,17 @@ public class GoodsController {
         if (bindingResult.hasErrors()) { // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환한다.
             return "admin/goodsForm";
         }
+
         if (goodsImgFileList.isEmpty() && goodsFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "admin/goodsForm"; // 상품 등록시 첫 번째 이미지가 없다면 에러 메시지와 함께 상품등록 페이지로 전환한다.
         } // 상품 첫번째 이미지는 메인 페이지에서 보여줄 상품 이미지를 사용하기 위해 필수 값으로 지정한다.
+
+        if (goodsFormDto.getId() == goodsFormDto.getId()){
+            model.addAttribute("errorMessage", "굿즈이름이 중복됩니다 다시 확인해주세요.");
+            return "admin/goodsForm";
+        }
+        
         try {
             goodsService.saveGoods(goodsFormDto, goodsImgFileList); // 상품 저장 로직을 호출. 상품정보와 상품이미지정보를 넘긴다.
         } catch (Exception e) {
