@@ -43,6 +43,7 @@ public class LoginController {
 	      memberFormDto.setMemberEmail("admin@test.com");
 	      memberFormDto.setMemberPassword("123123123");
 	      memberFormDto.setMemberName("관리자");
+	      memberFormDto.setMemberTel("010-0000-0000");
 	     
 	      
 	      Member member = Member.createMember(memberFormDto , passwordEncoder);
@@ -52,7 +53,7 @@ public class LoginController {
 	      memberService.saveMember(member);
 	      
 	
-		for(int i=2; i<10; i++) { //회원생성
+		for(int i=1; i<10; i++) { //회원생성
 			check = memberService.findById("test"+i+"@test.com");
 			if(check)
 				return;
@@ -60,6 +61,7 @@ public class LoginController {
 		      memberFormDto.setMemberEmail("test"+i+"@test.com");
 		      memberFormDto.setMemberPassword("123123123");
 		      memberFormDto.setMemberName("테스트"+i);
+		      memberFormDto.setMemberTel("010-0000-000"+i);
 		      member = Member.createMember(memberFormDto , passwordEncoder);
 		      password = passwordEncoder.encode(memberFormDto.getMemberPassword());
 		      member.setMemberPassword(password);

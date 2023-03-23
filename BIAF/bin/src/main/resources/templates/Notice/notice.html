@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+ </head>
+
+<div layout:fragment="content">
+   <th:block>
+    <style>
+        *{
+            list-style: none;
+        }
+        .container{
+            flex-direction: column;
+            display: flex;
+            align-items: center;
+        }
+        .container_1{
+            width: 100%;
+            height: 20%;
+            flex-direction: column;
+        }
+        .container_2{
+            width: 100%;
+            height: 20%;
+            flex-direction: column;
+        }
+        .container_3{
+            width: 900px;
+            min-height: 100px;
+            height: 40%;
+            flex-direction: column;
+            margin-left: 50px;
+            
+        }
+        .sub_img{
+            width: 100%;
+            top: 100px;
+           
+        }
+        
+        .title{
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 100px;
+            
+        }
+        
+        .board_line td, th{
+           border-bottom: 1px solid #A4A4A4;
+            padding: 10px; 
+        }
+        
+        .sub_head{
+            margin-top: 30px;
+        }
+        .free_board_list{
+            height: 80px;
+            margin-top: 30px;
+            width: 100%;
+            border-top: 1px solid #A4A4A4;
+            border-collapse: collapse;
+        }
+        .page_ing{
+            
+        }
+        .num_head{
+            width: 10%;
+            
+        }
+        .title_head{
+            width: 70%;
+        
+        }
+        .date_head{
+            width: 20%;
+            text-align: left;
+            padding-left: 30px;        
+        }
+        .write_btn{
+            width: 100%;
+            margin-top: 20px;
+            text-align: right;
+            text-decoration-color: white;
+            
+            
+        }
+        .search {
+        width: 100%;
+        text-align: right;
+        margin-top: 80px;
+        }
+        #btn_2{
+            border: none;
+            background-color: #0a537e;
+            padding: 10px 15px;
+           
+            
+            
+        }
+         #btn_2> a{
+            color: white;
+              
+        }
+        
+        
+        
+        #btn_1{
+            border: none;
+           background-color: #0a537e;
+            width: 30px;
+            height: 29px;
+            border-radius: 0;
+            
+        }
+        .search> input{
+            border-radius: 0;
+            border: 1px solid #666;
+            height: 25px;
+        }
+        .page_nation {
+			display:inline-block;
+		}
+		.page_nation .none {
+			display:none;
+		}
+		.page_nation a {
+			display:block;
+			margin:0 3px;
+			float:left;
+			border:1px solid #e6e6e6;
+			width:28px;
+			height:28px;
+			line-height:28px;
+			text-align:center;
+			background-color:white;
+			font-size:13px;
+			color:black;
+			text-decoration:none;
+	    }
+        
+
+    
+    </style>
+    </th:block>
+    
+    <div class="container">
+    <div class="container_1">
+   <div class="sub_img">
+       <img src="/Notice/image/sub_banner1.png" width="100%" height="200px">
+  </div>    
+   </div>
+   <div class="container_2">
+    <div align="center" class="title">
+        <h1>공지사항</h1>
+    </div>
+      
+    </div>
+    <form method="GET" action="/ko/notice" role="form">
+    <div class="container_3">  
+       <div class="search">
+          <input type="text" placeholder="검색어를 입력하세요" ><button type="button" onclick="" id="btn_1" ><img src="/Notice/image/icon_search.png"  width="10px"
+            height="10px"></button>
+      </div> 
+        <div align="center" class="sub_head">
+            <table class="free_board_list" >
+                <thead>
+                   <tr>
+                    <th scope="col" class="num_head">글번호</th>
+                    <th scope="col" class="title_head">글제목</th>
+                    <th scope="col" class="date_head">작성일자</th>
+                    </tr>
+                </thead>
+                <tbody align="center" th:each="notice : ${noticeList}" ><!--  -->
+                   <tr class="board_line">
+                   
+                       <td class="num_head">
+                        <span th:text="${notice.id}" ></span> 
+                       </td>
+                       
+                       <td class="title_head">
+                        <!-- <a th:href="@{notice/view{id}(id=${notice.id})}"> -->
+                       <span th:text="${notice.title}"> 
+                       </span>
+                       <!-- </a> -->
+                       </td>
+                       
+                       <td class="date_head">
+                       <!-- <span th:text="${#temporals.format(notice.registerTime, 'yyyy-MM-dd')}"> -->
+                       </span>
+                       </td>
+                       
+                   </tr>      
+                </tbody>
+                
+            </table>
+            <div class="write_btn">
+                <button type="button" onclick="" id="btn_2"><a href="/ko/notice/form">글쓰기</a></button>
+                
+            </div>
+        </div>
+       
+</div>
+</form>
+<div class="page_wrap">
+       <div class="page_nation">
+      
+      <a class="arrow prev" href="#"></a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">4</a>
+      <a href="#">5</a>
+      
+      <a class="arrow next" href="#"></a>
+     
+   </div>
+</div>
+     </div>
+      
+</div>
+
+</html>

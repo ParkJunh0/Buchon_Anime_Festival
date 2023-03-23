@@ -1,9 +1,26 @@
 package com.biaf.controller;
 
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.biaf.dto.MemberFormDto;
+import com.biaf.entity.Member;
+import com.biaf.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -11,13 +28,29 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/ko")
 @RequiredArgsConstructor
 public class MemberController {
+	private final MemberService memberService;
 	
+	@GetMapping(value="/mypage") //마이페이지 정보페이지
+	public String mypage(@AuthenticationPrincipal User user, Model model, HttpServletRequest request) {
+		HttpSession mySession = request.getSession();
+		String myemail = (String)mySession.getAttribute("email");
+		MemberFormDto memFormDto = memberService.mypagefindByMemberEmail(user.getUsername());
 	
-	@GetMapping(value="/mypage") //마이페이지 수정
-	public String mypage() {
+		if(memFormDto == null) {
+			memFormDto = new MemberFormDto();
+			memFormDto.setMemberEmail(myemail);
+		}
+		model.addAttribute("memberFormDto", memFormDto);
 		return "/member/mypage";
 	}
 	
+	@GetMapping(value="/myedit") //회원정보 수정
+	public String myedit() {
+		
+		return "/member/myedit";
+	}
+	
+
 	@GetMapping(value="/memberout") //회원탈퇴
 	public String memberout() {
 		return "/member/memberout";
@@ -31,10 +64,6 @@ public class MemberController {
 	public String cart() {
 		return "/member/cart";
 	}
-	
-	
-	
-	
 	
 	
 }

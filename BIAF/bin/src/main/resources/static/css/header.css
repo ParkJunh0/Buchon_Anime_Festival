@@ -1,41 +1,102 @@
-#header_nav{
-    position: fixed;
-    z-index: 99;
-}
-li{
-    list-style: none;
-}
-body{
-    height: auto;
-    width: auto;
-}
-.top {
+/* 헤더 메뉴 부분 */
+#nav {
     width: 100%;
-    /* background-color: #007b73; */
-    line-height: 90px;
-/*            margin: 0 auto;*/
+    background: linear-gradient( to bottom, #007b73 80%, #006e67 90%);
+    height:90px;
+    display: flex;
+    /* 태그별 양옆 여백 설정 */
+    justify-content: space-around;
+    align-items: center;
+    box-shadow:0 4px 4px -4px #00554f;
+    border-radius: 0 0 3px 3px;
+/*  margin: 0 auto;*/
 }
-.row {
-    height: 90px;
-    
+/* 상위 메뉴 부분 */
+#nav_menu{
+    display:flex;
+    justify-content: space-evenly;
+    flex-grow: 0.4;
+    align-items: center;
 }
-#menu a{
-    text-decoration: none;
+.menu_item{
+    width:187px;
+    text-align: center;
+}
+.menu_item a{
+    padding: 10px;
     color:#fff;
     font-size:27px;
 }
-#menu a:hover{
+.menu_item a:hover{
     color:#53b893;     
 }
-#header_nav_sub a{
-    font-size:14px;
-    text-decoration: none;
-    color:#fff;
-    margin: 10px;
+/* 로그인 부분 */
+#nav_sub{
+    display: flex;
+    text-align: right;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 0.07;
 }
-#header_nav_sub a:hover{
+#nav_sub a{
+    font-size:14px;
+    color:#fff;
+}
+#nav_sub a:hover{
     color:black;
 }
-.icon_search{
-    size: 10px;
+#nav_sub ul{
+	min-width: 110px;
+	text-aling: center;
+	padding: 0;
+	margin: 0;
+	display:flex;
+	justify-content: space-between;
+}
+/* 검색바 부분 */
+#search{
+	position: fixed;
+    width: 30%;
+    right: 5px;
+    padding: 5px 20px;
+    background: linear-gradient( to bottom, #7CD2B3 80%, #72c2a4 90%);
+    border-radius: 1px 1px 20px 20px;
+    display: none;
+    box-shadow:0 4px 4px -4px #6ebb9f;
+}
+#search_input{
+    position: relative;
+    width: 98%;
+    height: 30px;
+    border: 0;
+    border-radius: 0 0 5px 5px;
+    outline: none;
+}
+.search_btn{
+    position: absolute;
+    align-items: center;
+    right: 8px;
+    background-color:#53b893;
+    border: 0;
+    border-radius: 5px;
+    display:none;
+}
+/* 하위 메뉴 부분 */
+.menu_popup{
+    position: absolute;
+    width: 167px;
+    padding: 10px 10px;
+    background: linear-gradient( to bottom, #7cd2b3e0 5%, #7CD2B3 20%, #72c2a4 70%);
+    border-radius:20px 20px;
+    box-shadow: 1px 1px 0px -0.9px #6ebb9f;
+    display: none;
+    z-index: 99;
+}
+.menu_item_s{
+    text-align: center;
+    margin: 10px 0;
+}
+.menu_item_s a{
+    color: #fff;
+    font-size: 14pt
 }

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+   <th:block layout:fragment="script"> 
+    <script src="js/script.js"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+    function checkAll(checkAll)  {
+        const checkboxes = document.getElementsByName('cboxAll');
+        checkboxes.forEach((checkbox) => {
+        checkbox.checked = checkAll.checked;
+        })
+    }     
+        }         
+    </script>
+</th:block>
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+<style>
+     #wrap {
+            width: 1024px;
+            margin: 0 auto;
+/*            border: 1px solid blue;*/
+        }
+
+        
+       
+        #section{
+            position: relative;
+            display: block;
+        }
+        #section #aside{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 400px;
+/*            border: 1px solid green;*/
+        }
+        #section #aside li{
+            list-style: none;
+        }
+        .dep1{
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .dep2{
+            padding-left: 10px;
+            border:1px solid;
+        }
+        .dep2 li{
+            width: 200%;
+            height: 30px;
+        }
+        .dep1 a{
+            text-decoration: none;
+            color: #444;
+        }
+     
+       
+       
+     /* 장바구니 부분*/  
+    .all{
+        width: 100%;
+      /*   margin-left: 200px; */
+    }
+    
+    .all h1{
+        margin-left: 45%;
+        margin-top: 100px;
+    }
+    
+    .top th, .top td {
+        border-bottom: 1px solid cadetblue;
+        padding: 10px;
+    }
+    
+    .top{
+        margin: 0 auto;
+        margin-top: 50px;
+        margin-left: 200px;
+        width: 90%;
+        border-top: 1px solid #444444;
+        border-collapse: collapse;
+        
+    }
+
+    
+    .hed{
+        background-color:cadetblue;
+    }
+/*
+    table tr th,td{
+        border: 1px solid gray;
+        text-align: center;
+        padding: 10px;
+    } 
+*/
+    
+    td img{        
+        width: 80px;
+        height: 100px;      
+    }
+    
+    tbody{
+        text-align: center;
+    }
+    
+    .btn{
+        margin-top: 50px;
+        margin-left: 78%;
+    }
+    
+    .bottom{
+        margin-top: 10px;
+        margin-left: 77%;     
+    }
+    
+    .order{
+        margin-top: 10px;
+        margin-left: 45%;
+    }
+    
+    
+    
+</style>
+</th:block>
+<div layout:fragment="content">
+ <div id="wrap">
+        <div id="section">
+            <div id="aside">
+                <ul class="dep1">
+                    <h2>마이페이지</h2>
+                       <br>
+                        <ul class="dep2">
+                            <li><a href="/ko/mypage">회원정보</a></li>
+                            <li><a href="/ko/myedit">회원정보수정</a></li>
+                            <li><a href="/ko/cart">장바구니</a></li>
+                            <li><a href="#">상품구매내역</a></li>
+                            <li><a href="#">티켓예매/취소</a></li>
+                            <li><a href="/ko/memberout/delete/{id}">회원탈퇴</a></li>
+                        </ul>
+                </ul>
+            </div>
+
+<div class="all">
+    <h1>장바구니</h1>
+   <table class="top">
+     <thead>
+      <tr class="hed">
+          <th width="100px;"><input type="checkbox" id="cboxAll" name="cboxAll" value="checkAll" onclick="checkAll(this)">전체 선택 </th>
+          <th width="50px;">No</th>
+          <th width="100px;">이미지</th>
+          <th width="150px;">상품명</th>
+          <th width="100px;">가격</th>
+          <th width="100px;">수량</th>
+          <th width="100px;">합계</th>
+          <th width="100px;">삭제</th>        
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+          <td><input type="checkbox" name="cboxAll" id="checkbox1"></td>
+          <td>1</td>
+          <td><img src="/reservation/image/oni.jpg"/></td>
+          <td>귀멸의 칼날</td>
+          <td>20,000원</td>
+          <td><p><input type="number" name="number" placeholder="" style="width:40px;height:10px;" ></p></td>
+          <td>40,000원</td>
+          <td><button type="submit">삭제</button></td>
+      </tr>
+      <tr>
+          <td><input type="checkbox" name="cboxAll" id="checkbox2"></td>
+          <td>2</td>
+          <td><img src="/reservation/image/szme.jpg"/></td>
+          <td>스즈메의 문단속</td>
+          <td>20,000원</td>
+          <td><p><input type="number" name="number" placeholder="" style="width:40px;height:10px;" ></p></td>
+          <td>40,000원</td>
+          <td><button type="submit">삭제</button></td>
+      </tr>
+      <tr>
+          <td><input type="checkbox" name="cboxAll" id="checkbox3" ></td>
+          <td>3</td>
+          <td><img src="/reservation/image/slamdunk.jpg"/></td>
+          <td>슬램덩크</td>
+          <td>20,000원</td>
+          <td><p><input type="number" name="number" placeholder="" style="width:40px;height:10px;" ></p></td>
+          <td>40,000원</td>
+          <td><button type="submit">삭제</button></td>
+      </tr>
+      </tbody>       
+   </table>
+   <div class="btn">
+       <button type="submit">선택상품삭제</button>
+       <button type="submit">장바구니비우기</button>
+   </div>
+   
+   <table class="bottom">
+        <tr>
+            <td>총수량</td><td><input type="number" readonly="readonly" id="total-qty" value="0"></td>
+            
+        </tr>
+        <tr>
+             <td>총금액</td>
+             <td><input type="number" readonly="readonly" id="total-amt" value="0"></td>
+        </tr>
+        
+       
+   </table>
+   
+   <div class="order">
+       <button type="submit">선택한 상품 주문</button>    
+
+   
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+</html>
