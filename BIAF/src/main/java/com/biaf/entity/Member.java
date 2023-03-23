@@ -65,7 +65,7 @@ public class Member extends BaseEntity {
 		 * member.setMemberLoc(memberFormDto.getMemberLoc()); //성별
 		 */ String passwrod = passwordEncoder.encode(memberFormDto.getMemberPassword()); // 비밀번호
 		member.setMemberPassword(passwrod);
-		member.setRole(Role.USER);
+		member.setRole(Role.ADMIN);
 		return member;
 
 	}

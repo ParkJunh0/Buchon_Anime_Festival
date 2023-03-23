@@ -183,23 +183,31 @@ layout:decorate="~{layouts/layout1}">
                        
                        <td class="title_head">
                         <!-- <a th:href="@{notice/view{id}(id=${notice.id})}"> -->
-                       <span th:text="${notice.title}"> 
-                       </span>
+                      <a th:href="@{/ko/notice/detail/{id}(id=${notice.id})}"> <span th:text="${notice.notice_title}">
+                       </span></a>
                        <!-- </a> -->
                        </td>
                        
                        <td class="date_head">
-                       <!-- <span th:text="${#temporals.format(notice.registerTime, 'yyyy-MM-dd')}"> -->
-                       </span>
-                       </td>
+                       <span th:if="${notice.regTime == notice.updateTime}" th:text="${#temporals.format(notice.RegTime, 'yyyy-MM-dd HH:mm')}"></span>
+                       <span th:if="${notice.regTime != notice.updateTime}" th:text="${#temporals.format(notice.updateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                      
+                        <!-- <span th:text="${notice.createdBy}"></span> -->
+                   		
+                      	</td>
+                    	<!-- <td>
+                      
+                    	</td> -->
+                      
                        
                    </tr>      
                 </tbody>
                 
             </table>
             <div class="write_btn">
+            <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
                 <button type="button" onclick="" id="btn_2"><a href="/ko/notice/form">글쓰기</a></button>
-                
+               </li> 
             </div>
         </div>
        

@@ -11,14 +11,14 @@ import lombok.Data;
 
 public class NoticeBoardDto {
 
-   private Long id;
-   private String notice_title;
-   private String notice_content;
-   
-   private static ModelMapper modelMapper = new ModelMapper();
-   
-   public NoticeBoard createNoticeBoard() {
-      return modelMapper.map(this, NoticeBoard.class);
-   }
-   
+	private Long id;
+	private String notice_title;
+	private String notice_content;
+	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
+	public NoticeBoard createNoticeBoard() {
+		return modelMapper.map(this, NoticeBoard.class);
+	}
+	
 }

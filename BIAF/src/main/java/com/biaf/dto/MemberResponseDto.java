@@ -17,6 +17,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class MemberResponseDto {
+
 	private Long Id;
 	private String memberName;  
 	private String memberEmail;

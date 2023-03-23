@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.biaf.constant.MovieStatus;
@@ -25,15 +26,16 @@ public class Movie extends BaseEntity{
 	
 	@Id
 	@Column(name="movie_id")
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long Id; // 영화 코드
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq")
+	@SequenceGenerator(name = "movie_seq", sequenceName = "movie_seq", allocationSize = 1)
+	private Long id; // 영화 코드
 	
 	@Column(nullable = false, length = 50)
 	private String movieNm; //영화이름	 
 	
 	private String cinema; // 상영관
 	  
-	private String movietime; // 관람시간
+	private String movieTime; // 관람시간
 	
 	private String startDay; // 상영 시작일
 	
@@ -42,7 +44,7 @@ public class Movie extends BaseEntity{
 	private String grade; //관람등급
 	
 	@Column(name="movie_price", nullable = false)
-	private Integer price;
+	private Integer price; //가격
 	
 
 	@Lob // BLOB(이미지, 동영상),CLOB(문자) 타입 매핑
@@ -63,8 +65,25 @@ public class Movie extends BaseEntity{
 		      movie.setMovieDetail(movieFormDto.getMovieDetail());
 		      movie.setMovieStatus(movieFormDto.getMovieStatus());
 		      movie.setId(movieFormDto.getId());
+		      movie.setMovieTime(movieFormDto.getMovieTime());
 		      
 		      return movie;
 
 		}
+	   // 영화 수정
+	   public void updateMovie(MovieFormDto movieFormDto){
+		      this.movieNm = movieFormDto.getMovieNm();
+		      this.cinema = movieFormDto.getCinema();
+		      this.startDay = movieFormDto.getStartDay();
+		      this.endDay = movieFormDto.getEndDay();
+		      this.grade = movieFormDto.getGrade();
+		      this.price = movieFormDto.getPrice();
+		      this.movieDetail = movieFormDto.getMovieDetail();
+		      this.movieStatus = movieFormDto.getMovieStatus();
+		      this.movieTime = movieFormDto.getMovieTime();
+		   }
+	   
+	   
+	   
+	   
 }

@@ -11,13 +11,12 @@ public class MovieDto {
 	private String movieNm; // 이름
 	private String cinema; //상영관
 	private Integer price; //영화 가격
-	private String movietime; // 관람시간
+	private String movieTime; // 관람시간
 	private String movieDetail; //상세설명
 	private String startDay; // 상영 시작일
 	private String endDay; // 상영 종료일
 	private String grade; //관람등급
-	private String imgUrl; //이미지 경로
-//	private LocalDateTime regTime;
-//	private LocalDateTime updateTime;
+//	private String imgUrl; //이미지 경로
+
 }
 

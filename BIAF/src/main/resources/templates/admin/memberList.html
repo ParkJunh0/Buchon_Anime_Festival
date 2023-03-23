@@ -1,307 +1,311 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layouts/layout1}">
-	
-	
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/layout1}">
+   
+   
 
 <th:block layout:fragment="script">
 <script th:src="@{/js/memberList_modal.js}" type="text/javascript"></script>
 </th:block>
-	<th:block layout:fragment="css">
-		<style>
-		#wrap {
-			width: 1024px;
-			margin: 0 auto;
-			margin-top: 200px;
-			/*            border: 1px solid blue;*/
-			position: relative;
-			top: 50px;
-		}
-		
-		#section {
-			position: relative;
-			display: block;
-		}
-		
-		#section #aside {
-			position: absolute;
-			left: 0;
-			top: 0;
-			width: 150px;
-			height: 400px;
-			/*            border: 1px solid green;*/
-		}
-		
-		#section #aside li {
-			list-style: none;
-		}
-		
-		.dep1 {
-			padding-left: 10px;
-		}
-		
-		.dep2 {
-			padding-left: 30px;
-		}
-		
-		.dep2 li {
-			width: 100%;
-			height: 30px;
-		}
-		
-		.dep1 a {
-			text-decoration: none;
-			color: #444;
-		}
-		
-		#slide {
-			position: absolute;
-			left: 150px;
-			top: 0;
-			width: 874px;
-			height: 400px;
-		}
-		
-		.container {
-			flex-direction: column;
-			display: flex;
-			align-items: center;
-		}
-		
-		.container_1 {
-			width: 100%;
-			height: 20%;
-			flex-direction: column;
-		}
-		
-		.container_2 {
-			flex-direction: column;
-		}
-		
-		.container_3 {
-			width: 1000px;
-			min-height: 100px;
-			height: 40%;
-			flex-direction: column;
-			margin-left: 150px;
-		}
-		
-		.title {
-			margin: 0 auto;
-			/*text-align: center;*/
-			/*    margin-top: 100px;*/
-		}
-		
-		.board_line td, th {
-			border-bottom: 1px solid #A4A4A4;
-			padding: 10px;
-		}
-		
-		.sub_head {
-			margin-top: 30px;
-		}
-		
-		.m_management {
-			height: 80px;
-			margin-top: 30px;
-			width: 100%;
-			border-top: 1px solid #A4A4A4;
-			border-collapse: collapse;
-		}
-		
-		.m_no {
-			width: 10%;
-		}
-		
-		.m_name {
-			width: 15%;
-		}
-		
-		.m_email {
-			width: 25%;
-		}
-		
-		.m_Tel {
-			width: 20%;
-		}
-		
-		.m_del {
-			width: 15%;
-		}
-		
-		.write_btn {
-			width: 100%;
-			margin-top: 20px;
-			text-align: right;
-			text-decoration-color: white;
-		}
-		
-		.search {
-			width: 100%;
-			text-align: right;
-			margin-top: 80px;
-		}
-		
-		#btn_2 {
-			border: none;
-			background-color: #0a537e;
-			padding: 10px 15px;
-		}
-		
-		#btn_2>a {
-			color: white;
-		}
-		
-		#btn_1 {
-			border: none;
-			background-color: #0a537e;
-			width: 30px;
-			height: 29px;
-			border-radius: 0;
-		}
-		
-		.search>input {
-			border-radius: 0;
-			border: 1px solid #666;
-			height: 25px;
-		}
-		
-		.page_nation {
-			display: inline-block;
-		}
-		
-		.page_nation .none {
-			display: none;
-		}
-		
-		.page_nation a {
-			display: block;
-			margin: 0 3px;
-			float: left;
-			border: 1px solid #e6e6e6;
-			width: 28px;
-			height: 28px;
-			line-height: 28px;
-			text-align: center;
-			background-color: white;
-			font-size: 13px;
-			color: black;
-			text-decoration: none;
-		}
-		
-		.page_wrap {
-			margin-top: 50px;
-		}
-		.modal1{
-			width: 300px;
-			height: 200px;
-			background: yellow;
-			display:none;
-		}
-		.close{
-			position:absolute;
-			width: 400px;
-			height: 200px;
-			top: 40%;
-			left: 40%;
-		}
-		.modal_del{
-			padding: 50px;
-		}
-		.del {
-		margin-left : 130px;
-		}
-		
-		</style>
-	</th:block>
+   <th:block layout:fragment="css">
+      <style>
+      #wrap {
+         width: 1024px;
+         margin: 0 auto;
+         margin-top: 80px;      
+         position: relative;
+         top: 50px;
+      }
+      
+      
+      #section #aside {
+         position: absolute;
+         width: 150px;
+         border: 1px solid green;
+         margin-left:-150px;
+      }
+      
+      #section #aside li {
+         list-style: none;
+      }
+      
+      .dep1 {
+         padding-left: 10px;
+      }
+      
+      .dep2 {
+         padding-left: 30px;
+      }
+      
+      .dep2 li {
+         width: 100%;
+         height: 30px;
+      }
+      
+      .dep1 a {
+         text-decoration: none;
+         color: #444;
+      }
+      
+      #slide {
+         position: absolute;
+         left: 150px;
+         top: 0;
+         width: 874px;
+         height: 400px;
+         
+      }
+      
+      .container {
+         flex-direction: column;
+         display: flex;
+         align-items: center;
+         margin-left:-200px;
+      }
+      
+      .container_1 {
+         width: 100%;
+         height: 20%;
+         flex-direction: column;
+      }
+      
+      .container_2 {
+         flex-direction: column;
+      }
+      
+      .container_3 {
+         width: 1000px;
+         min-height: 100px;
+         height: 40%;
+         flex-direction: column;
+         margin-left: 150px;
+      }
+      
+      .title {
+         margin: 0 auto;
+         /*text-align: center;*/
+         /*    margin-top: 100px;*/
+      }
+      
+      .board_line td, th {
+         border-bottom: 1px solid #A4A4A4;
+         padding: 10px;
+      }
+      
+      .sub_head {
+         margin-top: 30px;
+      }
+      
+      .m_management {
+         height: 80px;
+         margin-top: 30px;
+         width: 100%;
+         border-top: 1px solid #A4A4A4;
+         border-collapse: collapse;
+      }
+      
+      .m_no {
+         width: 10%;
+      }
+      
+      .m_name {
+         width: 15%;
+      }
+      
+      .m_email {
+         width: 25%;
+      }
+      
+      .m_Tel {
+         width: 20%;
+      }
+      
+      .m_del {
+         width: 15%;
+      }
+      
+      .write_btn {
+         width: 100%;
+         margin-top: 20px;
+         text-align: right;
+         text-decoration-color: white;
+      }
+      
+      .search {
+         width: 100%;
+         text-align: right;
+         margin-top: 80px;
+      }
+      
+      #btn_2 {
+         border: none;
+         background-color: #0a537e;
+         padding: 10px 15px;
+      }
+      
+      #btn_2>a {
+         color: white;
+      }
+      
+      #btn_1 {
+         border: none;
+         background-color: #0a537e;
+         width: 30px;
+         height: 29px;
+         border-radius: 0;
+      }
+      
+      .search>input {
+         border-radius: 0;
+         border: 1px solid #666;
+         height: 25px;
+      }
+      
+      .page_nation {
+         display: inline-block;
+      }
+      
+      .page_nation .none {
+         display: none;
+      }
+      
+      .page_nation a {
+         display: block;
+         margin: 0 3px;
+         float: left;
+         border: 1px solid #e6e6e6;
+         width: 28px;
+         height: 28px;
+         line-height: 28px;
+         text-align: center;
+         background-color: white;
+         font-size: 13px;
+         color: black;
+         text-decoration: none;
+      }
+      
+      .page_wrap {
+         margin-top: 50px;
+      }
+      .modal1{
+         width: 300px;
+         height: 200px;
+         background: yellow;
+         display:none;
+      }
+      .close{
+         position:absolute;
+         width: 400px;
+         height: 200px;
+         top: 40%;
+         left: 40%;
+      }
+      .modal_del{
+         padding: 50px;
+      }
+      .del {
+      margin-left : 130px;
+      }
+      
+      </style>
+   </th:block>
 
 
 
 <div layout:fragment="content">
 
-	<div id="wrap">
+   <div id="wrap">
 
-		<div id="section">
-			<div id="aside">
-				<ul class="dep1">
-					<h2>관리자메뉴</h2>
-					<br>
-					<ul class="dep2">
-						 	<li><a href="/ko/memberList">회원관리</a></li>
+      <div id="section">
+         <div id="aside">
+            <ul class="dep1">
+               <h2>관리자메뉴</h2>
+               <br>
+               <ul class="dep2">
+                      <li><a href="/ko/memberList">회원관리</a></li>
                             <li><a href="#">게시판관리</a></li>
-                            <li><a href="/ko/movieForm">영화등록관리</a></li>
+                            <li><a href="/ko/movieMng">영화등록관리</a></li>
                             <li><a href="#">굿즈관리</a></li>
                             <li><a href="#">배너관리</a></li>
                             <li><a href="/ko/reservationadmin">예매관리</a></li>
-					</ul>
-				</ul>
-			</div>
-			<form method="Get" action="/ko/memberList" role="form" >
-			<div id="slide">
-			
-				<div class="container">
-					<div class="container_2">
-						<div align="center" class="title">
-							<h1>회원조회</h1>
-						</div>
+               </ul>
+            </ul>
+         </div>
+         <form method="Get" action="/ko/memberList" role="form" >
+         <div id="slide">
+         
+            <div class="container">
+               <div class="container_2">
+                  <div align="center" class="title">
+                     <h1>회원조회</h1>
+                  </div>
 
-					</div>
-					<div class="container_3">
-						<!--<div class="search">
+               </div>
+               <div class="container_3">
+                  <!--<div class="search">
           <input type="text" placeholder="검색어를 입력하세요" ><button type="button" onclick="" id="btn_1" ><img src="/Notice/image/icon_search.png"  width="10px"
             height="10px"></button>
       </div>-->
       
-						<div align="center" class="sub_head">
-							<table class="m_management">
-								<thead>
-									<tr>
-										<th scope="col" class="m_no">번호</th>
-										<th scope="col" class="m_name">회원명</th>
-										<th scope="col" class="m_email">이메일</th>
-										<th scope="col" class="m_Tel">전화번호</th>
-										<th scope="col" class="m_del">관리</th>
-									</tr>
-								</thead>
-								<tbody align="center">
-									<tr class="board_line" th:each="member : ${memberResponseDto}">
-										<td class="m_no"><span th:text="${member.Id}"></span></td>
-										<td class="m_name"><span th:text="${member.memberName}"></span></td>
-										<td class="m_email"><span th:text="${member.memberEmail}"></span></td>
-										<td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
-										<td class="m_del"><a href="#" class="del1">탈퇴</a></td>
-									</tr>
-							
-									
-								</tbody>
-							</table>
-						</div>
-					</div>
+                  <div align="center" class="sub_head">
+                     <table class="m_management">
+                        <thead>
+                           <tr>
+                              <th scope="col" class="m_no">번호</th>
+                              <th scope="col" class="m_name">회원명</th>
+                              <th scope="col" class="m_email">이메일</th>
+                              <th scope="col" class="m_Tel">전화번호</th>
+                              <th scope="col" class="m_del">관리</th>
+                           </tr>
+                        </thead>
+                        <tbody align="center">
+                           <tr class="board_line" th:each="member : ${memberResponseDto}">
+                              <td class="m_no"><span th:text="${member.memberId}"></span></td>
+                              <td class="m_name"><span th:text="${member.memberName}"></span></td>
+                              <td class="m_email"><span th:text="${member.memberEmail}"></span></td>
+                              <td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
+                              <td class="m_del"><a href="#" class="del1">탈퇴</a></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+               </div>
 
-					<div class="page_wrap">
-						<div class="page_nation">
-
-							<a class="arrow prev" href="#"></a> <a href="#" class="active">1</a>
-							<a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a>
-
-							<a class="arrow next" href="#"></a>
-
-						</div>
-					</div>
-				</div>
-				
-			</div>
-			</form>
-		</div>
-	</div>
-	
-		<div class="modal1">
-				<div class="close">
-				<div class="modal_del">회원을 삭제시키시겠습니까?</div>
-				<button type="button" class="del" id="close">탈퇴</button>
-				</div>
-		</div>
-		
+                <div class="page_wrap">  <!-- 페이징  -->
+                  <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                  <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/memberList(page=${page-1})}" th:text ="${page}"></a>
+                  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+                 </th:block>
+               </div>
+            </div>
+            
+         </div>
+         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+         </form>
+      </div>
+   </div>
+   
+      <div class="modal1">
+            <div class="close">
+            <div class="modal_del">회원을 삭제시키시겠습니까?</div>
+            
+         <form th:action="@{/ko/memdelete}" class="delete_form" th:method="delete"> 
+          <div class="info_submit">
+                <button type="submit" class="del" id="close" >탈퇴</button>
+                <input class="hidden_id" type="hidden" name="id">
+            </div>
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+           </form>
+            
+            <script>  <!-- 회원삭제  -->
+            var id=0;
+            $('.m_del').on('click', function(){
+               id = $(this).parent().children('.m_no').children().text();
+               $('.hidden_id').attr('value', id);
+            });
+            </script>
+            </div>
+      </div>
 </div>
 </html>

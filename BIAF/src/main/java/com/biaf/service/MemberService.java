@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -57,7 +59,9 @@ public class MemberService implements UserDetailsService {
 		return MemberResponseDto.createMemberDto(memberRepository.findAll());
 	}
 
-
+	   public Page<Member> memList(Pageable pageable){ //멤버전체조회,페이징
+           return memberRepository.findAll(pageable);
+        }
 	
 
 }

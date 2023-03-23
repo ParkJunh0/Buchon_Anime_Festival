@@ -14,28 +14,13 @@ layout:decorate="~{layouts/layout1}">
     <div class="movie-image">
         <div id="first-mv" th:each="movie : ${movieResponseDto}">
         <a href="/ko/reservation_sub">
-        <img src="${movie.imgUrl}" width="250" height="347" alt=""></a>
+        <img th:src="${movie.imgUrl}" width="250" height="347" alt=""></a>
         <h1 th:text="${movie.movieNm}"></h1>
         <p th:text="${movie.startDay}"></p>
         <p th:text="${movie.endDay}"></p>
         <a href="/ko/reservation_sub"><input type="button" value="예매하기"></a>
         </div>
-        
-        
-
-       <!--  <div id="second-mv">
-        <a href="#"><img src="/reservation/image/szme.jpg" width="250" height="347" alt=""></a>
-        <h1>스즈메의 문단속</h1>
-        <p>2023.03.01~2023.04.28</p>
-        <a href="#"><input type="button" value="예매하기"></a>
-        </div>
-        <div id="third-mv">
-        <a href="#"><img src="/reservation/image/oni.jpg" width="250" height="347" alt=""></a>   
-        <h1>귀멸의 칼날</h1>
-        <p>2023.03.01~2023.04.28</p>
-        <a href="#"><input type="button" value="예매하기"></a>
-        </div> -->
-        
+    
     </div>
     </form>
 </div>
