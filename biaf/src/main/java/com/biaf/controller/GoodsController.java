@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biaf.dto.GoodsFormDto;
-import com.biaf.entity.Goods;
 import com.biaf.service.GoodsService;
-
+import com.biaf.entity.Goods;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -93,10 +92,21 @@ public class GoodsController {
         return "redirect:/goodsMng";
     }
 
-
     @GetMapping(value = "/goodsMng") // 굿즈등록관리(굿즈리스트)
-   public String goodsMng(Model model) {
-      model.addAttribute("goodsDto", goodsService.findAll());
-      return "admin/goodsMng";
-   }
+   public String goodMng(Model model, @PageableDefault(page=0, size=5, direction=Sort.Direction.DESC) Pageable pageable) {
+
+    Page<Goods> gdlist = goodsService.gdList(pageable);
+    model.addAttribute("goodsDto", gdlist);
+            
+    int nowPage = gdlist.getPageable().getPageNumber() + 1;    //페이징   
+    int startPage =  Math.max(nowPage - 4, 1);
+    int endPage = Math.min(nowPage+9, gdlist.getTotalPages());
+
+    model.addAttribute("gdlist", gdlist);
+    model.addAttribute("nowPage",nowPage);
+    model.addAttribute("startPage", startPage);
+    model.addAttribute("endPage", endPage);
+    
+    return "admin/goodsMng";
+}
 }

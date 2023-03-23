@@ -270,14 +270,11 @@
                      </div>
                   </div>
 
-                  <div class="page_wrap">
-                     <div class="page_nation">
-
-                        <a class="arrow prev" href="#"></a> <a href="#" class="active">1</a>
-                        <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a
-                           href="#">5</a> <a class="arrow next" href="#"></a>
-
-                     </div>
+                  <div class="page_wrap">  <!-- 페이징  -->
+                     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                     <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/goodsMng(page=${page-1})}" th:text ="${page}"></a>
+                     <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+                    </th:block>
                   </div>
                </div>
 

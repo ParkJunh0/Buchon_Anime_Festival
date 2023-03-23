@@ -90,7 +90,7 @@ public class GoodsService {
     }
 
 
-    public Page<Goods> goodsList(Pageable pageable){
+    public Page<Goods> gdList(Pageable pageable){
         //기존 List<Goods>값으로 넘어가지만 페이징 설정을 해주면 Page<Goods>로 넘어갑니다.
         return goodsRepository.findAll(pageable);
     }
