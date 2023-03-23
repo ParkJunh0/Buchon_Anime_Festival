@@ -1,6 +1,8 @@
 package com.biaf.service;
 
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.biaf.dto.MemberFormDto;
+import com.biaf.dto.MemberResponseDto;
 import com.biaf.entity.Member;
 import com.biaf.repository.MemberRepository;
 
@@ -77,8 +80,12 @@ public class MemberService implements UserDetailsService {
 			   return MemberFormDto.createMemberFormDto(mem);
 		   return null;
 	   }
-	   
-	   
+	    
+	   public void deletemember(String memberEmail) { //회원탈퇴
+		   memberRepository.deleteByMemberEmail(memberEmail);
+	   }
+
+
 	
 	   
 
