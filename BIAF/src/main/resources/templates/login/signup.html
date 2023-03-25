@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+
+<th:block layout:fragment="script">
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function kakaopost() {
+			new daum.Postcode({
+				oncomplete : function(data) {
+					document.querySelector("#postcode").value = data.zonecode;
+					document.querySelector("#address").value = data.address;
+				}
+			}).open();
+		}
+	</script>
+</th:block>
+	<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/login/css/join.css">
+	<link rel="stylesheet" href="/login/css/button.css">
+	<style>
+		
+	.all {
+		margin-top: 80px;
+	}
+	.all table{
+		text-align: left;
+	}
+	.section{
+		margin: 0 auto;
+		width: 450px;
+		text-align:center;
+	}
+	.btn_order {
+		margin-top: 30px;
+	}
+	</style>
+	</th:block>
+<div layout:fragment="content" >
+<!-- 컨텐츠 메뉴 부분 -->
+<div class="cont_header"></div>
+	<div class="section">
+	<div class="join">
+		<h4>회원가입</h4>
+		<h1>통합 회원가입</h1>
+	</div>
+
+	<div class="stepLine">
+		<div title="약관동의" class="stepDot"></div>
+		<div title="정보입력" class="stepDot activeStep"></div>
+		<div title="가입완료" class="stepDot"></div>
+	</div>
+	<form method="post" action="/ko/signup" role="form" th:object="${memberFormDto}">
+		<div class="all">
+			<table>
+				<tr>
+					<td><p>이메일</p></td>
+					<td><input type="email" name="memberEmail"></td>
+				</tr>
+				<tr>
+					<td><p>비밀번호</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr>
+				<!-- <tr>
+					<td><p>비밀번호 확인</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr> -->
+				<tr>
+					<td><p>이름</p></td>
+					<td><input type="text" name="memberName"></td>
+				</tr>
+				<!-- <tr>
+					<td><p>성별</p></td>
+					<td>
+					<input type="radio" name="memberLoc">남자 
+					    <input type="radio" name="memberLoc">여자
+					</td>
+				</tr> -->
+				<tr>
+					<td><p>전화번호</p></td>
+					<td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}"></td>
+				</tr>
+				
+				<tr>
+					<td><p>주소</p></td>
+					<td><input type="text" size="10" name="postcode" id="postcode"
+						placeholder="우편번호" readonly="readonly" onclick="kakaopost()">
+						<input type="button" onclick="kakaopost()" value="우편번호 찾기">
+						<br> <input type="text" name="memberAddress" id="address"
+						placeholder="도로명주소" readonly="readonly" onclick="kakaopost()">
+						<input type="text" name="wRestAddress" placeholder="나머지 주소"></td>
+				</tr>
+			</table>
+		
+		 <button type = "submit"  class="btn_order">가입완료</button>
+		 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		</div>
+	</form>
+</div>
+</div>
+</html>

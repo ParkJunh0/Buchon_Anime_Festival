@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+ <th:block layout:fragment="script">   
+<script type="text/javascript">
+    function Check(){ 
+    	
+    	var arrSelect = document.getElementsByName("chkSelect");
+
+    	if(arrSelect[0].checked){
+    		location.href = "/ko/memberout1";
+    	}else{
+    	alert("탈퇴동의에 체크해주세요");
+    	}
+    }
+    </script>
+  </th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/login/css/button.css">
+    <style>
+         
+
+        #wrap {
+            width: 1024px;
+            margin: 0 auto;
+/*            border: 1px solid blue;*/
+            position: relative;
+        }
+
+        
+       
+        #section{
+            position: relative;
+            display: block;
+        }
+        #section #aside{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 400px;
+/*            border: 1px solid green;*/
+        }
+        #section #aside li{
+            list-style: none;
+        }
+        .dep1{
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .dep2{
+            padding-left: 10px;
+            border:1px solid;
+        }
+        .dep2 li{
+            width: 200%;
+            height: 30px;
+        }
+        .dep1 a{
+            text-decoration: none;
+            color: #444;
+        }
+         #slide{
+ /*            position: absolute; */
+ 			padding:50px;
+            margin-left: 200px;
+          /*   left: 150px; */
+            top: 0;
+            width: 750px;
+/*            height: 400px;*/
+        }
+       
+        
+       
+        
+        #nb{
+        text-align: center;
+        margin-top:50px;
+        }
+        
+        
+      
+       
+    </style>
+</th:block>    
+    
+<div layout:fragment="content">
+   <div class="himg" style="width: 100%; height: 70px;"></div>  
+    <div id="wrap">
+        <form role="form" method="post" id="delform"  th:object="${MemberFormDto}">
+        <div id="section">
+            <div id="aside">
+                <ul class="dep1">
+                    <h2>마이페이지</h2>
+                       <br>
+                        <ul class="dep2">
+                            <li><a href="/ko/mypage">회원정보수정</a></li>
+                            <li><a href="/ko/cart">장바구니</a></li>
+                            <li><a href="#">상품구매내역</a></li>
+                            <li><a href="#">티켓예매/취소</a></li>
+                            <li><a href="/ko/memberout">회원탈퇴</a></li>
+                        </ul>
+                </ul>
+            </div>
+            <div id="slide">
+      <tr>
+        <td>
+            <h4>계정관리</h4>
+            <h1>회원탈퇴</h1>
+       </td>
+     </tr>
+     <br>
+     
+     <div id="text">
+         <ul><h3>탈퇴유의사항</h3></ul>
+         <li>고객님께서 회원 탈퇴를 원하신다니 저희 쇼핑몰의 서비스가 많이 부족하고 미흡했나 봅니다. 
+         불편하셨던 점이나 불만사항을 알려주시면 적극 반영해서 고객님의 불편함을 해결해 드리도록 노력하겠습니다.<br>
+         <strong>아울러 회원 탈퇴시의 아래 사항을 숙지하시기 바랍니다.</strong></li><br>
+         <li>1. 회원 탈퇴 시 고객님의 정보는 상품 반품 및 A/S를 위해 전자상거래 등에서의 소비자 보호에 관한 법률에 의거한 고객정보 보호정책에 따라 관리됩니다.</li>
+         <li>2. 회원 탈퇴 후 3개월간 재가입이 불가능합니다.</li>
+         <li>3. </li>
+     </div>
+     <br><br><br>
+     <label class="reg" for="class">탈퇴사유</label>
+        <select id="class">
+            <option value="1">고객서비스 불만</option>
+            <option value="2">배송불만</option>
+            <option value="3">교환/환불/반품 불만</option>
+            <option value="4">상품가격 불만</option>
+            <option value="5">쇼핑몰의 신뢰도 불만</option>
+            <option value="6">방문빈도가 낮음</option>
+            <option value="7">개인 정보유출 우려</option>
+        </select><br><br><br>
+        <input type="checkbox" name="chkSelect">해당 내용을 모두 확인했으며, 회원탈퇴에 동의합니다.  
+         </div>
+    	</div> 
+	   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+	 </form>
+	 <div id="nb">
+	  <form th:action="@{/ko/memberout/delete}" th:method="delete">
+                        <button>탈퇴하기</button>  
+                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>  
+             <a href="/ko"> <button type = "button"  class="btn_order"  style="margin:10px;">처음으로</button></a>
+              </div>
+ </div>
+
+    </div>
+</html>
