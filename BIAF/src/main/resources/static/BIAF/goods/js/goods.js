@@ -32,14 +32,19 @@ $(function(){
     }
     // 굿즈 상품 클릭시
     $('.goods_item').off().on("click", function(){
+        var this_a = $(this);
         if(goods_d == false){   // 닫혀있으면
-            gdetailon($(this));
+            gdetailon(this_a);
         }else{                  // 열려있으면
             // 현재 굿즈가 아닌걸 클릭하면 내용 변경
             if(this_d.children('.goods_item_description').children('p').children('b').text() != $(this).children('.goods_item_description').children('p').children('b').text()){
-                gdetailon($(this));
+                goods_detail.clearQueue().slideUp(function(){
+                    gdetailon(this_a);
+                });
+                goods_d=false;
+                
             }else{  // 현재 굿즈면 닫음
-                goods_detail.clearQueue().slideUp().delay(500);
+                goods_detail.clearQueue().slideUp();
                 goods_d=false;
             }
         }

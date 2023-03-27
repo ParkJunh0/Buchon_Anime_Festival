@@ -6,8 +6,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
@@ -18,17 +20,17 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value="/ko")
+@RequestMapping(value="/ko/admin")
 public class AdminController {
 	private final MemberService memberService;
 	private final MovieService movieService;
 	
-	@GetMapping(value="/admin") //관리자페이지 기본틀 -삭제할거임
+	@GetMapping(value="") //관리자페이지 기본틀 -삭제할거임
 	public String adminpage() {
 		return "/admin/adminpage";
 	}
 	
-	@GetMapping(value = "/admin/memberList") // 회원 조회
+	@GetMapping(value = "/memberList") // 회원 조회
 	public String memberList(Model model, @PageableDefault(page=0, size=5, direction=Sort.Direction.DESC) Pageable pageable) {
 
 	      Page<Member> list = memberService.memList(pageable);
@@ -42,9 +44,14 @@ public class AdminController {
 	        model.addAttribute("nowPage",nowPage);
 	        model.addAttribute("startPage", startPage);
 	        model.addAttribute("endPage", endPage);
-		return "/admin/memberList";
+			return "/admin/memberList";
+		}
+	@DeleteMapping(value="/memdelete") //회원삭제
+	public String memDelete(@RequestParam("id") Long id) {
+			memberService.memDelete(id);
+			return "redirect:/ko/admin/memberList";
 	}
-	@GetMapping(value = "/admin/movie") // 영화등록관리(영화리스트)
+	@GetMapping(value = "/movie") // 영화등록관리(영화리스트)
 	public String movieMng(Model mvmodel, @PageableDefault(page=0, size=5, direction=Sort.Direction.DESC) Pageable mvpageable) {
 		
 		Page<Movie> mvlist = movieService.mvList(mvpageable);
@@ -63,7 +70,7 @@ public class AdminController {
 		return "/admin/movieMng";
 	}
 	
-	@GetMapping(value = "admin/reservationadmin") // 예매관리
+	@GetMapping(value = "/reservationadmin") // 예매관리
 	public String reservationadmin() {
 		return "/admin/reservationadmin";
 	}

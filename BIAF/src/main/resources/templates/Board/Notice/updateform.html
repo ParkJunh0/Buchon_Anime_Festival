@@ -6,9 +6,7 @@ layout:decorate="~{layouts/layout1}">
     <meta charset="UTF-8">
     <title></title>
  </head>
-
-<div layout:fragment="content" class="content">
-   <th:block>
+   <th:block layout:fragment="css">
     <style>
         *{
             list-style: none;
@@ -78,12 +76,9 @@ layout:decorate="~{layouts/layout1}">
             color: white;
            
         }
-       
-
-   
     </style>
     </th:block>
-   
+    <div layout:fragment="content">
      <div class="container">
         <div class="write_head">
         <h1>글 작성</h1>

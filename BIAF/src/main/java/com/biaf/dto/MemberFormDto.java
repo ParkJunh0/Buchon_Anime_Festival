@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
 
 import com.biaf.entity.Member;
 
@@ -47,6 +48,12 @@ public class MemberFormDto {
 		memFormDto.wRestAddress = mem.getWRestAddress();
 		
 		return memFormDto;
+	}
+	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
+	public Member createMember() {  //Dto를 Entity로 바꾸는 메소드
+		return modelMapper.map(this, Member.class);
 	}
 	
 	/*

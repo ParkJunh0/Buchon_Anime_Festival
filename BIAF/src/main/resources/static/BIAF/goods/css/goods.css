@@ -64,6 +64,7 @@ strong{
 .goods_detail{
     min-width: 980px;
     width: 100%;
+    max-height: 320px;
     margin-top: 10px;
     padding: 10px;
     background: #f5f5f5;
@@ -75,6 +76,7 @@ strong{
 /* 굿즈 상세페이지 이미지 */
 .goods_detail img{
     max-width: 492px;
+    max-height: 300px;
 }
 /* 굿즈 상세페이지 오른쪽 부분 */
 .goods_description{
