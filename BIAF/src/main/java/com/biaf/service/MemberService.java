@@ -1,6 +1,5 @@
 package com.biaf.service;
 
-
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -33,12 +32,16 @@ public class MemberService implements UserDetailsService {
 	}
 
 	
-	  private void validateDuplicateMember(Member member) { // TODO Auto-generated
-	  Member findMember =memberRepository.findByMemberEmail(member.getMemberEmail()); 
-	  if(findMember !=null) {
+	 private void validateDuplicateMember(Member member) { // TODO Auto-generated
+	 Member findMember =memberRepository.findByMemberEmail(member.getMemberEmail()); 
+	 if(findMember !=null) {
 		  throw new IllegalStateException("이미 가입된 회원입니다"); 
 		  }
 	  }
+	  
+	  public Member updateMember(Member member) { //마이페이지 수정
+			return memberRepository.save(member);
+		}  
 	 
 
 	@Override
@@ -57,36 +60,32 @@ public class MemberService implements UserDetailsService {
 				
 	}
 	
+	
 	public boolean findById(String memberEmail) { //ID(이메일)체크
 		return memberRepository.existsByMemberEmail(memberEmail);
 	}
 	
-	
+	public Page<Member> memList(Pageable pageable){ //멤버조회,페이징
+		return memberRepository.findAll(pageable);
+	 }
 
-	   public Page<Member> memList(Pageable pageable){ //멤버조회,페이징
-		      return memberRepository.findAll(pageable);
-		   }
-
-	  
-	
-	   public void memDelete(Long memberId) { //관리자가 멤버삭제
-		   memberRepository.deleteById(memberId);
-		   
+	public void memDelete(Long memberId) { //관리자가 멤버삭제
+		 memberRepository.deleteById(memberId);
+		 
+	 }
+ 
+	 public MemberFormDto mypagefindByMemberEmail(String memberEmail) { //마이페이지 내정보 가져오기
+		 Member mem = memberRepository.findByMemberEmail(memberEmail);
+		 if (mem != null)
+			 return MemberFormDto.createMemberFormDto(mem);
+		 return null;
+	 }
+	 
+	 public Member findByEmail(String email) {  //마이페이지 수정
+		   return memberRepository.findByMemberEmail(email);
 	   }
-	   
-	   public MemberFormDto mypagefindByMemberEmail(String memberEmail) { //마이페이지 내정보 가져오기
-		   Member mem = memberRepository.findByMemberEmail(memberEmail);
-		   if (mem != null)
-			   return MemberFormDto.createMemberFormDto(mem);
-		   return null;
-	   }
-	    
-	   public void deletemember(String memberEmail) { //회원탈퇴
-		   memberRepository.deleteByMemberEmail(memberEmail);
-	   }
-
-
-	
-	   
-
+  
+	 public void deletemember(String memberEmail) { //회원탈퇴
+		 memberRepository.deleteByMemberEmail(memberEmail);
+	 }
 }

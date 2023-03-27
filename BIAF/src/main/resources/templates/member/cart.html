@@ -23,56 +23,20 @@ layout:decorate="~{layouts/layout1}">
 
 <style>
      #wrap {
-            width: 1024px;
-            margin: 0 auto;
-/*            border: 1px solid blue;*/
+            width: 100%;
+            position: relative;
+            margin-bottom: 150px;
+            top: 50px;
         }
 
-        
-       
-        #section{
-            position: relative;
-            display: block;
+        #section {
+            display: flex;
+            justify-content: space-evenly;
         }
-        #section #aside{
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 150px;
-            height: 400px;
-/*            border: 1px solid green;*/
-        }
-        #section #aside li{
-            list-style: none;
-        }
-        .dep1{
-            padding-left: 10px;
-            margin-top: 10px;
-        }
-        .dep2{
-            padding-left: 10px;
-            border:1px solid;
-        }
-        .dep2 li{
-            width: 200%;
-            height: 30px;
-        }
-        .dep1 a{
-            text-decoration: none;
-            color: #444;
-        }
-     
-       
-       
+
      /* 장바구니 부분*/  
     .all{
-        width: 100%;
-      /*   margin-left: 200px; */
-    }
-    
-    .all h1{
-        margin-left: 45%;
-        margin-top: 100px;
+        min-width: 1000px;
     }
     
     .top th, .top td {
@@ -81,10 +45,8 @@ layout:decorate="~{layouts/layout1}">
     }
     
     .top{
-        margin: 0 auto;
         margin-top: 50px;
-        margin-left: 200px;
-        width: 90%;
+        width: 100%;
         border-top: 1px solid #444444;
         border-collapse: collapse;
         
@@ -94,13 +56,6 @@ layout:decorate="~{layouts/layout1}">
     .hed{
         background-color:cadetblue;
     }
-/*
-    table tr th,td{
-        border: 1px solid gray;
-        text-align: center;
-        padding: 10px;
-    } 
-*/
     
     td img{        
         width: 80px;
@@ -113,17 +68,14 @@ layout:decorate="~{layouts/layout1}">
     
     .btn{
         margin-top: 50px;
-        margin-left: 78%;
     }
     
     .bottom{
-        margin-top: 10px;
-        margin-left: 77%;     
+        margin-top: 10px;   
     }
     
     .order{
         margin-top: 10px;
-        margin-left: 45%;
     }
     
     
@@ -131,22 +83,10 @@ layout:decorate="~{layouts/layout1}">
 </style>
 </th:block>
 <div layout:fragment="content">
+    <div class="cont_header"></div>
  <div id="wrap">
         <div id="section">
-            <div id="aside">
-                <ul class="dep1">
-                    <h2>마이페이지</h2>
-                       <br>
-                        <ul class="dep2">
-                            <li><a href="/ko/mypage/{memberId}">회원정보</a></li>
-                            <!-- <li><a href="/ko/myedit">회원정보수정</a></li> -->
-                            <li><a href="/ko/cart">장바구니</a></li>
-                            <li><a href="#">상품구매내역</a></li>
-                            <li><a href="#">티켓예매/취소</a></li>
-                            <li><a href="/ko/memberout">회원탈퇴</a></li>
-                        </ul>
-                </ul>
-            </div>
+            <div id="sidenav"></div>
 
 <div class="all">
     <h1>장바구니</h1>
