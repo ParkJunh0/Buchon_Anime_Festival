@@ -1,8 +1,9 @@
 package com.biaf.controller;
 
-import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,11 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.biaf.dto.MovieFormDto;
 import com.biaf.dto.NoticeBoardDto;
+import com.biaf.dto.NoticeBoardFormDto;
 import com.biaf.entity.NoticeBoard;
-import com.biaf.service.BoardService;
-
+import com.biaf.service.NoticeBoardService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,91 +36,113 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping(value="/ko")
 public class BoardController {
-	private final BoardService boardService;
-	
+	private final NoticeBoardService boardService;
 
-	
-	
 	//공지사항 페이지
     @GetMapping(value="/notice")
     public String notice(Model model, @PageableDefault(page=0, size=5, direction=Sort.Direction.DESC) Pageable pageable){
+        Page<NoticeBoard> list = boardService.boardList(pageable);
         
-        
-        Page<NoticeBoard> plist = boardService.boardList(pageable);
-        
-        int nowPage = plist.getPageable().getPageNumber() + 1;    //페이징   
+        int nowPage = list.getPageable().getPageNumber() + 1;    //페이징   
         int startPage =  Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage+9, plist.getTotalPages());
-
-    	model.addAttribute("noticeList", plist);
+        int endPage = Math.min(nowPage+9, list.getTotalPages());
+    	model.addAttribute("noticeList", boardService.boardList(pageable));
     	model.addAttribute("nowPage",nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
-    	
-        
         
         return "Notice/notice";
     }
     
     //공지사항 상세 페이지
     @GetMapping(value="/notice/detail/{id}")
-	public String noticedetail(@PathVariable("id") Long id, Model model, HttpServletRequest request){
-    	Optional<NoticeBoard> detail = boardService.findBoard(id);
-    	HttpSession session = request.getSession();
-    	session.setAttribute("title", detail.get().getNotice_title());
-    	session.setAttribute("content", detail.get().getNotice_content());
-    	session.setAttribute("id", detail.get().getId());
-    	model.addAttribute("title", detail.get().getNotice_title());
-    	model.addAttribute("content", detail.get().getNotice_content());
-    	model.addAttribute("id", detail.get().getId());
+	public String noticedetail(@PathVariable("id") Long noticeBoardId, Model model){
+    	NoticeBoardFormDto noticeBoardFormDto = boardService.getNoticeBoardDtl(noticeBoardId); // noticeBoardFormDto 안에 boardService.getNoticeBoardDtl(noticeBoardId); 값을 대입 
+    	model.addAttribute("noticeBoardFormDto", noticeBoardFormDto); //model.addAttribute에  noticeBoardFormDto의 이름을 noticeBoardFormDto로 add
+
+        
 		return "Notice/noticedetail";
 	}
     
     //공지사항 작성 페이지
    	@GetMapping(value="/notice/form")
-	public String noticeform(Model model){
-   		model.addAttribute("noticeBoardDto", new NoticeBoardDto());
+	public String noticeform(Model model, NoticeBoardFormDto noticeBoardFormDto){
+//   		model.addAttribute("noticeBoardDto", new NoticeBoardDto());
+   		model.addAttribute("noticeBoardFormDto", new NoticeBoardFormDto());  //new NoticeBoardFormDto()를 생성후 noticeBoardFormDto를 add
+   		
+   		
+		
 		return "Notice/noticeform";
 	}
    	//공지사항 작성 적용
    	@PostMapping(value="/notice/write")
-    public String noticewrite(@Valid NoticeBoardDto noticeBoardDto) throws IOException {
-   	   NoticeBoard noticeBoard = NoticeBoard.createnoiticeBoard(noticeBoardDto);
-       boardService.saveBoard(noticeBoardDto);
-       return "redirect:/ko/notice";
+    public String noticewrite(@Valid NoticeBoardFormDto noticeBoardFormDto, BindingResult bindingResult,
+            Model model, @RequestParam("noticeBoardImgFile") MultipartFile noticeBoardImgFileList) {
+   		
+   		if (bindingResult.hasErrors()) { // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환한다.
+            return "Notice/noticeForm";
+        }
+        if (noticeBoardImgFileList.isEmpty() && noticeBoardFormDto.getId() == null) {
+            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
+            return "Notice/noticeForm"; // 공지사항 등록시 첫 번째 이미지가 없다면 에러 메시지와 함께 공지사항 페이지로 전환한다.
+        } // 공지사항 첫번째 이미지는 메인 페이지에서 보여줄 공지사항 이미지를 사용하기 위해 필수 값으로 지정한다.
+
+        try {
+            boardService.saveBoard(noticeBoardFormDto, noticeBoardImgFileList); // 공지사항 저장 로직을 호출. 공지사항정보와 공지사항이미지정보를 넘긴다.
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "상품 등록 중 에러가 발생하였습니다.");
+            return "Notice/noticeForm";
+        }
+        return "redirect:/ko/notice"; // 정상적으로 등록되었다면 공지사항페이지로 이동한다.
     }
    	
    	//공지사항 삭제 
    	@DeleteMapping(value="/notice/delete/{id}")
-	public String noticedelete(@PathVariable Long id){
-   		boardService.deleteBoard(id);
+	public String noticedelete(@PathVariable Long id, @RequestParam("noticeImgIds") Long imgId){
+   	
+   		boardService.deleteBoard(id, imgId); //boardService에 있는 deleteBoarddeleteBoard(id, imgId)를 호출
    		return "redirect:/ko/notice";
 	}
    	
    	//공지사항 수정 페이지
-	@GetMapping(value="/notice/modify")
-	public String noticeModify(Model model){
-   		model.addAttribute("noticeBoardDto", new NoticeBoardDto());
+	@GetMapping(value="/notice/modify/{id}")
+	public String noticeModify(@PathVariable("id") Long id,Model model){
+   		
+		try {
+			NoticeBoardFormDto noticeBoardFormDto = boardService.getNoticeBoardDtl(id);
+			model.addAttribute("noticeBoardFormDto", noticeBoardFormDto);
+			
+		}catch (EntityNotFoundException e){
+			model.addAttribute("errorMessage", "존재하지 않는 공지사항입니다.");
+			model.addAttribute("noticeBoardFormDto", new NoticeBoardFormDto());
+			
+			return "Notice/updateform";
+		}
+
+		
+		
 		return "Notice/updateform";
 	}
 	
 	//공지사항 수정 적용
 	@PutMapping(value="/notice/update/{id}")
-	public String noticeUpdate(@PathVariable("id") Long id, @RequestParam("title") String title, @RequestParam("content") String content, NoticeBoardDto noticeBoardDto, Model model) throws IOException{
-		NoticeBoard noticeBoard = boardService.updateBoard(id);
+	public String noticeUpdate(@Valid NoticeBoardFormDto noticeBoardFormDto, BindingResult bindingResult,
+			@RequestParam("noticeBoardImgFile") MultipartFile noticeBoardImgFileList, Model model){
 		
-		noticeBoardDto.setId(id);
-		noticeBoardDto.setNotice_content(content);
-		noticeBoardDto.setNotice_title(title);
-		System.out.println("----------:" + title);
-		System.out.println("----------:" + content);
-		noticeBoard = NoticeBoard.createnoiticeBoard(noticeBoardDto);
-		boardService.saveBoard(noticeBoardDto);
+		if (bindingResult.hasErrors()) {
+			return "Notice/updateform";
+		}
 		
-   		//model.addAttribute("noticeBoardDto", new NoticeBoardDto());
+		try {
+			boardService.updateBoard(noticeBoardFormDto, noticeBoardImgFileList);
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "공지사항 수정 중 에러가 발생하였습니다.");
+			return "Notice/updateform";
+		}
+		
 		return "redirect:/ko/notice";
 	}
-//	
+	
 //	//QNA 페이지
 //    @GetMapping(value="/qna")
 //    public String qna(){

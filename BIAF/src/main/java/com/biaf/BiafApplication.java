@@ -16,6 +16,4 @@ public class BiafApplication {
 	public HiddenHttpMethodFilter hiddenHttpMethodFilter() {
 		return new HiddenHttpMethodFilter();
 	}
-
 }
-	

@@ -33,6 +33,18 @@ layout:decorate="~{layouts/layout1}">
                 margin-top: 50px;
                 border: 1px solid #0a537e;
                 border-radius: 5px;
+                display:flex;
+                flex-direction: column;
+                min-height: 800px;
+                
+            }
+            .container_2 > textarea{
+             display:block;
+            }
+            
+            .container_2 > img{
+            display:block;
+            
             }
             .container_3{
                 width: 100%;
@@ -41,6 +53,9 @@ layout:decorate="~{layouts/layout1}">
             }
             .text_area{
                 text-align: left;
+            }
+            .text_text{
+            min-height: 800px;
             }
             .title_text1 {
                 
@@ -105,6 +120,9 @@ layout:decorate="~{layouts/layout1}">
         border: none;
         outline: none;
         }
+        .textarea{
+        margin : auto;
+        }
             
         </style>
     </th:block> 
@@ -112,14 +130,14 @@ layout:decorate="~{layouts/layout1}">
    <div class="write_head">
        <h2>공지사항</h2>
    </div>
-   <form action="/notice/detail" method="GET"  role="form" >
-   <div class="text_content">
+   <form action="/notice/detail" method="GET"  role="form"  >
+   <div class="text_content" th:each="notice : ${noticeBoardFormDto}">
     <div class="container_1">
     
         <div class="title_area">
                     <div class="title_text1">
                           <a class="tt" style="border-right: 1px solid #0a537e; text-align: center;">제목</a>
-                          <input style="border: none; outline: none;"  th:value="${title}">
+                          <input style="border: none; outline: none;"  th:value="${notice.notice_title}">
                     </div>
                   <!--   <div class="title_text2">
                         
@@ -129,28 +147,43 @@ layout:decorate="~{layouts/layout1}">
                     </div> -->
         </div>
     </div>
-    <div class="container_2">
+    <div class="container_2" >
         <div class="text_area">
             <div class="text_text">
-                <img src="/FreeBoard/image/ghost.png" style="width: 100%"><textarea style="border: none; outline: none; resize: none;"  th:text="${content}"></textarea>
+            <div>
+                 <img style="width:50%; height:40%;" th:src="${notice.NoticeBoardImgDtoList.imgUrl}">	
+                   <input type="hidden" name="noticeImgIds" th:value="${notice.noticeImgIds}">
+                 
+           		</div>
+           		<div class="textarea">
+           		 
+           		 <textarea style="border: none; outline: none; resize: none;"  th:text="${notice.notice_content}" readonly></textarea>
+           		 </div>
             </div>
         </div>
         
        
     </div>
+    <div class="container_3">
+     
+    </div>
      <div class="write_btn">
      <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <button type="button" id="btn_2"><a href="/ko/notice/modify">수정하기</a></button>
+                <button type="button" id="btn_2"><a th:href="@{/ko/notice/modify/}+${notice.id}">수정하기</a></button>
                 
      </li>
     </div>
    </div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    </form>
-    <form th:action="@{/ko/notice/delete/{id}(id=${session.id})}" th:method="delete">
+    <form role="form" th:method="delete">
     <div class="write_btn">
-   <button type="submit"  id="btn_2">삭제하기</button>
+     <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+   <button type="submit" th:formaction="@{/ko/notice/delete/{id}(id=${noticeBoardFormDto.id})}"  id="btn_2">삭제하기</button>
+    <input type="hidden" name="noticeImgIds" th:value="${noticeBoardFormDto.noticeBoardImgDtoList.id}">
+    </li>
    </div>
+   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    </form>
 </div>   
 </div>

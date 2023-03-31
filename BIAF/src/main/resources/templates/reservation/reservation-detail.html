@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/layout1}">
+<th:block>
+   <script src="js/script.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+   <script>
+      $(function() {
+         $("#datepicker").datepicker();
+      });
+   </script>
+</th:block>
+
+<th:block layout:fragment="css">
+   <link rel="stylesheet" th:href="@{/css/style.css}">
+   <link rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+   <link rel="stylesheet" href="/resources/demos/style.css">
+   <link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+   <div class="cont_header"></div>
+   <form method="Get" action="/ko/reservation/detail}" role="form">
+
+      <div class="total" th:each="movie : ${movieResponseDto}"
+         th:if="${movie.id == movieids}">
+
+         <div class="movie-info">
+            <div class="img_box">
+               <div id="mv">
+                  <a href=""><img th:src="${movie.imgUrl}"></a>
+               </div>
+            </div>
+            <div class="sub1_content">
+               <div id="top">
+                  <h1 th:text="${movie.movieNm}"></h1>
+               </div>
+               <hr>
+               <div id="middle">
+                  <ul>
+                     <li>상영관 :</li>
+                     <li th:text="${movie.cinema}"></li>
+                     <li>상영 시간 :</li>
+                     <li th:text="${movie.movieTime}"></li>
+                  </ul>
+               </div>
+               <div id="middle">
+                  <ul>
+                     <li>상영 날짜 :</li>
+                     <li th:text="|${movie.StartDay} ~ 
+                           ${movie.endDay}|"></li>
+                     <li>영화 등급 :</li>
+                     <li th:text="${movie.grade}"></li>
+                  </ul>
+               </div>
+               <hr>
+               <div id="bottom">
+                  <ul>
+                     <li>가격 :</li>
+                     <li th:text="${movie.price}"></li>
+                  </ul>
+               </div>
+
+            </div>
+
+         </div>
+      </div>
+
+   </form>
+
+
+
+   <div class="movie-detail">
+      <div id="step1">
+         <ul>
+            <li><p style="color: red;">
+                  <b>STEP1</b>
+               </p>
+               <p>날짜 선택</p></li>
+         </ul>
+         <div id="calender">
+            <p>
+               Date: <input type="text" id="datepicker">&#xA0;
+            </p>
+         </div>
+      </div>
+
+      <div id="step2">
+         <ul>
+            <li><p style="color: red;">
+                  <b>STEP2</b>
+               </p>
+               <p>회차 선택</p></li>
+         </ul>
+         <div id="hour">
+            <ul>
+               <li><button type="submit">1회차 14시 00분</button></li>
+               <br>
+               <li><button type="submit">2회차 17시 00분</button></li>
+            </ul>
+         </div>
+      </div>
+
+      <div id="step3">
+         <ul>
+            <li><p style="color: red;">
+                  <b>STEP3</b>
+               </p>
+               <p>좌석표</p></li>
+         </ul>
+      </div>
+      <div id="step4">
+         <ul>
+            <li><p style="color: red;">
+                  <b>STEP4</b>
+               </p>
+               <p>결제</p></li>
+         </ul>
+
+         <div id="selection">
+            <button type="submit">다시 선택</button>
+            <button type="submit">예매</button>
+
+         </div>
+      </div>
+
+   </div>
+</div>
+
+
+</html>

@@ -1,33 +1,30 @@
 package com.biaf.entity;
 
- import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
+ import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 //import javax.persistence.GeneratedValue;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.biaf.dto.GoodsFormDto;
 import com.biaf.dto.NoticeBoardDto;
+import com.biaf.dto.NoticeBoardFormDto;
 
 import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name="NOTICE") 
 @Data
-@Getter
+@Getter @Setter
 public class NoticeBoard extends BaseTimeEntity {
 
 	@Id
-	@Column(name="notice_id")//, columnDefinition="numeric(19,0)"
+	@Column(name="notice_id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 //	private String notice_title;
@@ -36,11 +33,7 @@ public class NoticeBoard extends BaseTimeEntity {
 	
 	private String notice_content;
 	
-	private int fileAttached; // 1 또는 0
 	
-	@OneToMany(mappedBy = "noticeBoard", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
-	private List<BoardFileEntity> boardFileList = new ArrayList<>();
-
 	
 	public  static NoticeBoard createnoiticeBoard(NoticeBoardDto noiticeBoardDto) {
 		NoticeBoard noticeBoard = new NoticeBoard();
@@ -51,25 +44,12 @@ public class NoticeBoard extends BaseTimeEntity {
 
   }
 	
-	public static NoticeBoard toSaveEntity(NoticeBoardDto noticeBoardDto) {
-		NoticeBoard noticeBoard = new NoticeBoard();
-		noticeBoard.setId(noticeBoardDto.getId());
-		noticeBoard.setNotice_title(noticeBoardDto.getNotice_title());
-		noticeBoard.setNotice_content(noticeBoardDto.getNotice_content());
-		noticeBoard.setFileAttached(0);
-		return noticeBoard;
+	public void updateNoticeBoard(NoticeBoardFormDto noticeBoardFormDto) {
+		this.id = noticeBoardFormDto.getId();
+		this.notice_title = noticeBoardFormDto.getNotice_title();
+		this.notice_content = noticeBoardFormDto.getNotice_content();
+		
 	}
-	
-	public static NoticeBoard toSaveFileEntity(NoticeBoardDto noticeBoardDto) {
-		NoticeBoard noticeBoard = new NoticeBoard();
-		noticeBoard.setId(noticeBoardDto.getId());
-		noticeBoard.setNotice_title(noticeBoardDto.getNotice_title());
-		noticeBoard.setNotice_content(noticeBoardDto.getNotice_content());
-		noticeBoard.setFileAttached(1);
-		return noticeBoard;
-	}
-	
-	
 
 
 }

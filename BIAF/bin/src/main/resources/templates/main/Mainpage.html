@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>BIAF2023</title>
+	<meta name="author" content="Alvaro Trigo Lopez" />
+	<meta name="description" content="fullPage full-screen navigation and sections control menu." />
+	<meta name="keywords"  content="fullpage,jquery,demo,screen,fullscreen,navigation,control arrows, dots" />
+	<meta name="Resource-type" content="Document" />
+
+
+	<link rel="stylesheet" type="text/css" href="/mainpage/css/jquery.fullPage.css" />
+	<link rel="stylesheet" type="text/css" href="/mainpage/css/header.css"/>
+	<link rel="stylesheet" type="text/css" href="/mainpage/css/footer.css"/>
+	<link rel="stylesheet" type="text/css" href="/mainpage/css/mainpage.css"/>
+	<link rel="stylesheet" type="text/css" href="/mainpage/css/quickmenu.css"/>
+	
+	<!--[if IE]>
+		<script type="text/javascript">
+			 var console = { log: function() {} };
+		</script>
+	<![endif]-->
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
+	<script type="text/javascript" src="mainpage/js/scrolloverflow.js"></script>
+	<script type="text/javascript" src="mainpage/js/jquery.fullPage.js"></script>
+	<script type="text/javascript" src="/mainpage/js/mainpage.js"></script>
+	<script type="text/javascript" src="/js/search.js"></script>
+	<script type="text/javascript" src="/js/footer.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#fullpage').fullpage({
+				anchors: ['firstPage', 'secondPage', '3rdPage', 'footerPage'],
+				sectionsColor: [],
+				navigation: true,
+				navigationPosition: 'left',
+				navigationTooltips: ['First page', 'Second page', 'Third and last page', 'footer page']
+			});
+		});
+	</script>
+
+</head>
+<body style="background-image:url(mainpage/image/bg5.jpg)">
+<!-- 상단 헤더 부분 -->
+<div class="header"></div>
+
+<!-- 분문 부분 -->
+<div id="fullpage">
+<!-- 첫번째 영역 -->
+	<div class="section " id="section0">
+		<div class="intro">
+			<h1>Navigation dots</h1>
+			<p>An easy and beautiful way to navigate throw the sections</p>
+		</div>
+	</div>
+	<!-- 두번째 영역 -->
+	<div class="section" id="section1">
+	    <div class="slide" id="slide1">
+			<div class="intro">
+				<h1>Clickable</h1>
+				<p>
+					You can even click on the navigation and jump directly to another section.
+				</p>
+			</div>
+		</div>
+
+	    <div class="slide" id="slide2">
+			<h1>Slide 2</h1>
+		</div>
+
+	</div>
+	<!-- 세번째 영역 -->
+	<div class="section" id="section2">
+		<div class="intro">
+			<h1>Enjoy it</h1>
+		</div>
+	</div>
+	<!-- 풋터 부분 -->
+	<div id="footer" class="section fp-auto-height"></div>
+	</div>
+<!-- 퀵메뉴 부분 -->
+<div class="quickmenu"></div>
+</body>
+</html>
