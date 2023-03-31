@@ -7,14 +7,13 @@ layout:decorate="~{layouts/layout1}">
     <title></title>
  </head>
 
-<div layout:fragment="content" class="content">
-   <th:block>
-    <style>
+ <th:block layout:fragment="css">
+     <style>
         *{
             list-style: none;
         }
         .container{
-        	
+            
             min-height: 1000px;
             height: 100%;
             display: flex;
@@ -24,13 +23,13 @@ layout:decorate="~{layouts/layout1}">
             width: 520px;
         }
         .container_1{
-        	margin-top:40px;
+            margin-top:40px;
             height: 20%;
             flex-direction: column;
             width: 50%;
             margin-bottom: 10px;
             text-align: left;
-           
+            
         }
         .container_2{
             height: 60%;
@@ -45,14 +44,14 @@ layout:decorate="~{layouts/layout1}">
             width: 50%;
             margin-bottom: 10px;
             text-align: left;
-           
+            
         }
-         .container_4{
+        .container_4{
             height: 20%;
             width: 100%;
             margin-top: 20px;
             text-align: right;
-           
+            
         }
         .title_size{
             width: 512px;
@@ -66,37 +65,38 @@ layout:decorate="~{layouts/layout1}">
         }
         #btn_1{
             border: none;
-           background-color: #0a537e;
+            background-color: #0a537e;
             width: 60px;
             height: 35px;
             border-radius: 3px;
             color: white;
-           
+            
         }
         #btn_1> a{
-           
+            
             color: white;
-           
+            
         }
-       
-
-   
-    </style>
+        
+        
+        
+        </style>
     </th:block>
-   
-     <div class="container">
+    
+    <div layout:fragment="content">
+    <div class="container">
         <div class="write_head">
-        <h1>글 작성</h1>
+            <h1>글 작성</h1>
         </div>
-       
-         <form th:action="@{'/ko/notice/update/'+${session.id}}" th:method="PUT"  role="form" th:object="${noticeBoardDto}">
-         
-           <div class="container_1">
-            <div class="write_area">
+        
+        <form method="POST"  role="form" th:object="${noticeBoardDto}" enctype="multipart/form-data">
+            
+            <div class="container_1">
+                <div class="write_area">
                     <div class="title_text">
-                     
-                       <label for="title">글 제목</label>
-                        <input type="text"  name="title" class="title_size" th:value="${session.title}" >  <!--   -->
+                        
+                        <label for="title">글 제목</label>
+                        <input type="text" class="title_size" th:field="*{notice_title}" placeholder="제목을 입력해주세요">  <!--   -->
                     </div>
                 </div>
             </div>
@@ -104,17 +104,20 @@ layout:decorate="~{layouts/layout1}">
                     <div class="write_text">
                    
                         <label for="write">글 내용</label>
-                        <textarea cols="71"  name="content" rows="30" th:text="${session.content}" ></textarea> <!--  -->
+                        <textarea cols="71" rows="30" th:field="*{notice_content}"  placeholder="내용을 입력하세요"></textarea> <!--  -->
                     </div>
                    </div>
-             <div class="container_3">
-                      <input type="file" class="file_up" name="SelectFile" />
+            	<div class="container_3">
+                      <input type="file" class="file_up" name="boardFile" />
                 </div>
                 <div class="container_4">
-                        <button type="submit" id="btn_1">글작성</button>
+                        <button th:formaction="@{/ko/notice/write}" type="submit" id="btn_1">글작성</button>
                 </div>
               <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                </form>  
+             
+                
+          	
         </div>
        
 </div>

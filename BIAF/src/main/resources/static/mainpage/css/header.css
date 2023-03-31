@@ -59,12 +59,12 @@ li{
     color:black;
 }
 #nav_sub ul{
-	min-width: 110px;
-	text-aling: center;
+	min-width: 150px;
+	text-align: center;
 	padding: 0;
 	margin: 0;
 	display:flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 }
 /* 검색바 부분 */
 #search{

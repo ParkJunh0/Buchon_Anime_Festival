@@ -11,56 +11,23 @@
 <th:block layout:fragment="css">
 	<style>
 #wrap {
-	width: 1024px;
-	margin: 0 auto;
-	margin-top: 200px;
-	/*            border: 1px solid blue;*/
+	width: 100%;
+	margin-bottom: 150px;
 	position: relative;
 	top: 50px;
 }
 
 #section {
-	position: relative;
-	display: block;
-}
-
-#section #aside {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 150px;
-	height: 400px;
-	/*            border: 1px solid green;*/
-}
-
-#section #aside li {
-	list-style: none;
-}
-
-.dep1 {
-	padding-left: 10px;
-}
-
-.dep2 {
-	padding-left: 30px;
-}
-
-.dep2 li {
-	width: 100%;
-	height: 30px;
-}
-
-.dep1 a {
-	text-decoration: none;
-	color: #444;
+	margin: 0 auto;
+	display: flex;
+	justify-content: space-evenly;
 }
 
 #slide {
-	position: absolute;
 	left: 150px;
 	top: 0;
-	width: 874px;
-	height: 400px;
+	min-width: 1000px;
+	min-height: 400px;
 }
 
 .container {
@@ -84,7 +51,6 @@
 	min-height: 100px;
 	height: 40%;
 	flex-direction: column;
-	margin-left: 150px;
 }
 
 .title {
@@ -92,18 +58,20 @@
 	/*text-align: center;*/
 	/*    margin-top: 100px;*/
 }
-
+.board_line{
+	max-height: 50px;
+}
 .board_line td, th {
 	border-bottom: 1px solid #A4A4A4;
 	padding: 10px;
 }
 
 .sub_head {
-	margin-top: 30px;
+	min-height: 250px;
+   	margin-top: 30px;
 }
 
 .mv_management {
-	height: 80px;
 	margin-top: 30px;
 	width: 100%;
 	border-top: 1px solid #A4A4A4;
@@ -190,10 +158,6 @@
 	text-decoration: none;
 }
 
-.page_wrap {
-	margin-top: 50px;
-}
-
 .btn_range {
 	text-align: right;
 }
@@ -203,26 +167,12 @@
 
 
 <div layout:fragment="content">
-
+	<div class="cont_header"></div>
 	<div id="wrap">
-
 		<div id="section">
-			<div id="aside">
-				<ul class="dep1">
-					<h2>관리자메뉴</h2>
-					<br>
-					<ul class="dep2">
-						<li><a href="/ko/memberList">회원관리</a></li>
-						<li><a href="#">게시판관리</a></li>
-						<li><a href="/ko/movieMng">영화등록관리</a></li>
-						<li><a href="#">굿즈관리</a></li>
-						<li><a href="#">배너관리</a></li>
-						<li><a href="/ko/reservationadmin">예매관리</a></li>
-					</ul>
-				</ul>
-			</div>
-			<form method="Get" action="/ko/movieMng" role="form">
-				<div id="slide">
+			<div id="sidenav"></div>
+			<form id="slide" method="Get" action="/ko/movieMng" role="form">
+				<div>
 
 					<div class="container">
 						<div class="container_2">
@@ -269,7 +219,7 @@
 							<div class="btn_range">
 
 								<button type="submit" class="reg_Btn"
-									th:formaction="@{/ko/movieForm}">등록</button>
+									th:formaction="@{/ko/admin/movieForm}">등록</button>
 							</div>
 						</div>
 

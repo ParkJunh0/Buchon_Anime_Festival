@@ -1,5 +1,6 @@
 package com.biaf.service;
 
+import java.nio.file.Files;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -13,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.biaf.dto.MovieFormDto;
 import com.biaf.dto.MovieImgDto;
 import com.biaf.dto.MovieResponseDto;
-import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
 import com.biaf.entity.MovieImg;
 import com.biaf.repository.MovieImgRepository;
@@ -29,6 +29,7 @@ public class MovieService {
 	private final MovieRepository movieRepository;
 	private final MovieImgService movieImgService;
 	private final MovieImgRepository movieImgRepository;
+//	private final FileService fileService;
 
 	public Long saveMovie(MovieFormDto movieFormDto, MultipartFile movieImgFileList) throws Exception {
 		// 영화 등록
@@ -79,9 +80,9 @@ public class MovieService {
 		movieRepository.deleteById(id);
 		movieImgRepository.deleteById(imgId);
 	}
-	
 
 	   public Page<Movie> mvList(Pageable pageable){ //영화리스트조회,페이징
         return movieRepository.findAll(pageable);
      }
+	   
 }

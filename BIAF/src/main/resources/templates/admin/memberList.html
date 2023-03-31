@@ -11,48 +11,20 @@
    <th:block layout:fragment="css">
       <style>
       #wrap {
-         width: 1024px;
-         margin: 0 auto;
-         margin-top: 80px;      
+         width:100%;
+         margin-bottom: 150px;      
          position: relative;
          top: 50px;
       }
-      
-      
-      #section #aside {
-         position: absolute;
-         width: 150px;
-         border: 1px solid green;
-         margin-left:-150px;
+      #section {
+         margin: 0 auto;
+         display: flex;
+         justify-content: space-evenly;
       }
-      
-      #section #aside li {
-         list-style: none;
-      }
-      
-      .dep1 {
-         padding-left: 10px;
-      }
-      
-      .dep2 {
-         padding-left: 30px;
-      }
-      
-      .dep2 li {
-         width: 100%;
-         height: 30px;
-      }
-      
-      .dep1 a {
-         text-decoration: none;
-         color: #444;
-      }
-      
       #slide {
-         position: absolute;
          left: 150px;
          top: 0;
-         width: 874px;
+         min-width: 1000px;
          height: 400px;
          
       }
@@ -61,7 +33,6 @@
          flex-direction: column;
          display: flex;
          align-items: center;
-         margin-left:-200px;
       }
       
       .container_1 {
@@ -79,13 +50,10 @@
          min-height: 100px;
          height: 40%;
          flex-direction: column;
-         margin-left: 150px;
       }
       
       .title {
          margin: 0 auto;
-         /*text-align: center;*/
-         /*    margin-top: 100px;*/
       }
       
       .board_line td, th {
@@ -214,24 +182,10 @@
 
 
 <div layout:fragment="content">
-
+   <dvi class="cont_header"></dvi>
    <div id="wrap">
-
       <div id="section">
-         <div id="aside">
-            <ul class="dep1">
-               <h2>관리자메뉴</h2>
-               <br>
-               <ul class="dep2">
-                      <li><a href="/ko/memberList">회원관리</a></li>
-                            <li><a href="#">게시판관리</a></li>
-                            <li><a href="/ko/movieMng">영화등록관리</a></li>
-                            <li><a href="#">굿즈관리</a></li>
-                            <li><a href="#">배너관리</a></li>
-                            <li><a href="/ko/reservationadmin">예매관리</a></li>
-               </ul>
-            </ul>
-         </div>
+         <div id="sidenav"></div>
          <form method="Get" action="/ko/memberList" role="form" >
          <div id="slide">
          
@@ -290,7 +244,7 @@
             <div class="close">
             <div class="modal_del">회원을 삭제시키시겠습니까?</div>
             
-         <form th:action="@{/ko/memdelete}" class="delete_form" th:method="delete"> 
+         <form th:action="@{/ko/admin/memdelete}" class="delete_form" th:method="delete"> 
           <div class="info_submit">
                 <button type="submit" class="del" id="close" >탈퇴</button>
                 <input class="hidden_id" type="hidden" name="id">

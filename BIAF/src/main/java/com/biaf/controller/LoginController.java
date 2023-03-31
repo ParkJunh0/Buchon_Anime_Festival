@@ -1,5 +1,6 @@
 package com.biaf.controller;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.biaf.constant.Role;
 import com.biaf.dto.MemberFormDto;
 import com.biaf.entity.Member;
 import com.biaf.service.MemberService;
@@ -29,6 +31,43 @@ public class LoginController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder; 
 	
+	@PostConstruct
+	   //계정 생성
+	   private void createAdmin() {
+	      //관리자
+		boolean check = memberService.findById("admin@test.com");
+		if(check)
+			return;
+	      MemberFormDto memberFormDto = new MemberFormDto();
+	      memberFormDto.setMemberEmail("admin@test.com");
+	      memberFormDto.setMemberPassword("123123123");
+	      memberFormDto.setMemberName("관리자");
+	      memberFormDto.setMemberTel("010-0000-0000");
+	     
+	      
+	      Member member = Member.createMember(memberFormDto , passwordEncoder);
+	      String password = passwordEncoder.encode(memberFormDto.getMemberPassword());
+	      member.setMemberPassword(password);
+	      member.setRole(Role.ADMIN);
+	      memberService.saveMember(member);
+	      
+	
+		for(int i=1; i<10; i++) { //회원생성
+			check = memberService.findById("test"+i+"@test.com");
+			if(check)
+				return;
+			
+		      memberFormDto.setMemberEmail("test"+i+"@test.com");
+		      memberFormDto.setMemberPassword("123123123");
+		      memberFormDto.setMemberName("테스트"+i);
+		      memberFormDto.setMemberTel("010-0000-000"+i);
+		      member = Member.createMember(memberFormDto , passwordEncoder);
+		      password = passwordEncoder.encode(memberFormDto.getMemberPassword());
+		      member.setMemberPassword(password);
+		      member.setRole(Role.USER);
+		      memberService.saveMember(member);
+			}
+		}
 	@GetMapping(value="/login")
 	public String login() {
 		return "login/memberlogin";

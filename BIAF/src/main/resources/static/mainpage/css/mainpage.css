@@ -28,3 +28,13 @@ h1{
 #footer{
     bottom: 0px;
 }
+.testsection{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.test{
+    width: 550px;
+    height: 400px;
+    background: black;
+}

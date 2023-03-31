@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.biaf.dto.MemberFormDto;
 import com.biaf.dto.MemberResponseDto;
 import com.biaf.entity.Member;
 import com.biaf.repository.MemberRepository;
@@ -31,12 +32,16 @@ public class MemberService implements UserDetailsService {
 	}
 
 	
-	  private void validateDuplicateMember(Member member) { // TODO Auto-generated
-	  Member findMember =memberRepository.findByMemberEmail(member.getMemberEmail()); 
-	  if(findMember !=null) {
+	 private void validateDuplicateMember(Member member) { // TODO Auto-generated
+	 Member findMember =memberRepository.findByMemberEmail(member.getMemberEmail()); 
+	 if(findMember !=null) {
 		  throw new IllegalStateException("이미 가입된 회원입니다"); 
 		  }
 	  }
+	  
+	  public Member updateMember(Member member) { //마이페이지 수정
+			return memberRepository.save(member);
+		}  
 	 
 
 	@Override
@@ -55,13 +60,32 @@ public class MemberService implements UserDetailsService {
 				
 	}
 	
-	public List<MemberResponseDto> findAll(){
-		return MemberResponseDto.createMemberDto(memberRepository.findAll());
-	}
-
-	   public Page<Member> memList(Pageable pageable){ //멤버전체조회,페이징
-           return memberRepository.findAll(pageable);
-        }
 	
+	public boolean findById(String memberEmail) { //ID(이메일)체크
+		return memberRepository.existsByMemberEmail(memberEmail);
+	}
+	
+	public Page<Member> memList(Pageable pageable){ //멤버조회,페이징
+		return memberRepository.findAll(pageable);
+	 }
 
+	public void memDelete(Long memberId) { //관리자가 멤버삭제
+		 memberRepository.deleteById(memberId);
+		 
+	 }
+ 
+	 public MemberFormDto mypagefindByMemberEmail(String memberEmail) { //마이페이지 내정보 가져오기
+		 Member mem = memberRepository.findByMemberEmail(memberEmail);
+		 if (mem != null)
+			 return MemberFormDto.createMemberFormDto(mem);
+		 return null;
+	 }
+	 
+	 public Member findByEmail(String email) {  //마이페이지 수정
+		   return memberRepository.findByMemberEmail(email);
+	   }
+  
+	 public void deletemember(String memberEmail) { //회원탈퇴
+		 memberRepository.deleteByMemberEmail(memberEmail);
+	 }
 }
