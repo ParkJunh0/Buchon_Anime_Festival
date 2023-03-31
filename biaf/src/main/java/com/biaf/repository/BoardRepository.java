@@ -1,9 +1,9 @@
-package com.biaf.repository;
+// package com.biaf.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+// import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.biaf.entity.NoticeBoard;
+// import com.biaf.entity.NoticeBoard;
 
-public interface BoardRepository extends JpaRepository<NoticeBoard, Long>{
+// public interface BoardRepository extends JpaRepository<NoticeBoard, Long>{
 
-}
+// }

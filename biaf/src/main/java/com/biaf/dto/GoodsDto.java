@@ -36,8 +36,8 @@ public class GoodsDto {
             goodsDto.id = gd.getId(); 
             goodsDto.goodsNm = gd.getGoods().getGoodsNm(); 
             goodsDto.imgUrl = gd.getImgUrl(); 
-            goodsDto.price = gd.getGoods().getPrice(); 
-           
+            goodsDto.price = gd.getGoods().getPrice();
+            goodsDto.goodsDetail = gd.getGoods().getGoodsDetail();           
           
            mvResDtoList.add(goodsDto);
   

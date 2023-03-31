@@ -25,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Member extends baseEntity {
+public class Member extends BaseEntity {
 
 	@Id
 	@Column(name="member_id")
@@ -42,7 +42,8 @@ public class Member extends baseEntity {
 	private String memberAddress; // 주소
 	/*
 	 * private String memberLoc; // 성별
-	 */	private String postcode; //우편번호
+	 */	
+	private String postcode; //우편번호
 	private String wRestAddress; //상세주소
 	private String memberTel; // 전화번호
 	
@@ -56,20 +57,21 @@ public class Member extends baseEntity {
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
 		System.out.println(memberFormDto.getMemberAddress());
-		  member.setMemberName(memberFormDto.getMemberName()); // 이름
-		  
-		  member.setMemberEmail(memberFormDto.getMemberEmail()); // 이메일
-		  member.setMemberAddress(memberFormDto.getMemberAddress()); //주소
-		  member.setWRestAddress(memberFormDto.getWRestAddress()); //나머지 주소
-		  member.setPostcode(memberFormDto.getPostcode());//우편번호
-		  member.setMemberTel(memberFormDto.getMemberTel()); //전화번호
-			/*
-			 * member.setMemberLoc(memberFormDto.getMemberLoc()); //성별
-			 */		  String passwrod =passwordEncoder.encode(memberFormDto.getMemberPassword()); // 비밀번호
-		  member.setMemberPassword(passwrod);
-		  member.setRole(Role.ADMIN);
-		  return member;
-		  
+		member.setMemberName(memberFormDto.getMemberName()); // 이름
+
+		member.setMemberEmail(memberFormDto.getMemberEmail()); // 이메일
+		member.setMemberAddress(memberFormDto.getMemberAddress()); // 주소
+		member.setWRestAddress(memberFormDto.getWRestAddress()); // 나머지 주소
+		member.setPostcode(memberFormDto.getPostcode());// 우편번호
+		member.setMemberTel(memberFormDto.getMemberTel());
+		// 전화번호
+		/*
+		 * member.setMemberLoc(memberFormDto.getMemberLoc()); //성별
+		 */ String passwrod = passwordEncoder.encode(memberFormDto.getMemberPassword()); // 비밀번호
+		member.setMemberPassword(passwrod);
+		member.setRole(Role.ADMIN);
+		return member;
+
 	}
 	 
 	

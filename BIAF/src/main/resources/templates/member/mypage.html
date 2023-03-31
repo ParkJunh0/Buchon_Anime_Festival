@@ -6,6 +6,16 @@ layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="script">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function kakaopost() {
+			new daum.Postcode({
+				oncomplete : function(data) {
+					document.querySelector("#postcode").value = data.zonecode;
+					document.querySelector("#address").value = data.address;
+				}
+			}).open();
+		}
+	</script>
 </th:block>
 <th:block layout:fragment="css">    
    <link rel="stylesheet" href="/login/css/button.css">
@@ -80,7 +90,8 @@ layout:decorate="~{layouts/layout1}">
                     <h2>마이페이지</h2>
                        <br>
                         <ul class="dep2">
-                            <li><a href="/ko/memberedit">회원정보수정</a></li>
+                            <li><a href="/ko/mypage/{memberId}">회원정보</a></li>
+                            <!-- <li><a href="/ko/myedit">회원정보수정</a></li> -->
                             <li><a href="/ko/cart">장바구니</a></li>
                             <li><a href="#">상품구매내역</a></li>
                             <li><a href="#">티켓예매/취소</a></li>
@@ -95,12 +106,12 @@ layout:decorate="~{layouts/layout1}">
    
 
     
-    <!-- <form method="post" action="#" role="form" th:object="${memberFormDto}"> -->
+    <form method="post" action="#" role="form" th:object="${memberFormDto}"> 
 		<div class="all">
 			<table>
 				<tr>
 					<td><p>이메일</p></td>
-					<td><input type="email" name="memberEmail"></td>
+					<td><input type="email" name="memberEmail" th:field="*{memberEmail}" readonly></td>
 				</tr>
 				<tr>
 					<td><p>비밀번호</p></td>
@@ -112,7 +123,7 @@ layout:decorate="~{layouts/layout1}">
 				</tr> -->
 				<tr>
 					<td><p>이름</p></td>
-					<td><input type="text" name="memberName"></td>
+					<td><input type="text" name="memberName" th:field="*{memberName}"></td>
 				</tr>
 				<!-- <tr>
 					<td><p>성별</p></td>
@@ -123,27 +134,27 @@ layout:decorate="~{layouts/layout1}">
 				</tr> -->
 				<tr>
 					<td><p>전화번호</p></td>
-					<td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}"></td>
+					<td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}" th:field="*{memberTel}"></td>
 				</tr>
 				
 				<tr>
 					<td><p>주소</p></td>
 					<td><input type="text" size="10" name="postcode" id="postcode"
-						placeholder="우편번호" readonly="readonly" onclick="kakaopost()">
+						placeholder="우편번호" readonly="readonly" onclick="kakaopost()" th:field="*{postcode}">
 						<input type="button" onclick="kakaopost()" value="우편번호 찾기">
 						<br> <input type="text" name="memberAddress" id="address"
-						placeholder="도로명주소" readonly="readonly" onclick="kakaopost()">
-						<input type="text" name="wRestAddress" placeholder="나머지 주소"></td>
+						placeholder="도로명주소" readonly="readonly" onclick="kakaopost()" th:field="*{memberAddress}">
+						<input type="text" name="wRestAddress" placeholder="나머지 주소" th:field="*{wRestAddress}"></td>
 				</tr>
 			</table>
 		<div id="nb">		
 		 <button type = "submit"  class="btn_order">수정하기</button>
 		</div>
-<!-- 	</form> -->
-    
+		</div>
+ 	</form> 
             </div>
         </div>
     </div>
-</div>
-</div>
+    </div>
+
 </html>

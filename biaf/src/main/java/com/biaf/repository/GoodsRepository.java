@@ -7,6 +7,7 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import com.biaf.entity.Goods;
 
-public interface GoodsRepository extends JpaRepository<Goods, Long>, QuerydslPredicateExecutor<Goods>, GoodsRepositoryCustom  {
+public interface GoodsRepository extends JpaRepository<Goods, Long>, QuerydslPredicateExecutor<Goods>{
+    
     List<Goods> findByGoodsNm(String goodsNm);
 }

@@ -18,7 +18,7 @@ import lombok.Setter;
 @Entity
 @Table(name="goods_img")
 @Getter @Setter
-public class GoodsImg extends baseEntity {
+public class GoodsImg extends BaseEntity {
 
     @Id
     @Column(name = "goods_img_id")

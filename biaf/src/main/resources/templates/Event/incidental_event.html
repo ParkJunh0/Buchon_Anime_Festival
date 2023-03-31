@@ -1,234 +1,234 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
-<style>
-    #content_event ul,
-    #content_event li {
-        list-style: none;
-    }
+    <style>
+        #content_event ul,
+        #content_event li {
+            list-style: none;
+        }
 
 
-    #content_event {
-        position: relative;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
+        #content_event {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    h3.conTit {
-        padding-top: 54px;
-        color: #000;
-        font-size: 36px;
-        text-align: center;
-    }
+        h3.conTit {
+            padding-top: 54px;
+            color: #000;
+            font-size: 36px;
+            text-align: center;
+        }
 
-    .conTit+.tabMenu {
-        margin-top: 40px;
-    }
+        .conTit+.tabMenu {
+            margin-top: 40px;
+        }
 
-    .tabMenu {
-        text-align: center;
-    }
+        .tabMenu {
+            text-align: center;
+        }
 
-    .tabMenu ul {
-        display: table;
-        table-layout: fixed;
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: 36px;
-        font-size: 0;
-    }
+        .tabMenu ul {
+            display: table;
+            table-layout: fixed;
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 36px;
+            font-size: 0;
+        }
 
-    .tabMenu ul li.active {
-        background-color: #4a5bbf;
-        border-color: #4a5bbf;
-        /* -webkit-transition: background 0.3s;
-    -o-transition: background 0.3s;
-    -moz-transition: background 0.3s;*/
-        transition: background 0.3s;
-    }
+        .tabMenu ul li.active {
+            background-color: #4a5bbf;
+            border-color: #4a5bbf;
+            transition: background 0.3s;
+        }
 
-    .tabMenu ul li {
-        display: table-cell;
-        border: 1px solid #e0e0e0;
-    }
+        .tabMenu ul li {
+            display: table-cell;
+            border: 1px solid #e0e0e0;
+        }
 
-    .tabMenu ul li.active a
-        {
-        color: #fff;
-    }
-    
-    
-
-    .tabMenu ul li a {
-        display: block;
-        padding: 15px 0;
-        line-height: 26px;
-        border-left: 0 none;
-        font-size: 15px;
-        box-sizing: border-box;
-    }
-
-    #content_event a:link,
-    #content_event a:visited {
-        text-decoration: none;
-        color: black;
-    }
-
-    #content_event a:hover {
-        text-decoration: underline;
-    }
-
-    .content_event {
-        max-width: 1024px;
-        margin: 0 auto;
-        padding: 64px 40px;
-        text-align: left;
-    }
-
-    .addEvent {
-        margin-bottom: 54px;
-    }
-
-    .addEvent .hoWrap {
-        display: flex;
-        width: 100%;
-        margin: 26px 0 0 0;
-    }
-
-    .addEvent .hoWrap .img {
-        flex-shrink: 0;
-        width: 42%;
-        text-align: center;
-    }
-
-    .addEvent .img {
-        margin-top: 10px;
-    }
-
-    #content_event  img {
-        max-width: 100%;
-        vertical-align: top;
-        border: 0 none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .addEvent .hoWrap .txt {
-        flex-grow: 1;
-        padding-left: 4%;
-    }
-
-    .addEvent .hoWrap .txt p.pcTxt {
-        padding-left: 10px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid #dcdcdc;
-    }
-
-    .addEvent p {
-        margin-top: 5px;
-        font-size: 1.25em;
-        color: #888;
-    }
-
-    .addEvent .hoWrap .txt p.pcTxt strong {
-        display: block;
-        color: #333;
-        font-size: 24px;
-    }
-
-    .addEvent ul {
-        margin: 26px 0 0 10px;
-    }
-
-    .addEvent ul li {
-        margin-top: 6px;
-        padding-left: 10px;
-        line-height: 1.6;
-    }
-
-    .addEvent.topBorder {
-        padding-top: 28px;
-        border-top: 1px solid #e0e3ec;
-    }
+        .tabMenu ul li.active a {
+            color: #fff;
+        }
 
 
-    .addEvent .hoWrap .txt p.pcTxt span {
-        display: block;
-        margin-top: 8px;
-        color: #7b7b7b;
-        font-size: 16px;
-    }
-    
-    #txt{
-        padding: 0px;
-    }
-    
-   
-</style>
+
+        .tabMenu ul li a {
+            display: block;
+            padding: 15px 0;
+            line-height: 26px;
+            border-left: 0 none;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        #content_event a:link,
+        #content_event a:visited {
+            text-decoration: none;
+            color: black;
+        }
+
+        #content_event a:hover {
+            text-decoration: underline;
+        }
+
+        .content_event {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 64px 40px;
+            text-align: left;
+        }
+
+        .addEvent {
+            margin-bottom: 54px;
+        }
+
+        .addEvent .hoWrap {
+            display: flex;
+            width: 100%;
+            margin: 26px 0 0 0;
+        }
+
+        .addEvent .hoWrap .img {
+            flex-shrink: 0;
+            width: 42%;
+            text-align: center;
+        }
+
+        .addEvent .img {
+            margin-top: 10px;
+        }
+
+        #content_event img {
+            max-width: 100%;
+            vertical-align: top;
+            border: 0 none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .addEvent .hoWrap .txt {
+            flex-grow: 1;
+            padding-left: 4%;
+        }
+
+        .addEvent .hoWrap .txt p.pcTxt {
+            padding-left: 10px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #dcdcdc;
+        }
+
+        .addEvent p {
+            margin-top: 5px;
+            font-size: 1.25em;
+            color: #888;
+        }
+
+        .addEvent .hoWrap .txt p.pcTxt strong {
+            display: block;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .addEvent ul {
+            margin: 26px 0 0 10px;
+        }
+
+        .addEvent ul li {
+            margin-top: 6px;
+            padding-left: 10px;
+            line-height: 1.6;
+        }
+
+        .addEvent.topBorder {
+            padding-top: 28px;
+            border-top: 1px solid #e0e3ec;
+        }
+
+
+        .addEvent .hoWrap .txt p.pcTxt span {
+            display: block;
+            margin-top: 8px;
+            color: #7b7b7b;
+            font-size: 16px;
+        }
+
+        #txt {
+            padding: 0px;
+        }
+    </style>
 </th:block>
 <div layout:fragment="content">
-<div class="cont_header">
-	</div>
-        <div id="content_event">
-            <h3 class="conTit">부대행사</h3>
-            <nav class="tabMenu">
+    <div class="cont_header">
+    </div>
+    <div id="content_event">
+        <h3 class="conTit">부대행사</h3>
+        <nav class="tabMenu">
 
-                <ul class="colum2">
-                    <li class="active tabList1"><a style="color:white" href="/ko/incidental_event">부대행사</a></li>
-                    <li class="tabList2"><a href="/ko/incidental_event2">11초 애니메이션영화제</a></li>
-                </ul>
-            </nav>
-            <div class="content_event">
-                <!-- content -->
-                <article class="programView">
+            <ul class="colum2">
+                <li class="active tabList1">
+                    <a style="color:white" href="/ko/incidental_event">부대행사</a>
+                </li>
+                <li class="tabList2">
+                    <a href="/ko/incidental_event2">11초 애니메이션영화제</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="content_event">
+            <!-- content -->
+            <article class="programView">
 
-                    <div class="addEvent">
-                        <div class="hoWrap">
-                            <div class="img BorderNone"><img alt="" src="/image/img_event2022_01.jpg"></div>
-                            <div class="txt">
-                                <p class="pcTxt"><strong>애니락 인 부천</strong></p>
-                                <ul id="txt">
-                                    <li>일시: 2022. 10. 22.(토)</li>
-                                    <li>장소: 한국만화박물관 상영관</li>
-                                    <li>공연자: 스텔라장, 우원재, 지소울, 페퍼톤스</li>
-                                    <li>사회자: 장선영 아나운서</li>
-                                </ul>
-                            </div>
+                <div class="addEvent">
+                    <div class="hoWrap">
+                        <div class="img BorderNone"><img alt="" src="/image/img_event2022_01.jpg"></div>
+                        <div class="txt">
+                            <p class="pcTxt"><strong>애니락 인 부천</strong></p>
+                            <ul id="txt">
+                                <li>일시: 2022. 10. 22.(토)</li>
+                                <li>장소: 한국만화박물관 상영관</li>
+                                <li>공연자: 스텔라장, 우원재, 지소울, 페퍼톤스</li>
+                                <li>사회자: 장선영 아나운서</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="addEvent topBorder">
-                        <div class="hoWrap">
-                            <div class="img BorderNone"><img alt="" src="/image/img_event2022_03.jpg"></div>
-                            <div class="txt">
-                                <p class="pcTxt"><strong>제4회 BIAF e-스포츠 대회</strong><span>e-스포츠의 건전한 게임 문화 조성, 관람 문화, 게임 문화 인식 개선 및 가족과 함께 즐길 수 있는 e-스포츠 문화 축제</span></p>
-                                <ul id="txt">
-                                    <li>일 시: 2022. 10. 22.(토)</li>
-                                    <li>장 소: 한국만화박물관 1층 로비</li>
-                                    <li>종 목: 넥슨 카트라이더 (모바일)</li>
-                                    <li>경기방식: 토너먼트 방식(*연령 제한 없음)</li>
-                                </ul>
-                            </div>
+                </div>
+                <div class="addEvent topBorder">
+                    <div class="hoWrap">
+                        <div class="img BorderNone"><img alt="" src="/image/img_event2022_03.jpg"></div>
+                        <div class="txt">
+                            <p class="pcTxt"><strong>제4회 BIAF e-스포츠 대회</strong><span>e-스포츠의 건전한 게임 문화 조성, 관람 문화, 게임 문화
+                                    인식 개선 및 가족과 함께 즐길 수 있는 e-스포츠 문화 축제</span></p>
+                            <ul id="txt">
+                                <li>일 시: 2022. 10. 22.(토)</li>
+                                <li>장 소: 한국만화박물관 1층 로비</li>
+                                <li>종 목: 넥슨 카트라이더 (모바일)</li>
+                                <li>경기방식: 토너먼트 방식(*연령 제한 없음)</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="addEvent topBorder">
-                        <div class="hoWrap">
-                            <div class="img BorderNone"><img alt="" src="/image/img_event2022_02.jpg"></div>
-                            <div class="txt">
-                                <p class="pcTxt"><strong>제4회 나도 감독! '11초 애니메이션영화제'</strong><span>모두가 애니메이션을 만들 수 있다’라는 취지 아래 일반, 청소년 등 아마추어 대상으로 쉽게 찾아가는 애니메이션영화제 행사</span></p>
-                                <ul id="txt">
-                                    <li>시상 일시: 2022. 10. 23.(일) 11:00</li>
-                                    <li>상영 일시: 2022. 10. 23.(일) 12:00 </li>
-                                    <li>장소: 한국만화박물관 상영관</li>
-                                </ul>
-                            </div>
+                </div>
+                <div class="addEvent topBorder">
+                    <div class="hoWrap">
+                        <div class="img BorderNone"><img alt="" src="/image/img_event2022_02.jpg"></div>
+                        <div class="txt">
+                            <p class="pcTxt"><strong>제4회 나도 감독! '11초 애니메이션영화제'</strong><span>모두가 애니메이션을 만들 수 있다’라는 취지 아래
+                                    일반, 청소년 등 아마추어 대상으로 쉽게 찾아가는 애니메이션영화제 행사</span></p>
+                            <ul id="txt">
+                                <li>시상 일시: 2022. 10. 23.(일) 11:00</li>
+                                <li>상영 일시: 2022. 10. 23.(일) 12:00 </li>
+                                <li>장소: 한국만화박물관 상영관</li>
+                            </ul>
                         </div>
                     </div>
-                </article>
-                <!-- //content -->
-            </div>
+                </div>
+            </article>
+            <!-- //content -->
         </div>
+    </div>
 </div>
+
 </html>

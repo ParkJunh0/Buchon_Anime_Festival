@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
@@ -16,7 +16,6 @@ layout:decorate="~{layouts/layout1}">
     	alert("탈퇴동의에 체크해주세요");
     	}
     }
-    
     </script>
   </th:block>
 <th:block layout:fragment="css">
@@ -91,14 +90,14 @@ layout:decorate="~{layouts/layout1}">
 <div layout:fragment="content">
    <div class="himg" style="width: 100%; height: 70px;"></div>  
     <div id="wrap">
-        
+        <form role="form" method="post" id="delform"  th:object="${MemberFormDto}">
         <div id="section">
             <div id="aside">
                 <ul class="dep1">
                     <h2>마이페이지</h2>
                        <br>
                         <ul class="dep2">
-                            <li><a href="/ko/memberedit">회원정보수정</a></li>
+                            <li><a href="/ko/mypage">회원정보수정</a></li>
                             <li><a href="/ko/cart">장바구니</a></li>
                             <li><a href="#">상품구매내역</a></li>
                             <li><a href="#">티켓예매/취소</a></li>
@@ -135,15 +134,19 @@ layout:decorate="~{layouts/layout1}">
             <option value="6">방문빈도가 낮음</option>
             <option value="7">개인 정보유출 우려</option>
         </select><br><br><br>
-        <input type="checkbox" name="chkSelect">해당 내용을 모두 확인했으며, 회원탈퇴에 동의합니다.
-        
-        <div id="nb">
-           <a> <button type = "button"  class="btn_order"  style="margin:10px;" onClick="Check();">탈퇴하기</button></a>
- 		  <a href="/ko"> <button type = "button"  class="btn_order"  style="margin:10px;">처음으로</button></a>
-    </div>
-    </div>  
+        <input type="checkbox" name="chkSelect">해당 내용을 모두 확인했으며, 회원탈퇴에 동의합니다.  
+         </div>
+    	</div> 
+	   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+	 </form>
+	 <div id="nb">
+	  <form th:action="@{/ko/memberout/delete}" th:method="delete">
+                        <button>탈퇴하기</button>  
+                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>  
+             <a href="/ko"> <button type = "button"  class="btn_order"  style="margin:10px;">처음으로</button></a>
+              </div>
  </div>
-        
-    </div>
+
     </div>
 </html>

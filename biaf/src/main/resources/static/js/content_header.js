@@ -61,6 +61,11 @@ $(function(){
         content_header_html+='<li><a id="idfind" class="content_menu_items" href="#">아이디찾기</a></li>';
         content_header_html+='<li><a id="pwfind" class="content_menu_items" href="#">비밀번호찾기</a></li></ul>';
     }
+    // 어드민 부분
+    if(conthref == "admin"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>관리자페이지</h1></div>';
+    }
     // 페이지 메뉴 입력 받은 값 cont_header 클래스의 가장 앞에 삽입
     $('.cont_header').prepend(content_header_html);
     
