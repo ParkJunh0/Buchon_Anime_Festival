@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.biaf.constant.Role;
 import com.biaf.dto.MemberFormDto;
-import com.biaf.dto.MemberResponseDto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -50,27 +49,39 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	
+	public static Member createMem(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) { // 회원수정하기
+		Member member = new Member();
+		member.setMemberId(memberFormDto.getMemberId());
+		member.setMemberEmail(memberFormDto.getMemberEmail()); // 이메일
+		member.setMemberName(memberFormDto.getMemberName()); // 이름
+		member.setRole(Role.USER);
+		String password = passwordEncoder.encode(memberFormDto.getMemberPassword());
+		member.setMemberPassword(password); // 비밀번호
+		member.setMemberTel(memberFormDto.getMemberTel()); // 전화번호
+		member.setPostcode(memberFormDto.getPostcode()); // 우편번호
+		member.setMemberAddress(memberFormDto.getMemberAddress()); // 주소
+		member.setWRestAddress(memberFormDto.getWRestAddress()); // 상세주소
+		return member;
+	}
+
 	public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) {
 		Member member = new Member();
-
+		System.out.println(memberFormDto.getMemberAddress());
 		member.setMemberName(memberFormDto.getMemberName()); // 이름
 
 		member.setMemberEmail(memberFormDto.getMemberEmail()); // 이메일
 		member.setMemberAddress(memberFormDto.getMemberAddress()); // 주소
 		member.setWRestAddress(memberFormDto.getWRestAddress()); // 나머지 주소
-		member.setPostcode(memberFormDto.getPostcode()); // 우편번호
-		member.setMemberTel(memberFormDto.getMemberTel()); // 전화번호
+		member.setPostcode(memberFormDto.getPostcode());// 우편번호
+		member.setMemberTel(memberFormDto.getMemberTel());// 전화번호
 		/*
 		 * member.setMemberLoc(memberFormDto.getMemberLoc()); //성별
-		 */ 
+		 */
 		String passwrod = passwordEncoder.encode(memberFormDto.getMemberPassword()); // 비밀번호
 		member.setMemberPassword(passwrod);
 		member.setRole(Role.USER);
 		return member;
 
 	}
-
-
 
 }

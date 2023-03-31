@@ -17,10 +17,10 @@ import lombok.Data;
 @Data
 public abstract class BaseTimeEntity {
 
-   @CreatedDate
-   @Column(updatable =false)
-   private LocalDateTime regTime;
-   
-   @LastModifiedDate
-   private LocalDateTime updateTime;
+	@CreatedDate
+	@Column(updatable =false)
+	private LocalDateTime regTime;
+	
+	@LastModifiedDate
+	private LocalDateTime updateTime;
 }

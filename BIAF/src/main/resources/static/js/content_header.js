@@ -25,7 +25,7 @@ $(function(){
         content_header_html+='<li><a id="contest" class="content_menu_items" href="#">공모전</a></li></ul>';
     }
     // 예매페이지 메뉴
-    if(conthref == "ticket_reservation" || conthref == "schedule" || conthref == "ticket_information"){
+    if(conthref == "ticket_reservation" || conthref == "schedule" || conthref == "reservation" ||conthref == "ticket_information"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>예매</h1></div>';
         content_header_html+='<div class="content_menu"><ul>';
@@ -67,7 +67,7 @@ $(function(){
         content_header_html+='<h1>관리자페이지</h1></div>';
     }
     // 마이페이지 부분
-    if(conthref == "mypage" || conthref == "cart"){
+    if(conthref == "mypage" || conthref == "cart" || conthref == "myedit" || conthref == "memberout" || conthref == "orders" ){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>마이페이지</h1></div>';
     }

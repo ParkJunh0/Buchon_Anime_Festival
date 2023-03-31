@@ -1,48 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
 
 <th:block layout:fragment="css">
 	<link rel="stylesheet" href="/login/css/join.css">
-    <link rel="stylesheet" href="/login/css/base.css">
-    <link rel="stylesheet" href="/login/css/button.css">
+	<link rel="stylesheet" href="/login/css/base.css">
+	<link rel="stylesheet" href="/login/css/button.css">
 	<style>
-		.center{
-		margin-top:100px;
-		text-align:center;
-		}
-		.con{
-		margin-top:250px;
-		text-align:center;
-		}
-		.content h1{
-		text-align:center;	
-		}
-	
-	</style>
-	</th:block>
+.center {
+	margin-top: 100px;
+	text-align: center;
+}
+
+.con {
+	margin-top: 50px;
+	text-align: center;
+}
+
+.content h1 {
+	text-align: center;
+}
+</style>
+</th:block>
 
 <div layout:fragment="content">
- <!-- 컨텐츠 메뉴 부분 -->
-<div class="cont_header"></div>
-    <div class=center>
-      <div class="stepLine">
-        <div title="약관동의" class="stepDot"></div>
-        <div title="정보입력" class="stepDot"></div>
-        <div title="가입완료" class="stepDot activeStep"></div>
-      </div>
-      </div>
-      <br><br><br>
-   
-    <div class=con>
-	 <h1>회원가입이 완료되었습니다</h1>
-	 <div id="nb">
-	   <a href="/ko/login"> <button type = "button"  class="btn_order" style="margin:10px;">로그인</button></a>
-	  <a href="/ko"> <button type = "button"  class="btn_order" style="margin:10px;">처음으로</button></a>
-	  </div>
-  </div>
+	<!-- 컨텐츠 메뉴 부분 -->
+	<div class="cont_header"></div>
+	<div class=center>
+		<div class="stepLine">
+			<div title="약관동의" class="stepDot"></div>
+			<div title="정보입력" class="stepDot"></div>
+			<div title="가입완료" class="stepDot activeStep"></div>
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+
+	<div class=con>
+		<h1>회원가입이 완료되었습니다</h1>
+		<div id="nb">
+			<a href="/ko/login">
+				<button type="button" class="btn_order" style="margin: 10px;">로그인</button>
+			</a> <a href="/ko">
+				<button type="button" class="btn_order" style="margin: 10px;">처음으로</button>
+			</a>
+		</div>
+	</div>
 </div>
 
 

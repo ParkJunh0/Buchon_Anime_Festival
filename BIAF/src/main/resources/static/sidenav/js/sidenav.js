@@ -16,14 +16,14 @@ $(function(){
 
    $('#sidenav').prepend(sidenav);
    }
-   if(conthref == "mypage" || conthref == "cart"){
+   if(conthref == "mypage" || conthref == "cart" || conthref == "myedit" || conthref == "memberout" || conthref == "orders"){
    sidenav = '<ul class="dep1">'
    sidenav += '<h2>마이페이지</h2>'
    sidenav += '<br><ul class="dep2">'
    sidenav += '<li><a href="/ko/mypage">회원정보</a></li>'
    sidenav += '<li><a href="/ko/myedit">회원정보 수정</a></li>'
    sidenav += '<li><a href="/ko/cart">장바구니</a></li>'
-   sidenav += '<li><a href="#">상품구매내역</a></li>'
+   sidenav += '<li><a href="/orders">상품구매내역</a></li>'
    sidenav += '<li><a href="#">티켓예매/취소</a></li>'
    sidenav += '<li><a href="/ko/memberout">회원탈퇴</a></li>'
    sidenav += '</ul></ul>'

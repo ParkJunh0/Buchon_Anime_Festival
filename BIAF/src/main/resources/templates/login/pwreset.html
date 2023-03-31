@@ -1,176 +1,177 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
 
 <th:block layout:fragment="script">
-  <script>
-	
-  	var check2 = "${findpw_checkt}";
-	if(check2 != ""){
-	 	alert(check2);
-	}
-	
-	// 비밀번호 정규식
-	var pwJ = /^[a-z0-9]{6,20}$/; 
-	var pwc = false;
-	var pwc2 = false;
-	
-	$("#pw").focusout(function(){
-	     if($('#pw').val() == ""){
-	   		$('#check').text('비밀번호를 입력해주세요.');
-	   	  	$('#check').css('color', 'red');
-	   	  	
-	     }else if(!pwJ.test($(this).val())){
-			$('#check').text('6~20자의 영문 소문자, 숫자만 사용가능합니다');
-			$('#check').css('color', 'red');
-	     }else{
-	    	 pwc2 = true;
-	    	 $('#check').hide();
-	     }
-	  });
-	
-	$("#pw2").focusout(function(){
-	     if($('#pw2').val() == ""){
-	   		$('#check').text('필수 정보입니다.')
-	   	  	$('#check').css('color', 'red')
-	 	}else
-   	 	$('#check').hide()
-	  });
-	
-	$("#pw2").keyup(function(){
-		   
-	    if($(this).val()!=$("#pw").val()){
-	        $("#check2").html("비밀번호가 다릅니다");
-	        $("#check2").css("color",'red');
-	        pwc = false;
-	
-	    }else{
-	        $("#check2").html("비밀번호가 일치합니다");
-	        $("#check2").css("color",'blue');
-	        pwc = true;
-	    }
-	});
-	
-	$("#pw").keyup(function(){
-		     
-	    if($(this).val()!=$("#pw2").val()){
-	        $("#check2").html("비밀번호가 다릅니다");
-	        $("#check2").css("color",'red');
-	        pwc = false;
-	
-	    }else{
-	        $("#check2").html("비밀번호가 일치합니다");
-	        $("#check2").css("color",'blue');
-	        pwc = true;
-	    }
-	});
-
-	function regist(){
-		if(pwc2 == false){
-		      alert('비밀번호는 6~20자의 영문 소문자, 숫자만 사용가능합니다')
-		 }else if(pwc == false ){
-			  	alert('비밀번호를 다시 확인해주세요')
-		}else{
-		 $('form').submit();
+	<script>
+		var check2 = "${findpw_checkt}";
+		if (check2 != "") {
+			alert(check2);
 		}
-		<%session.invalidate();%>
-		};
-  </script>
-  </th:block>
-  
-<th:block layout:fragment="css">
-<link rel="stylesheet" th:href="@{/login/css/all.css}">   
-  <style>
-      
-	
-	
-	.login {
-	    width:100%;
-	    height:100%;
-	    margin: 0;
-  	/* 	padding-top: 200px; */
-  		padding-bottom: 40px;
-  		background-repeat: no-repeat;
-	}
-	
-    .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
-	}
 
-    #btn-Yes{
-        background-color: #007b73;
-        border: none;
-    }
-	
-	.login .form-control {
-  		position: relative;
-  		height: auto;
-  		-webkit-box-sizing: border-box;
-     	-moz-box-sizing: border-box;
-        	 box-sizing: border-box;
-  		padding: 10px;
-  		font-size: 16px;
-	}
-    
+		// 비밀번호 정규식
+		var pwJ = /^[a-z0-9]{6,20}$/;
+		var pwc = false;
+		var pwc2 = false;
+
+		$("#pw").focusout(function() {
+			if ($('#pw').val() == "") {
+				$('#check').text('비밀번호를 입력해주세요.');
+				$('#check').css('color', 'red');
+
+			} else if (!pwJ.test($(this).val())) {
+				$('#check').text('6~20자의 영문 소문자, 숫자만 사용가능합니다');
+				$('#check').css('color', 'red');
+			} else {
+				pwc2 = true;
+				$('#check').hide();
+			}
+		});
+
+		$("#pw2").focusout(function() {
+			if ($('#pw2').val() == "") {
+				$('#check').text('필수 정보입니다.')
+				$('#check').css('color', 'red')
+			} else
+				$('#check').hide()
+		});
+
+		$("#pw2").keyup(function() {
+
+			if ($(this).val() != $("#pw").val()) {
+				$("#check2").html("비밀번호가 다릅니다");
+				$("#check2").css("color", 'red');
+				pwc = false;
+
+			} else {
+				$("#check2").html("비밀번호가 일치합니다");
+				$("#check2").css("color", 'blue');
+				pwc = true;
+			}
+		});
+
+		$("#pw").keyup(function() {
+
+			if ($(this).val() != $("#pw2").val()) {
+				$("#check2").html("비밀번호가 다릅니다");
+				$("#check2").css("color", 'red');
+				pwc = false;
+
+			} else {
+				$("#check2").html("비밀번호가 일치합니다");
+				$("#check2").css("color", 'blue');
+				pwc = true;
+			}
+		});
+
+		function regist() {
+			if (pwc2 == false) {
+				alert('비밀번호는 6~20자의 영문 소문자, 숫자만 사용가능합니다')
+			} else if (pwc == false) {
+				alert('비밀번호를 다시 확인해주세요')
+			} else {
+				$('form').submit();
+			}
+			<%session.invalidate();%>
+		};
+	</script>
+</th:block>
+
+<th:block layout:fragment="css">
+	<link rel="stylesheet" th:href="@{/login/css/all.css}">
+	<style>
+.login {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	/* 	padding-top: 200px; */
+	padding-bottom: 40px;
+	background-repeat: no-repeat;
+}
+
+.card {
+	margin: 0 auto; /* Added */
+	float: none; /* Added */
+	margin-bottom: 10px; /* Added */
+}
+
+#btn-Yes {
+	background-color: #007b73;
+	border: none;
+}
+
+.login .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
 /*      .card align-middle{
              width:25px;
          } */
-    
-    .card-title{
-        margin-left: 30px;
-        margin-top:30px;
-        color:#003D39;
-    }
+.card-title {
+	margin-left: 30px;
+	margin-top: 30px;
+	color: #003D39;
+}
 
-    .links{
-        text-align: center;
-        margin-bottom: 10px;
-    }
-   	.login a{ 
-    	color: #007b73; text-decoration: none; 
-    }
-    .check{
-    	color : red;
-    }
-     
-    </style>
+.links {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.login a {
+	color: #007b73;
+	text-decoration: none;
+}
+
+.check {
+	color: red;
+}
+</style>
 </th:block>
 <div layout:fragment="content">
-<!-- 컨텐츠 메뉴 부분 -->
-<div class="cont_header"></div>
-       <div class="himg" style="width: 100%; height: 70px;"></div>  
-<!--    <%
+	<!-- 컨텐츠 메뉴 부분 -->
+	<div class="cont_header"></div>
+	<div class="himg" style="width: 100%; height: 70px;"></div>
+	<!--    <%
 		 Object data = session.getAttribute("findid");
 		 String finduid = (String)data;
   		 %>-->
-  		 <div class="login">
-	<div class="card align-middle" style="width:25rem;">
-		<div class="card-title">
-            
-			<h2 class="card-title"></h2>
-		</div>
-        
-		<div class="card-body">
-      <form action="resetPw" class="form-signin" method="POST">
-     <!-- <input type="hidden" name="member_id" value=<%= finduid %>>-->
-      <!-- <p class="check" id="check">내 아이디 : < <%= finduid %> ></p><br/> -->
-        <input type="password" name="pw" id="pw" class="form-control" placeholder="비밀번호" required ><BR>
-        <input type="password" name="pw2" id="pw2" class="form-control" placeholder="비밀번호 재확인" required><br>
-       <!-- <p class="check" id="check2">${resetpw_check}</p><br/>-->
-        <button type="button"  id="btn-Yes" onclick="regist()" class="btn btn-lg btn-primary btn-block">비밀번호 재설정</button>
-      </form>
-		</div>
-        <div class="links">
-            <a href="/ko/idfind">아이디 찾기</a> | <a href="/ko/login">로그인</a> | <a href="/ko/terms">회원가입</a>
+	<div class="login">
+		<div class="card align-middle" style="width: 25rem;">
+			<div class="card-title">
 
-        </div>
+				<h2 class="card-title"></h2>
+			</div>
+
+			<div class="card-body">
+				<form action="resetPw" class="form-signin" method="POST">
+					<!-- <input type="hidden" name="member_id" value=<%= finduid %>>-->
+					<!-- <p class="check" id="check">내 아이디 : < <%= finduid %> ></p><br/> -->
+					<input type="password" name="pw" id="pw" class="form-control"
+						placeholder="비밀번호" required><BR> <input
+						type="password" name="pw2" id="pw2" class="form-control"
+						placeholder="비밀번호 재확인" required><br>
+					<!-- <p class="check" id="check2">${resetpw_check}</p><br/>-->
+					<button type="button" id="btn-Yes" onclick="regist()"
+						class="btn btn-lg btn-primary btn-block">비밀번호 재설정</button>
+				</form>
+			</div>
+			<div class="links">
+				<a href="/ko/idfind">아이디 찾기</a> | <a href="/ko/login">로그인</a> | <a
+					href="/ko/terms">회원가입</a>
+
+			</div>
+		</div>
 	</div>
-  </div>
-    
+
 
 </div>
 </html>
