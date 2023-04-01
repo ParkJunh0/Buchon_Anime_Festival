@@ -3,6 +3,11 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
 <!-- 본문 부분 -->
 <th:block layout:fragment="css">
 	<link th:href="@{/BIAF/goods/css/goods.css}" rel="stylesheet">
@@ -27,6 +32,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		<div class="goods_shop">
 			<div th:each="goods_patition : ${goodsDto}" class="goods_items">
 				<div th:each="goods : ${goods_patition}" class="goods_item">
+					<input type="hidden" id="goodsId" th:value="${goods.id}">
 					<!-- 굿즈 이미지 -->
 					<div class="goods_item_header">
 						<img th:src="${goods.imgUrl}">
@@ -42,7 +48,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<!-- 굿즈 상세페이지 -->
 			<div class="goods_detail">
 				<!-- 굿즈 이미지(왼쪽) -->
-				<img class="goodsimg">
+				<div class="goodsImg">
+					<img class="goodsimg">
+				</div>
 				<!-- 굿즈 오른쪽 -->
 				<div class="goods_description">
 					<!-- 굿즈설명 -->
@@ -51,13 +59,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<p>가격: <strong class="goodsprice"></strong>원</p>
 						<p>배달비: <strong class="goodspricep">10000</strong>원</p>
 						<p class="goodsdescription"></p>
-						<p><label>수량<input type="number" name="number_select" min="1" max="10" value="1"> </label></p>
+						<p><label>수량<input class="quantity" type="number" name="number_select" min="1" max="10" value="1"> </label></p>
+					</div>
+					<div class="totalsection">
+					<div class="total">
+						<a>총금액: </a>
+						<a class="totalprice"></a>
 					</div>
 					<!-- 장바구니, 구매 버튼 -->
 					<div class="goods_btn">
 						<button class="cart_btn">장바구니</button>
 						<button class="pay_btn">구매</button>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

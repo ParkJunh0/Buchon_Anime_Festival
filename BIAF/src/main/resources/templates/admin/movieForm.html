@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout1}">
 
 
@@ -105,9 +106,9 @@
 
 						<div class="inputArea">
 							<label for="mcinema">상영관 : </label> <select th:field="*{cinema}" class="mcinema_category">
-								<option value="third">CGV부천 3관</option>
-								<option value="fourth">CGV부천 4관</option>
-								<option value="fifth">CGV부천 5관</option>
+								<option value="CGV부천 3관">CGV부천 3관</option>
+								<option value="CGV부천 4관">CGV부천 4관</option>
+								<option value="CGV부천 5관">CGV부천 5관</option>
 							</select>
 						</div>
 						<div class="inputArea">
@@ -122,10 +123,10 @@
 
 						<div class="inputArea">
 							<label for="mgrade">관람 등급 : </label> <select th:field="*{grade}" class="mgrade_category">
-								<option value="all">전체</option>
-								<option value="twelve">12</option>
-								<option value="fifteen">15</option>
-								<option value="nineteen">19</option>
+								<option value="전체">전체</option>
+								<option value="12세이상">12</option>
+								<option value="15세이상">15</option>
+								<option value="19세이상">19</option>
 							</select>
 						</div>
 

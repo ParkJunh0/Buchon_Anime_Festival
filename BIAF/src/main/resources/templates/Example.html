@@ -3,23 +3,27 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
 
-	
-	<!-- css 추가시 -->
-	<th:block layout:fragment="css">
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
+
+<!-- css 추가시 -->
+<th:block layout:fragment="css">
 	<link th:href="@{/css/example.css}" rel="stylesheet">
 	<style>
 		
 	</style>
-	</th:block>
-	<!--Script 작성 예시-->
-	<th:block layout:fragment="script">
-	<script th:src="@{/js/example.js}" type="text/javascript"></script>
-		<script>
-		function ccc(){
-			alert('aaaa');
-		}
-		</script>
-		</th:block>
+</th:block>
+<!--Script 작성 예시-->
+<th:block layout:fragment="script">
+<script th:src="@{/js/example.js}" type="text/javascript"></script>
+	<script>
+	function ccc(){
+		alert('aaaa');
+	}
+	</script>
+</th:block>
 		
 <!-- 본문 부분 -->
 <div layout:fragment="content">

@@ -22,7 +22,7 @@ $(function(){
    sidenav += '<br><ul class="dep2">'
    sidenav += '<li><a href="/ko/mypage/{memberId}">회원정보</a></li>'
    sidenav += '<li><a href="/ko/cart">장바구니</a></li>'
-   sidenav += '<li><a href="#">상품구매내역</a></li>'
+   sidenav += '<li><a href="/ko/orders">상품구매내역</a></li>'
    sidenav += '<li><a href="#">티켓예매/취소</a></li>'
    sidenav += '<li><a href="/ko/memberout">회원탈퇴</a></li>'
    sidenav += '</ul></ul>'

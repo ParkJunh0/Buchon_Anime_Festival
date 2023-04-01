@@ -38,7 +38,8 @@
 				sectionsColor: [],
 				navigation: true,
 				navigationPosition: 'left',
-				navigationTooltips: ['First page', 'Second page', 'Third and last page', 'footer page']
+				navigationTooltips: ['First page', 'Second page', 'Third and last page', 'footer page'],
+				slidesNavigation: true,
 			});
 		});
 	</script>
@@ -52,11 +53,19 @@
 <div id="fullpage">
 <!-- 첫번째 영역 -->
 	<div class="section " id="section0">
-		<div class="slide" id="slide1">
-			<h1>Navigation dots</h1>
-			<p>An easy and beautiful way to navigate throw the sections</p>
+		<div class="slide" id="slide1" data-anchor="slide1">
+			<div class="intro">
+				<h1>Clickable</h1>
+				<p>
+					You can even click on the navigation and jump directly to another section.
+				</p>
+			</div>
 		</div>
-		<div class="slide" id="slide2">
+
+	    <div class="slide" id="slide2" data-anchor="slide2">
+			<h1>Slide 2</h1>
+		</div>
+		<div class="slide" id="slide2" data-anchor="slide2">
 			<h1>Slide 2</h1>
 		</div>
 	</div>
@@ -71,12 +80,66 @@
 	</div>
 	<!-- 세번째 영역 -->
 	<div class="section" id="section2">
-		<div class="testsection">
-		<div class="test">
-			<h1>공지사항</h1>
+		<div class="boardsection">
+		<div class="noticeboard boards">
+			<p class="boardtitle">공지사항<a href="/ko/notice">+</a></p>
+			<div class="last_sentence" th:if="${notnotice != 1}">
+				<div class="sen_date">
+					<div class="sen_date_top" th:text="${last_datet}"></div>
+					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
+				</div>
+				<div class="sen_content">
+					<a th:href="@{/ko/notice/detail/{id}(id=${last_notice.id})}">
+					<p class="sen_title" th:text="${last_notice.notice_title}"></p>
+					<p class="sent" th:text="${last_notice.notice_content}"></p>
+					</a>
+				</div>
+			</div>
+			<div class="last_sentence" th:unless="${notnotice != 1}">
+				<div class="notnotice">
+					공지사항이 없습니다
+				</div>
+			</div>
+			<div class="sentence" th:if="${notnotice != 1}">
+				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
+						<a th:text="${notice.notice_title}"></a>
+					</li></ul>
+			</div>
+			<div class="sentence" th:unless="${notnotice != 1}">
+					<div class="notnotice">
+					공지사항이 없습니다.
+					</div>
+			</div>
 		</div>
-		<div class="test">
-			<h1>자유게시판</h1>
+		<div class="freeboard boards">
+			<p class="boardtitle">자유게시판<a href="/ko/freeboard">+</a></p>
+			<div class="last_sentence" th:if="${notnotice != 1}">
+				<div class="sen_date">
+					<div class="sen_date_top" th:text="${last_datet}"></div>
+					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
+				</div>
+				<div class="sen_content">
+					<a th:href="@{/ko/notice/detail/{id}(id=${last_notice.id})}">
+					<p class="sen_title" th:text="${last_notice.notice_title}"></p>
+					<p class="sent" th:text="${last_notice.notice_content}"></p>
+					</a>
+				</div>
+			</div>
+			<div class="last_sentence" th:unless="${notnotice != 1}">
+				<div class="notnotice">
+					공지사항이 없습니다
+				</div>
+			</div>
+			<div class="sentence" th:if="${notnotice != 1}">
+				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
+						<a th:text="${notice.notice_title}"></a>
+					</li></ul>
+			</div>
+			<div class="sentence" th:unless="${notnotice != 1}">
+					<div class="notnotice">
+					공지사항이 없습니다.
+					</div>
+			</div>
 		</div>
 		</div>
 	</div>
