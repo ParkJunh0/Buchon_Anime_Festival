@@ -20,24 +20,32 @@
     list-style: inside;
     margin: 10px;
 }
+/* 굿즈 상태 선택 */
+.select_stat{
+    margin-bottom: 30px;
+}
 /* 굿즈 상품들 부분*/
 .goods_items{
     min-width: 1000px;
-    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 /* 굿즈 상품 부분 */
 .goods_item{
-	min-width: 480px;
-    margin-top: 10px;
+    min-width: 480px;
     max-width: 492px;
+    max-height: 416px;
+    margin-bottom: 20px;
     text-align:center;
 }
 /* 굿즈 이미지 */
 .goods_item_header{
     min-width: 492px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .goods_item_header img{
     max-width: 492px;
@@ -64,13 +72,29 @@
 strong{
     color: #be166d;
 }
+/* 품절 */
+.solds_img{
+    position: absolute;
+    width: 492px;
+    height: 436px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.solds_img a{
+    color: white;
+    font-size: 30px;
+    transform: rotate(-45deg);
+}
 /* 굿즈 상세페이지 */
 .goods_detail{
     min-width: 980px;
     width: 100%;
     max-height: 320px;
-    margin-top: 10px;
     padding: 10px;
+    margin-bottom: 20px;
     background: #f5f5f5;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -80,6 +104,8 @@ strong{
 /* 굿즈 상세페이지 이미지 */
 .goodsImg{
     min-width: 492px;
+    display:flex;
+    align-items: center;
     text-align:center;
 }
 .goodsimg{

@@ -38,7 +38,7 @@ public class BoardController {
 	
 	//공지사항 페이지
     @GetMapping(value="/notice")
-    public String notice(Model model, @PageableDefault(page=0, size=5, direction=Sort.Direction.DESC) Pageable pageable){
+    public String notice(Model model, @PageableDefault(page=0, size=5, sort="id", direction=Sort.Direction.DESC) Pageable pageable){
         Page<NoticeBoard> list = noticeboardservice.boardList(pageable);
         
         int nowPage = list.getPageable().getPageNumber() + 1;    //페이징   
@@ -80,11 +80,6 @@ public class BoardController {
    		if (bindingResult.hasErrors()) { // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환한다.
             return "/Board/Notice/noticeForm";
         }
-        if (noticeBoardImgFileList.isEmpty() && noticeBoardFormDto.getId() == null) {
-            model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
-            return "/Board/Notice/noticeForm"; // 공지사항 등록시 첫 번째 이미지가 없다면 에러 메시지와 함께 공지사항 페이지로 전환한다.
-        } // 공지사항 첫번째 이미지는 메인 페이지에서 보여줄 공지사항 이미지를 사용하기 위해 필수 값으로 지정한다.
-
         try {
             noticeboardservice.saveBoard(noticeBoardFormDto, noticeBoardImgFileList); // 공지사항 저장 로직을 호출. 공지사항정보와 공지사항이미지정보를 넘긴다.
         } catch (Exception e) {

@@ -30,8 +30,34 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		</div>
 		<!-- 굿즈 상품 부분 -->
 		<div class="goods_shop">
+			<div class="select_stat">
+				<label for="SellStat">상품 상태: </label>
+				<select id="select_SellStat">
+					<option value="all">전체</option>
+					<option value="sells">판매중</option>
+					<option value="solds">품절</option>
+				</select>
+			</div>
 			<div th:each="goods_patition : ${goodsDto}" class="goods_items">
-				<div th:each="goods : ${goods_patition}" class="goods_item">
+				<!-- th:if="${goods.sellStat == T(com.biaf.constant.GoodsSellStatus).SELL}가 오류가 나서
+						goods.sellStat.name()으로 SELL과 비교하게 작성 -->
+				<!-- 판매중 -->
+				<div th:each="goods : ${goods_patition}" th:if="${goods.sellStat.name() == 'SELL'}" class="goods_item sells">
+					<input type="hidden" id="goodsId" th:value="${goods.id}">
+					<!-- 굿즈 이미지 -->
+					<div class="goods_item_header">
+						<img th:src="${goods.imgUrl}">
+					</div>
+					<!-- 굿즈 설명 -->
+					<div class="goods_item_description">
+						<p class="goods_Nm"><b th:text="${goods.goodsNm}"></b></p>
+						<p class="goods_price">가격 <strong th:text="${goods.price}"></strong></p>
+						<p class="goods_item_detail_description" th:text="${goods.goodsDetail}"></p>
+					</div>
+				</div>
+				<!-- 품절 -->
+				<div th:each="goods : ${goods_patition}" th:unless="${goods.sellStat.name() == 'SELL'}" class="goods_item solds">
+					<div class="solds_img"><a>품절입니다</a></div>
 					<input type="hidden" id="goodsId" th:value="${goods.id}">
 					<!-- 굿즈 이미지 -->
 					<div class="goods_item_header">

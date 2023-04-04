@@ -25,14 +25,9 @@ public class AdminController {
 	private final MemberService memberService;
 	private final MovieService movieService;
 	
-	@GetMapping(value="") //관리자페이지 기본틀 -삭제할거임
-	public String adminpage() {
-		return "/admin/adminpage";
-	}
-	
-	@GetMapping(value = "/memberList") // 회원 조회
+	@GetMapping(value = {"", "/memberList"}) // 회원 조회
 	public String memberList(Model model,
-			@PageableDefault(page = 0, size = 5, direction = Sort.Direction.DESC) Pageable pageable) {
+			@PageableDefault(page = 0, size = 5, sort="memberId",  direction = Sort.Direction.DESC) Pageable pageable) {
 //@PageableDefault - 페이지기능   한페이지에 5개씩보여줌 sort정렬 desc내림차순정렬 asc-디폴드값 오름차순
 		Page<Member> list = memberService.memList(pageable);
 		model.addAttribute("memberResponseDto", list); // memberResponseDto(이름 내맘대로)에 list바인딩(저장)

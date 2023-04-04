@@ -1,6 +1,6 @@
 $(function(){
     var content_header_html = ''; 						// 태그 넣을 변수 선언 및 초기화
-    var conthref= location.href.split("/")[4].replace(/#$/, '');	// 주소를 "/"를 기준으로 나누어 그중 5번째 배열값에 가장 마지막에 있는 "#"제거($가 마지막을 의미)
+    var conthref= location.href.split("/")[4].split("?")[0].replace(/#$/, '');	// 주소를 "/"를 기준으로 나누어 그중 5번째 배열값에 가장 마지막에 있는 "#"제거($가 마지막을 의미)
     
     // 각 페이지 헤더 메뉴
     // BIAF페이지 메뉴

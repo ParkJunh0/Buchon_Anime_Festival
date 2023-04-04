@@ -83,7 +83,7 @@
 		<div class="boardsection">
 		<div class="noticeboard boards">
 			<p class="boardtitle">공지사항<a href="/ko/notice">+</a></p>
-			<div class="last_sentence" th:if="${notnotice != 1}">
+			<div class="last_sentence" th:if="${lnotnotice != 1}">
 				<div class="sen_date">
 					<div class="sen_date_top" th:text="${last_datet}"></div>
 					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
@@ -95,14 +95,14 @@
 					</a>
 				</div>
 			</div>
-			<div class="last_sentence" th:unless="${notnotice != 1}">
+			<div class="last_sentence" th:unless="${lnotnotice != 1}">
 				<div class="notnotice">
 					공지사항이 없습니다
 				</div>
 			</div>
 			<div class="sentence" th:if="${notnotice != 1}">
 				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
-						<a th:text="${notice.notice_title}"></a>
+						<a th:href="@{/ko/notice/detail/{id}(id=${notice.id})}" th:text="${notice.notice_title}"></a>
 					</li></ul>
 			</div>
 			<div class="sentence" th:unless="${notnotice != 1}">
@@ -113,7 +113,7 @@
 		</div>
 		<div class="freeboard boards">
 			<p class="boardtitle">자유게시판<a href="/ko/freeboard">+</a></p>
-			<div class="last_sentence" th:if="${notnotice != 1}">
+			<div class="last_sentence" th:if="${lnotnotice != 1}">
 				<div class="sen_date">
 					<div class="sen_date_top" th:text="${last_datet}"></div>
 					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
@@ -125,14 +125,14 @@
 					</a>
 				</div>
 			</div>
-			<div class="last_sentence" th:unless="${notnotice != 1}">
+			<div class="last_sentence" th:unless="${lnotnotice != 1}">
 				<div class="notnotice">
 					공지사항이 없습니다
 				</div>
 			</div>
 			<div class="sentence" th:if="${notnotice != 1}">
 				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
-						<a th:text="${notice.notice_title}"></a>
+						<a th:href="@{/ko/notice/detail/{id}(id=${notice.id})}" th:text="${notice.notice_title}"></a>
 					</li></ul>
 			</div>
 			<div class="sentence" th:unless="${notnotice != 1}">

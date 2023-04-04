@@ -43,14 +43,17 @@ public class MainController {
 		model.addAttribute("last_notice", noticeone);
 		model.addAttribute("last_datet", ldatet);
 		model.addAttribute("last_dateb", ldateb);
-
+		
 		if(ins.size() > 1){
-			for(int i=1; i < 7; i++){
+			for(int i=1; i < ins.size() && i < 7; i++){
 				notice.add(ins.get(i));
 			}
 			model.addAttribute("noticeDto", notice);
+		}else{
+			model.addAttribute("notnotice", 1);
 		}
 	}else{
+		model.addAttribute("lnotnotice", 1);
 		model.addAttribute("notnotice", 1);
 	}
 		return "/main/MainPage";

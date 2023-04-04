@@ -98,11 +98,11 @@
             <div class="d-flex mb-3 align-self-center">
                 <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
                 <div class="ml-3">
-                    <th:block th:if="${order.orderstatus != 'ORDER'}">
+                    <th:block th:if="${order.orderstatus.name() == 'ORDER'}">
                         <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}"
                             onclick="cancelOrder(this.value)">주문취소</button>
                     </th:block>
-                    <th:block th:unless="${order.orderstatus != 'ORDER'}">
+                    <th:block th:unless="${order.orderstatus.name() == 'ORDER'}">
                         <h4>(취소 완료)</h4>
                     </th:block>
                 </div>

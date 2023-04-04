@@ -1,0 +1,46 @@
+/* 퀵 메뉴 부분 */
+/* 화면이 가려서 일정 사이즈가 될때만 나오게 함 */
+@media screen and (min-width:1520px) {
+    .quickmenu{
+        position: fixed;
+        width: 80px;
+        right: 20px;
+        text-align: center;
+        top: 30%;
+        background-color: #f5f5f5;
+        box-shadow: 1px 1px 0 -0.9px black;
+        z-index: 99;
+    }
+    .quickmenu a{
+        color: black;
+    }
+    .quickmenu ul{
+        padding: 0;
+    }
+    /* sns 부분 */
+    #quick_menu_sns{
+        padding: 10px 0;
+        background-color: black;
+        text-align: center;
+    }
+    #quick_menu_sns ul li{
+        margin: 10px 0;
+    }
+}
+/* 일정 사이즈 보다 작으면 나오지 않게함 */
+@media screen and (max-width:1520px){
+    .quickmenu{
+        display: none;
+    }
+}
+/* 메뉴 부분 */
+#quick_menu ul li{ 
+    margin: 10px 0;
+}
+#quick_menu ul li a{
+    width: 100%; 
+}
+#top_button{
+    border-top: solid #cecece;
+    border-width: thin;
+}

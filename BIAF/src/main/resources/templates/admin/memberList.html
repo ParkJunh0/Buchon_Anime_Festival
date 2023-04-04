@@ -215,8 +215,11 @@
                            </tr>
                         </thead>
                         <tbody align="center">
-                           <tr class="board_line" th:each="member : ${memberResponseDto}">
-                              <td class="m_no"><span th:text="${member.memberId}"></span></td>
+                           <tr class="board_line" th:each="member, status: ${memberResponseDto}">
+                              <td class="m_no">
+                                 <span th:text="${status.count + ((nowPage-1) * 5)}"></span>
+                                 <input type="hidden" th:value="${member.memberId}">
+                              </td>
                               <td class="m_name"><span th:text="${member.memberName}"></span></td>
                               <td class="m_email"><span th:text="${member.memberEmail}"></span></td>
                               <td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
