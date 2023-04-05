@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org" 
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+	layout:decorate="~{layouts/layout1}">
+
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 
 <!-- 본문 부분 -->
 <th:block layout:fragment="css">
-<link th:href="@{/BIAF/goods/css/goods.css}" rel="stylesheet">
+	<link th:href="@{/BIAF/goods/css/goods.css}" rel="stylesheet">
 </th:block>
 <th:block layout:fragment="script">
-<script th:src="@{/BIAF/goods/js/goods.js}" type="text/javascript"></script>
+	<script th:src="@{/BIAF/goods/js/goods.js}" type="text/javascript"></script>
 </th:block>
 <div layout:fragment="content">
 	<div class="cont_header">
 	</div>
 	<div class="main_cont">
+		<!-- 굿즈 정보 -->
 		<div class="goods_info">
 			<h1>굿즈</h1>
 			<ul>
@@ -22,67 +28,89 @@ layout:decorate="~{layouts/layout1}">
 				<li>결제방법 : 카드결제 (방문 시 현금 및 카드결제 가능)</li>
 			</ul>
 		</div>
+		<!-- 굿즈 상품 부분 -->
 		<div class="goods_shop">
-			<div class="goods_items">
-			<div class="goods_item">
-			<div class="goods_item_header">
-				<h3>a</h3>
-				<img th:src="@{/image/img_goods35.jpg}">
+			<div class="select_stat">
+				<label for="SellStat">상품 상태: </label>
+				<select id="select_SellStat">
+					<option value="all">전체</option>
+					<option value="sells">판매중</option>
+					<option value="solds">품절</option>
+				</select>
 			</div>
-			<div class="goods_item_description">
-				<p><b>a</b></p>
-				<p class="goods_price">가격 <strong></strong>a</p>
-				<p class="goods_item_detail_description">a</p>
-			</div>
-		</div>
-		<div class="goods_item">
-			<div class="goods_item_header">
-				<h3>BIAF 유리컵</h3>
-				<img th:src="@{/image/img_goods35.jpg}">
-			</div>
-			<div class="goods_item_description">
-				<p><b>BIAF 투명유리컵</b></p>
-				<p class="goods_price">가격 <strong>a</strong></p>
-				<p class="goods_item_detail_description">BIAF의 로고를 담은 투명 유리컵</p>
-			</div>
-		</div>
-		<div class="goods_detail">
-			<img th:src="@{/image/img_goods35.jpg}">
-			<div class="goods_description">
-			<div class="goods_detail_description">
-				<h1><b>a</b></h1>
-				<p>가격: <strong>a</strong></p>
-				<p>배달비: 10000원</p>
-				<p>a</p>
-			</div>
-			<div class="goods_btn">
-				<button class="cart_btn">장바구니</button><button class="pay_btn">구매</button>
-			</div>
-			</div>
-		</div>
-		</div>
-		<div class="goods_items">
-			<div class="goods_item">
-				<div class="goods_item_header">
-					<h3>BIAF 유리컵</h3>
-					<img th:src="@{/image/img_goods35.jpg}">
+			<div th:each="goods_patition : ${goodsDto}" class="goods_items">
+				<!-- th:if="${goods.sellStat == T(com.biaf.constant.GoodsSellStatus).SELL}가 오류가 나서
+						goods.sellStat.name()으로 SELL과 비교하게 작성 -->
+				<!-- 판매중 -->
+				<div th:each="goods : ${goods_patition}" th:if="${goods.sellStat.name() == 'SELL'}" class="goods_item sells">
+					<input type="hidden" id="goodsId" th:value="${goods.id}">
+					<!-- 굿즈 이미지 -->
+					<div class="goods_item_header">
+						<img th:src="${goods.imgUrl}">
+					</div>
+					<!-- 굿즈 설명 -->
+					<div class="goods_item_description">
+						<p class="goods_Nm"><b th:text="${goods.goodsNm}"></b></p>
+						<p class="goods_price">가격 <strong th:text="${goods.price}"></strong></p>
+						<p class="goods_item_detail_description" th:text="${goods.goodsDetail}"></p>
+					</div>
 				</div>
-				<div class="goods_item_description">
-					<p><b>BIAF 투명유리컵</b></p>
-					<p class="goods_price">가격 <strong>3000원</strong></p>
-					<p class="goods_item_detail_description">BIAF의 로고를 담은 투명 유리컵</p>
+				<!-- 품절 -->
+				<div th:each="goods : ${goods_patition}" th:unless="${goods.sellStat.name() == 'SELL'}" class="goods_item solds">
+					<div class="solds_img"><a>품절입니다</a></div>
+					<input type="hidden" id="goodsId" th:value="${goods.id}">
+					<!-- 굿즈 이미지 -->
+					<div class="goods_item_header">
+						<img th:src="${goods.imgUrl}">
+					</div>
+					<!-- 굿즈 설명 -->
+					<div class="goods_item_description">
+						<p class="goods_Nm"><b th:text="${goods.goodsNm}"></b></p>
+						<p class="goods_price">가격 <strong th:text="${goods.price}"></strong></p>
+						<p class="goods_item_detail_description" th:text="${goods.goodsDetail}"></p>
+					</div>
+				</div>
+			</div>
+			<!-- 굿즈 상세페이지 -->
+			<div class="goods_detail">
+				<!-- 굿즈 이미지(왼쪽) -->
+				<div class="goodsImg">
+					<img class="goodsimg">
+				</div>
+				<!-- 굿즈 오른쪽 -->
+				<div class="goods_description">
+					<!-- 굿즈설명 -->
+					<div class="goods_detail_description">
+						<h1><b class="goodsNm"></b></h1>
+						<p>가격: <strong class="goodsprice"></strong>원</p>
+						<p>배달비: <strong class="goodspricep">10000</strong>원</p>
+						<p class="goodsdescription"></p>
+						<p><label>수량<input class="quantity" type="number" name="number_select" min="1" max="10" value="1"> </label></p>
+					</div>
+					<div class="totalsection">
+					<div class="total">
+						<a>총금액: </a>
+						<a class="totalprice"></a>
+					</div>
+					<!-- 장바구니, 구매 버튼 -->
+					<div class="goods_btn">
+						<button class="cart_btn">장바구니</button>
+						<button class="pay_btn">구매</button>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	</div>
+	<!-- 모달창 -->
 	<div class="cart_modal">
 		<p>계속 쇼핑하시겠습니까?</p>
 		<div class="cart_modal_btn">
-    	<input type="button" class="close" value="쇼핑계속">
-		<input type="button" class="cart_go" value="장바구니가기">
-	</div>
+			<input type="button" class="close" value="쇼핑계속">
+			<input type="button" class="cart_go" value="장바구니가기">
+		</div>
 	</div>
 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>
+
 </html>

@@ -7,31 +7,35 @@ layout:decorate="~{layouts/layout1}">
 <th:block layout:fragment="css">    
 <link rel="stylesheet" href="/login/css/button.css">
 <style>
+	.center {
+		text-align: center;
+	}
 
-.center{
-text-align:center;
-}
-.content{
-margin-top:250px; 
-text-align:center;
-}
-.content h1{
-text-align:center;
-}
+	.content {
+		margin-top: 250px;
+		text-align: center;
+	}
 
+	.content h1 {
+		text-align: center;
+	}
 </style>
 </th:block>
 
 <div layout:fragment="content">
+	<div class="cont_header"></div>
+	<div class="wrap">
+	<div id="sidenav"></div>
     <div class=content>
 	 <h1>회원탈퇴가 완료되었습니다</h1>
 	 <br><br><br><br>
 	 <div id="nb">
 
-	  <a href="/ko"> <button type = "button"  class="btn_order" style="margin:10px;">처음으로</button></a>
+	  <a href="/ko">
+		<button type="button" class="btn_order" style="margin:10px;">처음으로</button>
+	</a>
 	  </div>
   </div>
-
-
+</div>
 </div>
 </html>

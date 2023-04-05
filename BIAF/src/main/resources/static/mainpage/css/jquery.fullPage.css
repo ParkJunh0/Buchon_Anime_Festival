@@ -57,7 +57,7 @@ html.fp-enabled,
     -ms-user-select: none; /* IE10+ */
     position: absolute;
     z-index: 4;
-    top: 50%;
+    bottom: 10px;
     cursor: pointer;
     width: 0;
     height: 0;
@@ -68,12 +68,13 @@ html.fp-enabled,
     transform: translate3d(0,0,0);
 }
 .fp-controlArrow.fp-prev {
-    left: 15px;
+    left: 30px;
     width: 0;
     border-width: 38.5px 34px 38.5px 0;
     border-color: transparent #fff transparent transparent;
 }
 .fp-controlArrow.fp-next {
+    bottom: 10px;
     right: 15px;
     border-width: 38.5px 0 38.5px 34px;
     border-color: transparent transparent transparent #fff;
@@ -104,7 +105,7 @@ html.fp-enabled,
     right: 17px;
 }
 #fp-nav.left {
-    left: 17px;
+    left: 5px;
 }
 .fp-slidesNav{
     position: absolute;

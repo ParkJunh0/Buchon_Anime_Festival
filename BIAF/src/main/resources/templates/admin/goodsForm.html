@@ -6,6 +6,20 @@
 	<!-- 사용자 스크립트 추가 -->
 	<th:block layout:fragment="script">
 		<script th:inline="javascript">
+			$(document).ready(function(){
+				$('.custom-select').change(function(){
+					switch($(this).val()){
+						case "SOLD_OUT":
+							$('.gquantity').val(0);
+							$('.gquantity').attr('readonly', true);
+						break
+						default:
+						$('.gquantity').val('');
+							$('.gquantity').attr('readonly', false);
+						break
+					}
+				});
+			});
 			$(document).ready(function () {
 				var errorMessage = [[${ errorMessage }]]; //상품등록 시 실패 메시지를 받아서 상품등록 재진입 시 alert를 통해서 실패 사유를 보여준다.
 				if (errorMessage != null) {
@@ -34,14 +48,14 @@
 		#container {
 			position: relative;
 			min-height: 650px;
+			display: flex;
+			justify-content: space-evenly;
 		}
 
 		#content {
-			position: relative;
-			max-width: 1200px;
-			margin: 0 auto;
+			width: 1000px;
 		}
-
+		
 		h3.conTit {
 			padding-top: 54px;
 			color: #000;
@@ -53,7 +67,7 @@
 			margin-top: 40px;
 			text-align: center
 		}
-
+		
 		.tabMenu ul {
 			display: table;
 			table-layout: fixed;
@@ -62,7 +76,7 @@
 			margin-bottom: 36px;
 			font-size: 0;
 		}
-
+		
 		.tabMenu ul li.active {
 			background-color: #4a5bbf;
 			border-color: #4a5bbf;
@@ -71,12 +85,12 @@
 			-moz-transition: background 0.3s;
 			transition: background 0.3s;
 		}
-
+		
 		.tabMenu ul li {
 			display: table-cell;
 			border: 1px solid #e0e0e0;
 		}
-
+		
 		.tabMenu ul li.active a {
 			color: #fff;
 		}
@@ -90,26 +104,26 @@
 			font-size: 15px;
 			box-sizing: border-box;
 		}
-
+		
 		.admin1_content {
-			max-width: 1024px;
+			width: 500px;
 			margin: 0 auto;
 			padding: 64px 40px;
 			text-align: left;
 		}
-
+		
 		.image-upload {
 			flex: 1;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
 		}
-
+		
 		.button {
 			display: flex;
 			justify-content: center;
 		}
-
+		
 		#chooseFile {
 			visibility: hidden;
 		}
@@ -169,6 +183,7 @@
 <div layout:fragment="content">
 	<div class="cont_header"></div>
 	<div id="container">
+		<div id="sidenav"></div>
 		<div id="content">
 			<h3 class="conTit">관리자 굿즈관리</h3>
 			<form method="post" role="form" th:object="${goodsFormDto}" enctype="multipart/form-data">
@@ -219,7 +234,7 @@
 					<div class="form-group row">
 						<label class="col-sm-1">재고 수</label>
 						<div class="col-sm-2">
-							<input type="text" th:field="*{stockNumber}" class="form-control"
+							<input type="text" th:field="*{stockNumber}" class="form-control gquantity"
 								placeholder="재고 수를 입력해주세요">
 							<p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}"
 								class="fieldError">Incorrect data</p>
@@ -252,16 +267,16 @@
 
 
 					<div th:if="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
-						<button th:formaction="@{/admin/goods/new}" type="submit" class="btn btn-primary">저장</button>
+						<button th:formaction="@{/ko/admin/goods/new}" type="submit" class="btn btn-primary">저장</button>
 					</div>
 
 					<div th:unless="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
-						<button th:formaction="@{/admin/goods/}+ ${goodsFormDto.id}" type="submit"
+						<button th:formaction="@{/ko/admin/goods/}+ ${goodsFormDto.id}" type="submit"
 							class="btn btn-primary">수정</button>
 					</div>
 
 					<div th:unless="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
-						<button th:formaction="@{/admin/goods/delete/}+ ${goodsFormDto.id}" type="submit"
+						<button th:formaction="@{/ko/admin/goods/delete/}+ ${goodsFormDto.id}" type="submit"
 							class="btn btn-primary">삭제</button>
 					</div>
 					
