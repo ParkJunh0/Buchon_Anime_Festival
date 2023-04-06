@@ -1,6 +1,5 @@
 package com.biaf.service;
 
-import java.nio.file.Files;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,7 +28,6 @@ public class MovieService {
 	private final MovieRepository movieRepository;
 	private final MovieImgService movieImgService;
 	private final MovieImgRepository movieImgRepository;
-//	private final FileService fileService;
 
 	public Long saveMovie(MovieFormDto movieFormDto, MultipartFile movieImgFileList) throws Exception {
 		// 영화 등록
@@ -80,9 +78,9 @@ public class MovieService {
 		movieRepository.deleteById(id);
 		movieImgRepository.deleteById(imgId);
 	}
+	
 
 	   public Page<Movie> mvList(Pageable pageable){ //영화리스트조회,페이징
         return movieRepository.findAll(pageable);
      }
-	   
 }

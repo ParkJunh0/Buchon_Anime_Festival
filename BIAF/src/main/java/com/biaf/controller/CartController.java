@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biaf.dto.CartDetailDto;
 import com.biaf.dto.CartGoodsDto;
+import com.biaf.dto.CartOrderDto;
 import com.biaf.service.CartService;
 
 import lombok.RequiredArgsConstructor;
@@ -92,4 +93,23 @@ public class CartController {
 		return new ResponseEntity<Long>(cartGoodsId, HttpStatus.OK);
 	}
 
-}
+	@PostMapping(value = "/cart/orders") // 장바구니에서 주문
+	public @ResponseBody ResponseEntity orderCartGoods(@RequestBody CartOrderDto cartOrderDto, Principal principal){ 
+		
+		List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
+	
+	if(cartOrderDtoList == null || cartOrderDtoList.size() == 0){ // 주문할 상품을 선택하지 않았는지 체크한다. 
+		return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN); 
+		}
+	
+	for (CartOrderDto cartOrder : cartOrderDtoList) { // 주문 권한을 체크한다.
+		if(!cartService.validateCartGoods(cartOrder.getCartGoodsId(), principal.getName())){ // 주문 로직 호출 결과 생성된 주문번호를 반환 받는다. 
+			return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN); 
+			}
+		}
+	
+	List<Long> orderIds = cartService.orderCartGoods(cartOrderDtoList, principal.getName()); 
+	return new ResponseEntity<List<Long>>(orderIds, HttpStatus.OK); // 생성된 주문 번호와 요청이 성공했다는 http 응답 상태 코드를 반환한다. 
+	}	
+
+	}

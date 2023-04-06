@@ -3,10 +3,6 @@ package com.biaf.controller;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biaf.dto.MovieFormDto;
-import com.biaf.entity.Movie;
 import com.biaf.service.MemberService;
 import com.biaf.service.MovieService;
 
@@ -28,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping(value = "/ko")
 public class MovieController {
+    private final MemberService memberService;
 	private final MovieService movieService;
 
     @GetMapping(value = "/admin/movieForm") // 영화등록 폼

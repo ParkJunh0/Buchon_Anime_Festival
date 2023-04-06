@@ -9,7 +9,7 @@
 </head>
 
 <th:block layout:fragment="script">
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			$("input[name=cartChkBox]").change(function() { // 주문할 상품을 체크하거나 해제할 경우 총 주문 금액을 구하는 함수를 호출한다.
@@ -17,13 +17,56 @@
 				getOrderTotalCount();
 			});
 		});
+		
+		// 체크박스에 저장된 카트 아이디 값 불러오기(체크 박스 선택시 삭제)
+		function selectDelete(){
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var checkBoxes = document.getElementsByName("cartChkBox");
+			
+			
+			for(var i = 0; i< checkBoxes.length; i++){
+				if(checkBoxes[i].checked){
+				/* 	console.log(checkBoxes[i].value); */
+					
+					var url = "/ko/cartGoods/" + checkBoxes[i].value
 
+					$.ajax({
+						url : url,
+						type : "DELETE", // 장바구니 상품을 삭제하는 경우이므로 DELETE TYPE을 사용한다. 
+						beforeSend : function(xhr) {
+							/* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+							xhr.setRequestHeader(header, token);
+						},
+						dataType : "json",
+						cache : false,
+						success : function(result, status) {
+							location.href = '/ko/cart'; // 삭제 요청이 정상적으로 처리되면 장바구니 페이지를 새로고침한다. 
+						},
+						error : function(jqXHR, status, error) {
+
+							if (jqXHR.status == '401') {
+								alert('로그인 후 이용해주세요');
+								location.href = '/members/login';
+							} else {
+								alert(jqXHR.responseJSON.message);
+							}
+						}
+					});
+				} else{
+					swal("Oops!","상품을 선택해주세요","error");
+				}
+			}
+		}
+		
+		
 		function getOrderTotalCount() { // 총 주문 수량을 구하는 함수
 			var orderTotalCount = 0;
 			$("input[name=cartChkBox]:checked").each(function() { // 현재 체크된 장바구니 상품들의 수량을 더해서 총 주문 수량을 계산한다.
 				var cartGoodsId = $(this).val();
 				var count = parseInt($("#count_" + cartGoodsId).val());
 				orderTotalCount += count;
+				
 			});
 
 			$("#orderTotalCount").html(orderTotalCount + '개');
@@ -40,14 +83,16 @@
 			$("#orderTotalPrice").html(orderTotalPrice + '원');
 		}
 
-		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액을 변경해준다. 변경된 총 주문 금액을 계산
-			// 하기 위해서 마지막에 getOrderTotalPrice() 함수를 호출한다.
+		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액, 총수량을 변경해준다. 
+			
 			var count = obj.value;
 			var cartGoodsId = obj.id.split('_')[1];
 			var price = $("#price_" + cartGoodsId).data("price");
 			var totalPrice = count * price;
 			$("#totalPrice_" + cartGoodsId).html(totalPrice + "원");
-			getOrderTotalPrice();
+			
+			getOrderTotalPrice();	
+			getOrderTotalCount();
 
 			updateCartGoodsCount(cartGoodsId, count);
 		}
@@ -76,7 +121,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					console.log("cartItem count update success");
+					console.log("cartGoods count update success");
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
@@ -119,14 +164,64 @@
 				}
 			});
 		}
+		// 장바구니 주문하기
+		function orders() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
+
+			var url = "/ko/cart/orders";
+
+			var dataList = new Array();
+			var paramData = new Object();
+
+			$("input[name=cartChkBox]:checked").each(function() { // 체크된 장바구니 상품 아이디를 전달하기 위해서
+				// dataList 배열에 장바구니 상품 아이디를 객체로 만들어서 저장한다. 
+				var cartGoodsId = $(this).val();
+				var data = new Object();
+				data["cartGoodsId"] = cartGoodsId;
+				dataList.push(data);
+			});
+
+			paramData['cartOrderDtoList'] = dataList; // 장바구니 상품 아이디를 저장하고 있는 dataList 배열을 paramData 객체에 추가한다. 
+
+			var param = JSON.stringify(paramData);
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				contentType : "application/json",
+				data : param,
+				beforeSend : function(xhr) {
+					/* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					alert("주문이 완료 되었습니다.");
+					location.href = '/ko/orders'; // 주문 요청 결과 성공하였다면 구매이력 페이지로 이동한다. 
+				},
+				error : function(jqXHR, status, error) {
+
+					if (jqXHR.status == '401') {
+						alert('로그인 후 이용해주세요');
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+		
 	</script>
 </th:block>
 
 <th:block layout:fragment="css">
-	<!-- 	<link rel="stylesheet" th:href="@{/css/style.css}"> -->
+	<!-- <link rel="stylesheet" th:href="@{css/style.css}"> -->
 
 	<style>
-	/* 사이드바*/
+/* 사이드바 */
 #wrap {
 	width: 100%;
 	position: relative;
@@ -206,7 +301,7 @@ tbody {
 					</thead>
 					<tbody>
 						<tr th:each="cartGoods : ${cartGoods}">
-							<td><input type="checkbox" name="cartChkBox"
+							<td><input type="checkbox" name="cartChkBox" id="cartChkBox"
 								th:value="${cartGoods.cartGoodsId}"></td>
 							<!-- 		<td th:text="${status.count}"></td> -->
 							<td><img th:src="${cartGoods.imgUrl}" /></td>
@@ -252,13 +347,16 @@ tbody {
 				</table>
 
 				<div class="order">
-					<button type="submit">선택한 상품 주문</button>
-
-
+					<button type="submit" onclick="orders()">선택한 상품 주문</button>
 				</div>
+				<div class="deletebtn">
+					<button  type="button" onclick="selectDelete()" >선택한 상품 삭제</button>
+				</div>
+
+
+
 			</div>
 		</div>
 	</div>
 </div>
-
 </html>

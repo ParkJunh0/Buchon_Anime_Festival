@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+<th:block layout:fragment="css">
+<style>
+	   #wrap {
+            width: 1024px;
+            margin: 0 auto;
+            margin-top: 200px;
+/*            border: 1px solid blue;*/
+            position: relative;
+            top: 50px;
+        }
+        #section{
+            position: relative;
+            display: block;
+        }
+        #section #aside{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 400px;
+/*            border: 1px solid green;*/
+        }
+        #section #aside li{
+            list-style: none;
+        }
+        .dep1{
+            padding-left: 10px;
+            margin-top: 10px;
+        }
+        .dep2{
+            padding-left: 30px;
+        }
+        .dep2 li{
+            width: 100%;
+            height: 30px;
+        }
+        .dep1 a{
+            text-decoration: none;
+            color: #444;
+            
+       }
+
+
+    .wrap1 {
+        width: 100%;
+    }
+
+    .movie_reg {
+        width: 50%;
+        margin-left: 400px;
+        margin-top: 200px;
+    }
+
+    .movie_reg_title {
+        text-align: center;
+        margin-right: 300px;
+        margin-bottom: 30px;
+    }
+
+    .inputArea {
+        width: 500px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: inline-block;
+        width: 90px;
+    }
+
+    /*
+     .inputArea input{
+        width: 348px;
+    }
+*/
+    .reg_btn {
+        margin-left: 250px;
+    }
+</style>
+</th:block>
+
+<div layout:fragment="content">
+<div id="wrap">
+        <div id="section">
+            <div id="aside">
+                <ul class="dep1">
+                    <h2>관리자메뉴</h2>
+                       <br>
+                        <ul class="dep2">
+                       		<li><a href="/ko/memberList">회원관리</a></li>
+                            <li><a href="#">게시판관리</a></li>
+                            <li><a href="/ko/movie_reg">영화등록관리</a></li>
+                            <li><a href="#">굿즈관리</a></li>
+                            <li><a href="#">배너관리</a></li>
+                            <li><a href="/ko/reservationadmin">예매관리</a></li>
+                        </ul>
+                </ul>
+            </div>
+            <div id="slide">
+    <div class="wrap1">
+        <div class="movie_reg">
+            <div class="movie_reg_title">
+                <h1>영화 등록</h1>
+            </div>
+
+            <form role="form" method="post" id="mform">
+
+                <div class="inputArea">
+                    <label for="mName">영화명 : </label>
+                    <input type="text" id="gdsName" name="gdsName" />
+                </div>
+                <div class="inputArea">
+                    <label>상영관 : </label>
+                    <select class="category1">
+                        <option value="">CGV부천 3관</option>
+                        <option value="">CGV부천 4관</option>
+                        <option value="">CGV부천 5관</option>
+                    </select>
+                </div>
+                <div class="inputArea">
+                    <label for="mhour">관람 시간 : </label>
+                    <input type="text" id="mhour" name="mhour" />
+                </div>
+
+                <div class="inputArea">
+                    <label for="mperiod">상영 기간 : </label>
+                    <input type="text" id="mperiod" name="mperiod" />
+                </div>
+
+                <div class="inputArea">
+                    <label>관람 등급 : </label>
+                    <select class="category1">
+                        <option value="">전체</option>
+                        <option value="">12</option>
+                        <option value="">15</option>
+                        <option value="">19</option>
+                    </select>
+                </div>
+
+                <div class="inputArea">
+                    <label for="mPrice">가격 : </label>
+                    <input type="text" id="mPrice" name="mPrice" />
+                </div>
+
+                <!--   <div class="inputArea">
+                <label for="gdsStock">상품수량</label>
+                <input type="text" id="gdsStock" name="gdsStock" />
+            </div>-->
+
+
+                <div class="inputArea">
+                    <label class="custom-file-label">상품이미지 : </label>
+                    <input type="file" class="custom-file-input" name="itemImgFile">
+
+                </div>
+
+                <div class="inputArea">
+                    <label f or="minfo">영화 소개 : </label>
+                    <textarea rows="5" cols="50" id="gdsDes" name="minfo"></textarea>
+                </div>
+
+
+                <div class="reg_btn">
+                    <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+                </div>
+
+
+            </form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        
+</html>

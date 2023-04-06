@@ -11,6 +11,8 @@ import org.thymeleaf.util.StringUtils;
 
 import com.biaf.dto.CartDetailDto;
 import com.biaf.dto.CartGoodsDto;
+import com.biaf.dto.CartOrderDto;
+import com.biaf.dto.OrderDto;
 import com.biaf.entity.Cart;
 import com.biaf.entity.CartGoods;
 import com.biaf.entity.Goods;
@@ -31,6 +33,7 @@ public class CartService {
 	private final MemberRepository memberRepository;
 	private final CartRepository cartRepository;
 	private final CartGoodsRepository cartGoodsRepository;
+	private final OrderService orderService; 
 
 	public Long addCart(CartGoodsDto cartGoodsDto, String memberEmail) {
 
@@ -97,4 +100,32 @@ public class CartService {
 		CartGoods cartGoods = cartGoodsRepository.findById(cartGoodsId).orElseThrow(EntityNotFoundException::new);
 		cartGoodsRepository.delete(cartGoods);
 	}
+	
+	// 장바구니에서 주문
+	public List<Long> orderCartGoods(List<CartOrderDto> cartOrderDtoList, String memberemail){ 
+	    List<OrderDto> orderDtoList = new ArrayList<>();
+	   
+
+	    for (CartOrderDto cartOrderDto : cartOrderDtoList) {
+	        CartGoods cartGoods = cartGoodsRepository
+	                .findById(cartOrderDto.getCartGoodsId())
+	                .orElseThrow(EntityNotFoundException::new);
+
+	        OrderDto orderDto = new OrderDto(); 
+	        orderDto.setGoodsId(cartGoods.getGoods().getId()); 
+	        orderDto.setCount(cartGoods.getCount()); 
+	        orderDtoList.add(orderDto);
+	        
+	    }
+
+	    List<Long> orderIds = orderService.orders(orderDtoList, memberemail);
+	    for (CartOrderDto cartOrderDto : cartOrderDtoList) { // 주문한 상품들을 장바구니에서 제거한다.
+	    	CartGoods cartGoods = cartGoodsRepository
+	    	.findById(cartOrderDto.getCartGoodsId())
+	    	.orElseThrow(EntityNotFoundException::new);
+	    	cartGoodsRepository.delete(cartGoods);
+	    	}
+	    	return orderIds;
+	}
+
 }

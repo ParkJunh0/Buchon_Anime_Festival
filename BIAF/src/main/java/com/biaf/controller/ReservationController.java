@@ -17,7 +17,7 @@ public class ReservationController{
 	
 	private final MovieService movieService;
 	
-	@GetMapping(value="/schedule")
+	@GetMapping(value="/schedule") //현재 상영작
 	public String schedule(Model model) {
 		model.addAttribute("movieResponseDto", movieService.findAll());
 		return "reservation/reservation";
@@ -25,9 +25,9 @@ public class ReservationController{
 	
 	@GetMapping(value="/reservation/detail/{movieId}") // 영화 상세페이지
 	public String reservationdetail(@PathVariable Long movieId, Model model){
-		model.addAttribute("movieResponseDto", movieService.findAll());
-		model.addAttribute("movieids", movieId);
-		return "reservation/reservation-detail";
+	   	model.addAttribute("movieResponseDto", movieService.findAll());
+	   	model.addAttribute("movieids", movieId);
+	   	return "reservation/reservation-detail";
 	}
 	
     @GetMapping(value="/ticket_reservation")

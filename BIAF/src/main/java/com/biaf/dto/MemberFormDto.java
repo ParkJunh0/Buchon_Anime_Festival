@@ -11,7 +11,6 @@ import com.biaf.entity.Member;
 
 import lombok.Data;
 
-
 @Data
 public class MemberFormDto {
 	
@@ -49,11 +48,19 @@ public class MemberFormDto {
 		
 		return memFormDto;
 	}
-	
+
 	private static ModelMapper modelMapper = new ModelMapper();
-	
-	public Member createMember() {  //Dto를 Entity로 바꾸는 메소드
+
+	public Member createMember() { // Dto를 Entity로 바꾸는 메소드
 		return modelMapper.map(this, Member.class);
 	}
-	
+
+	/*
+	 * public static MemberFormDto toMemberDto(Member member) { MemberFormDto
+	 * memberFormDto = new MemberFormDto(); memberFormDto.setId(member.getId());
+	 * memberFormDto.setMemberEmail(member.getMemberEmail());
+	 * memberFormDto.setMemberPassword(member.getMemberPassword());
+	 * memberFormDto.setMemberAddress(member.getMemberAddress());
+	 * memberFormDto.setMemberName(member.getMemberName()); return memberFormDto; }
+	 */
 }
