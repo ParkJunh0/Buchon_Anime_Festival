@@ -49,6 +49,10 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
+        .wrap{
+            display: flex;
+            justify-content: space-evenly;
+        }
         .content-mg {
             margin-left: 30%;
             margin-right: 30%;
@@ -57,6 +61,7 @@
         }
 
         .all {
+            width: 1000px;
             text-align: center;
         }
 
@@ -89,20 +94,21 @@
 </th:block>
 <div layout:fragment="content">
     <div class="cont_header"></div>
+    <div class="wrap">
     <div id="sidenav"></div>
     <div class="all">
         <h2 class="mb-4">
             구매 이력
         </h2>
-        <div th:each="order : ${orders.getContent()}">
+        <div th:each="order : ${OrderGoodsDto.getContent()}">
             <div class="d-flex mb-3 align-self-center">
                 <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
                 <div class="ml-3">
-                    <th:block th:if="${order.orderstatus == T(com.biaf.constant.OrderStatus).ORDER}">
-                        <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}"
+                    <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
+                        <button type="button" class="btn btn-outline-secondary" th:value="${order.Id}"
                             onclick="cancelOrder(this.value)">주문취소</button>
                     </th:block>
-                    <th:block th:unless="${order.orderstatus == T(com.biaf.constant.OrderStatus).ORDER}">
+                    <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
                         <h4>(취소 완료)</h4>
                     </th:block>
                 </div>
@@ -122,25 +128,18 @@
            
             </div>
         </div>
-        <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
-                    <a th:href="@{'ko/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
-                        <span aria-hidden='true'>Previous</span>
-                    </a>
-                </li>
-                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
-                    th:classappend="${orders.number eq page-1}?'active':''">
-                    <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                </li>
-                <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
-                    <a th:href="@{'ko/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
-                        <span aria-hidden='true'>Next</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        <div class="page_wrap">
+            <!-- 페이징  -->
+            <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+               <a th:if="${page==0? page==1 : page != nowPage}"
+               th:href="@{/ko/orders(page=${page-1})}"
+               th:text="${page}"></a>
+            <strong th:if="${page==nowPage}" th:text="${page}"
+               style="color: red"></strong>
+           </th:block>
+         </div>
     </div>
+</div>
 </div>
 
 </html>

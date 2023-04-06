@@ -89,12 +89,12 @@ public class MovieController {
 			return "movie/movieForm";
 		}
 
-		return "redirect:/ko/admin/movieMng";
+		return "redirect:/ko/admin/movie";
 	}
     // 영화 리스트 삭제
 	@PostMapping(value = "/admin/movie/delete/{movieId}")
 	public String moviedelete(@PathVariable Long movieId, @RequestParam("movieImgIds") Long imgId) {
 		movieService.deletemovie(movieId, imgId);
-		return "redirect:/ko/admin/movieMng";
+		return "redirect:/ko/admin/movie";
 	}
 }

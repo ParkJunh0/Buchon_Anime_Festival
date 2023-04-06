@@ -34,7 +34,7 @@ public class Goods extends BaseEntity {
 	@Column(nullable = false, length = 50)
 	private String goodsNm; // 상품명
 
-	@Column(name = "price", nullable = false)
+	@Column(name="price", nullable = false)
 	private int price; // 가격
 
 	@Column(nullable = false)

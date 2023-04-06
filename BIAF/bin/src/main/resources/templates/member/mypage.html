@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
+
+
+<th:block layout:fragment="script">
+    <script src="js/script.js"></script>
+</th:block>
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/login/css/button.css">
+    <style>
+        #wrap {
+            width: 100%;
+            position: relative;
+            margin-bottom: 150px;
+            top: 50px;
+        }
+
+        #section {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        #slide {
+            min-width: 1000px;
+            top: 0;
+            width: 750px;
+        }
+
+        .all {
+            margin-top: 50px;
+        }
+
+        #nb {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .slidea{
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</th:block>
+<div layout:fragment="content">
+    <div class="cont_header"></div>
+    <div id="wrap">
+        <div id="section">
+            <div id="sidenav"></div>
+            <div id="slide">
+                <div class="slidea">
+                <h4>회원정보</h4>
+                <h1>나의 회원정보</h1>
+
+                <form th:object="${memberFormDto}">
+                    <div class="all">
+                        <table>
+                            <tr>
+                                <td>
+                                    <p>이메일</p>
+                                </td>
+                                <td><input type="email" name="memberEmail" th:field="*{memberEmail}" readonly></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>비밀번호</p>
+                                </td>
+                                <td><input type="password" id="pw" name="memberPassword" readonly></td>
+                            </tr>
+                            <!-- <tr>
+					<td><p>비밀번호 확인</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr> -->
+                            <tr>
+                                <td>
+                                    <p>이름</p>
+                                </td>
+                                <td><input type="text" name="memberName" th:field="*{memberName}" readonly></td>
+                            </tr>
+                            <!-- <tr>
+					<td><p>성별</p></td>
+					<td>
+					<input type="radio" name="memberLoc">남자 
+					    <input type="radio" name="memberLoc">여자
+					</td>
+				</tr> -->
+                            <tr>
+                                <td>
+                                    <p>전화번호</p>
+                                </td>
+                                <td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}" th:field="*{memberTel}" readonly></td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    <p>주소</p>
+                                </td>
+                                <td><input type="text" size="10" name="postcode" id="postcode" placeholder="우편번호"
+                                    onclick="kakaopost()" th:field="*{postcode}" readonly><br>
+                                    <input type="text" name="memberAddress" id="address"
+                                    placeholder="도로명주소" readonly="readonly" onclick="kakaopost()"
+                                    th:field="*{memberAddress}"> <input type="text"
+                                    name="wRestAddress" placeholder="나머지 주소"
+                                    th:field="*{wRestAddress}" readonly></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}">
+                </form>
+            </div>
+            <div id="nb">
+                <a href="/ko/myedit">
+                    <button type="button" class="btn_order">수정하기</button>
+                </a>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

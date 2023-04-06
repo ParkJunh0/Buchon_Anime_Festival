@@ -2,8 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="~{layouts/layout1}">
-   
-   
 
 <th:block layout:fragment="script">
 <script th:src="@{/js/memberList_modal.js}" type="text/javascript"></script>
@@ -16,17 +14,18 @@
          position: relative;
          top: 50px;
       }
+
       #section {
          margin: 0 auto;
          display: flex;
          justify-content: space-evenly;
       }
+
       #slide {
          left: 150px;
          top: 0;
          min-width: 1000px;
          height: 400px;
-         
       }
       
       .container {
@@ -156,12 +155,14 @@
       .page_wrap {
          margin-top: 50px;
       }
+
       .modal1{
          width: 300px;
          height: 200px;
          background: yellow;
          display:none;
       }
+
       .close{
          position:absolute;
          width: 400px;
@@ -169,17 +170,16 @@
          top: 40%;
          left: 40%;
       }
+
       .modal_del{
          padding: 50px;
       }
+
       .del {
       margin-left : 130px;
       }
-      
       </style>
    </th:block>
-
-
 
 <div layout:fragment="content">
    <dvi class="cont_header"></dvi>
@@ -210,15 +210,22 @@
                               <th scope="col" class="m_name">회원명</th>
                               <th scope="col" class="m_email">이메일</th>
                               <th scope="col" class="m_Tel">전화번호</th>
+                              <th scope="col" class="m_address">주소</th>
                               <th scope="col" class="m_del">관리</th>
                            </tr>
                         </thead>
                         <tbody align="center">
-                           <tr class="board_line" th:each="member : ${memberResponseDto}">
-                              <td class="m_no"><span th:text="${member.memberId}"></span></td>
+                           <tr class="board_line" th:each="member, status: ${memberResponseDto}">
+                              <td class="m_no">
+                                 <span th:text="${status.count + ((nowPage-1) * 5)}"></span>
+                                 <input type="hidden" th:value="${member.memberId}">
+                              </td>
                               <td class="m_name"><span th:text="${member.memberName}"></span></td>
                               <td class="m_email"><span th:text="${member.memberEmail}"></span></td>
                               <td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
+                              <td class="m_address"><span th:text="${member.postcode}"></span>
+                                 <span th:text="${member.memberAddress}"></span> <span
+                                 th:text="${member.wRestAddress}"></span></td>
                               <td class="m_del"><a href="#" class="del1">탈퇴</a></td>
                            </tr>
                         </tbody>
@@ -226,10 +233,15 @@
                   </div>
                </div>
 
-                <div class="page_wrap">  <!-- 페이징  -->
+                <div class="page_wrap">
+                  <!-- 페이징  -->
                   <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-                  <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/memberList(page=${page-1})}" th:text ="${page}"></a>
-                  <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+                     <a th:if="${page==0? page==1 : page != nowPage}"
+                     th:href="@{/ko/admin/memberList(page=${page-1})}"
+                     th:text="${page}"></a>
+                  <!--th:if-if문 "${page==0? page==1 : page != nowPage}"  삼항식   -->
+                  <strong th:if="${page==nowPage}" th:text="${page}"
+                     style="color: red"></strong>
                  </th:block>
                </div>
             </div>
@@ -244,7 +256,7 @@
             <div class="close">
             <div class="modal_del">회원을 삭제시키시겠습니까?</div>
             
-         <form th:action="@{/ko/memdelete}" class="delete_form" th:method="delete"> 
+         <form th:action="@{/ko/admin/memdelete}" class="delete_form" th:method="delete"> 
           <div class="info_submit">
                 <button type="submit" class="del" id="close" >탈퇴</button>
                 <input class="hidden_id" type="hidden" name="id">
@@ -252,7 +264,8 @@
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
            </form>
             
-            <script>  <!-- 회원삭제  -->
+            <script>
+            <!-- 회원삭제  -->
             var id=0;
             $('.m_del').on('click', function(){
                id = $(this).parent().children('.m_no').children().text();

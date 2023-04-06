@@ -2,33 +2,36 @@ package com.biaf.controller;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biaf.dto.OrderDto;
 import com.biaf.dto.OrderGoodsDto;
+import com.biaf.entity.OrderGoods;
 import com.biaf.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
+@RequestMapping(value="/ko")
 public class OrderController {
     private final OrderService orderService;
 
@@ -56,16 +59,20 @@ public class OrderController {
         return new ResponseEntity<Long>(orderId, HttpStatus.OK);
     } // 결과값으로 생성된 주문번호와 요청이 성공했다는 http응답상태코드를 반환한다.
 
-    @GetMapping(value = { "/orders", "/oders/{page}" }) // 구매이력조회
-    public String orderHist(@PathVariable("page") Optional<Integer> page, Principal principal, Model model) {
+    @GetMapping(value = { "/orders" }) // 구매이력조회
+    public String orderHist(Model odmodel,
+    @PageableDefault(page = 0, size = 5, sort="orderDate", direction = Sort.Direction.DESC) Pageable odpageable) {
 
-        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 4); // 한번에 갖고 올 주문 개수 4개
-        Page<OrderGoodsDto> ordersGoodsDtoList = orderService.getOrderList(principal.getName(), pageable);
-        // 현재 로그인한 회원은 이메일과 페이징 객체를 파라미터로 전달하여 화면에 전달하여 주문 목록 데이터를 리턴값으로 받음
-        model.addAttribute("orders", ordersGoodsDtoList);
-        model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("maxPage", 5);
+        Page<OrderGoods> odList = orderService.odList(odpageable);
+        odmodel.addAttribute("OrderGoodsDto", odList);
+        int odnowPage = odList.getPageable().getPageNumber() + 1; // 페이징
+		int odstartPage = Math.max(odnowPage - 4, 1);
+		int odendPage = Math.min(odnowPage + 9, odList.getTotalPages());
 
+		odmodel.addAttribute("nowPage", odnowPage);
+		odmodel.addAttribute("startPage", odstartPage);
+		odmodel.addAttribute("endPage", odendPage);
+        
         return "order/orderHist";
 
     }

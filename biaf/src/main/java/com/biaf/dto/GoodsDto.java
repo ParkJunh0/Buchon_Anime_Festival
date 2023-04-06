@@ -3,6 +3,7 @@ package com.biaf.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.biaf.constant.GoodsSellStatus;
 import com.biaf.entity.GoodsImg;
 
 import lombok.Getter;
@@ -19,15 +20,11 @@ public class GoodsDto {
 
     private String goodsDetail;
 
-    private String sellStatCd;
+    private GoodsSellStatus sellStat;
 
     private String  imgUrl;
     
-
-   
-
-
-
+    
     public static List<GoodsDto> createGoodsDto(List<GoodsImg> gdList){
         List<GoodsDto> mvResDtoList = new ArrayList<GoodsDto>();
         GoodsDto goodsDto;
@@ -36,6 +33,7 @@ public class GoodsDto {
             goodsDto.id = gd.getId(); 
             goodsDto.goodsNm = gd.getGoods().getGoodsNm(); 
             goodsDto.imgUrl = gd.getImgUrl(); 
+            goodsDto.sellStat = gd.getGoods().getGoodsSellStatus();
             goodsDto.price = gd.getGoods().getPrice();
             goodsDto.goodsDetail = gd.getGoods().getGoodsDetail();           
           

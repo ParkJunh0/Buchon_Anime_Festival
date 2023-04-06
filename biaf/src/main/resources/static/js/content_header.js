@@ -1,6 +1,6 @@
 $(function(){
     var content_header_html = ''; 						// 태그 넣을 변수 선언 및 초기화
-    var conthref= location.href.split("/")[4].replace(/#$/, '');	// 주소를 "/"를 기준으로 나누어 그중 5번째 배열값에 가장 마지막에 있는 "#"제거($가 마지막을 의미)
+    var conthref= location.href.split("/")[4].split("?")[0].replace(/#$/, '');	// 주소를 "/"를 기준으로 나누어 그중 5번째 배열값에 가장 마지막에 있는 "#"제거($가 마지막을 의미)
     
     // 각 페이지 헤더 메뉴
     // BIAF페이지 메뉴
@@ -65,6 +65,11 @@ $(function(){
     if(conthref == "admin"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>관리자페이지</h1></div>';
+    }
+    // 마이페이지 부분
+    if(conthref == "mypage" || conthref == "cart" || conthref == "orders" || conthref=="memberout" || conthref=="memberout1"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>마이페이지</h1></div>';
     }
     // 페이지 메뉴 입력 받은 값 cont_header 클래스의 가장 앞에 삽입
     $('.cont_header').prepend(content_header_html);

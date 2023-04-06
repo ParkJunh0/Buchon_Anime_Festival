@@ -6,6 +6,20 @@
 	<!-- 사용자 스크립트 추가 -->
 	<th:block layout:fragment="script">
 		<script th:inline="javascript">
+			$(document).ready(function(){
+				$('.custom-select').change(function(){
+					switch($(this).val()){
+						case "SOLD_OUT":
+							$('.gquantity').val(0);
+							$('.gquantity').attr('readonly', true);
+						break
+						default:
+						$('.gquantity').val('');
+							$('.gquantity').attr('readonly', false);
+						break
+					}
+				});
+			});
 			$(document).ready(function () {
 				var errorMessage = [[${ errorMessage }]]; //상품등록 시 실패 메시지를 받아서 상품등록 재진입 시 alert를 통해서 실패 사유를 보여준다.
 				if (errorMessage != null) {
@@ -220,7 +234,7 @@
 					<div class="form-group row">
 						<label class="col-sm-1">재고 수</label>
 						<div class="col-sm-2">
-							<input type="text" th:field="*{stockNumber}" class="form-control"
+							<input type="text" th:field="*{stockNumber}" class="form-control gquantity"
 								placeholder="재고 수를 입력해주세요">
 							<p th:if="${#fields.hasErrors('stockNumber')}" th:errors="*{stockNumber}"
 								class="fieldError">Incorrect data</p>
@@ -257,7 +271,7 @@
 					</div>
 
 					<div th:unless="${#strings.isEmpty(goodsFormDto.id)}" style="text-align: center">
-						<button th:formaction="@{/ko/admin/goods/}+ ${0 goodsFormDto.id}" type="submit"
+						<button th:formaction="@{/ko/admin/goods/}+ ${goodsFormDto.id}" type="submit"
 							class="btn btn-primary">수정</button>
 					</div>
 
