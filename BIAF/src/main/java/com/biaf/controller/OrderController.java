@@ -6,34 +6,39 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.data.domain.Sort;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.biaf.dto.GoodsFormDto;
 import com.biaf.dto.OrderDto;
-import com.biaf.dto.OrderGoodsDto;
+import com.biaf.entity.Goods;
+import com.biaf.entity.Member;
 import com.biaf.entity.OrderGoods;
+import com.biaf.service.GoodsService;
+import com.biaf.service.MemberService;
 import com.biaf.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value="/ko")
+@RequestMapping(value = "/ko")
 public class OrderController {
     private final OrderService orderService;
+    private final GoodsService goodsService;
 
     @PostMapping(value = "/order")
     public @ResponseBody ResponseEntity order(@RequestBody @Valid OrderDto orderDto, BindingResult bindingResult,
@@ -50,43 +55,50 @@ public class OrderController {
         String email = principal.getName(); // 현재 로그인 유저의 정보를 얻기 위해서 @Controller가 선언된 클래스에서 메소드 인자로
         // principal 객체를 넘겨 줄 경우, 해당 객체에 직접 접근할 수 있다. principal 객체에서 현재 로그인한 회원의 이메일 정보를
         // 조회한다.
-        Long orderId;
+        Long goodsid;
         try {
-            orderId = orderService.order(orderDto, email); // 화면으로 넘어오는 주문정보와 회원의 이메일 정보를 이용하여 주문로직을 호출한다.
+            GoodsFormDto goods = goodsService.getGoodsDtl(orderDto.getGoodsId()); // 현재 로그인한 회원의 이메일 정보를 이용해서
+            if (goods.getStockNumber() > 0 && goods.getStockNumber() >= orderDto.getCount()){
+                goodsid = orderService.order(orderDto, email); // 화면으로 넘어오는 주문정보와 회원의 이메일 정보를 이용하여 주문로직을 호출한다.
+                return new ResponseEntity<Long>(goodsid, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<String>("300",HttpStatus.BAD_REQUEST);
+            }
+            
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+        // return new ResponseEntity<Long>(HttpStatus.OK);
     } // 결과값으로 생성된 주문번호와 요청이 성공했다는 http응답상태코드를 반환한다.
 
     @GetMapping(value = { "/orders" }) // 구매이력조회
-    public String orderHist(Model odmodel,
-    @PageableDefault(page = 0, size = 5, sort="orderDate", direction = Sort.Direction.DESC) Pageable odpageable) {
+    public String orderHist(Model odmodel, Principal principal,
+            @PageableDefault(page = 0, size = 5, sort = "orderDate", direction = Sort.Direction.DESC) Pageable odpageable) {
 
+        String email = principal.getName();
         Page<OrderGoods> odList = orderService.odList(odpageable);
         odmodel.addAttribute("OrderGoodsDto", odList);
         int odnowPage = odList.getPageable().getPageNumber() + 1; // 페이징
-		int odstartPage = Math.max(odnowPage - 4, 1);
-		int odendPage = Math.min(odnowPage + 9, odList.getTotalPages());
+        int odstartPage = Math.max(odnowPage - 4, 1);
+        int odendPage = Math.min(odnowPage + 9, odList.getTotalPages());
 
-		odmodel.addAttribute("nowPage", odnowPage);
-		odmodel.addAttribute("startPage", odstartPage);
-		odmodel.addAttribute("endPage", odendPage);
-        
+        odmodel.addAttribute("nowPage", odnowPage);
+        odmodel.addAttribute("startPage", odstartPage);
+        odmodel.addAttribute("endPage", odendPage);
+        odmodel.addAttribute("email", email);
         return "order/orderHist";
 
     }
 
-    // @PostMapping("/order/{orderId}/cancel")
-    // public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long
-    // orderId, Principal principal) {
+    @PostMapping("/order/{orderId}/cancel")
+    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
 
-    // if (!orderService.validateOrder(orderId, principal.getName())) {
-    // return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
-    // } // 자바스크립트에서 취소할 주문 번호는 조작이 가능하므로 다른 사람의 주문을 취소하지 못하도록 주문 취소 권한을 검사한다.
+        if (!orderService.validateOrder(orderId, principal.getName())) {
+            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        } // 자바스크립트에서 취소할 주문 번호는 조작이 가능하므로 다른 사람의 주문을 취소하지 못하도록 주문 취소 권한을 검사한다.
 
-    // orderService.cancelOrder(orderId);
-    // return new ResponseEntity<Long>(orderId, HttpStatus.OK);
-    // }
+        orderService.cancelOrder(orderId);
+        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+    }
 
 }

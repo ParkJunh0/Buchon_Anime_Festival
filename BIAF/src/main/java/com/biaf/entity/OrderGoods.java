@@ -34,7 +34,7 @@ import lombok.Setter;
 public class OrderGoods {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ordergoods_seq")
-	@SequenceGenerator(name = "ordergoods_seq", sequenceName = "ordergoods_seq", allocationSize = 1)
+    @SequenceGenerator(name = "ordergoods_seq", sequenceName = "ordergoods_seq", allocationSize = 1)
     @Column(name = "order_id")
     private Long id;
 
@@ -42,14 +42,14 @@ public class OrderGoods {
 
     private int count;
 
-    private int orderPrice; //주문금액
+    private int orderPrice; // 주문금액
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
     @CreatedDate
-	@Column(updatable =false)
+    @Column(updatable = false)
     private LocalDateTime orderDate; // 주문일
 
     @Enumerated(EnumType.STRING)
@@ -57,7 +57,8 @@ public class OrderGoods {
 
     private String imgUrl;
 
-    public void createorder(GoodsImg goodsimg, OrderDto orderdto, Member member){
+
+    public void createorder(GoodsImg goodsimg, OrderDto orderdto, Member member) {
         this.goodsNm = goodsimg.getGoods().getGoodsNm();
         this.count = orderdto.getCount();
         this.orderPrice = goodsimg.getGoods().getPrice();
@@ -65,5 +66,12 @@ public class OrderGoods {
         this.imgUrl = goodsimg.getImgUrl();
         this.orderStatus = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
+    }
+
+    public int cancelOrder() {
+        int counta = this.count;
+        this.orderStatus = OrderStatus.CANCEL;
+        this.count = 0;
+        return counta;
     }
 }

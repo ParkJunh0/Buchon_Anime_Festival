@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.biaf.dto.OrderDto;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -40,5 +42,4 @@ public class GoodsImg extends BaseEntity {
         this.imgName = imgName;
         this.imgUrl = imgUrl;
     }
-
 }

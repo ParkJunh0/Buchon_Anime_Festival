@@ -91,9 +91,11 @@ $(document).ready(function(){
 					if (jqXHR.status == '401') {
 						alert('로그인 후 이용해주세요');
 						location.href = '/ko/login';
-					} else {
+					}else if (jqXHR.responseText == '300'){
+                        alert("수량이 맞지 않습니다");
+                    } else {
 						// alert(jqXHR.responseText);
-                        alert('로그인 후 이용해주세요');
+                        alert('로그인 후 이용해주세요.');
                         location.href = '/ko/login';
 					}
 				}

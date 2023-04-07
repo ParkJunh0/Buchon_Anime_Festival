@@ -1,15 +1,20 @@
 package com.biaf.service;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 
 import com.biaf.dto.OrderDto;
+import com.biaf.entity.Goods;
 import com.biaf.entity.GoodsImg;
 import com.biaf.entity.Member;
 import com.biaf.entity.OrderGoods;
 import com.biaf.repository.GoodsImgRepository;
+import com.biaf.repository.GoodsRepository;
 import com.biaf.repository.MemberRepository;
 import com.biaf.repository.OrderRepository;
 
@@ -23,6 +28,7 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final GoodsImgRepository goodsImgRepository;
+    private final GoodsRepository goodsRepository;
 
 
     public Long order(OrderDto orderDto, String email) {
@@ -32,34 +38,39 @@ public class OrderService {
         OrderGoods order = new OrderGoods();
         order.createorder(goods, orderDto, member);
 
+        goods.getGoods().down(orderDto);
         orderRepository.save(order); // 생성한 주문 엔티티를 저장한다.
-        return order.getId();
+        return goods.getId();
     }
 
 
     public Page<OrderGoods> odList(Pageable pageable) {
+
         return orderRepository.findAll(pageable);
     }
 
-    // @Transactional(readOnly = true)
-    // public boolean validateOrder(Long orderId, String email) {
-    //     // 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지를 검사, 같을 때는 true를 반환하고 같지 않을 경우 false 반환
+    @Transactional(readOnly = true)
+    public boolean validateOrder(Long orderId, String email) {
+        // 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지를 검사, 같을 때는 true를 반환하고 같지 않을 경우 false 반환
 
-    //     Member curMember = memberRepository.findByMemberEmail(email);
-    //     OrderGoods order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-    //     Member savedMember = order.getMember();
+        Member curMember = memberRepository.findByMemberEmail(email);
+        OrderGoods order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
+        Member savedMember = order.getMember();
 
-    //     if (!StringUtils.equals(curMember.getMemberEmail(), savedMember.getMemberEmail())) {
-    //         return false;
-    //     }
-    //     return true;
-    // }
+        if (!StringUtils.equals(curMember.getMemberEmail(), savedMember.getMemberEmail())) {
+            return false;
+        }
+        return true;
+    }
 
-    // public void cancelOrder(Long orderId){
-    //     OrderGoods order = orderRepository.findById(orderId)
-    //             .orElseThrow(EntityNotFoundException::new);
-    //     order.cancelOrder();
-    // }
+    public void cancelOrder(Long orderId){
+        OrderGoods order = orderRepository.findById(orderId)
+                .orElseThrow(EntityNotFoundException::new);
+        Goods goods = goodsRepository.findByGoodsNm(order.getGoodsNm());
+
+        int count = order.cancelOrder();
+        goods.addStock(count);
+    }
 
     // public Long orders(List<OrderDto> orderDtoList, String email){
 

@@ -43,12 +43,10 @@ public class GoodsService {
 
     @Transactional(readOnly = true) // 상품데이터를 읽어오는 트랜잭션 읽기전용 설정한다. 이럴 경우 JPA가 변경감지(더티체킹)를 수행하지 않아서 성능향상할 수 있다.
     public GoodsFormDto getGoodsDtl(Long goodsId) {
-    
-        GoodsImg goodsImg = goodsImgRepository.findByGoodsIdOrderByIdAsc(goodsId); // 해당 상품 이미지 조회
-         // 조회한 GoodsImg 엔티티를 GoodsImgDto 객체로 만들어서 리스트에 추가한다.
-        GoodsImgDto goodsImgDto = GoodsImgDto.of(goodsImg);
 
-        
+        GoodsImg goodsImg = goodsImgRepository.findByGoodsIdOrderByIdAsc(goodsId); // 해당 상품 이미지 조회
+        // 조회한 GoodsImg 엔티티를 GoodsImgDto 객체로 만들어서 리스트에 추가한다.
+        GoodsImgDto goodsImgDto = GoodsImgDto.of(goodsImg);
 
         Goods goods = goodsRepository.findById(goodsId) // 상품 아이디를 통해 상품 엔티티를 조회한다. 존재하지 않을 땐 예외를 발생시킨다.
                 .orElseThrow(EntityNotFoundException::new);
@@ -65,12 +63,13 @@ public class GoodsService {
         Long goodsImgIds = goodsFormDto.getGoodsImgIds(); // 상품 이미지 아이디 리스트 조회
         // 이미지 등록
 
-        goodsImgService.updateGoodsImg(goodsImgIds, goodsImgFileList); // 상품 이미지 아이디를 업데이트하기 위해서 상품이미지 아이디, 상품이미지 파일 정보 전달
+        goodsImgService.updateGoodsImg(goodsImgIds, goodsImgFileList); // 상품 이미지 아이디를 업데이트하기 위해서 상품이미지 아이디, 상품이미지 파일 정보
+                                                                       // 전달
 
         return goods.getId();
     }
 
-    public void goodsDelete(Long id, Long imgId){
+    public void goodsDelete(Long id, Long imgId) {
         goodsRepository.deleteById(id);
         goodsImgRepository.deleteById(imgId);
     }
@@ -78,8 +77,30 @@ public class GoodsService {
     public List<GoodsDto> findAll() {
         return GoodsDto.createGoodsDto(goodsImgRepository.findAllByOrderByGoods_GoodsSellStatusAsc());
     }
-    public Page<Goods> gdList(Pageable pageable){
-        //기존 List<Goods>값으로 넘어가지만 페이징 설정을 해주면 Page<Goods>로 넘어갑니다.
+
+    public Page<Goods> gdList(Pageable pageable) {
+        // 기존 List<Goods>값으로 넘어가지만 페이징 설정을 해주면 Page<Goods>로 넘어갑니다.
         return goodsRepository.findAll(pageable);
     }
+
+    // @Transactional(readOnly = true)
+    // public Page<OrderHistDto> getOrderList(String email, Pageable pageable) { //
+    //     List<Order> orders = orderRepository.findOrders(email, pageable); // 유저의 아이디와 페이징 조건을 이용 주문목록 조회
+    //     Long totalCount = orderRepository.countOrder(email); // 유저의 주문 총개수 구한다.
+    //     List<OrderHistDto> orderHistDtos = new ArrayList<>();
+    //     for (Order order : orders) { // 주문 리스트를 순회하면서 구매 이력 페이지에 전달할 DTO 객체생성한다.
+    //         OrderHistDto orderHistDto = new OrderHistDto(order);
+    //         List<OrderItem> orderItems = order.getOrderItems();
+    //         for (OrderItem orderItem : orderItems) {
+    //             ItemImg itemImg = itemImgRepository.findByItemIdAndRepimgYn(orderItem.getItem().getId(), "Y"); // 주문한
+    //                                                                                                            // 상품의 대표
+    //                                                                                                            // 이미지를
+    //                                                                                                            // 조회
+    //             OrderItemDto orderItemDto = new OrderItemDto(orderItem, itemImg.getImgUrl());
+    //             orderHistDto.addOrderItemDto(orderItemDto);
+    //         }
+    //         orderHistDtos.add(orderHistDto);
+    //     }
+    //     return new PageImpl<OrderHistDto>(orderHistDtos, pageable, totalCount); // 페이지 구현 객체를 생성하여 반환
+    // }
 }

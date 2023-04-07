@@ -12,7 +12,7 @@
         function cancelOrder(orderId) {
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
-            var url = "/order/" + orderId + "/cancel";
+            var url = "/ko/order/" + orderId + "/cancel";
             var paramData = {
                 orderId: orderId,
             };
@@ -30,7 +30,7 @@
                 cache: false,
                 success: function (result, status) {
                     alert("주문이 취소 되었습니다.");
-                    location.href = '/orders/' + [[${ page }]];
+                    location.href = '/ko/orders/';
                 },
                 error: function (jqXHR, status, error) {
                     if (jqXHR.status == '401') {
@@ -49,10 +49,11 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
-        .wrap{
+        .wrap {
             display: flex;
             justify-content: space-evenly;
         }
+
         .content-mg {
             margin-left: 30%;
             margin-right: 30%;
@@ -95,51 +96,52 @@
 <div layout:fragment="content">
     <div class="cont_header"></div>
     <div class="wrap">
-    <div id="sidenav"></div>
-    <div class="all">
-        <h2 class="mb-4">
-            구매 이력
-        </h2>
-        <div th:each="order : ${OrderGoodsDto.getContent()}">
-            <div class="d-flex mb-3 align-self-center">
-                <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
-                <div class="ml-3">
-                    <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
-                        <button type="button" class="btn btn-outline-secondary" th:value="${order.Id}"
-                            onclick="cancelOrder(this.value)">주문취소</button>
-                    </th:block>
-                    <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
-                        <h4>(취소 완료)</h4>
-                    </th:block>
-                </div>
-            </div>
-            <div class="card d-flex">
-                
-                    <div class="repImgDiv">
-                        <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
-                    </div>
-                    <div class="align-self-center w-75">
-                        <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
-                        <div class="fs18 font-weight-light">
-                            <span th:text="${order.orderPrice} +'원'"></span>
-                            <span th:text="${order.count} +'개'"></span>
+        <div id="sidenav"></div>
+        <div class="all">
+            <h2 class="mb-4">
+                구매 이력
+            </h2>
+
+            <div th:each="order : ${OrderGoodsDto.getContent()}">
+                <th:block th:if="${order.Member.MemberEmail == email}">
+                    <div class="d-flex mb-3 align-self-center">
+                        <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
+                        <div class="ml-3">
+                            <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
+                                <button type="button" class="btn btn-outline-secondary" th:value="${order.Id}"
+                                    onclick="cancelOrder(this.value)">주문취소</button>
+                            </th:block>
+                            <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
+                                <h4>(취소 완료)</h4>
+                            </th:block>
                         </div>
                     </div>
-           
+                    <div class="card d-flex">
+
+                        <div class="repImgDiv">
+                            <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
+                        </div>
+                        <div class="align-self-center w-75">
+                            <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
+                            <div class="fs18 font-weight-light">
+                                <span th:text="${order.orderPrice} +'원'"></span>
+                                <span th:text="${order.count} +'개'"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </th:block>
+            </div>
+            <div class="page_wrap">
+                <!-- 페이징  -->
+                <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                    <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/orders(page=${page-1})}"
+                        th:text="${page}"></a>
+                    <strong th:if="${page==nowPage}" th:text="${page}" style="color: red"></strong>
+                </th:block>
             </div>
         </div>
-        <div class="page_wrap">
-            <!-- 페이징  -->
-            <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-               <a th:if="${page==0? page==1 : page != nowPage}"
-               th:href="@{/ko/orders(page=${page-1})}"
-               th:text="${page}"></a>
-            <strong th:if="${page==nowPage}" th:text="${page}"
-               style="color: red"></strong>
-           </th:block>
-         </div>
     </div>
-</div>
 </div>
 
 </html>
