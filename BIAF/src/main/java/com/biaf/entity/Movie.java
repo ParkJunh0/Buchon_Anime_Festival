@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.biaf.constant.MovieStatus;
@@ -26,20 +28,20 @@ public class Movie extends BaseEntity{
 	
 	@Id
 	@Column(name="movie_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "movie_seq")
-	@SequenceGenerator(name = "movie_seq", sequenceName = "movie_seq", allocationSize = 1)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id; // 영화 코드
 	
 	@Column(nullable = false, length = 50)
 	private String movieNm; //영화이름	 
-	
-	private String cinema; // 상영관
 	  
 	private String movieTime; // 관람시간
 	
+
 	private String startDay; // 상영 시작일
 	
 	private String endDay; // 상영 종료일
+	
+	private String cinema; //상영관 이름 
 	
 	private String grade; //관람등급
 	
@@ -56,6 +58,7 @@ public class Movie extends BaseEntity{
 	
 	   public static Movie createmovie(MovieFormDto movieFormDto) {
 		      Movie movie = new Movie();
+		      Cinema cinema = new Cinema();
 		      movie.setMovieNm(movieFormDto.getMovieNm());
 		      movie.setCinema(movieFormDto.getCinema());
 		      movie.setStartDay(movieFormDto.getStartDay());
@@ -70,19 +73,19 @@ public class Movie extends BaseEntity{
 		      return movie;
 
 		}
-	   // 영화 수정
-	   public void updateMovie(MovieFormDto movieFormDto){
-		      this.movieNm = movieFormDto.getMovieNm();
-		      this.cinema = movieFormDto.getCinema();
-		      this.startDay = movieFormDto.getStartDay();
-		      this.endDay = movieFormDto.getEndDay();
-		      this.grade = movieFormDto.getGrade();
-		      this.price = movieFormDto.getPrice();
-		      this.movieDetail = movieFormDto.getMovieDetail();
-		      this.movieStatus = movieFormDto.getMovieStatus();
-		      this.movieTime = movieFormDto.getMovieTime();
-		   }
-	   
+//	   // 영화 수정
+//	   public void updateMovie(MovieFormDto movieFormDto){
+//		      this.movieNm = movieFormDto.getMovieNm();
+//		      this.cinema = movieFormDto.getCinema();
+//		      this.startDay = movieFormDto.getStartDay();
+//		      this.endDay = movieFormDto.getEndDay();
+//		      this.grade = movieFormDto.getGrade();
+//		      this.price = movieFormDto.getPrice();
+//		      this.movieDetail = movieFormDto.getMovieDetail();
+//		      this.movieStatus = movieFormDto.getMovieStatus();
+//		      this.movieTime = movieFormDto.getMovieTime();
+//		   }
+//	   
 	   
 	   
 	   

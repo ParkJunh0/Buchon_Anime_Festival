@@ -23,11 +23,7 @@ public class MovieResponseDto {
 	private LocalDateTime regTime; //등록일
 	private LocalDateTime updateTime; //등록일
 	private Integer price;
-	private String movieDetail; //영화 상세내용
-	private String cinema; // 상영관
-	private String movieTime; //관람시간
-	private String grade; //관람등급
-
+//	private String createdBy; // 등록자
 
 	public static List<MovieResponseDto> createMovieDto(List<MovieImg> mvList){
 		List<MovieResponseDto> mvResDtoList = new ArrayList<MovieResponseDto>();
@@ -44,14 +40,11 @@ public class MovieResponseDto {
 			mvResDto.regTime = mv.getMovie().getRegTime();
 			mvResDto.updateTime = mv.getMovie().getUpdateTime();
 			mvResDto.price = mv.getMovie().getPrice();
-			mvResDto.movieDetail = mv.getMovie().getMovieDetail();
-			mvResDto.cinema = mv.getMovie().getCinema();
-			mvResDto.movieTime = mv.getMovie().getMovieTime();
-			mvResDto.grade = mv.getMovie().getGrade();
 			
 			mvResDtoList.add(mvResDto);
 			
-			System.out.println(mvResDto.regTime);	
+			System.out.println(mvResDto.regTime);
+			
 		}
 		return mvResDtoList;
 

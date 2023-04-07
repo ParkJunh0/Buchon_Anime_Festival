@@ -44,13 +44,12 @@ public class MovieFormDto {
 
 	private MovieStatus movieStatus; // 영화 상태
 
-	private MovieImgDto movieImgDtoList = new MovieImgDto();; // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
+	private List<MovieImgDto> MovieImgDtoList = new ArrayList<>(); // 상품 저장 후 수정할 때 상품 이미지 정보를 저장하는 리스트
 
-	private Long movieImgIds;
-	// 영화 이미지 아이디를 저장하는 리스트. 영화 등록 시에는 아직 영화의 이미지를 저장하지 않았기 떄문에 아무 값도 들어가 있지 않고 수정시에
+	private List<Long> movieImgIds = new ArrayList<>();
+	// 상품 이미지 아이디를 저장하는 리스트. 상품 등록 시에는 아직 상품의 이미지를 저장하지 않았기 떄문에 아무 값도 들어가 있지 않고 수정시에
 	// 이미지 아이디를 담아둘 용도로 사용한다.
 
-	
 	private static ModelMapper modelMapper = new ModelMapper();
 
 	public Movie createMovie() {

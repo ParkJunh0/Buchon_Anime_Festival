@@ -3,11 +3,16 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
 
-
+<head>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 
 <th:block layout:fragment="script">
   <script type="text/javascript">
-
+		
+ 
+  
   		$("#name").focusout(function(){
   			
 	     if($('#name').val() == ""){
@@ -19,15 +24,62 @@ layout:decorate="~{layouts/layout1}">
 	     }
 	     });
 	     
-  		$("#email").focusout(function(){
-	     if($('#email').val() == ""){
-	   		$('#check').text('이메일을 입력해주세요');
+  		$("#Tel").focusout(function(){
+	     if($('#Tel').val() == ""){
+	   		$('#check').text('전화번호를 입력해주세요');
 	   	  	$('#check').css('color', 'red');
 	     }else{
 	    	 $('#check').hide();
 	     }
 	     });
   
+  		/* 아이디찾기  */
+  		function findId() {
+  			
+  			var memName =$("#findmemName").val();
+  			var memTel =$("#findmemTel").val();
+  			
+  			if (memName== "") {
+  				alert("이름을 입력해 주세요.");
+  				memName.focus();
+  				return;
+  			}
+  			if (memTel == "") {
+  				alert("핸드폰번호를 입력해 주세요.");
+  				memPhone.focus();
+  				return;
+  			}
+  			
+
+  			
+  			var sendData="memName="+memName+'&memTel='+memTel;
+  			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+  			
+  			$.ajax({
+  				url : "/ko/findId",
+  				type : "post",
+  				data : sendData,
+  				dataType : "text",
+  				beforeSend: function(xhr){
+  			        xhr.setRequestHeader(header, token);
+  			    },
+  				success : function(text) {
+  					if (text != null) {
+  						$("#result_id").val("아이디 = "+text);
+  					} else {
+  						$("#result_id").val("해당정보가 없습니다.");
+  					}
+  				},
+  				error : function(xhr) {
+  					swal("해당정보가 없습니다");
+  				}
+  			});
+  		}
+		
+  		
+  		
+  	      
   </script> 
   </th:block>
 <th:block layout:fragment="css">
@@ -91,19 +143,25 @@ layout:decorate="~{layouts/layout1}">
             
 			<h4 class="card-title">아이디 찾기</h4>
 		</div>
-        
+        <form action="/findId" class="form-signin" method="POST" th:each= "member : ${memberResponseDto}">
+      	<input type="hidden" id="name2" name="name2" th:value="${member.memberName}">
+  	 	<input type="hidden" id="Tel2" name="Tel2" th:value="${member.memberTel}">
+  	 	</form>
 		<div class="card-body">
-      <form action="findId" class="form-signin" method="POST">
-  	 	 <!-- <p class="text2"> ${findid2}</p>  -->
-        <input type="text" name="name" id="name" class="form-control" placeholder="이름" required autofocus><BR>
-        <input type="email" name="email" id="email" class="form-control" placeholder="이메일" required><br>
-        	<!-- <p class="check" id="check">${check}</p><br/> -->
-        <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">아이디 찾기</button>
       
+  	 	 
+ 
+  	 	
+        <input type="text" name="name" id="findmemName" class="form-control" placeholder="이름" required autofocus><br>
+        <input type="text" name="Tel" id="findmemTel" class="form-control" placeholder="전화번호" required><br>
+        <input type="text" name="result_id" id="result_id" class="form-control" readOnly>
      
-          </form>
+        <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" onclick="findId()">아이디 찾기</button>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+     
+         
 		</div>
-      
+       
         <div class="links">
             <a href="/ko/pwfind">비밀번호 찾기</a> | <a href="/ko/login">로그인</a> | <a href="/ko/terms">회원가입</a>
 

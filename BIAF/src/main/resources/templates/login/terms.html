@@ -7,7 +7,7 @@ layout:decorate="~{layouts/layout1}">
 
    <th:block layout:fragment="script">
   	  <script type="text/javascript">
-    function Check(){  /* 체크박스 미선택시 얼럿창 */
+    function Check(){ 
     	
     	var arrSelect = document.getElementsByName("chkSelect");
     	var count =0;
@@ -17,19 +17,13 @@ layout:decorate="~{layouts/layout1}">
     			count++;
     		}
     	}
-    	if(count >= 2){
+    	if(count == 2){
     	location.href = "/ko/signup";
     	}else{
     	alert("이용약관을 동의해주세요");
     	}
     }
-     /* 체크박스 전체선택  */
-    function chkSelect(chkSelect)  { 
-            const checkboxes = document.getElementsByName('chkSelect');
-            checkboxes.forEach((checkbox) => {
-            checkbox.checked = chkSelect.checked;
-            })
-        }  
+    
     </script>
     
 </th:block>
@@ -38,9 +32,8 @@ layout:decorate="~{layouts/layout1}">
     <link rel="stylesheet" href="/login/css/base.css">
     <link rel="stylesheet" href="/login/css/button.css">
 <style>
-.con table{margin: auto;}
+.con{margin-left:300px;}
 .bt {text-align:center;}
-.terms_title{text-align:center;}
 </style>
 </th:block>
 
@@ -52,7 +45,7 @@ layout:decorate="~{layouts/layout1}">
 <div class="con">
   <table width=960px align=center>
     <tr>
-      <td class="terms_title">
+      <td>
     <h4>회원가입</h4>
     <h1>통합 회원가입</h1>
     </td>
@@ -73,6 +66,7 @@ layout:decorate="~{layouts/layout1}">
 
      <tr>
       <td align=center>
+          
           <!--이용약관 테이블 시작-->
           <table width=810>
             <tr>
@@ -311,8 +305,7 @@ layout:decorate="~{layouts/layout1}">
             </tr>
             <tr>
               <td>
-                <input type="checkbox" value="2" name="chkSelect" >개인정보 수집 및 이용안내를 숙지하였습니다.<br>
-                <input type="checkbox" id="chkSelect" name="chkSelect" value="checkAll" onclick="chkSelect(this)">전체 동의
+                <input type="checkbox" value="2" name="chkSelect" >개인정보 수집 및 이용안내를 숙지하였습니다.
               </td>
             </tr>
           </table>
@@ -322,9 +315,9 @@ layout:decorate="~{layouts/layout1}">
 </table>
 </div>
 <br><br>
-<div class="bt">
-  <a> <button type="button" class="btn_order" style="margin:10px;" onClick="Check();">다 음</button></a>
-  <a href="/ko"><button type="button"  class="btn_order" style="margin:10px;">처음으로</button></a>
+<div class = "bt">
+  <a> <button type = "button"  class="btn_order"  style="margin:10px;" onClick="Check();">다 음</button></a>
+  <a href="/ko"> <button type = "button"  class="btn_order"  style="margin:10px;">처음으로</button></a>
 </div>
 
  

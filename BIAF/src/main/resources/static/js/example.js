@@ -19,20 +19,17 @@ $(function(){
 		modal.append($('.modal_ex'));
 		modal.fadeIn().css('display', 'flex');
 		$('.modal_ex').fadeIn().css('display', 'flex');
-		document.body.style.overflow = 'hidden';
 	});
 	$('.modal_on2').on("click", function(e){
 		e.preventDefault();
 		modal.append($('.modal_ex2'));
 		modal.fadeIn().css('display', 'flex');
 		$('.modal_ex2').fadeIn().css('display', 'flex');
-		document.body.style.overflow = 'hidden';
 	});
 	$('.close').on("click", function(e){
 		e.preventDefault();
 		modal.fadeOut();
 		$('.modal_ex').fadeOut();
 		$('.modal_ex2').fadeOut();
-		document.body.style.removeProperty('overflow');
 	});
 });
