@@ -3,8 +3,6 @@ package com.biaf.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityNotFoundException;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -13,12 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.biaf.dto.OrderDto;
 import com.biaf.dto.OrderGoodsDto;
-import com.biaf.entity.Goods;
 import com.biaf.entity.GoodsImg;
 import com.biaf.entity.Member;
 import com.biaf.entity.OrderGoods;
 import com.biaf.repository.GoodsImgRepository;
-import com.biaf.repository.GoodsRepository;
 import com.biaf.repository.MemberRepository;
 import com.biaf.repository.OrderRepository;
 
@@ -32,11 +28,11 @@ public class OrderService {
     private final MemberRepository memberRepository;
     private final OrderRepository orderRepository;
     private final GoodsImgRepository goodsImgRepository;
-    private final GoodsRepository goodsRepository;
 
-    public Long order(OrderDto orderDto, String email) {
+
+    public Long order(OrderDto orderDto, String memberemail) {
         GoodsImg goods = goodsImgRepository.goodsfind(orderDto.getGoodsId()); // 주문할 상품을 조회한다.
-        Member member = memberRepository.findByMemberEmail(email); // 현재 로그인한 회원의 이메일 정보를 이용해서
+        Member member = memberRepository.findByMemberEmail(memberemail); // 현재 로그인한 회원의 이메일 정보를 이용해서
         // 회원정보를 조회한다.
         OrderGoods order = new OrderGoods();
         order.createorder(goods, orderDto, member);
@@ -44,6 +40,7 @@ public class OrderService {
         orderRepository.save(order); // 생성한 주문 엔티티를 저장한다.
         return order.getId();
     }
+
 
     @Transactional(readOnly = true) // 주문목록 조회
     public Page<OrderGoodsDto> getOrderList(String email, Pageable pageable) {
@@ -60,26 +57,47 @@ public class OrderService {
         }
         return new PageImpl<OrderGoodsDto>(orderGoodsDtoList, pageable, totalcount); // 페이지 구현 객체를 생성하여 반환
     }
-
-    // public void cancelOrder(Long orderId){
-    //     OrderGoods order = orderRepository.findById(orderId)
-    //             .orElseThrow(EntityNotFoundException::new);
-    //     order.cancelOrder();
-    // }
     
+    public Member findByEmail (String memberEmail) {
+    	Member member= memberRepository.findByMemberEmail(memberEmail);
+    	return member;
+    }
+//    @Transactional(readOnly = true)
+//    public Page<OrderGoodsDto> odList(String memberemail, Pageable pageable) {
+//    	List<OrderGoods> orders = orderRepository.findOrders(memberemail, pageable); // 유저의 아이디와 페이징 조건을 이용 주문목록 조회
+//        Long totalCount = orderRepository.countOrder(memberemail); // 유저의 주문 총개수 구한다.
+//        List<OrderGoodsDto> orderGoodsDtos = new ArrayList<>();
+//        
+//        for (OrderGoods order : orders) { // 주문 리스트를 순회하면서 구매 이력 페이지에 전달할 DTO 객체생성한다. 
+//            OrderGoodsDto orderGoodsDto = new OrderGoodsDto(order); 
+//            List<OrderGoods> orderGoodss = order.getOrderGoodss();
+//            for (OrderGoods orderGoods : orderGoodss) {
+//        
+//           	 OrderGoodsDto orderGoodsDto1 = 
+//           			 new OrderGoodsDto(orderGoods); 
+//           	 orderGoodsDto1.addOrderGoodsDto(orderGoodsDto1); 
+//           	 }
+//        
+//            orderGoodsDtos.add(orderGoodsDto); 
+//            }
+//        return new PageImpl<OrderGoodsDto>(orderGoodsDtos, pageable, totalCount); // 페이지 구현 객체를 생성하여 반환
+//    }
+
     // 장바구니 목록에서 주문
     public List<Long> orders(List<OrderDto> orderDtoList, String memberemail) {
         Member member = memberRepository.findByMemberEmail(memberemail);
         List<Long> orderIds = new ArrayList<>();
 
         for (OrderDto orderDto : orderDtoList) {
-            GoodsImg goods = goodsImgRepository.goodsfind(orderDto.getGoodsId());
+            GoodsImg goodsimg = goodsImgRepository.goodsfind(orderDto.getGoodsId());
             OrderGoods order = new OrderGoods();
-            order.createorder(goods, orderDto, member);
+            order.createorder(goodsimg, orderDto, member);
             orderRepository.save(order);
             orderIds.add(order.getId());
         }
 
         return orderIds;
     }
+   
+
 }

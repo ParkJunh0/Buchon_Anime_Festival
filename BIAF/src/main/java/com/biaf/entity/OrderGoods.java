@@ -48,6 +48,10 @@ public class OrderGoods {
     @JoinColumn(name = "member_id")
     private Member member;
 
+//	@ManyToOne(fetch = FetchType.LAZY) // 하나의 상품은 여러 주문 상품으로 들어갈 수 있으므로 주문 상품 기준으로 다대일 매핑을 설정한다.
+//	@JoinColumn(name = "goods_id")
+//	private Goods goods;
+	
     @CreatedDate
 	@Column(updatable =false)
     private LocalDateTime orderDate; // 주문일
@@ -56,6 +60,8 @@ public class OrderGoods {
     private OrderStatus orderStatus; // 주문상태
 
     private String imgUrl;
+    
+    
 
     public void createorder(GoodsImg goodsimg, OrderDto orderdto, Member member){
         this.goodsNm = goodsimg.getGoods().getGoodsNm();
@@ -66,4 +72,7 @@ public class OrderGoods {
         this.orderStatus = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
     }
+    
+    
+  
 }

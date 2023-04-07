@@ -1,6 +1,9 @@
 package com.biaf.entity;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +54,10 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@OneToMany(mappedBy="member")
+	private List<Member> member = new ArrayList<>();
+	
+	
 	public static Member createMem(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) { // 회원수정하기
 		Member member = new Member();
 		member.setMemberId(memberFormDto.getMemberId());

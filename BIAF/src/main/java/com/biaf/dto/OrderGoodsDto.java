@@ -1,10 +1,12 @@
 package com.biaf.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.modelmapper.ModelMapper;
 
 import com.biaf.constant.OrderStatus;
+import com.biaf.entity.Member;
 import com.biaf.entity.OrderGoods;
 
 import lombok.Getter;
@@ -19,7 +21,7 @@ public class OrderGoodsDto {
    private int orderPrice; //주문금액
    private int totalPrice; //총 금액
    private String imgUrl; //상품이미지 경로
-   private Long memberid; // 회원ID
+   private Member member; // 회원ID
    private LocalDateTime orderDate; //주문일
    private OrderStatus orderstatus; //주문상태
 
@@ -32,8 +34,11 @@ public class OrderGoodsDto {
       this.orderPrice = order.getOrderPrice(); 
       this.imgUrl = order.getImgUrl(); 
       this.totalPrice = order.getOrderPrice() * order.getCount();
-      this.memberid = order.getMember().getMemberId(); 
+      this.member = order.getMember(); 
       this.orderDate = order.getOrderDate();
       this.orderstatus = order.getOrderStatus();
    }
+
+ 
+
 }

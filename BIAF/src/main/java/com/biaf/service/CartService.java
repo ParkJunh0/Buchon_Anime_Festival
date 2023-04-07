@@ -27,8 +27,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class CartService {
 
+public class CartService {
 	private final GoodsRepository goodsRepository;
 	private final MemberRepository memberRepository;
 	private final CartRepository cartRepository;
@@ -102,30 +102,29 @@ public class CartService {
 	}
 	
 	// 장바구니에서 주문
-	public List<Long> orderCartGoods(List<CartOrderDto> cartOrderDtoList, String memberemail){ 
-	    List<OrderDto> orderDtoList = new ArrayList<>();
-	   
+		public List<Long> orderCartGoods(List<CartOrderDto> cartOrderDtoList, String memberemail){ 
+		    List<OrderDto> orderDtoList = new ArrayList<>();
+		   
 
-	    for (CartOrderDto cartOrderDto : cartOrderDtoList) {
-	        CartGoods cartGoods = cartGoodsRepository
-	                .findById(cartOrderDto.getCartGoodsId())
-	                .orElseThrow(EntityNotFoundException::new);
+		    for (CartOrderDto cartOrderDto : cartOrderDtoList) {
+		        CartGoods cartGoods = cartGoodsRepository
+		                .findById(cartOrderDto.getCartGoodsId())
+		                .orElseThrow(EntityNotFoundException::new);
 
-	        OrderDto orderDto = new OrderDto(); 
-	        orderDto.setGoodsId(cartGoods.getGoods().getId()); 
-	        orderDto.setCount(cartGoods.getCount()); 
-	        orderDtoList.add(orderDto);
-	        
-	    }
+		        OrderDto orderDto = new OrderDto(); 
+		        orderDto.setGoodsId(cartGoods.getGoods().getId()); 
+		        orderDto.setCount(cartGoods.getCount()); 
+		        orderDtoList.add(orderDto);
+		        
+		    }
 
-	    List<Long> orderIds = orderService.orders(orderDtoList, memberemail);
-	    for (CartOrderDto cartOrderDto : cartOrderDtoList) { // 주문한 상품들을 장바구니에서 제거한다.
-	    	CartGoods cartGoods = cartGoodsRepository
-	    	.findById(cartOrderDto.getCartGoodsId())
-	    	.orElseThrow(EntityNotFoundException::new);
-	    	cartGoodsRepository.delete(cartGoods);
-	    	}
-	    	return orderIds;
-	}
-
+		    List<Long> orderIds = orderService.orders(orderDtoList, memberemail);
+		    for (CartOrderDto cartOrderDto : cartOrderDtoList) { // 주문한 상품들을 장바구니에서 제거한다.
+		    	CartGoods cartGoods = cartGoodsRepository
+		    	.findById(cartOrderDto.getCartGoodsId())
+		    	.orElseThrow(EntityNotFoundException::new);
+		    	cartGoodsRepository.delete(cartGoods);
+		    	}
+		    	return orderIds;
+		}
 }

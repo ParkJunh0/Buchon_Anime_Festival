@@ -29,13 +29,15 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value="/ko")
+@RequestMapping(value = "/ko")
 public class CartController {
 	private final CartService cartService;
-	
-	@GetMapping(value = "/cart") 
+
+	@GetMapping(value = "/cart")
 	public String orderHist(Principal principal, Model model) {
-		List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName()); // 현재 로그인한 사용자의 이메일 정보를 이용하여																							// 장바구니에 담겨 있는 상품 정보를 조회한다.
+		List<CartDetailDto> cartDetailList = cartService.getCartList(principal.getName()); // 현재 로그인한 사용자의 이메일 정보를 이용하여
+																							// // 장바구니에 담겨 있는 상품 정보를
+																							// 조회한다.
 		model.addAttribute("cartGoods", cartDetailList); // 조회한 장바구니 상품 정보를 뷰로 전달한다.
 		return "member/cart";
 	}
@@ -94,22 +96,23 @@ public class CartController {
 	}
 
 	@PostMapping(value = "/cart/orders") // 장바구니에서 주문
-	public @ResponseBody ResponseEntity orderCartGoods(@RequestBody CartOrderDto cartOrderDto, Principal principal){ 
-		
+	public @ResponseBody ResponseEntity orderCartGoods(@RequestBody CartOrderDto cartOrderDto, Principal principal) {
+
 		List<CartOrderDto> cartOrderDtoList = cartOrderDto.getCartOrderDtoList();
-	
-	if(cartOrderDtoList == null || cartOrderDtoList.size() == 0){ // 주문할 상품을 선택하지 않았는지 체크한다. 
-		return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN); 
+
+		if (cartOrderDtoList == null || cartOrderDtoList.size() == 0) { // 주문할 상품을 선택하지 않았는지 체크한다.
+			return new ResponseEntity<String>("주문할 상품을 선택해주세요", HttpStatus.FORBIDDEN);
 		}
-	
-	for (CartOrderDto cartOrder : cartOrderDtoList) { // 주문 권한을 체크한다.
-		if(!cartService.validateCartGoods(cartOrder.getCartGoodsId(), principal.getName())){ // 주문 로직 호출 결과 생성된 주문번호를 반환 받는다. 
-			return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN); 
+
+		for (CartOrderDto cartOrder : cartOrderDtoList) { // 주문 권한을 체크한다.
+			if (!cartService.validateCartGoods(cartOrder.getCartGoodsId(), principal.getName())) { // 주문 로직 호출 결과 생성된
+																									// 주문번호를 반환 받는다.
+				return new ResponseEntity<String>("주문 권한이 없습니다.", HttpStatus.FORBIDDEN);
 			}
 		}
-	
-	List<Long> orderIds = cartService.orderCartGoods(cartOrderDtoList, principal.getName()); 
-	return new ResponseEntity<List<Long>>(orderIds, HttpStatus.OK); // 생성된 주문 번호와 요청이 성공했다는 http 응답 상태 코드를 반환한다. 
-	}	
 
+		List<Long> orderIds = cartService.orderCartGoods(cartOrderDtoList, principal.getName());
+		return new ResponseEntity<List<Long>>(orderIds, HttpStatus.OK); // 생성된 주문 번호와 요청이 성공했다는 http 응답 상태 코드를 반환한다.
 	}
+
+}

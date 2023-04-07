@@ -66,7 +66,6 @@
 				var cartGoodsId = $(this).val();
 				var count = parseInt($("#count_" + cartGoodsId).val());
 				orderTotalCount += count;
-				
 			});
 
 			$("#orderTotalCount").html(orderTotalCount + '개');
@@ -83,15 +82,14 @@
 			$("#orderTotalPrice").html(orderTotalPrice + '원');
 		}
 
-		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액, 총수량을 변경해준다. 
-			
+		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액을 변경해준다. 변경된 총 주문 금액을 계산
+			// 하기 위해서 마지막에 getOrderTotalPrice() 함수를 호출한다.
 			var count = obj.value;
 			var cartGoodsId = obj.id.split('_')[1];
 			var price = $("#price_" + cartGoodsId).data("price");
 			var totalPrice = count * price;
 			$("#totalPrice_" + cartGoodsId).html(totalPrice + "원");
-			
-			getOrderTotalPrice();	
+			getOrderTotalPrice();
 			getOrderTotalCount();
 
 			updateCartGoodsCount(cartGoodsId, count);
@@ -121,7 +119,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					console.log("cartGoods count update success");
+					console.log("cartItem count update success");
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {

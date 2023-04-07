@@ -50,6 +50,8 @@
 <th:block layout:fragment="css">
     <style>
         .wrap{
+            top: 50px;
+            position: relative;
             display: flex;
             justify-content: space-evenly;
         }
@@ -100,17 +102,18 @@
         <h2 class="mb-4">
             구매 이력
         </h2>
-        <div th:each="order : ${OrderGoodsDto.getContent()}">
+        <div th:each="order : ${OrderGoodsDto}">
             <div class="d-flex mb-3 align-self-center">
                 <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
                 <div class="ml-3">
-                    <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
-                        <button type="button" class="btn btn-outline-secondary" th:value="${order.Id}"
+                    <th:block th:if="${order.orderstatus.name() == 'ORDER'}">
+                        <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}"
                             onclick="cancelOrder(this.value)">주문취소</button>
                     </th:block>
-                    <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
+                    <th:block th:unless="${order.orderstatus.name() == 'ORDER'}">
                         <h4>(취소 완료)</h4>
                     </th:block>
+                    <div th:text="${order.member.memberEmail}"></div>
                 </div>
             </div>
             <div class="card d-flex">
@@ -131,13 +134,12 @@
         <div class="page_wrap">
             <!-- 페이징  -->
             <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-               <a th:if="${page==0? page==1 : page != nowPage}"
-               th:href="@{/ko/orders(page=${page-1})}"
-               th:text="${page}"></a>
-            <strong th:if="${page==nowPage}" th:text="${page}"
-               style="color: red"></strong>
-           </th:block>
-         </div>
+                <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/orders(page=${page-1})}"
+                    th:text="${page}"></a>
+                <strong th:if="${page==nowPage}" th:text="${page}" style="color: red"></strong>
+            </th:block>
+        </div>
+
     </div>
 </div>
 </div>
