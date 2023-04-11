@@ -62,26 +62,6 @@ public class OrderService {
     	Member member= memberRepository.findByMemberEmail(memberEmail);
     	return member;
     }
-//    @Transactional(readOnly = true)
-//    public Page<OrderGoodsDto> odList(String memberemail, Pageable pageable) {
-//    	List<OrderGoods> orders = orderRepository.findOrders(memberemail, pageable); // 유저의 아이디와 페이징 조건을 이용 주문목록 조회
-//        Long totalCount = orderRepository.countOrder(memberemail); // 유저의 주문 총개수 구한다.
-//        List<OrderGoodsDto> orderGoodsDtos = new ArrayList<>();
-//        
-//        for (OrderGoods order : orders) { // 주문 리스트를 순회하면서 구매 이력 페이지에 전달할 DTO 객체생성한다. 
-//            OrderGoodsDto orderGoodsDto = new OrderGoodsDto(order); 
-//            List<OrderGoods> orderGoodss = order.getOrderGoodss();
-//            for (OrderGoods orderGoods : orderGoodss) {
-//        
-//           	 OrderGoodsDto orderGoodsDto1 = 
-//           			 new OrderGoodsDto(orderGoods); 
-//           	 orderGoodsDto1.addOrderGoodsDto(orderGoodsDto1); 
-//           	 }
-//        
-//            orderGoodsDtos.add(orderGoodsDto); 
-//            }
-//        return new PageImpl<OrderGoodsDto>(orderGoodsDtos, pageable, totalCount); // 페이지 구현 객체를 생성하여 반환
-//    }
 
     // 장바구니 목록에서 주문
     public List<Long> orders(List<OrderDto> orderDtoList, String memberemail) {

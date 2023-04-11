@@ -1,21 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+
 <th:block>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script th:inline="javascript">
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-    </script>
+
 </th:block>
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
+
     <link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
 </th:block>
 <div layout:fragment="content">
@@ -80,9 +73,117 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                 </li>
             </ul>
             <div id="calender">
+                <table id="c">
+                    <thead>
+                        <tr>
+                            <th colspan="7">October 2023</th>
+                        </tr>
+                        <tr>
+                            <th class="sunday">Sun</th>
+                            <th>Mon</th>
+                            <th>Tue</th>
+                            <th>Wed</th>
+                            <th>Thu</th>
+                            <th>Fri</th>
+                            <th class="saturday">Sat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sunday">1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td class="saturday">7</td>
+
+                        </tr>
+                        <tr>
+                            <td class="sunday">8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td class="saturday">14</td>
+                        </tr>
+                        <tr>
+                            <td class="sunday">15</td>
+                            <td>16</td>
+                            <td>17</td>
+                            <td>18</td>
+                            <td>19</td>
+                            <td>20</td>
+                            <td class="saturday">21</td>
+                        </tr>
+                        <tr>
+                            <td class="sunday">22</td>
+                            <td>23</td>
+                            <td>24</td>
+                            <td>25</td>
+                            <td>26</td>
+                            <td>27</td>
+                            <td class="saturday">28</td>
+                        </tr>
+                        <tr>
+                            <td class="sunday">29</td>
+                            <td>30</td>
+                            <td>31</td>
+                            <td class="prev-month"></td>
+                            <td class="prev-month"></td>
+                            <td class="prev-month"></td>
+                            <td class="prev-month"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
                 <p>
-                    Date: <input type="text" id="datepicker">&#xA0;
+                    Selected Date: <span id="selectedDate"></span>
                 </p>
+                <script th:inline="javascript">
+                    // 현재 날짜를 가져와서 today 클래스를 추가합니다.
+                    /* var today = new Date();
+                     var dd = String(today.getDate()).padStart(2, '0');
+                     var mm = String(today.getMonth() + 1).padStart(2, '0');
+                     var yyyy = today.getFullYear();
+                     today = yyyy + '-' + mm + '-' + dd;
+                     var cells = document.getElementsByTagName('td');
+                     for (var i = 0; i < cells.length; i++) {
+                         if (cells[i].textContent == dd) {
+                             cells[i].classList.add('today');
+                             break;
+                         }
+                     }*/
+
+                    // 셀을 클릭했을 때 selected 클래스를 추가하고 제거합니다.
+                    var rows = document.getElementsByTagName('tr');
+                    for (var i = 0; i < rows.length; i++) {
+                        var cols = rows[i].getElementsByTagName('td');
+                        for (var j = 0; j < cols.length; j++) {
+                            cols[j].addEventListener('click', function() {
+                                var selected = document.getElementsByClassName('selected');
+                                if (selected.length > 0) {
+                                    selected[0].classList.remove('selected');
+                                }
+                                this.classList.add('selected');
+                                printSelectedDate();
+                            });
+                        }
+                    }
+
+                    function printSelectedDate() {
+                        var selectedCell = document.querySelector('.selected');
+                        if (selectedCell) {
+                            var selectedDate = selectedCell.textContent;
+                            document.getElementById('selectedDate').textContent = selectedDate;
+                        } else {
+                            document.getElementById('selectedDate').textContent = "";
+                        }
+                    }
+
+                </script>
             </div>
         </div>
 
@@ -100,6 +201,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <li><button type="submit">1회차 14시 00분</button></li>
                     <br>
                     <li><button type="submit">2회차 17시 00분</button></li>
+                    <br>
+                    <li><button type="submit">3회차 17시 00분</button></li>
                 </ul>
             </div>
         </div>
@@ -111,8 +214,73 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                         <b>STEP3</b>
                     </p>
                     <p>좌석표</p>
+                    <div id="seats"></div>
+                    <p>
+                        Selected Seats: <span id="count">0</span>
+                    </p>
+                   <!--  <p>
+                        Total Payment: <span id="payment">$0</span>
+                    </p> -->
+                    <script th:inline="javascript">
+                        const seatsContainer = document.getElementById("seats");
+                        const seats = [];
+                        // 좌석
+                        for (let i = 1; i <= 10; i++) {
+                            const row = document.createElement("div");
+                            row.style.display = "flex";
+                            for (let j = 1; j <= 10; j++) {
+                                const seat = document.createElement("div");
+                                seat.classList.add("seat");
+                                seat.dataset.seatNumber = String.fromCharCode(i + 96) + j;
+                                const seatLabel = document.createElement("div");
+                                seatLabel.textContent = String.fromCharCode(i + 96) + j;
+                                seat.appendChild(seatLabel);
+                                row.appendChild(seat);
+                                seats.push(seat);
+                            }
+                            seatsContainer.appendChild(row);
+                        }
+
+
+                        // 좌석 저장
+                        function reserveSeat(seat) {
+                            if (!seat.classList.contains("reserved")) {
+                                seat.classList.toggle("selected");
+                                updateSelectedCount();
+                                updateTotalPayment();
+                            }
+                        }
+
+                        // 자리 확인(텍스트 출력)
+                        function updateSelectedCount() {
+                            const selectedSeats = document.querySelectorAll(".seat.selected");
+                            const selectedSeatsNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
+                            document.getElementById("count").textContent = selectedSeatsNumbers.join(", ");
+                        }
+
+
+                        // 가격 출력
+                       /*  function updateTotalPayment() {
+                            const selectedSeats = document.querySelectorAll(".seat.selected");
+                            const totalPayment = selectedSeats.length * 10;
+                            document.getElementById("payment").textContent = "$" + totalPayment;
+                        }
+ */
+                        // 자리 클릭 이벤트
+                        seats.forEach(seat => {
+                            seat.addEventListener("click", () => {
+                                reserveSeat(seat);
+                            });
+                        });
+
+                        // 자리클릭시 선택된 자리, 선택된 가격 업데이트
+                        updateSelectedCount();
+                        updateTotalPayment();
+
+                    </script>
                 </li>
             </ul>
+
         </div>
         <div id="step4">
             <ul>

@@ -47,10 +47,6 @@ public class OrderGoods {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-//	@ManyToOne(fetch = FetchType.LAZY) // 하나의 상품은 여러 주문 상품으로 들어갈 수 있으므로 주문 상품 기준으로 다대일 매핑을 설정한다.
-//	@JoinColumn(name = "goods_id")
-//	private Goods goods;
 	
     @CreatedDate
 	@Column(updatable =false)
