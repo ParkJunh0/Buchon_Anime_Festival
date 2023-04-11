@@ -55,28 +55,22 @@ html.fp-enabled,
     -moz-user-select: none; /* mozilla browsers */
     -khtml-user-select: none; /* webkit (konqueror) browsers */
     -ms-user-select: none; /* IE10+ */
-    position: absolute;
     z-index: 4;
-    bottom: 10px;
     cursor: pointer;
     width: 0;
     height: 0;
     border-style: solid;
-    margin-top: -38px;
     -webkit-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
 .fp-controlArrow.fp-prev {
-    left: 30px;
     width: 0;
-    border-width: 38.5px 34px 38.5px 0;
+    border-width: 10.5px 8px 10.5px 0;
     border-color: transparent #fff transparent transparent;
 }
 .fp-controlArrow.fp-next {
-    bottom: 10px;
-    right: 15px;
-    border-width: 38.5px 0 38.5px 34px;
+    border-width: 10.5px 0 10.5px 8px;
     border-color: transparent transparent transparent #fff;
 }
 .fp-scrollable {
@@ -117,6 +111,9 @@ html.fp-enabled,
     left: 0 !important;
     right: 0;
     margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .fp-slidesNav.bottom {
     bottom: 17px;

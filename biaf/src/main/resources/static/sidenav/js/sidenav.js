@@ -10,7 +10,7 @@ $(function(){
    sidenav += '<li><a href="/ko/admin/memberList">회원관리</a></li>'
    sidenav += '<li><a href="/ko/admin/movie">영화등록관리</a></li>'
    sidenav += '<li><a href="/ko/admin/goods">굿즈관리</a></li>'
-   sidenav += '<li><a href="/ko/admin/">배너관리</a></li>'
+   sidenav += '<li><a href="/ko/admin/banner">배너관리</a></li>'
    sidenav += '<li><a href="/ko/admin/reservationadmin">예매관리</a></li>'
    sidenav += '</ul></ul>'
 

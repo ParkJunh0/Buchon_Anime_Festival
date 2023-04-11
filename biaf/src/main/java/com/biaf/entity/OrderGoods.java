@@ -35,7 +35,7 @@ public class OrderGoods {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ordergoods_seq")
 	@SequenceGenerator(name = "ordergoods_seq", sequenceName = "ordergoods_seq", allocationSize = 1)
-    @Column(name = "order_id")
+    @Column(name = "ordergoods_id")
     private Long id;
 
     private String goodsNm;
@@ -43,10 +43,6 @@ public class OrderGoods {
     private int count;
 
     private int orderPrice; //주문금액
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
 
     @CreatedDate
 	@Column(updatable =false)
@@ -57,13 +53,19 @@ public class OrderGoods {
 
     private String imgUrl;
 
-    public void createorder(GoodsImg goodsimg, OrderDto orderdto, Member member){
+    public void createorder(GoodsImg goodsimg, OrderDto orderdto){
         this.goodsNm = goodsimg.getGoods().getGoodsNm();
         this.count = orderdto.getCount();
         this.orderPrice = goodsimg.getGoods().getPrice();
-        this.member = member;
         this.imgUrl = goodsimg.getImgUrl();
         this.orderStatus = OrderStatus.ORDER;
         this.orderDate = LocalDateTime.now();
+    }
+
+    public int cancelOrder() {
+        int counta = this.count;
+        this.orderStatus = OrderStatus.CANCEL;
+        this.count = 0;
+        return counta;
     }
 }

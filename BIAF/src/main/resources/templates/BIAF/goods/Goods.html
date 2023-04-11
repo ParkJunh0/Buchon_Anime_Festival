@@ -54,6 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<p class="goods_price">가격 <strong th:text="${goods.price}"></strong></p>
 						<p class="goods_item_detail_description" th:text="${goods.goodsDetail}"></p>
 					</div>
+					<input type="hidden" class="test1" th:value="${goods.stocknumber}">
 				</div>
 				<!-- 품절 -->
 				<div th:each="goods : ${goods_patition}" th:unless="${goods.sellStat.name() == 'SELL'}" class="goods_item solds">
@@ -85,6 +86,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<p>가격: <strong class="goodsprice"></strong>원</p>
 						<p>배달비: <strong class="goodspricep">10000</strong>원</p>
 						<p class="goodsdescription"></p>
+						<p class="goods_stocknum"></p>
 						<p><label>수량<input class="quantity" type="number" name="number_select" min="1" max="10" value="1"> </label></p>
 					</div>
 					<div class="totalsection">

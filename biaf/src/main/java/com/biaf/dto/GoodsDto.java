@@ -22,6 +22,8 @@ public class GoodsDto {
 
     private GoodsSellStatus sellStat;
 
+    private int stocknumber;
+
     private String  imgUrl;
     
     
@@ -35,11 +37,10 @@ public class GoodsDto {
             goodsDto.imgUrl = gd.getImgUrl(); 
             goodsDto.sellStat = gd.getGoods().getGoodsSellStatus();
             goodsDto.price = gd.getGoods().getPrice();
-            goodsDto.goodsDetail = gd.getGoods().getGoodsDetail();           
+            goodsDto.goodsDetail = gd.getGoods().getGoodsDetail();
+            goodsDto.stocknumber = gd.getGoods().getStockNumber();         
           
            mvResDtoList.add(goodsDto);
-  
-           
         }
         return mvResDtoList;
   

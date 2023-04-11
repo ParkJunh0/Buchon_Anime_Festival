@@ -705,11 +705,7 @@
 
             if(numSlides > 1){
                 if(options.controlArrows){
-                    createSlideArrows(section);
-                }
-
-                if(options.slidesNavigation){
-                    addSlidesNavigation(section, numSlides);
+                    createSlideArrows(section, numSlides);
                 }
             }
 
@@ -790,8 +786,12 @@
         /**
         * Creates the control arrows for the given section
         */
-        function createSlideArrows(section){
-            section.find(SLIDES_WRAPPER_SEL).after('<div class="' + SLIDES_ARROW_PREV + '"></div><div class="' + SLIDES_ARROW_NEXT + '"></div>');
+        function createSlideArrows(section, numSlides){
+            section.find(SLIDES_NAV_SEL).append('<div class="' + SLIDES_ARROW_PREV + '"></div>');
+            if(options.slidesNavigation){
+                addSlidesNavigation(section, numSlides);
+            }
+            section.find(SLIDES_NAV_SEL).append('<div class="' + SLIDES_ARROW_NEXT + '"></div>');
 
             if(options.controlArrowColor!='#fff'){
                 section.find(SLIDES_ARROW_NEXT_SEL).css('border-color', 'transparent transparent transparent '+options.controlArrowColor);
@@ -2362,7 +2362,7 @@
         * Creates a landscape navigation bar with dots for horizontal sliders.
         */
         function addSlidesNavigation(section, numSlides){
-            section.append('<div class="' + SLIDES_NAV + '"><ul></ul></div>');
+            section.children(SLIDES_NAV_SEL).append('<ul></ul>');
             var nav = section.find(SLIDES_NAV_SEL);
 
             //top or bottom

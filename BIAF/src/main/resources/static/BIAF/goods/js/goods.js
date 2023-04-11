@@ -13,6 +13,7 @@ $(document).ready(function(){
     var goodsprice = $('.goodsprice');      // 굿즈 상세페이지 가격
     var goodspricep = $('.goodspricep');    // 굿즈 상세페이지 배송비
     var goodsd = $('.goodsdescription');    // 굿즈 상세페이지 설명
+    var goods_stocknum = $('.goods_stocknum'); // 굿즈 상세페이지 재고
     var goodsquantity = $('.quantity');     // 굿즈 상세페이지 수량
     var totalprice = $('.totalprice');      // 굿즈 상세페이지 총합
     var token = $("meta[name='_csrf']").attr("content");        // 토큰
@@ -45,6 +46,7 @@ $(document).ready(function(){
 	}
     // 상품 상태 정렬 변경
     $("#select_SellStat").change(function(){
+        goods_detail.clearQueue().slideUp(5);
         switch($(this).val()){
             case 'sells':
                 sells.css('display', 'block');
@@ -70,8 +72,9 @@ $(document).ready(function(){
         goodsprice.text(this_.children('.goods_price > strong').text());
         goodspricep.text('10000');
         goodsd.text(this_.parent().children('.goods_item_detail_description').text());
+        goods_stocknum.text("재고: "+ this_t.children('.test1').val());
     }
-        function addCart() {
+    function addCart(message) {
 
 			$.ajax({
 				url : url,
@@ -85,16 +88,19 @@ $(document).ready(function(){
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
+                    if(message != null){
+                        alert(message);
+                    }
 				},
 
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
 						alert('로그인 후 이용해주세요');
-						location.href = '/members/login';
+						location.href = '/ko/login';
 					} else {
 						// alert(jqXHR.responseText);
-                        alert('로그인 후 이용해주세요');
-                        location.href = '/members/login';
+                        alert('로그인 후 이용해주세요.');
+                        location.href = '/ko/login';
 					}
 				}
 			});
@@ -149,7 +155,9 @@ $(document).ready(function(){
             count: goodsquantity.val()
         };
         param = JSON.stringify(paramData);
-        addCart();
+        addCart("구매가 완료되었습니다.");
+
+        location.href="/ko/goods";
     });
 
     // 모달 계속 쇼핑 버튼 클릭
@@ -159,6 +167,7 @@ $(document).ready(function(){
         $('.cart_modal').fadeOut();
         // 페이지 스크롤 되살리기
         document.body.style.removeProperty('overflow');
+        location.href="/ko/goods";
     });
     $('.cart_go').on("click", function(){
     	location.href = '/ko/cart';

@@ -13,6 +13,7 @@ li{
     padding: 0;
 /*  background-color: #003D39;*/
     bottom: 0;
+    user-select: none;
 }
 /* 풋터 윗줄 */
 #footer-top{

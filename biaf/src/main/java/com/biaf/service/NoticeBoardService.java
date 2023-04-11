@@ -23,6 +23,7 @@ import com.biaf.repository.BoardImgRepository;
 import com.biaf.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
+
 @Transactional
 @RequiredArgsConstructor
 @Service

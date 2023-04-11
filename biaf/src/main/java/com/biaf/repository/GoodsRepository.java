@@ -8,5 +8,5 @@ import com.biaf.entity.Goods;
 
 public interface GoodsRepository extends JpaRepository<Goods, Long>{
     
-    List<Goods> findByGoodsNm(String goodsNm);
+    Goods findByGoodsNm(String goodsNm);
 }

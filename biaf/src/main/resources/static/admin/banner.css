@@ -1,0 +1,50 @@
+#wrap {
+    width: 100%;
+    margin-bottom: 150px;
+    position: relative;
+    top: 50px;
+ }
+
+ #section {
+    display: flex;
+    justify-content: space-evenly;
+ }
+ 
+ #section {
+    display: flex;
+    justify-content: space-evenly;
+ }
+ 
+ #slide {
+    left: 150px;
+    top: 0;
+    min-width: 1000px;
+    min-height: 400px;
+ }
+ 
+ .container {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+ }
+ .container_3{
+    width:90%;
+ }
+ .banner_management{
+    width:100%;
+    height: 400px;
+ }
+.banner_imgs{
+    width: 400px;
+}
+ .banner_img{
+    width:100%;
+    height: 100%;
+ }
+ .banner_reg_day{
+    width: 200px;
+ }
+
+ .btn_range{
+    text-align: right;
+ }

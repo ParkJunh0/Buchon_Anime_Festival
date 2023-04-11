@@ -11,6 +11,7 @@ li{
     width: 100%;
     top:0px;
     z-index: 99;
+    user-select: none;
 }
 /* 헤더 부분 틀 */
 #nav {
