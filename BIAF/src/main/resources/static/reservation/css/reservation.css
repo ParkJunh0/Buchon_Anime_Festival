@@ -158,3 +158,9 @@
  #selection {
     margin: 0 auto;
  }
+ #schedule{
+   color: #1f73ff;
+}
+.content_menu ul li:first-child{
+    border-bottom: 2px solid #1f73ff;
+ }

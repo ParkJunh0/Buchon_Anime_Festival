@@ -19,7 +19,7 @@ public class OrdersDto{
    private List<OrderGoods> ordergoods;
    private Member member;
    private LocalDateTime orderdate;
-
+   
    private static ModelMapper modelMapper = new ModelMapper();
 
    public OrdersDto(Order order){

@@ -2,6 +2,7 @@ package com.biaf.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import com.biaf.dto.OrderDto;
-import com.biaf.dto.OrderGoodsDto;
 import com.biaf.dto.OrdersDto;
 import com.biaf.entity.Goods;
 import com.biaf.entity.GoodsImg;
@@ -78,10 +78,11 @@ public class OrderService {
         // 현재 로그인한 사용자와 주문 데이터를 생성한 사용자가 같은지를 검사, 같을 때는 true를 반환하고 같지 않을 경우 false 반환
 
         Member curMember = memberRepository.findByMemberEmail(email);
-        Order order = orderRepository.findById(orderId).orElseThrow(EntityNotFoundException::new);
-        Member savedMember = order.getMember();
-
+        Optional<Order> order = orderRepository.findByOrdergoods_Id(orderId);
+        Member savedMember = order.get().getMember();
+        
         if (!StringUtils.equals(curMember.getMemberEmail(), savedMember.getMemberEmail())) {
+            
             return false;
         }
         return true;
@@ -90,8 +91,9 @@ public class OrderService {
     public void cancelOrder(Long orderId){
         OrderGoods order = ordergoodsRepository.findById(orderId)
                 .orElseThrow(EntityNotFoundException::new);
+                
+                System.out.println("aaa" + order.getGoodsNm());
         Goods goods = goodsRepository.findByGoodsNm(order.getGoodsNm());
-
         int count = order.cancelOrder();
         goods.addStock(count);
     }

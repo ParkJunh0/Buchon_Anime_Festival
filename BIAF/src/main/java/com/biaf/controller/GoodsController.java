@@ -1,5 +1,7 @@
 package com.biaf.controller;
 
+import java.util.List;
+
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.biaf.dto.GoodsDto;
 import com.biaf.dto.GoodsFormDto;
 import com.biaf.entity.Goods;
 import com.biaf.service.GoodsService;
@@ -27,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value = "/ko")
 @RequiredArgsConstructor
 public class GoodsController {
-
     private final GoodsService goodsService;
 
     @GetMapping(value = "/admin/goods/new")
@@ -46,7 +48,14 @@ public class GoodsController {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "admin/goodsForm"; // 상품 등록시 첫 번째 이미지가 없다면 에러 메시지와 함께 상품등록 페이지로 전환한다.
         } // 상품 첫번째 이미지는 메인 페이지에서 보여줄 상품 이미지를 사용하기 위해 필수 값으로 지정한다.
-
+        
+        for(GoodsDto gooods : goodsService.findAll()){
+            if(goodsFormDto.getGoodsNm().equals(gooods.getGoodsNm())){
+                model.addAttribute("errorMessage", "이미 있는 상품 이름 입니다.");
+                return "admin/goodsForm";
+            }
+        }
+        
         try {
             goodsService.saveGoods(goodsFormDto, goodsImgFileList); // 상품 저장 로직을 호출. 상품정보와 상품이미지정보를 넘긴다.
         } catch (Exception e) {
@@ -79,6 +88,12 @@ public class GoodsController {
         if (goodsImgFileList.isEmpty() && goodsFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "admin/goodsForm";
+        }
+        for(GoodsDto gooods : goodsService.findAll()){
+            if(goodsFormDto.getGoodsNm().equals(gooods.getGoodsNm())){
+                model.addAttribute("errorMessage", "이미 있는 상품 이름 입니다.");
+                return "admin/goodsForm";
+            }
         }
         try {
             goodsService.updateGoods(goodsFormDto, goodsImgFileList);
