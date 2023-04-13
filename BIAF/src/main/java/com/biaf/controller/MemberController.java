@@ -71,5 +71,11 @@ public class MemberController {
 	public String memberout1() {
 		return "/member/memberout1";
 	}
+	
+
+	@GetMapping(value="/reservationlist") // 티켓예매/취소
+   	public String reservationlist() {
+      return "/member/reservationlist";
+   }
 
 }

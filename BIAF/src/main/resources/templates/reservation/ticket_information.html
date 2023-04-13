@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
+
+<th:block layout:fragment="css">
+
+	<link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
+</th:block>
+<div layout:fragment="content">
+	<div class="cont_header"></div>
+
+	<div class="i_wrap">
+		<h3 class="conTit">티켓 안내</h3>
+		<div class=i_cont>
+			<div id=txt_tit>
+				<strong>[예매 안내]</strong>
+			</div>
+			<ul class="dot-list">
+				<li>만 4세(48개월) 이상부터는 영화티켓을 반드시 구매하셔야 입장 가능합니다.</li>
+				<li>예매 변경은 불가능하며, 취소 후 재 예매를 하셔야만 합니다.</li>
+
+			</ul>
+			<div id=txt_tit>
+				<strong>[관람 요금]</strong>
+			</div>
+			<ul class="dot-list">
+				<table class="view_money">
+					<colgroup>
+						<col width="*">
+						<col width="*">
+						<col width="*">
+					</colgroup>
+					<thead>
+						<tr>
+							<th scope="col" class="divi1">구분</th>
+							<th scope="col" class="divi2"><strong>평일</strong>(월~목)</th>
+							<th scope="col" class="divi3"><strong>주말</strong>(금 ~ 일 및
+								공휴일)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th scope="row" class="divi1 type1">일반</th>
+							<td class="divi2">14,000원</td>
+							<td class="divi3">15,000원</td>
+						</tr>
+
+						<tr>
+							<th scope="row" class="divi1 type1">청소년</th>
+							<td class="divi2">12,000원</td>
+							<td class="divi3">11,000원</td>
+						</tr>
+
+						<tr>
+							<th scope="row" class="divi1 type1">조조</th>
+							<td class="divi2">11,000원</td>
+							<td class="divi3">10,000원</td>
+						</tr>
+						<tr>
+							<th scope="row" class="divi1 type1">경로우대/장애인<span>국가유공자</span></th>
+							<td class="divi2">9,000원</td>
+							<td class="divi3">10,000원</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</ul>
+
+
+			<div id=txt_tit>
+				<strong>[티켓교환 안내]</strong>
+			</div>
+			<ul class="dot-list">
+				<li>극장의 무인발권기(KIOSK)를 통해 예매번호 또는 고객확인번호(생년월일+휴대폰번호)를 입력하여 편리하게
+					티켓을 발권하실 수 있습니다.</li>
+				<li>무인발권기 이용이 어려우신경우, 티켓교환권을 출력하여 매표소에 방문하시면 티켓을 발권하실 수 있습니다.</li>
+				<li class="l">(티켓교환권 출력이 어려운경우 예매번호와 신분증을 지참하여 매표소에 방문하시면 티켓을
+					발권하실 수 있습니다.)</li>
+			</ul>
+
+			<div id=txt_tit>
+				<strong>[예매취소 안내]</strong>
+			</div>
+			<ul class="dot-list">
+				<li>온라인(홈페이지/모바일) 예매 취소는 상영시간 20분전까지 입니다.</li>
+				<li>공연 관람시 시작 시간 이후에는 입장이 제한 됩니다.</li>
+				<li>발권된 티켓은 상영시간 전까지 현장 방문 시에만 취소가 가능합니다.</li>
+			</ul>
+			<div id=txt_tit>
+				<strong>[영화 관람시 주의사항]</strong>
+			</div>
+			<ul class="dot-list">
+				<li><b>음식물 반입 금지</b></li>
+				<ul class="caution">
+					<li>- 소음 또는 향으로 인해 영화관람을 방해할 수 있는 음식물의 반입을 제한하고 있습니다.</li>
+
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;· 반입 가능: 생수, 물 종류 (뚜껑이 있는 페트병에 담긴
+						물)</li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;· 반입 불가: 커피, 탄산음료, 주류, 캔음료, 과자,
+						김밥, 샌드위치 등 물을 제외한 모든 식·음료</li>
+
+					<li>- 상영관 입장 시에 음식물을 가지고 계실때에는 저희 직원의 안내에 따라주시길 부탁드리며, 가방등에
+						반입이 금지된 음식물을 가지고 </li><li>상영관에 입장하셨을 시 직원이 음식물을 수거할 수 있음을 안내해
+						드립니다.
+					</li>
+				</ul>
+				<li><b>광고 없이 정시 상영 시작 & 영화 상영 시작 10분 후 입장 불가</b></li>
+				<ul class="caution">
+					<li>- 상영 전 광고 없이, 정시 소등과 함께 영화 상영을 시작하며 상영이 시작되고 10분이 지나면 입장이
+						불가합니다. 이는 영화 시간에 맞춰 </li><li>방문해주신 관람객 분들께 영화를 관람하는데 있어 소음 및 소란을
+						최소화 하는 데에 그 이유가 있습니다.
+					</li>
+					<li>- 상영 시작 10분 후에는 발권 전산 시스템 상에서 지난 회차에 대한 발권이 자동 종료되어 티켓 판매가
+						불가 하며, 관람 티켓을 소지하셨거나 </li><li>예매를 하셨어도 입장 불가(티켓 교환, 환불 불가) 함을 안내해 드립니다.</li>
+
+				</ul>
+				<li><b> 엔딩 크레딧이 모두 올라가고 상영 종료 후 점등</b></li>
+				<ul class="caution">
+					<li>- 점등 되지 않은 어두운 영화관을 퇴장시에 안전 사고가 발생할 수 있사오니, 엔딩 크레딧이 모두
+						올라가고 상영 종료 후 불이 켜지면 퇴장해 </li><li>주시기 바랍니다.</li>
+				</ul>
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>

@@ -119,7 +119,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					console.log("cartItem count update success");
+					console.log("cartGoods count update success");
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
@@ -283,6 +283,7 @@ tbody {
 
 			<div class="all">
 				<h1>장바구니</h1>
+				<div class="carts" th:if="${!cartGoods.isEmpty()}">
 				<table class="top">
 					<thead>
 						<tr class="hed">
@@ -297,8 +298,10 @@ tbody {
 							<th width="100px;">삭제</th>
 						</tr>
 					</thead>
+				
 					<tbody>
 						<tr th:each="cartGoods : ${cartGoods}">
+						
 							<td><input type="checkbox" name="cartChkBox" id="cartChkBox"
 								th:value="${cartGoods.cartGoodsId}"></td>
 							<!-- 		<td th:text="${status.count}"></td> -->
@@ -326,6 +329,30 @@ tbody {
 						</tr>
 					</tbody>
 				</table>
+				</div>
+				<div class="carts" th:if="${cartGoods.isEmpty()}">
+				<table class="top">
+					<thead>
+						<tr class="hed">
+							<th width="100px;"><input type="checkbox" id="checkall"
+								onclick="checkAll()">전체 선택</th>
+							<!-- <th width="50px;">No</th> -->
+							<th width="100px;">이미지</th>
+							<th width="150px;">상품명</th>
+							<th width="100px;">가격</th>
+							<th width="100px;">수량</th>
+							<th width="100px;">합계</th>
+							<th width="100px;">삭제</th>
+						</tr>
+					</thead>
+				
+					<tbody>
+						<tr>
+							<td colspan="7">장바구니가 비어있습니다.</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
 				<!-- 	<div class="btn">
 					<button type="submit">선택상품삭제</button>
 				</div> -->

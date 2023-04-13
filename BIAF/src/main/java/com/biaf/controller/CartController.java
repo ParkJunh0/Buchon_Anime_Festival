@@ -40,6 +40,7 @@ public class CartController {
 																							// 조회한다.
 		model.addAttribute("cartGoods", cartDetailList); // 조회한 장바구니 상품 정보를 뷰로 전달한다.
 		return "member/cart";
+		
 	}
 
 	@PostMapping(value = "/cart")

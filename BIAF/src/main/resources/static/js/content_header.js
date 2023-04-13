@@ -67,7 +67,7 @@ $(function(){
         content_header_html+='<h1>관리자페이지</h1></div>';
     }
     // 마이페이지 부분
-    if(conthref == "mypage" || conthref == "cart" || conthref == "orders" || conthref=="memberout" || conthref=="memberout1"){
+    if(conthref == "mypage" || conthref == "cart" || conthref == "orders" || conthref=="memberout" || conthref=="memberout1" || conthref=="reservationlist"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>마이페이지</h1></div>';
     }

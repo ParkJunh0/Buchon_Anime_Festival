@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<th:block layout:fragment="css">
+    <!-- <link rel="stylesheet" th:href="@{css/style.css}"> -->
+
+    <style>
+    
+    /* 사이드바 */
+#wrap {
+	width: 100%;
+	position: relative;
+	margin-bottom: 150px;
+	top: 50px;
+}
+
+#section {
+	display: flex;
+	justify-content: space-evenly;
+}
+    /* 예매내역 */
+     
+        #wrap ol,
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+		.h_tit{
+		padding-bottom: 30px;
+		
+		}
+       
+        .board-list-util {
+            margin: 50px 0 15px 0;
+            text-align: right;
+        }
+
+        #bokdList>div.history-reservation {
+            padding-left: 10px;
+            height: 300px;
+        }
+
+        #bokdList>div.history-reservation>ul {
+            width: 900px;
+        }
+
+        .board-list-util .result-count {
+            position: relative;
+            float: left;
+            margin: 0;
+            padding-top: 15px;
+            line-height: 1.1;
+            vertical-align: top;
+        }
+
+        .history-reservation ul li:first-child {
+            padding: 0;
+        }
+
+        .history-reservation ul li .round {
+            overflow: hidden;
+            position: relative;
+            height: auto;
+            padding: 25px 30px 30px 194px;
+            border: 1px solid #d8d9db;
+            border-radius: 10px;
+        }
+
+        .history-reservation ul li .round .r_img {
+            display: block;
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            width: 135px;
+            height: 194px;
+            font-size: 0;
+            line-height: 0;
+        }
+
+        .r_img img {
+            width: 150px;
+        }
+
+        #wrap a:link {
+            color: #444;
+            text-decoration: none;
+        }
+
+        .history-reservation ul li .round .table {
+            width: 100%;
+            table-layout: fixed;
+            empty-cells: show;
+            border-collapse: collapse;
+        }
+
+        .history-reservation ul li .round .table th {
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .a-r {
+            width: 100px;
+        }
+
+        .history-reservation ul li .round .table td,
+        .history-reservation ul li .round .table th {
+            height: 32px;
+            padding: 0;
+            vertical-align: middle;
+            text-align: left;
+            font-size: .9333em;
+            line-height: 1.3;
+            font-weight: 400;
+        }
+
+        .history-reservation ul li .round .table td {
+            padding: 0 10px;
+        }
+
+        .history-reservation ul li .round .table td .num {
+            color: #01738b;
+            font-size: 1.2em;
+        }
+
+        .history-reservation p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .history-reservation ul li .round .bg-round {
+            overflow: hidden;
+            margin: 5px 0 0 0;
+            padding: 5px 0;
+            background-color: #f3f4f6;
+            border-radius: 5px;
+        }
+
+        .button.gray-line.x-small {
+            line-height: 28px;
+        }
+
+        .button.gray-line {
+            color: #444;
+            line-height: 36px;
+            border: 1px solid #c1c1c1;
+            background-color: #fff;
+        }
+
+        .button.x-small {
+            height: 28px;
+            padding: 0 8px;
+            line-height: 26px;
+            font-size: .8667em;
+            letter-spacing: 0;
+        }
+
+        .history-reservation ul li .round .btn-group {
+            padding: 15px 0 0 0;
+            text-align: right;
+        }
+
+        a.button.gray:active,
+        a.button.gray:focus,
+        a.button.gray:hover,
+        a.button.gray:visited {
+            color: #fff;
+        }
+
+        a.button:active,
+        a.button:focus,
+        a.button:hover,
+        a.button:visited {
+            color: #503396;
+        }
+
+        .btn-group .button {
+            margin: 0 3px;
+        }
+
+        .button.gray {
+            color: #fff;
+            line-height: 36px;
+            border: 0;
+            background: #666;
+        }
+
+        .button {
+            display: inline-block;
+            height: 36px;
+            padding: 0 15px;
+            text-align: center font-weight: 400;
+            border-radius: 4px;
+            font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+
+        /*    예매취소내역*/
+        .del {
+            margin: 0;
+            padding: 0 0 16px 0;
+            font-size: 1.6em;
+            font-weight: 400;
+            color: #503396;
+            line-height: 1.1;
+            margin-top: 20px;
+        }
+
+        .dot-list>li {
+            position: relative;
+            padding: 0 0 0 8px;
+        }
+
+        .mt10 {
+            margin-top: 10px;
+            width: 900px;
+        }
+
+        .table-wrap {
+            position: relative;
+            border-top: 1px solid #555;
+        }
+
+        table caption {
+            overflow: hidden;
+            width: 0;
+            height: 0;
+            font-size: 0;
+            line-height: 0;
+            opacity: 0;
+        }
+
+        .board-list {
+            width: 900px;
+        }
+
+        .board-list>thead>tr>th {
+            height: 45px;
+            padding: 3px 10px;
+            color: #222;
+            border: 1px solid #eaeaea;
+            border-width: 0 0 1px 0;
+            background-color: #f2f4f5;
+        }
+
+        .a-c {
+            text-align: center;
+        }
+        
+     /*    예매내역이 없을 시 div */
+     .no-history-reservation {
+    display: block;
+    height: 160px;
+    padding: 0;
+    text-align: center;
+    line-height: 160px;
+    border: 1px solid #ddd;
+    border-width: 1px 0;
+}
+
+    </style>
+</th:block>
+<div layout:fragment="content">
+    <div class="cont_header"></div>
+    <div id="wrap">
+        <div id="section">
+            <div id="sidenav"></div>
+ 
+
+            <div class="tab-cont-wrap">
+          <h1 class="h_tit">예매 내역</h1>
+
+                <!-- 예매 영화 목록 -->
+                <div id="bokdList" >
+                    <div class="board-list-util">
+                       <!--  <p class="result-count pt00"> <strong> 총 <b class="font-gblue">1</b>건 </strong> </p> -->
+                    </div>
+                    <div class="history-reservation">
+                        <ul>
+                            <li>
+                                <div class="round">
+                                    <a href="/movie-detail?rpstMovieNo=23019200" class="r_img" title="리바운드 "><img src="https://img.megabox.co.kr/SharedImg/2023/04/02/0Io7xsImBXNca6uBXS8Y02nkbxtnl7NB_316.jpg" alt="리바운드" onerror="noImg(this)"></a>
+                                    <table class="r">
+                                        <colgroup>
+                                            <col style="width: 75px;">
+                                            <col style="width: 230px;">
+                                            <col style="width: 80px;">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row" class="a-r">예매번호</th>
+                                                <td colspan="3"><em class="num"></em></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="a-r">영화명</th>
+                                                <td colspan="3">
+                                                    <p class="tit-movie">
+                                                        <span>리바운드</span>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="a-r">극장/상영관</th>
+                                                <td>대전/컴포트3관</td>
+                                                <th scope="row">관람인원</th>
+                                                <td>성인 1명</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row" class="a-r">관람일시</th>
+                                                <td>2023.04.16 (일) 10:40 (1회차)</td>
+                                                <th scope="row">관람좌석</th>
+                                                <td>L열 7</td>
+                                            </tr>
+                                        </tbody>
+                                        
+                                    </table>
+                                    <div class="bg-round">
+                                        <table class="r">
+                                            <colgroup>
+                                                <col style="width: 75px;">
+                                                <col style="width: 230px;">
+                                                <col style="width: 100px;">
+                                                <col>
+                                            </colgroup>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" class="a-r">결제일시</th>
+                                                    <td>2023.04.12 <a href="#" class="button gray-line x-small" title="결제정보">결제정보</a>
+                                                    </td>
+                                                    <th scope="row"></th>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="btn-group">
+                                        <a href="" class="button gray" name="btnCancelBokd" title="예매취소">예매취소</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+<!-- <div id="bokdList"><div class="no-history-reservation mt20">	예매 내역이 없습니다. </div></div> -->
+
+                <h3 class="del">예매취소내역</h3>
+
+                <ul class="dot-list">
+                    <li>상영일 기준 7일간 취소내역을 확인하실 수 있습니다.</li>
+                </ul>
+
+                <!-- 취소한 예매 영화 목록 -->
+                <div class="table-wrap mt10">
+                    <table class="board-list" summary="취소일시, 영화명, 극장, 상영일시, 취소금액 항목을 가진 취소내역 목록 표">
+                        <caption>취소일시, 영화명, 극장, 상영일시, 취소금액 항목을 가진 취소내역 목록 표</caption>
+                        <colgroup>
+                            <col style="width: 160px;">
+                            <col>
+                            <col style="width: 130px;">
+                            <col style="width: 188px;">
+                            <col style="width: 105px;">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">취소일시</th>
+                                <th scope="col">영화명</th>
+                                <th scope="col">극장</th>
+                                <th scope="col">상영일시</th>
+                                <th scope="col">취소금액</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" class="a-c">취소내역이 없습니다.</td>
+                            </tr>
+                            <!--<tr>
+                                <td>1번</td>
+                                <td>2번</td>
+                                <td>3번</td>
+                                <td>4번</td>
+                                <td>5번</td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>

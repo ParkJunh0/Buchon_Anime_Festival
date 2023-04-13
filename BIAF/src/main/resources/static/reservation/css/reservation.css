@@ -201,6 +201,7 @@ li p {
 background-color: #ddd;
 }
 */
+
 .selected {
 	background-color: yellow;
 }
@@ -211,4 +212,90 @@ background-color: #ddd;
 
 .saturday {
 	color: blue;
+}
+
+/* 선택된 회차 버튼 클릭 시 색 변경 */
+
+button.selected {
+  background-color: red;
+  color: white;
+}
+/* 티켓안내페이지 */
+.i_wrap{
+	
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+ .i_cont li {
+
+    color: #555;
+    line-height: 140%;
+    padding-bottom: 6px;
+    list-style: disc;
+        
+    }
+    
+    
+    
+  .i_cont{
+  
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 64px 40px;
+    text-align: left;
+
+  }
+   
+
+    table.view_money {
+        width: 100%;
+        border-collapse: collapse;
+        border: 1px solid #cccccc;
+/*        border-top: 3px solid #8ca250;*/
+        text-align: center;
+    }
+    
+    table.view_money th.divi1 {
+    width: 142px;
+}
+    
+    table.view_money th {
+    padding: 10px 0 8px;
+    background: #e8f5c0;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
+    color: #698322;
+    font-size: 13px;
+}
+   
+    table.view_money th, td{
+    width: 292px;
+        vertical-align: middle;
+}
+    
+    table.view_money th span {
+    display: block;
+}
+
+    .caution{
+        padding-left: 8px;
+    }
+    
+    .caution li{
+    list-style:none;}
+    
+    h3.conTit {
+    padding-top: 54px;
+    font-size: 36px;
+    text-align: center;
+}
+
+ul.dot-list{
+    margin-bottom: 20px;
+}
+
+#txt_tit {
+    margin-bottom: 20px;
 }
