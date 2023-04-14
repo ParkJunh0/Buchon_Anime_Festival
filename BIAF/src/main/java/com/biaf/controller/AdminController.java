@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.biaf.dto.BannerFormDto;
-import com.biaf.dto.GoodsFormDto;
 import com.biaf.entity.Banner;
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
@@ -121,9 +120,6 @@ public class AdminController {
 
 	@PostMapping(value="/banner/new")
 	public String bannersave(@Valid BannerFormDto bannerFormDto, @RequestParam("bannerImgFile") MultipartFile bannerImgFile, BindingResult bindingResult, Model model){
-		if (bindingResult.hasErrors()) { // 상품 등록시 필수 값이 없다면 다시 상품 등록 페이지로 전환한다.
-            return "admin/bannerForm";
-        }
 		if (bannerImgFile.isEmpty() && bannerFormDto.getId() == null) {
             model.addAttribute("errorMessage", "첫번째 상품 이미지는 필수 입력 값 입니다.");
             return "admin/bannerForm"; // 상품 등록시 첫 번째 이미지가 없다면 에러 메시지와 함께 상품등록 페이지로 전환한다.

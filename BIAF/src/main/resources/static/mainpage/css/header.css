@@ -9,6 +9,7 @@ li{
 .header{
     position: fixed;
     width: 100%;
+    height: 90px;
     top:0px;
     z-index: 99;
     user-select: none;
@@ -46,6 +47,7 @@ li{
 }
 /* 로그인 부분 */
 #nav_sub{
+    max-width: 220px;
     display: flex;
     text-align: right;
     justify-content: space-between;
@@ -60,13 +62,15 @@ li{
     color:black;
 }
 #nav_sub ul{
-	min-width: 150px;
+    min-width: 120px;
 	text-align: center;
 	padding: 0;
 	margin: 0;
 	display:flex;
 	justify-content: space-evenly;
+    align-items: center;
 }
+
 /* 검색바 부분 */
 #search{
     width: 30%;
@@ -82,8 +86,8 @@ li{
     border: 0;
     border-radius: 0 0 5px 5px;
     outline: none;
-    background-color:#7CD2B3;
-    color: #fff;
+    background-color:#ffffff;
+    color: #7CD2B3;
 }
 .search_btn{
     position: absolute;
@@ -92,7 +96,12 @@ li{
     background: none;
     border: 0;
     border-radius: 5px;
+    background: #7CD2B3;
     display:none;
+}
+.header_icon{
+    width: 23px;
+    height: 23px;
 }
 /* 하위 메뉴 부분 */
 .menu_popup{

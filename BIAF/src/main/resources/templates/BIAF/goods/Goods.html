@@ -25,7 +25,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<ul>
 				<li>구입문의 : publicity@biaf.or.kr</li>
 				<li>구입방법 : 아래에서 결제하거나 연략처, 주소, 구입 수량을 작성 후, e-mail(publicity@biaf.or.kr) 전송</li>
-				<li>결제방법 : 카드결제 (방문 시 현금 및 카드결제 가능)</li>
+				<li>결제방법 : 무통장 입금(방문 시 현금 및 카드결제 가능)</li>
 			</ul>
 		</div>
 		<!-- 굿즈 상품 부분 -->
@@ -102,14 +102,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- 모달창 -->
-	<div class="cart_modal">
-		<p>계속 쇼핑하시겠습니까?</p>
-		<div class="cart_modal_btn">
-			<input type="button" class="close" value="쇼핑계속">
-			<input type="button" class="cart_go" value="장바구니가기">
 		</div>
 	</div>
 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

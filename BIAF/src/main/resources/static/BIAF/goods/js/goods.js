@@ -37,8 +37,13 @@ $(document).ready(function(){
 	goodsquantity.change(function() {
         if($(this).val() > 0)
 			calculateToalPrice();
-        else
-            alert('수량은 1개이상 선택해주세요')
+        else{
+            document.body.style.overflow = 'hidden';
+
+            swal('수량 오류','수량은 1개이상 선택해주세요',"warning").then(function(result){
+                document.body.style.removeProperty('overflow');
+            });
+        }
 	});
 	function calculateToalPrice() {
 		totalPrice = goodsprice.text() * goodsquantity.val();
@@ -74,7 +79,7 @@ $(document).ready(function(){
         goodsd.text(this_.parent().children('.goods_item_detail_description').text());
         goods_stocknum.text("재고: "+ this_t.children('.test1').val());
     }
-    function addCart(message) {
+    function addCart() {
 
 			$.ajax({
 				url : url,
@@ -88,19 +93,25 @@ $(document).ready(function(){
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-                    if(message != null){
-                        alert(message);
-                    }
 				},
 
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요');
-						location.href = '/ko/login';
-					} else {
-						// alert(jqXHR.responseText);
-                        alert('로그인 후 이용해주세요.');
-                        location.href = '/ko/login';
+						Swal.fire('비로그인','로그인 후 이용해주세요','error').then(function(result){
+                            if(result) {
+                                location.href = '/ko/login';
+                            }
+                        });
+					}else if (jqXHR.responseText == '300'){
+                        Swal("수량에러", "수량이 맞지 않습니다", "warning");
+                    }else if(jqXHR.responseText == "user가 아닙니다"){
+                        Swal("권한에러", jqXHR.responseText, "error");
+                    }else {
+						Swal.fire('비로그인','로그인 후 이용해주세요','error').then(function(result){
+                            if(result) {
+                                location.href = '/ko/login';
+                            }
+                        });
 					}
 				}
 			});
@@ -141,11 +152,29 @@ $(document).ready(function(){
 
         addCart();
 
-        modal.append($('.cart_modal'));
-        $('.cart_modal').fadeIn();
-        modal.fadeIn().css('display', 'flex');
         // 페이지 스크롤 제거
         document.body.style.overflow = 'hidden';
+        Swal.fire({
+            title:"장바구니 등록완료",
+            text : "장바구니로 가시겠습니까?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonColor: '#1f50f1',
+            cancelButtonColor: '#7e7e7e',
+            confirmButtonText: "장바구니로 이동",
+            cancelButtonText: "계속쇼핑",
+            confirmButtonClass: 'btn-success',
+            cancelButtonClass: 'btn-canncel', 
+            reverseButtons: true // 버튼 순서 거꾸로
+        }).then((result)=> {
+            if(result.isConfirmed) {
+                document.body.style.removeProperty('overflow');
+                location.href = '/ko/cart';
+            }else{
+                document.body.style.removeProperty('overflow');
+                location.href="/ko/goods";
+            }
+        });
     });
     // 구매 버튼 클릭
     pay_btn.on("click", function(){
@@ -155,21 +184,19 @@ $(document).ready(function(){
             count: goodsquantity.val()
         };
         param = JSON.stringify(paramData);
-        addCart("구매가 완료되었습니다.");
+        addCart();
+        document.body.style.overflow = 'hidden';
 
-        location.href="/ko/goods";
-    });
-
-    // 모달 계속 쇼핑 버튼 클릭
-    $('.close').on("click", function(e){
-        e.preventDefault();
-        modal.fadeOut();
-        $('.cart_modal').fadeOut();
-        // 페이지 스크롤 되살리기
-        document.body.style.removeProperty('overflow');
-        location.href="/ko/goods";
-    });
-    $('.cart_go').on("click", function(){
-    	location.href = '/ko/cart';
+        Swal.fire({
+            title:"구매완료",
+            text :"구매가 완료되었습니다.",
+            icon:"success",
+            confirmButtonColor: '#1f50f1',
+        }).then((result)=>{
+            if(result.isConfirmed) {
+                document.body.style.removeProperty('overflow');
+                location.href="/ko/goods";
+            }
+        });
     });
 });

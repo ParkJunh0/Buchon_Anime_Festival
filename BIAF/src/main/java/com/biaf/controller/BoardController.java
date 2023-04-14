@@ -58,7 +58,6 @@ public class BoardController {
     	NoticeBoardFormDto noticeBoardFormDto = noticeboardservice.getNoticeBoardDtl(noticeBoardId); // noticeBoardFormDto 안에 boardService.getNoticeBoardDtl(noticeBoardId); 값을 대입 
     	model.addAttribute("noticeBoardFormDto", noticeBoardFormDto); //model.addAttribute에  noticeBoardFormDto의 이름을 noticeBoardFormDto로 add
 
-        
 		return "/Board/Notice/noticedetail";
 	}
     

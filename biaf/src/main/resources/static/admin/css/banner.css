@@ -9,12 +9,7 @@
     display: flex;
     justify-content: space-evenly;
  }
- 
- #section {
-    display: flex;
-    justify-content: space-evenly;
- }
- 
+
  #slide {
     left: 150px;
     top: 0;

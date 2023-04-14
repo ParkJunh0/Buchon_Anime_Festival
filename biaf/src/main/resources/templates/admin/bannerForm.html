@@ -4,38 +4,18 @@
 	layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="css">
-
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/css/bannerform.css}">
 </th:block>
 <th:block layout:fragment="script">
-    <script th:inline="javascript">
-    $(document).ready(function () {
-        var errorMessage = [[${ errorMessage }]]; //상품등록 시 실패 메시지를 받아서 상품등록 재진입 시 alert를 통해서 실패 사유를 보여준다.
-        if (errorMessage != null) {
-            alert(errorMessage);
-        }
-        bindDomEvent();
-    });
+    <script type="text/javascript" src="/admin/js/bannerform.js"></script>
 
-    function bindDomEvent() {
-        $(".custom-file-input").on("change", function () {
-            var fileName = $(this).val().split("\\").pop(); //이미지 파일명
-            var fileExt = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자 추출
-            fileExt = fileExt.toLowerCase(); //소문자 변환
-            if (fileExt != "jpg" && fileExt != "jpeg" && fileExt != "gif" && fileExt != "png" && fileExt != "bmp") {
-                alert("이미지 파일만 등록이 가능합니다."); <!-- 파일첨부 시 이미지 파일인지 검사한다. -->
-                return;
-            }
-            $(this).siblings(".custom-file-label").html(fileName); //라벨 태그 안의 내용을 jquery의 .html()을 이용하여 파일명을 입력해준다.
-        });
-    }
-    </script>
 </th:block>
 <div layout:fragment="content">
     <div class="cont_header"></div>
     <div class="wrap">
         <div id="sidenav"></div>
         <div class="section">
-                <h3 class="conTit">관리자 배너관리</h3>
+                <h3 class="bannertitle">관리자 배너관리</h3>
                 <form method="post" role="form" th:object="${BannerFormDto}" enctype="multipart/form-data">
                     <div class="admin1_content">
                         <input type="hidden" th:field="*{id}">
@@ -50,12 +30,12 @@
                         </div>
     
                         <div th:if="${not #lists.isEmpty(BannerFormDto.imgUrl)}">
-                            <div class="form-group" th:each="bannerImgDto, status: ${BannerFormDto.imgUrl}">
-                                <div class="custom-file img-div">
-                                    
-                                    <input type="file" class="custom-file-input" name="bannerImgFile" >
+                                <div class="banners">
+                                    <img class="bannerimgs" th:src="${BannerFormDto.imgUrl}">
+                                    <div class="banner_btn">
+                                    <input type="file" class="bannerimgfile" name="bannerImgFile" >
                                     <input type="hidden" name="BannerImgIds" th:value="${BannerFormDto.id}">
-                                    <label class="custom-file-label" th:text="${not #strings.isEmpty(BannerFormDto.oriImgName)} ? ${BannerFormDto.oriImgName} : '굿즈이미지' +
+                                    <label class="bannerfilelabel" th:text="${not #strings.isEmpty(BannerFormDto.oriImgName)} ? ${BannerFormDto.oriImgName} : '굿즈이미지' +
                         ${status.index+1}"></label>
                                     <!--타임리프 유틸리티 객체인 #strings.isEmpty(string)을 이용하여 저장이미지 정보가 있다면 파일명을 보여주고 없다면 굿즈이미지번호출력-->
                                 </div>
@@ -66,12 +46,12 @@
     
     
                         <div th:if="${#strings.isEmpty(BannerFormDto.id)}" style="text-align: center">
-                            <button th:formaction="@{/ko/admin/banner/new}" type="submit" class="btn btn-primary">저장</button>
+                            <button th:formaction="@{/ko/admin/banner/new}" type="submit" class="btn btn_save">저장</button>
                         </div>
     
                         <div th:unless="${#strings.isEmpty(BannerFormDto.id)}" style="text-align: center">
                             <button th:formaction="@{/ko/admin/banner/}+ ${BannerFormDto.id}" type="submit"
-                                class="btn btn-primary">수정</button>
+                                class="btn btn_re">수정</button>
                         </div>
     
                         
@@ -82,7 +62,7 @@
                 <form th:method="DELETE" role="form" th:object="${BannerFormDto}" enctype="multipart/form-data">
                 <div th:unless="${#strings.isEmpty(BannerFormDto.id)}" style="text-align: center">
                     <button th:formaction="@{/ko/admin/banner/delete/}+ ${BannerFormDto.id}" type="submit"
-                        class="btn btn-primary">삭제</button>
+                        class="btn btn_delete">삭제</button>
                 </div>
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                 </form>

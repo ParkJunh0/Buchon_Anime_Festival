@@ -48,8 +48,6 @@ public class GoodsService {
          // 조회한 GoodsImg 엔티티를 GoodsImgDto 객체로 만들어서 리스트에 추가한다.
         GoodsImgDto goodsImgDto = GoodsImgDto.of(goodsImg);
 
-        
-
         Goods goods = goodsRepository.findById(goodsId) // 상품 아이디를 통해 상품 엔티티를 조회한다. 존재하지 않을 땐 예외를 발생시킨다.
                 .orElseThrow(EntityNotFoundException::new);
         GoodsFormDto goodsFormDto = GoodsFormDto.of(goods);
@@ -78,6 +76,7 @@ public class GoodsService {
     public List<GoodsDto> findAll() {
         return GoodsDto.createGoodsDto(goodsImgRepository.findAllByOrderByGoods_GoodsSellStatusAsc());
     }
+    
     public Page<Goods> gdList(Pageable pageable){
         //기존 List<Goods>값으로 넘어가지만 페이징 설정을 해주면 Page<Goods>로 넘어갑니다.
         return goodsRepository.findAll(pageable);

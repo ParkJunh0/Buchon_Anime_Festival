@@ -71,6 +71,21 @@ $(function(){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>마이페이지</h1></div>';
     }
+    // 저작권/약관 부분
+    if(conthref == "policy"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>이용약관/저작권</h1></div>';
+    }
+    // 개인정보 부분
+    if(conthref == "pri_sta"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>개인정보취급방침</h1></div>';
+    }
+    // 이메일 수집 부분
+    if(conthref == "email_rejection"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>이메일무단수집동거부</h1></div>';
+    }
     // 페이지 메뉴 입력 받은 값 cont_header 클래스의 가장 앞에 삽입
     $('.cont_header').prepend(content_header_html);
     
