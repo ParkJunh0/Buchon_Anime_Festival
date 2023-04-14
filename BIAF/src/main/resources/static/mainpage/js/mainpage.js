@@ -80,4 +80,30 @@ $(function(){
 	        location.href="/ko/" + $(this).attr('id').replace(/_$/, '');
 	    });
 	}
+	var moviehref;
+	textchange($('.movielist > ul > li:first-child'));
+
+	function textchange(thist){
+		$('.movieNm_title').text(thist.children('.movie').text());
+		$('.moviegrade').text(thist.children('div').text());
+		$('.movieimg').attr('src', thist.children('.movieimgUrl').val());
+		$('.moviegrade').css('background-color', thist.children('.gradecolor').css('background-color'));
+		moviehref=thist.children('.movielink').val();
+	}
+
+	$('.movielist').on('mousewheel', function(e) {
+			if (e.originalEvent.wheelDelta >= 120) {
+				this.scrollTop -= 50;
+			} else if (e.originalEvent.wheelDelta <= -120) {
+				this.scrollTop += 50;
+			}
+			return false;
+	});
+	$('.movies').on('click', function(){
+		textchange($(this));
+	});
+
+	$('.moviedetail > a').on('click', function(){
+		location.href="/ko/reservation/detail/"+moviehref;
+	});
 });

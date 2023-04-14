@@ -23,9 +23,9 @@ public class MovieResponseDto {
 	private LocalDateTime regTime; //등록일
 	private LocalDateTime updateTime; //등록일
 	private Integer price;
-	private String movieDetail;
-	private String cinema;
-	private String movieTime;
+	private String movieDetail; //영화 상세내용
+	private String cinema; // 상영관
+	private String movieTime; //관람시간
 	private String grade; //관람등급
 
 
@@ -48,12 +48,22 @@ public class MovieResponseDto {
 			mvResDto.cinema = mv.getMovie().getCinema();
 			mvResDto.movieTime = mv.getMovie().getMovieTime();
 			mvResDto.grade = mv.getMovie().getGrade();
-			mvResDtoList.add(mvResDto);			
-//			System.out.println(mvResDto.regTime);
 			
+			mvResDtoList.add(mvResDto);
+			
+			System.out.println(mvResDto.regTime);	
 		}
 		return mvResDtoList;
 
 	}
+
+//	@QueryProjection // 
+//	public MovieResponseDto(Long id, String movieNm,String imgUrl,String startDay,String endDay){
+//	this.id = id;
+//	this.movieNm = movieNm;
+//	this.imgUrl = imgUrl;
+//	this.startDay = startDay;
+//	this.endDay = endDay;
+//	}
 }	
 

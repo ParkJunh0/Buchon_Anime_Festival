@@ -1,16 +1,11 @@
+/* 굿즈 본문 */
 .main_cont{
     min-width: 1000px;
     max-width: 1025px;
     width: 80%;
     margin: 0 auto;
 }
-.goods_items{
-    min-width: 1000px;
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-}
+/* 굿즈 설명 부분 */
 .goods_info{
     text-align: center;
 }
@@ -25,42 +20,81 @@
     list-style: inside;
     margin: 10px;
 }
+/* 굿즈 상품들 부분*/
+.goods_items{
+    min-width: 1000px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+/* 굿즈 상품 부분 */
 .goods_item{
 	min-width: 480px;
     margin-top: 10px;
     max-width: 492px;
     text-align:center;
 }
-.goods_item_header h3{
-    display: none;
+/* 굿즈 이미지 */
+.goods_item_header{
+    min-width: 492px;
 }
+.goods_item_header img{
+    max-width: 492px;
+    max-height: 300px;
+}
+/* 굿즈 설명 */
 .goods_item_description{
     font-size: 20px;
 }
+/* 굿즈 이름 */
 .goods_item_description p{
     margin-top: 10px;
 }
+/* 굿즈 상세설명 */
 .goods_item_detail_description{
     padding-top: 10px;
     font-size: 16px;
     border-top: 1px solid #b9b9b9;
 }
+/* 굿즈 가격 */
 .goods_price{
     color: #7b7b7b;
 }
 strong{
     color: #be166d;
 }
+/* 굿즈 상세페이지 */
 .goods_detail{
     min-width: 980px;
     width: 100%;
+    max-height: 320px;
     margin-top: 10px;
     padding: 10px;
     background: #f5f5f5;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
+    justify-content: space-between;
     display: none;
 }
+/* 굿즈 상세페이지 이미지 */
+.goodsImg{
+    min-width: 492px;
+    text-align:center;
+}
+.goodsimg{
+    max-width: 492px;
+    max-height: 300px;
+}
+/* 굿즈 상세페이지 오른쪽 부분 */
+.goods_description{
+    min-width: 492px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+/* 굿즈 상세페이지 설명 부분 */
 .goods_detail_description{
     margin-left: 10px;
     padding: 10px;
@@ -68,9 +102,32 @@ strong{
     flex-direction: column;
     justify-content: space-between;    
 }
+/* 굿즈 상세페이지 굿즈이름 */
+.goods_detail_description h1{
+    margin-bottom: 10px;
+}
+/* 굿즈 상세페이지 굿즈 가격 */
+.goods_detail_description p{
+    margin: 10px 0;
+}
+/* 굿즈 상세페이지 총합 부분*/
+.totalsection{
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total > a{
+    font-size: 18px;
+}
+.totalprice{
+    font-size: 16px;
+}
+/* 굿즈 상세페이지 버튼들 */
 .goods_btn{
     text-align: right;
 }
+/* 굿즈 상세페이지 장바구니 버튼 */
 .cart_btn{
     margin-right: 10px;
     padding: 5px;
@@ -79,6 +136,7 @@ strong{
     background: white;
     font-size: 16px;
 }
+/* 굿즈 상세페이지 구매 버튼 */
 .pay_btn{
     margin-left: 10px;
     padding: 5px 10px;
@@ -88,10 +146,43 @@ strong{
     font-size: 16px;
     color: white;
 }
+/* 버튼 클릭시 모달창 부분 */
 .cart_modal{
-    width: 100px;
-    height: 100px;
+    width: 400px;
+    height: 150px;
+    padding: 20px;
     background: #2e8de5;
     color: white;
     display: none;
+}
+/* 모달 글 */
+.cart_modal p{
+    min-height: 40px;
+    font-size: 30px;
+    text-align: center;
+}
+/* 모달 버튼 버튼 부분 */
+.cart_modal_btn{
+    min-height: 50px;
+    display:flex;
+    margin-top: 50px;
+    justify-content: space-evenly;
+    text-align: center;
+}
+/* 모달 쇼핑 계속 버튼 */
+.close{
+    width: 100px;
+    height: 50px;
+    background: white;
+    font-size: 20px;
+    border: none;
+}
+/* 모달 장바구니가기 버튼 */
+.cart_go{
+    width: 150px;
+    height: 50px;
+    background: #1f50f1;
+    font-size: 20px;
+    color: white;
+    border: none;
 }

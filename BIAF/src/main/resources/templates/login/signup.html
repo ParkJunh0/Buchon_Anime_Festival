@@ -18,73 +18,71 @@
 		}
 	</script>
 </th:block>
-<th:block layout:fragment="css">
+	<th:block layout:fragment="css">
 	<link rel="stylesheet" href="/login/css/join.css">
 	<link rel="stylesheet" href="/login/css/button.css">
 	<style>
-.all {
-	margin-top: 80px;
-}
+	.all {
+		margin-top: 80px;
+	}
 
-.all table {
-	text-align: left;
-}
+	.all table{
+		text-align: left;
+	}
 
-.section {
-	margin: 0 auto;
-	width: 450px;
-	text-align: center;
-}
-
-.btn_order {
-	margin-top: 30px;
-}
-</style>
-</th:block>
+	.section{
+		margin: 0 auto;
+		width: 450px;
+		text-align:center;
+	}
+	.btn_order {
+		margin-top: 30px;
+	}
+	</style>
+	</th:block>
 <div layout:fragment="content">
-	<!-- 컨텐츠 메뉴 부분 -->
-	<div class="cont_header"></div>
+<!-- 컨텐츠 메뉴 부분 -->
+<div class="cont_header"></div>
 	<div class="section">
-		<div class="join">
-			<h4>회원가입</h4>
-			<h1>통합 회원가입</h1>
-		</div>
+	<div class="join">
+		<h4>회원가입</h4>
+		<h1>통합 회원가입</h1>
+	</div>
 
-		<div class="stepLine">
-			<div title="약관동의" class="stepDot"></div>
-			<div title="정보입력" class="stepDot activeStep"></div>
-			<div title="가입완료" class="stepDot"></div>
-		</div>
-		<form method="post" action="/ko/signup" role="form"
-			th:object="${memberFormDto}">
-			<div class="all">
-				<table>
-					<tr>
-						<td><p>이메일</p></td>
-						<td><input type="email" name="memberEmail"></td>
-					</tr>
-					<tr>
-						<td><p>비밀번호</p></td>
-						<td><input type="password" id="pw" name="memberPassword"></td>
-					</tr>
-					<!-- <tr>
+	<div class="stepLine">
+		<div title="약관동의" class="stepDot"></div>
+		<div title="정보입력" class="stepDot activeStep"></div>
+		<div title="가입완료" class="stepDot"></div>
+	</div>
+	<form method="post" action="/ko/signup" role="form" th:object="${memberFormDto}">
+		<div class="all">
+			<table>
+				<tr>
+					<td><p>이메일</p></td>
+					<td><input type="email" name="memberEmail"></td>
+				</tr>
+				<tr>
+					<td><p>비밀번호</p></td>
+					<td><input type="password" id="pw" name="memberPassword"></td>
+				</tr>
+				<!-- <tr>
 					<td><p>비밀번호 확인</p></td>
 					<td><input type="password" id="pw" name="memberPassword"></td>
 				</tr> -->
-					<tr>
-						<td><p>이름</p></td>
-						<td><input type="text" name="memberName"></td>
-					</tr>
-					<!-- <tr>
+				<tr>
+					<td><p>이름</p></td>
+					<td><input type="text" name="memberName"></td>
+				</tr>
+				<!-- <tr>
 					<td><p>성별</p></td>
 					<td>
 					<input type="radio" name="memberLoc">남자 
 					    <input type="radio" name="memberLoc">여자
 					</td>
 				</tr> -->
-					<tr>
-						<td><p>전화번호</p></td>
-						<td><input type="tel" name="memberTel"
+				<tr>
+					<td><p>전화번호</p></td>
+					<td><input type="tel" name="memberTel"
 							pattern="\d{3}-\d{3,4}-\d{4}"></td>
 					</tr>
 
@@ -103,8 +101,8 @@
 				<button type="submit" class="btn_order">가입완료</button>
 				<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}">
-			</div>
-		</form>
-	</div>
+		</div>
+	</form>
+</div>
 </div>
 </html>

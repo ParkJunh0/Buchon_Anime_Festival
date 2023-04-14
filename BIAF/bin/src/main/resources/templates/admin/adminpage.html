@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layouts/layout1}">
+
+
+    <th:block layout:fragment="css">
+    <style>
+        
+        #wrap {
+            width: 100%;
+            position: relative;
+            margin-bottom: 150px;
+            top: 50px;
+        }
+        #section{
+            display: flex;
+            justify-content: space-evenly;
+        }
+        #slide {
+            left: 150px;
+            top: 0;
+            min-width: 1000px;
+            min-height: 400px;
+        }
+       
+    </style>
+</th:block>
+   <div layout:fragment="content">
+    <div class="cont_header"></div>
+    <div id="wrap">
+        <div id="section">
+            <div id="sidenav">
+                
+            </div>
+            <div id="slide">
+           
+            </div>
+        </div>
+        
+    </div>
+</div>
+</html>

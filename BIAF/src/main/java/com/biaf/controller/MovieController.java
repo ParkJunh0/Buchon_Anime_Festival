@@ -100,8 +100,6 @@ public class MovieController {
 	@PostMapping(value = "/admin/movie/delete/{movieId}")
 	public String moviedelete(@PathVariable Long movieId, @RequestParam("movieImgIds") Long imgId) {
 		movieService.deletemovie(movieId, imgId);
-		return "redirect:/ko/admin/movie"
-				+ ""
-				+ "";
+		return "redirect:/ko/admin/movie";
 	}
 }

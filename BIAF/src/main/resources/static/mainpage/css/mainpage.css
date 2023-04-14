@@ -13,28 +13,246 @@ h1{
 /* Centered texts in each section
 * --------------------------------------- */
 .section{
+    user-select: none;
     text-align:center;
 }
 
 /* Overwriting styles for control arrows for slides
 * --------------------------------------- */
+/* 배너부분 */
+.bannerimg{
+    width: 100%;
+    height: 630px;
+}
+.bannerimg img{
+    width: 100%;
+    height: 720px;
+}
 .controlArrow.prev {
     left: 50px;
 }
 .controlArrow.next{
     right: 50px;
 }
-
-#footer{
-    bottom: 0px;
+/* 무비리스트부분 */
+.movie_list{
+    width: 1000px;
+    height: 550px;
+    margin: auto;
+    padding: 20px;
+    background: #7eeec5;
+    border-radius: 20px;
 }
-.testsection{
+.movie_border{
+    border-radius: 20px;
+}
+.a{
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.movie_img{
+    width: 460px;
+    height: 380px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.movieimg{
+    width: 100%;
+    height: 100%;
+}
+.movie_lists{
+    width: 460px;
+    height: 380px;
+}
+.movieNm{
+    width: 90%;
+    height: 13%;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.titles{
+    width: 90%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.moviegrade{
+    min-width: 50px;
+    height: 35px;
+    padding: 3px;
+    font-size: 25px;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+}
+.movieNm_title{
+    margin-left: 10px;
+    font-size: 25px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.moviedetail{
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+.movielist{
+    width: 92%;
+    height: 77%;
+    padding: 20px;
+    overflow-y: auto;
+    cursor: default;
+}
+.movielist::-webkit-scrollbar{
+    width: 10px;
+    border-radius: 10px;
+    background: #0000006c;
+}
+.movielist::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background: #ffffffbe;
+}
+.movielist ul{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+.movielist ul li{
+    width: 95%;
+    height: 30px;
+    margin: 5px;
+    padding: 5px;
+    background: #2525251a;
+    border-radius: 10px;
+    text-align: left;
+}
+.movielist div{
+    width: 30px;
+    padding: 2px;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    display: inline-block;
+    text-align: center;
+}
+.movie{
+    height: 30px;
+    font-size: 20px;
+    border-radius: 20px;
+    color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* 게시판 영역 */
+.boardsection{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
 }
-.test{
-    width: 550px;
+.boards{
+    min-width: 550px;
+    max-width: 550px;
+    padding: 30px;
     height: 400px;
-    background: black;
+    background: #7eeec5;
+    border-radius: 20px;
+}
+.boardtitle{
+    margin: 0px;
+    font-size: 25px;
+    color: rgb(38, 49, 46);
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.boardtitle a{
+    color: white;
+}
+.last_sentence{
+    margin-top: 20px;
+    padding: 10px 0;
+    border-top: solid 1px rgb(78, 78, 78);
+    border-bottom: solid 1px rgb(78, 78, 78);
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.sen_date{
+    width: 60px;
+    color: rgb(121, 115, 204);
+    font-weight: bold;
+}
+.sen_date_top{
+    font-size: 14px;
+}
+.sen_date_bottom{
+    font-size: 42px;
+}
+.sen_content{
+    width: 440px;
+    text-align: left;
+}
+.sen_title{
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: bold;
+    color: #1d1919;
+}
+.sent{
+    height: 40px;
+    margin:0;
+    margin-top: 10px;
+    font-size: 14px;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    color: #1d1919;
+}
+.sentence{
+    height: 220px;
+    margin-top: 20px;
+    text-align: left;
+}
+.sentence ul{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.sentence ul li a{
+    color: black;
+}
+.sentence li{
+    list-style: circle;
+}
+.sentitle{
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight: lighter;
+    color: #1d1919;
+}
+.notnotice{
+    width: 100%;
+    text-align: center;
+}
+
+#footer{
+    bottom: 0px;
 }

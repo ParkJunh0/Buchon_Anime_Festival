@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/layout1}">
+
+
+
+<th:block layout:fragment="script">
+   <script th:src="@{/js/memberList_modal.js}" type="text/javascript"></script>
+</th:block>
+<th:block layout:fragment="css">
+   <link rel="stylesheet" type="text/css" th:href="@{/admin/banner.css}">
+</th:block>
+
+
+
+<div layout:fragment="content">
+   <div class="cont_header"></div>
+
+   <div id="wrap">
+      <div id="section">
+         <div id="sidenav"></div>
+         <form id="slide" method="Get" action="ko/admin/banner" role="form">
+            <div >
+
+               <div class="container">
+                  <div class="container_2">
+                     <div align="center" class="title">
+                        <h1>배너 등록 리스트</h1>
+                     </div>
+
+                  </div>
+                  <div class="container_3">
+                        <table class="banner_management">
+                           <thead>
+                              <tr>
+                                 <th scope="col" class="banner_imgs">배너이미지</th>
+                                 <th scope="col" class="banner_reg_day">등록일</th>
+                              </tr>
+                           </thead>
+                           <tbody align="center">
+                              <tr class="board_line" th:each="banner : ${bannerList}">
+                                
+                                <td class="banner_imgs">
+                                    <a th:href="@{/ko/admin/banner/}+ ${banner.id}">
+                                        <img class="banner_img" th:src="${banner.imgUrl}"></a>
+                                    <input type="hidden" th:value="${banner.Id}">
+                                </td>
+                                <td class="banner_reg_day">
+                                    <span th:text="${#temporals.format(banner.bannerDate, 'yyyy-MM-dd HH:mm')}"></span>
+                                </td>
+                              </tr>
+
+                           </tbody>
+                        </table><br>
+
+                     <div class="btn_range">
+                        <button type="submit" class="reg_Btn"
+                           th:formaction="@{/ko/admin/bannerForm}">등록</button>
+                     </div>
+                  </div>
+
+                  <div class="page_wrap">  <!-- 페이징  -->
+                     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                     <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/admin/banner(page=${page-1})}" th:text ="${page}"></a>
+                     <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+                    </th:block>
+                  </div>
+               </div>
+
+            </div>
+         </form>
+      </div>
+   </div>
+
+
+</div>
+</html>

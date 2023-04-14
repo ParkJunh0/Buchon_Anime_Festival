@@ -55,7 +55,7 @@ layout:decorate="~{layouts/layout1}">
         
         .sub_head{
             margin-top: 30px;
-            min-height: 300px; 
+            min-height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -126,6 +126,7 @@ layout:decorate="~{layouts/layout1}">
             border: 1px solid #666;
             height: 25px;
         }
+
         .page_nation {
             display:inline-block;
 		}
@@ -146,7 +147,13 @@ layout:decorate="~{layouts/layout1}">
 			color:black;
 			text-decoration:none;
 	    }
-        
+        .page_wrap{
+            display:flex;
+            justify-content: center;
+        }
+        .page_wrap strong, .page_wrap a{
+            width: 15px;
+        }
 
         
         </style>
@@ -163,8 +170,10 @@ layout:decorate="~{layouts/layout1}">
     <form method="GET" action="/ko/notice" role="form">
     <div class="container_3">  
        <div class="search">
-          <input type="text" placeholder="검색어를 입력하세요" ><button type="button" onclick="" id="btn_1" ><img src="/Notice/image/icon_search.png"  width="10px"
-            height="10px"></button>
+        <input type="text" placeholder="검색어를 입력하세요" >
+        <button type="button" onclick="" id="btn_1" >
+            <img src="/image/icon_search.png"  width="10px" height="10px">
+        </button>
       </div> 
         <div align="center" class="sub_head">
             <table class="free_board_list" >
@@ -175,11 +184,12 @@ layout:decorate="~{layouts/layout1}">
                     <th scope="col" class="date_head">작성일자</th>
                     </tr>
                 </thead>
-                <tbody align="center" th:each="notice : ${noticeList}" ><!--  -->
+                <tbody align="center" th:each="notice, status: ${noticeList}" ><!--  -->
                    <tr class="board_line">
                    
                        <td class="num_head">
-                        <span th:text="${notice.id}" ></span> 
+                        <span th:text="${status.count + ((nowPage-1) * 5)}"></span>
+                        <input type="hidden" th:value="${notice.id}">
                        </td>
                        
                        <td class="title_head">
@@ -213,17 +223,15 @@ layout:decorate="~{layouts/layout1}">
         </div>
        
 </div>
-</form>
 <div class="page_wrap">
-       
-      
-     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-		            <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/notice(page=${page-1})}" th:text ="${page}"></a>
-		            <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
-      			  </th:block>
-     
-   
+    <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+        <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/notice(page=${page-1})}" th:text ="${page}"></a>
+        <strong th:if="${page==nowPage}" th:text ="${page}" style="color:red"></strong>
+    </th:block>
+    
+    
 </div>
+</form>
      </div>
       
 </div>

@@ -9,6 +9,7 @@
     align-items: center;
     box-shadow:0 4px 4px -4px #00554f;
     border-radius: 0 0 3px 3px;
+    user-select: none;
 /*  margin: 0 auto;*/
 }
 /* 상위 메뉴 부분 */

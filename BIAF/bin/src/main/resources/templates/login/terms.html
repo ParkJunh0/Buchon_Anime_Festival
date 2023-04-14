@@ -23,15 +23,13 @@ layout:decorate="~{layouts/layout1}">
     	alert("이용약관을 동의해주세요");
     	}
     }
-    
-    </script>
-    <script>   /* 체크박스 전체선택  */
-        function chkSelect(chkSelect)  { 
+     /* 체크박스 전체선택  */
+    function chkSelect(chkSelect)  { 
             const checkboxes = document.getElementsByName('chkSelect');
             checkboxes.forEach((checkbox) => {
             checkbox.checked = chkSelect.checked;
             })
-        }         
+        }  
     </script>
     
 </th:block>
@@ -40,8 +38,9 @@ layout:decorate="~{layouts/layout1}">
     <link rel="stylesheet" href="/login/css/base.css">
     <link rel="stylesheet" href="/login/css/button.css">
 <style>
-.con{margin-left:300px;}
+.con table{margin: auto;}
 .bt {text-align:center;}
+.terms_title{text-align:center;}
 </style>
 </th:block>
 
@@ -53,7 +52,7 @@ layout:decorate="~{layouts/layout1}">
 <div class="con">
   <table width=960px align=center>
     <tr>
-      <td>
+      <td class="terms_title">
     <h4>회원가입</h4>
     <h1>통합 회원가입</h1>
     </td>
@@ -74,7 +73,6 @@ layout:decorate="~{layouts/layout1}">
 
      <tr>
       <td align=center>
-          
           <!--이용약관 테이블 시작-->
           <table width=810>
             <tr>
@@ -317,7 +315,6 @@ layout:decorate="~{layouts/layout1}">
                 <input type="checkbox" id="chkSelect" name="chkSelect" value="checkAll" onclick="chkSelect(this)">전체 동의
               </td>
             </tr>
-            
           </table>
 
       </td>
@@ -325,9 +322,9 @@ layout:decorate="~{layouts/layout1}">
 </table>
 </div>
 <br><br>
-<div class = "bt">
-  <a> <button type = "button"  class="btn_order"  style="margin:10px;" onClick="Check();">다 음</button></a>
-  <a href="/ko"> <button type = "button"  class="btn_order"  style="margin:10px;">처음으로</button></a>
+<div class="bt">
+  <a> <button type="button" class="btn_order" style="margin:10px;" onClick="Check();">다 음</button></a>
+  <a href="/ko"><button type="button"  class="btn_order" style="margin:10px;">처음으로</button></a>
 </div>
 
  

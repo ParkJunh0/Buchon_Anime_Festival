@@ -20,24 +20,36 @@
     list-style: inside;
     margin: 10px;
 }
+/* 굿즈 상태 선택 */
+.select_stat{
+    margin-bottom: 30px;
+}
 /* 굿즈 상품들 부분*/
 .goods_items{
     min-width: 1000px;
-    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 /* 굿즈 상품 부분 */
 .goods_item{
-	min-width: 480px;
-    margin-top: 10px;
+    min-width: 480px;
     max-width: 492px;
+    max-height: 416px;
+    margin-bottom: 20px;
     text-align:center;
 }
 /* 굿즈 이미지 */
+.goods_item_header{
+    min-width: 492px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .goods_item_header img{
     max-width: 492px;
+    max-height: 300px;
 }
 /* 굿즈 설명 */
 .goods_item_description{
@@ -60,13 +72,29 @@
 strong{
     color: #be166d;
 }
+/* 품절 */
+.solds_img{
+    position: absolute;
+    width: 492px;
+    height: 426px;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+}
+.solds_img a{
+    color: white;
+    font-size: 30px;
+    transform: rotate(-45deg);
+}
 /* 굿즈 상세페이지 */
 .goods_detail{
     min-width: 980px;
     width: 100%;
     max-height: 320px;
-    margin-top: 10px;
     padding: 10px;
+    margin-bottom: 20px;
     background: #f5f5f5;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
@@ -74,7 +102,13 @@ strong{
     display: none;
 }
 /* 굿즈 상세페이지 이미지 */
-.goods_detail img{
+.goodsImg{
+    min-width: 492px;
+    display:flex;
+    align-items: center;
+    text-align:center;
+}
+.goodsimg{
     max-width: 492px;
     max-height: 300px;
 }
@@ -102,6 +136,19 @@ strong{
 .goods_detail_description p{
     margin: 10px 0;
 }
+/* 굿즈 상세페이지 총합 부분*/
+.totalsection{
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total > a{
+    font-size: 18px;
+}
+.totalprice{
+    font-size: 16px;
+}
 /* 굿즈 상세페이지 버튼들 */
 .goods_btn{
     text-align: right;
@@ -119,7 +166,6 @@ strong{
 .pay_btn{
     margin-left: 10px;
     padding: 5px 10px;
-    margin: 15px;
     border: 1px solid #2e8de5;
     border-radius: 0;
     background: #2e8de5;

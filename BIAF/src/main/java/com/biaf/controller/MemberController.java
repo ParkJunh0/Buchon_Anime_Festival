@@ -22,12 +22,12 @@ import com.biaf.service.MemberService;
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping(value = "/ko")
+@RequestMapping(value="/ko")
 @RequiredArgsConstructor
 public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
-
+	
 	@GetMapping(value = "/mypage") // 내정보 조회 //principal이랑 AuthenticationPrincipal비슷
 	public String mypage(@AuthenticationPrincipal User user, Model model) { // @AuthenticationPrincipal 무조건 User여야함 user
 																			// 아이디,패스워드+권한추가
@@ -40,9 +40,9 @@ public class MemberController {
 	public String myedit(@AuthenticationPrincipal User user, Model model) {
 		MemberFormDto memFormDto = memberService.mypagefindByMemberEmail(user.getUsername());
 		model.addAttribute("memberFormDto", memFormDto);
-		return "member/myedit";
+		return "/member/myedit";
 	}
-
+	
 	@PutMapping(value = "/myedit/change") // 내정보 수정하기
 	public String myeditChange(@AuthenticationPrincipal User user, Model model, MemberFormDto memberFormDto) {
 		Member member = Member.createMem(memberFormDto, passwordEncoder);
@@ -55,27 +55,21 @@ public class MemberController {
 		return "member/mypage";
 	}
 
-	@GetMapping(value = "/memberout") // 회원탈퇴
-	public String memberout() {
-		return "member/memberout";
-	}
+	@GetMapping(value="/memberout") //회원탈퇴 
+   	public String memberout() {
+      return "member/memberout";
+   }
 
-	@DeleteMapping(value = "/memberout/delete") // 회원탈퇴
+	@DeleteMapping(value="/memberout/delete") //회원탈퇴 
 	public String memberdelete(Principal principal, HttpSession session) {
 		memberService.deletemember(principal.getName());
 		session.invalidate(); // 로그아웃
 		return "redirect:/ko/memberout1";
 	}
-
-	@GetMapping(value = "/memberout1") // 회원탈퇴 완료
+	
+	@GetMapping(value="/memberout1") //회원탈퇴 완료
 	public String memberout1() {
-
 		return "/member/memberout1";
-	}
-
-	@GetMapping(value = "/cart") // 장바구니
-	public String cart() {
-		return "/member/cart";
 	}
 
 }
