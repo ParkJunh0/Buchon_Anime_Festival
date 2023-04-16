@@ -91,9 +91,5 @@ public class Movie extends BaseEntity{
 		      this.movieDetail = movieFormDto.getMovieDetail();
 		      this.movieStatus = movieFormDto.getMovieStatus();
 		      this.movieTime = movieFormDto.getMovieTime();
-		   }
-	   
-	   
-	   
-	   
+		   }   
 }

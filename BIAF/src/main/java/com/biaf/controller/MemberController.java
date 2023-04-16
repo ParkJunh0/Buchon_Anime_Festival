@@ -2,7 +2,6 @@ package com.biaf.controller;
 
 import java.security.Principal;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.biaf.dto.MemberFormDto;
 import com.biaf.entity.Member;
 import com.biaf.service.MemberService;
+import com.biaf.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -27,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
+	private final ReservationService reservationService;
 	
 	@GetMapping(value = "/mypage/{memberId}") // 내정보 조회 //principal이랑 AuthenticationPrincipal비슷
 	public String mypage(@AuthenticationPrincipal User user, Model model) { // @AuthenticationPrincipal 무조건 User여야함 user
@@ -71,11 +72,4 @@ public class MemberController {
 	public String memberout1() {
 		return "/member/memberout1";
 	}
-	
-
-	@GetMapping(value="/reservationlist") // 티켓예매/취소
-   	public String reservationlist() {
-      return "/member/reservationlist";
-   }
-
 }

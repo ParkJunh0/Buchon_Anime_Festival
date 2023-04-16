@@ -9,7 +9,7 @@
 </head>
 
 <th:block layout:fragment="script">
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script th:inline="javascript">
 		$(document).ready(function() {
 			$("input[name=cartChkBox]").change(function() { // 주문할 상품을 체크하거나 해제할 경우 총 주문 금액을 구하는 함수를 호출한다.
@@ -17,18 +17,17 @@
 				getOrderTotalCount();
 			});
 		});
-		
+
 		// 체크박스에 저장된 카트 아이디 값 불러오기(체크 박스 선택시 삭제)
-		function selectDelete(){
+		function selectDelete() {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
 			var checkBoxes = document.getElementsByName("cartChkBox");
-			
-			
-			for(var i = 0; i< checkBoxes.length; i++){
-				if(checkBoxes[i].checked){
-				/* 	console.log(checkBoxes[i].value); */
-					
+
+			for (var i = 0; i < checkBoxes.length; i++) {
+				if (checkBoxes[i].checked) {
+					/* 	console.log(checkBoxes[i].value); */
+
 					var url = "/ko/cartGoods/" + checkBoxes[i].value
 
 					$.ajax({
@@ -46,20 +45,19 @@
 						error : function(jqXHR, status, error) {
 
 							if (jqXHR.status == '401') {
-								alert('로그인 후 이용해주세요');
+								swal("Error!", "로그인 후 이용해주세요", "warning");
 								location.href = '/members/login';
 							} else {
 								alert(jqXHR.responseJSON.message);
 							}
 						}
 					});
-				} else{
-					swal("Oops!","상품을 선택해주세요","error");
+				} else {
+					swal("Oops!", "상품을 선택해주세요", "error");
 				}
 			}
 		}
-		
-		
+
 		function getOrderTotalCount() { // 총 주문 수량을 구하는 함수
 			var orderTotalCount = 0;
 			$("input[name=cartChkBox]:checked").each(function() { // 현재 체크된 장바구니 상품들의 수량을 더해서 총 주문 수량을 계산한다.
@@ -81,6 +79,10 @@
 			});
 			$("#orderTotalPrice").html(orderTotalPrice + '원');
 		}
+		
+		
+		
+		
 
 		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액을 변경해준다. 변경된 총 주문 금액을 계산
 			// 하기 위해서 마지막에 getOrderTotalPrice() 함수를 호출한다.
@@ -123,7 +125,7 @@
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요');
+						swal("Error!", "로그인 후 이용해주세요", "warning");
 						location.href = '/members/login';
 					} else {
 						alert(jqXHR.responseJSON.message);
@@ -154,7 +156,7 @@
 				error : function(jqXHR, status, error) {
 
 					if (jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요');
+						swal("Error!", "로그인 후 이용해주세요", "warning");
 						location.href = '/members/login';
 					} else {
 						alert(jqXHR.responseJSON.message);
@@ -166,7 +168,6 @@
 		function orders() {
 			var token = $("meta[name='_csrf']").attr("content");
 			var header = $("meta[name='_csrf_header']").attr("content");
-			
 
 			var url = "/ko/cart/orders";
 
@@ -197,7 +198,7 @@
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					alert("주문이 완료 되었습니다.");
+					swal("Success!", "주문이 완료되었습니다.", "success");
 					location.href = '/ko/orders'; // 주문 요청 결과 성공하였다면 구매이력 페이지로 이동한다. 
 				},
 				error : function(jqXHR, status, error) {
@@ -250,7 +251,8 @@
 }
 
 .hed {
-	background-color: cadetblue;
+	border-top: 1px solid cadetblue;
+	background-color: #7DBDA1;
 }
 
 td img {
@@ -267,12 +269,36 @@ tbody {
 }
 
 .bottom {
-	margin-top: 10px;
+	padding-top: 10px;
+	padding-left: 900px;
 }
 
-.order {
-	margin-top: 10px;
+#cart_i {
+	width: 348px;
+	height: 134px;
 }
+
+.btn_sty {
+	display: flex;
+	justify-content: center
+}
+
+.btn_sty button {
+	background-color: #77af9c;
+	color: #d7fff1;
+	border-radius: 10px;
+	border: none;
+	/* padding: 15px 30px; */
+	text-align: center;
+	text-decoration: none;
+	/* 	display: inline-block; */
+	font-size: 12px;
+	font-weight: 600;
+	margin: 4px 2px;
+	width: 100px;
+	height: 30px;
+}
+
 </style>
 </th:block>
 <div layout:fragment="content">
@@ -284,102 +310,121 @@ tbody {
 			<div class="all">
 				<h1>장바구니</h1>
 				<div class="carts" th:if="${!cartGoods.isEmpty()}">
-				<table class="top">
-					<thead>
-						<tr class="hed">
-							<th width="100px;"><input type="checkbox" id="checkall"
-								onclick="checkAll()">전체 선택</th>
-							<!-- <th width="50px;">No</th> -->
-							<th width="100px;">이미지</th>
-							<th width="150px;">상품명</th>
-							<th width="100px;">가격</th>
-							<th width="100px;">수량</th>
-							<th width="100px;">합계</th>
-							<th width="100px;">삭제</th>
-						</tr>
-					</thead>
-				
-					<tbody>
-						<tr th:each="cartGoods : ${cartGoods}">
-						
-							<td><input type="checkbox" name="cartChkBox" id="cartChkBox"
-								th:value="${cartGoods.cartGoodsId}"></td>
-							<!-- 		<td th:text="${status.count}"></td> -->
-							<td><img th:src="${cartGoods.imgUrl}" /></td>
-							<td th:text="${cartGoods.goodsNm}"></td>
-							<td th:id="'price_' + ${cartGoods.cartGoodsId}"
-								th:data-price="${cartGoods.price}"
-								th:text="${cartGoods.price} + '원'"></td>
-							<td>
-								<p>
-									<input type="number" name="count"
-										th:id="'count_' + ${cartGoods.cartGoodsId}"
-										th:value="${cartGoods.count}" min="1"
-										onchange="changeCount(this)"
-										style="width: 40px; height: 10px;">
-								</p>
-							</td>
-							<td th:id="'totalPrice_' + ${cartGoods.cartGoodsId}"
-								name="totalPrice"
-								th:text="${cartGoods.price * cartGoods.count} + '원'"></td>
-							<td><button type="button" class="close" aria-label="Close">
-									<span aria-hidden="true" th:data-id="${cartGoods.cartGoodsId}"
-										onclick="deleteCartGoods(this)">&times;</span>
-								</button></td>
-						</tr>
-					</tbody>
-				</table>
+					<table class="top">
+						<thead>
+							<tr class="hed">
+								<th width="100px;"><input type="checkbox" id="checkall"
+									onclick="checkAll()">전체 선택</th>
+								<!-- <th width="50px;">No</th> -->
+								<th width="100px;">이미지</th>
+								<th width="150px;">상품명</th>
+								<th width="100px;">가격</th>
+								<th width="100px;">수량</th>
+								<th width="100px;">합계</th>
+								<th width="100px;">삭제</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="cartGoods : ${cartGoods}">
+
+								<td><input type="checkbox" name="cartChkBox"
+									id="cartChkBox" th:value="${cartGoods.cartGoodsId}"></td>
+								<!-- 		<td th:text="${status.count}"></td> -->
+								<td><img th:src="${cartGoods.imgUrl}" /></td>
+								<td th:text="${cartGoods.goodsNm}"></td>
+								<td th:id="'price_' + ${cartGoods.cartGoodsId}"
+									th:data-price="${cartGoods.price}"
+									th:text="${cartGoods.price} + '원'"></td>
+								<td>
+									<p>
+										<input type="number" name="count"
+											th:id="'count_' + ${cartGoods.cartGoodsId}"
+											th:value="${cartGoods.count}" min="1"
+											onchange="changeCount(this)"
+											style="width: 40px; height: 15px; text-align: center;">
+									</p>
+								</td>
+								<td th:id="'totalPrice_' + ${cartGoods.cartGoodsId}"
+									name="totalPrice"
+									th:text="${cartGoods.price * cartGoods.count} + '원'"></td>
+								<td><button type="button" class="close" aria-label="Close">
+										<span aria-hidden="true" th:data-id="${cartGoods.cartGoodsId}"
+											onclick="deleteCartGoods(this)">&times;</span>
+
+									</button></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div class="carts" th:if="${cartGoods.isEmpty()}">
-				<table class="top">
-					<thead>
-						<tr class="hed">
-							<th width="100px;"><input type="checkbox" id="checkall"
-								onclick="checkAll()">전체 선택</th>
-							<!-- <th width="50px;">No</th> -->
-							<th width="100px;">이미지</th>
-							<th width="150px;">상품명</th>
-							<th width="100px;">가격</th>
-							<th width="100px;">수량</th>
-							<th width="100px;">합계</th>
-							<th width="100px;">삭제</th>
-						</tr>
-					</thead>
-				
-					<tbody>
-						<tr>
-							<td colspan="7">장바구니가 비어있습니다.</td>
-						</tr>
-					</tbody>
-				</table>
+					<table class="top">
+						<thead>
+							<tr class="hed">
+								<th width="100px;"><input type="checkbox" id="checkall"
+									onclick="checkAll()">전체 선택</th>
+								<!-- <th width="50px;">No</th> -->
+								<th width="100px;">이미지</th>
+								<th width="150px;">상품명</th>
+								<th width="100px;">가격</th>
+								<th width="100px;">수량</th>
+								<th width="100px;">합계</th>
+								<th width="100px;">삭제</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td colspan="7"><p>
+										<img id="cart_i" src="/image/cart_img.gif">
+									</p></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<!-- 	<div class="btn">
 					<button type="submit">선택상품삭제</button>
 				</div> -->
 
 				<table class="bottom">
+				<!-- <tr>
+						<td>배송비</td>
+						<td style="width: 70px; text-align: right;"><span
+							id="delivery"></span></td>
+					</tr> -->
 					<tr>
 						<td>총 수량</td>
-						<td><span id="orderTotalCount"></span></td>
-
+						<td style="width: 70px; text-align: right;"><span
+							id="orderTotalCount"></span></td>
 					</tr>
+
 					<tr>
 						<td>총 금액</td>
-						<td><span id="orderTotalPrice"></span></td>
+						<td style="width: 70px; text-align: right;"><span
+							id="orderTotalPrice"></span></td>
 					</tr>
 
-
 				</table>
+				<div class="btn_sty">
 
-				<div class="order">
-					<button type="submit" onclick="orders()">선택한 상품 주문</button>
+					<div class="deletebtn">
+						<button type="button" onclick="selectDelete()">선택상품삭제</button>
+					</div>
+					<div class="order">
+						<button type="submit" onclick="orders()">선택상품주문</button>
+					</div>
+
+					<div>
+
+						<div class="continue">
+							<button type="button">
+								<a href="/ko/goods" style="color: #d7fff1;">쇼핑계속하기
+							</button>
+						</div>
+					</div>
+
+
 				</div>
-				<div class="deletebtn">
-					<button  type="button" onclick="selectDelete()" >선택한 상품 삭제</button>
-				</div>
-
-
-
 			</div>
 		</div>
 	</div>

@@ -72,10 +72,6 @@
             seatsContainer.appendChild(row);
         }
 
-
-       
-
-
         // 가격 출력
        /*  function updateTotalPayment() {
             const selectedSeats = document.querySelectorAll(".seat.selected");
@@ -169,9 +165,17 @@
 		location.href="/ko/reservation/detail/"+$('#movieid').text();		
 	});
 
-
-
 		});
+		
+		$(document).ready(function() {
+			  $('.selec_btn').click(function() {
+			    $('.selec_btn').removeClass('selected'); // 선택되지 않은 버튼들의 'selected' 클래스 제거
+			    $(this).addClass('selected'); // 선택된 버튼에 'selected' 클래스 추가
+			  });
+			});
+
+		
+	
 	</script>
 </th:block>
 <th:block layout:fragment="css">
@@ -180,7 +184,7 @@
 </th:block>
 <div layout:fragment="content">
 	<div class="cont_header"></div>
-	<form method="Get" action="/ko/reservation/detail}" role="form">
+	<form method="Get" action="/ko/reservation/detail" role="form">
 
 		<div class="total" th:each="movie : ${movieResponseDto}"
 			th:if="${movie.id == movieids}">
@@ -233,19 +237,14 @@
 
 	<div class="movie-detail">
 		<div id="step1">
-			<ul>
-				<li>
-					<p style="color: red;">
-						<b>STEP1</b>
-					</p>
-					<p>날짜 선택</p>
-				</li>
-			</ul>
+			<div id="con_s">
+				<p>날짜</p>
+			</div>
 			<div id="calender">
 				<table id="c">
 					<thead>
 						<tr>
-							<th colspan="7">October 2023</th>
+							<th colspan="7">2023.10</th>
 						</tr>
 						<tr>
 							<th class="sunday">Sun</th>
@@ -307,49 +306,22 @@
 					</tbody>
 				</table>
 
-
-
-				<script th:inline="javascript">
-                    // 현재 날짜를 가져와서 today 클래스를 추가합니다.
-                    /* var today = new Date();
-                     var dd = String(today.getDate()).padStart(2, '0');
-                     var mm = String(today.getMonth() + 1).padStart(2, '0');
-                     var yyyy = today.getFullYear();
-                     today = yyyy + '-' + mm + '-' + dd;
-                     var cells = document.getElementsByTagName('td');
-                     for (var i = 0; i < cells.length; i++) {
-                         if (cells[i].textContent == dd) {
-                             cells[i].classList.add('today');
-                             break;
-                         }
-                     }*/
-
-                    // 셀을 클릭했을 때 selected 클래스를 추가하고 제거합니다.
-                    
-
-                </script>
 			</div>
 		</div>
 
 		<div id="step2">
-			<ul>
-				<li>
-					<p style="color: red;">
-						<b>STEP2</b>
-					</p>
-					<p>회차 선택</p>
-
-				</li>
-			</ul>
+			<div id="con_s">
+				<p>시간</p>
+			</div>
 			<div id="hour">
 				<ul>
-					<li><button type="button" class="selec_btn">1회차 14시
+					<li><button type="button" class="selec_btn"><b>1회차</b> 14시
 							00분&nbsp;</button></li>
 
-					<li><button type="button" class="selec_btn">2회차 17시
+					<li><button type="button" class="selec_btn"><b>2회차</b> 17시
 							00분&nbsp;</button></li>
 
-					<li><button type="button" class="selec_btn">3회차 17시
+					<li><button type="button" class="selec_btn"><b>3회차</b> 20시
 							00분&nbsp;</button></li>
 				</ul>
 			</div>
@@ -358,33 +330,27 @@
 		</div>
 
 		<div id="step3">
-			<ul>
-				<li>
-					<p style="color: red;">
-						<b>STEP3</b>
-					</p>
-					<p>좌석표</p>
-					<div
-						th:style="${'border:solid 1px black; text-align:center; background-color:black; color:white;'}">SCREEN</div>
-					<div id="seats"></div>
+			<div id="con_s">
+				<p>좌석</p>
+			</div>
+			<div
+				th:style="${'border:solid 1px black; text-align:center; background-color:black; color:white;'}">SCREEN</div>
+			<div id="seats"></div>
 
-					<button id="seatOff">좌석보기</button> <!--  <p>
+			<button id="seatOff"><img src="/image/glass.png"> 크게 보기</button>
+			<!--  <p>
                         Total Payment: <span id="payment">$0</span>
                     </p> -->
 
-				</li>
+			</li>
 			</ul>
 
 		</div>
 		<div id="step4">
-			<ul>
-				<li>
-					<p style="color: red;">
-						<b>STEP4</b>
-					</p>
-					<p>예매 확인</p>
-				</li>
-			</ul>
+			<div id="con_s">
+				<p>예매 확인</p>
+			</div>
+			<div id="confirm">
 			<p>
 				날짜: <span id="selectedDate"></span>
 			</p>
@@ -392,7 +358,7 @@
 				회차: <span id="selectedturn"></span>
 			</p>
 			<p>
-				좌석: <span id="count">0</span>
+				좌석: <span id="count"></span>
 			</p>
 
 			<div id="selection">
@@ -400,6 +366,7 @@
 				<button type="button" class="reser">예매</button>
 				<input type="hidden" th:name="${_csrf.parameterName}"
 					th:value="${_csrf.token}">
+			</div>
 			</div>
 		</div>
 

@@ -1,12 +1,14 @@
 package com.biaf.service;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.biaf.dto.MovieResponseDto;
 import com.biaf.dto.ReservationFormDto;
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
@@ -33,8 +35,13 @@ public class ReservationService {
 		System.out.println(reservation);
 		reservationRepository.save(reservation);
 	}
-	
 
-	
-	
+//	public void findAll() {
+//		reservationRepository.findAll();
+//	}	
+
+	public List<ReservationFormDto> findAll() {
+		return ReservationFormDto.createReservationFormDto(reservationRepository.findAll());
+	}
+		
 }

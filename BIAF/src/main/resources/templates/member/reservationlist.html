@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/layout1}">
 
 <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
@@ -272,20 +274,25 @@
         <div id="section">
             <div id="sidenav"></div>
  
-
+             <form method="Get" role="form" action="/ko/reservationlist" th:object="${ReservationFormDto}">
             <div class="tab-cont-wrap">
+
           <h1 class="h_tit">예매 내역</h1>
 
                 <!-- 예매 영화 목록 -->
-                <div id="bokdList" >
-                    <div class="board-list-util">
-                       <!--  <p class="result-count pt00"> <strong> 총 <b class="font-gblue">1</b>건 </strong> </p> -->
+                <div id="bokdList">
+                   <div class="history-reservation" th:each="reser : ${ReservationFormDto}">
+                   <div><input th:value="${reser.Id}"></div>
+                   
+                    <!-- <div class="board-list-util">
+                        <p class="result-count pt00"> <strong> 총 <b class="font-gblue">1</b>건 </strong> </p>
                     </div>
-                    <div class="history-reservation">
-                        <ul>
+                 
+                    
+                       <!--  <ul>
                             <li>
                                 <div class="round">
-                                    <a href="/movie-detail?rpstMovieNo=23019200" class="r_img" title="리바운드 "><img src="https://img.megabox.co.kr/SharedImg/2023/04/02/0Io7xsImBXNca6uBXS8Y02nkbxtnl7NB_316.jpg" alt="리바운드" onerror="noImg(this)"></a>
+                                    <a href="" class="r_img" title="리바운드 "><img src="" alt="" onerror="noImg(this)"></a>
                                     <table class="r">
                                         <colgroup>
                                             <col style="width: 75px;">
@@ -293,30 +300,30 @@
                                             <col style="width: 80px;">
                                             <col>
                                         </colgroup>
-                                        <tbody>
+                                        <tbody >
                                             <tr>
                                                 <th scope="row" class="a-r">예매번호</th>
-                                                <td colspan="3"><em class="num"></em></td>
+                                                <td colspan="3"><em class="num"><span th:text="${reser.reser_num}"></span></em></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="a-r">영화명</th>
                                                 <td colspan="3">
                                                     <p class="tit-movie">
-                                                        <span>리바운드</span>
+                                                        <span th:text="${reser.movieNm}">
                                                     </p>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="a-r">극장/상영관</th>
-                                                <td>대전/컴포트3관</td>
+                                                <td><span th:text="${reser.cinema}"></span></td>
                                                 <th scope="row">관람인원</th>
                                                 <td>성인 1명</td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="a-r">관람일시</th>
-                                                <td>2023.04.16 (일) 10:40 (1회차)</td>
+                                                <td><span th:text="${reser.select_day}"></span></td>
                                                 <th scope="row">관람좌석</th>
-                                                <td>L열 7</td>
+                                                <td><span th:text="${reser.seat}"></span></td>
                                             </tr>
                                         </tbody>
                                         
@@ -345,7 +352,7 @@
                                     </div>
                                 </div>
                             </li>
-                        </ul>
+                        </ul> -->
                     </div>
                 </div>
 
@@ -393,6 +400,8 @@
                 </div>
 
             </div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>
         </div>
     </div>
 </div>

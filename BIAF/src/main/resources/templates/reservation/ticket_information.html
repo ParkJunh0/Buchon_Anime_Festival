@@ -10,118 +10,235 @@
 <div layout:fragment="content">
 	<div class="cont_header"></div>
 
-	<div class="i_wrap">
-		<h3 class="conTit">티켓 안내</h3>
-		<div class=i_cont>
-			<div id=txt_tit>
-				<strong>[예매 안내]</strong>
+	<div id="i_container">
+		<div id="i_content">
+			<h3 class="conTit">티켓안내</h3>
+
+			<div class="i_con">
+				<!-- content -->
+				<article class="defaultStyle">
+					<div>
+
+						<h5>1) 입장권 종류 및 혜택</h5>
+						<div class="rollTable">
+							<div>
+								<table class="thBack">
+									<caption>
+										입장권종류 및 혜택
+										<p>입장권 종류별 가격과 혜택을 나열한 표</p>
+									</caption>
+									<thead>
+										<tr>
+											<th scope="col">구분</th>
+											<th scope="col">가격</th>
+											<th scope="col" class="last">비고</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">개막식</th>
+											<td class="AlignCenter">15,000원</td>
+											<td class="last AlignCenter">현장 예매</td>
+										</tr>
+										<tr>
+											<th scope="row">애니메이션</th>
+											<td class="AlignCenter">8,000원</td>
+											<td class="last AlignCenter">미취학, 초등학생 금액 5,000원</td>
+										</tr>
+										<tr>
+											<th scope="row" rowspan="2">단체</th>
+											<td class="AlignCenter">20인 이상 5,000원(애니메이션)</td>
+											<td rowspan="2" class="last">
+												<ul class="txtList" style="max-width: 12em; margin: 0 auto;">
+													<li>· 미취학, 아동(5세~13세)</li>
+													<li>· 개막식 제외</li>
+													<li>· 현장 예매만 할인 가능</li>
+												</ul>
+											</td>
+										</tr>
+										<tr>
+											<td class="AlignCenter">20인 이상 3,000원(미취학, 아동)</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<ul class="txtList">
+							<li>· 24일 생일자 1+1 티켓 적용</li>
+							<li>· 다자녀 가족 50% 할인(자녀2인 이상) / 의료보험증 등 증빙서류 지참(현장만 가능)</li>
+							<li>·임산부 티켓 구매 시 본인 무료</li>
+							<li>· 부천소재지 상점 &lt;2만원이상&gt; 이용 시 티켓 구매 50% 할인(영수증 제시)</li>
+							<li class="txtSty" style="color: #b9367a;">&nbsp;&nbsp;※단체할인
+								적용 안됨</li>
+
+							<li>· VR상영관 / 전시 입장 무료</li>
+							<li>· 중복 할인 불가</li>
+							<li>· 장애인 / 국가유공자 / 경로 만65세 이상자는 영화 관람 티켓 4천원 관람가능</li>
+
+							<li class="txtSty">- 단, 개막식은 할인 불가</li>
+							<li class="txtSty">- 미취학, 초등학생 장애인의 경우 2천5백원 관람가능</li>
+
+
+						</ul>
+					</div>
+					<div class="topBorder">
+						<h5>2) 입장권 구입 및 관람 안내</h5>
+						<div class="rollTable">
+							<div>
+								<table class="thBack">
+									<caption>
+										입장권 구입 및 관람 안내
+										<p>입장권 구입에 따른 관람 장소 및 일자 시간등 안내</p>
+									</caption>
+									<colgroup>
+										<col style="width: auto;">
+										<col style="width: 40%">
+										<col style="width: 40%;">
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">구분</th>
+											<th scope="col">한국만화박물관</th>
+											<th scope="col" class="last">CGV부천</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">장소</th>
+											<td class="AlignCenter">한국만화박물관 내부 티켓부스</td>
+											<td class="last AlignCenter">CGV 6층 티켓부스</td>
+										</tr>
+										<tr>
+											<th scope="row">기간</th>
+											<td colspan="2" class="last AlignCenter">현장예매: 10.
+												21.(금) ~ 10. 25.(화)<br>온라인 예매: 10. 12.(수) 14:00 ~ 10.
+												25.(화) 14:00
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">시간</th>
+											<td colspan="2" class="last AlignCenter">09:30 ~ 20:00<br>(영화
+												시간에 따라 마감 시간 유동적)
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">수단</th>
+											<td colspan="2" class="last AlignCenter">신용카드, 현금, 티켓
+												초대권, 배지(ID)<br>(문화/도서상품권 및 기타 결제수단 사용 불가)
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">구매방법</th>
+											<td colspan="2" class="last AlignCenter">티켓부스에서 당일 입장권
+												발권 및 영화제 전 기간 예매 가능</td>
+										</tr>
+										<tr>
+											<th scope="row">초대권</th>
+											<td colspan="2" class="last AlignCenter">현장 티켓부스에서 당일 및
+												익일 상영작 입장권으로 교환<br>(티켓 초대권 1매당 입장권 2매로 교환)
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">배지(ID)</th>
+											<td colspan="2" class="last AlignCenter">현장 티켓부스에서 당일 및
+												익일 일반 상영작만 입장권 발권<br>(본인에 한하여 1일 4회/1회 1매 발권. 동 시간대 상영작
+												중복 발권 불가)
+												<ul class="txtList"
+													style="max-width: 32em; margin: 1em auto 0; text-align: left;">
+													<li class="txtSty" style="margin-left: -20px;"><span
+														style="float: left; width: 12.4em; color: #b9367a">※
+															배지데스크 운영시간 :</span><span>10. 21.(금) ~ 10. 24.(월) [09:30 ~
+															19:30] 운영</span><span style="margin-left: 185px;">10.
+															25.(화) [09:30 ~ 14:00] 운영</span></li>
+												</ul>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="topBorder">
+						<h5>3) 예매 방법</h5>
+						<h6>온라인 예매</h6>
+
+						<li class="BackgroundNone">1) 홈페이지에서 회원가입 → 로그인 진행</li>
+						<li class="point" style="color: #b9367a;">※ 회원가입 필수</li>
+
+						<li class="BackgroundNone">2) 현재상영작 클릭 → 티켓 예매 창 나타남</li>
+
+					</div>
+					<div class="topBorder">
+						<h5>4) 취소 및 환불</h5>
+						<div class="rollTable">
+							<div>
+								<table class="thBack">
+									<caption>
+										취소 및 환불
+										<p>온라인 및 현장의 취소 및 환불 방법</p>
+									</caption>
+									<colgroup>
+										<col style="width: auto;">
+										<col style="width: 40%">
+										<col style="width: 40%;">
+									</colgroup>
+									<thead>
+										<tr>
+											<th scope="col">구분</th>
+											<th scope="col">온라인</th>
+											<th scope="col" class="last">현장</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row">취소 기간</th>
+											<td class="AlignCenter">해당 상영 시작 1시간 전까지 취소 가능</td>
+											<td class="last AlignCenter">해당 상영 시작 10분 전까지 취소 가능</td>
+										</tr>
+										<tr>
+											<th scope="row">취소 방법</th>
+											<td class="AlignCenter">티켓 예매 내역 확인/취소에서 취소 가능<br>(예매
+												후 발권된 티켓은 티켓 부스에서만 취소 가능)
+											</td>
+											<td class="last AlignCenter">티켓 부스에서 온라인 예매/발권 티켓 취소 가능<br>(발권
+												티켓 필수 지참)
+											</td>
+										</tr>
+										<tr>
+											<th scope="row">취소 수수료</th>
+											<td colspan="2" class="last AlignCenter">없음</td>
+										</tr>
+										<tr>
+											<th>유의사항</th>
+											<td colspan="2" class="last">
+												<ul class="txtList MAB0">
+													<li style="word-break: keep-all;">· 티켓 취소 시 부분 취소
+														불가능하며 전체 취소 후 재예매</li>
+													<li style="word-break: keep-all;">· 티켓 예매 취소 시간이 지난
+														티켓은 환불 불가</li>
+													<li style="word-break: keep-all;">· 페스티벌 사정에 의한 상영취소,
+														변경의 경우, 폐막일까지 부천국제애니메이션 페스티벌 티켓 부스에서 해당 &nbsp;&nbsp;입장권을
+														소지한 관객만 100% 환불가능</li>
+													<li style="word-break: keep-all;">· 발권된 입장권은 티켓 부스에서만
+														취소 가능하며, 해당 입장권을 반드시 지참</li>
+													<li style="word-break: keep-all;">· 입장권은 해당 영화만 사용
+														가능하며, 분실 및 파손 시 재발급 불가</li>
+													<li style="word-break: keep-all;">· 입장권 발권은 해당 상영 시작
+														전까지만 가능</li>
+												</ul>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+				</article>
+
 			</div>
-			<ul class="dot-list">
-				<li>만 4세(48개월) 이상부터는 영화티켓을 반드시 구매하셔야 입장 가능합니다.</li>
-				<li>예매 변경은 불가능하며, 취소 후 재 예매를 하셔야만 합니다.</li>
-
-			</ul>
-			<div id=txt_tit>
-				<strong>[관람 요금]</strong>
-			</div>
-			<ul class="dot-list">
-				<table class="view_money">
-					<colgroup>
-						<col width="*">
-						<col width="*">
-						<col width="*">
-					</colgroup>
-					<thead>
-						<tr>
-							<th scope="col" class="divi1">구분</th>
-							<th scope="col" class="divi2"><strong>평일</strong>(월~목)</th>
-							<th scope="col" class="divi3"><strong>주말</strong>(금 ~ 일 및
-								공휴일)</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th scope="row" class="divi1 type1">일반</th>
-							<td class="divi2">14,000원</td>
-							<td class="divi3">15,000원</td>
-						</tr>
-
-						<tr>
-							<th scope="row" class="divi1 type1">청소년</th>
-							<td class="divi2">12,000원</td>
-							<td class="divi3">11,000원</td>
-						</tr>
-
-						<tr>
-							<th scope="row" class="divi1 type1">조조</th>
-							<td class="divi2">11,000원</td>
-							<td class="divi3">10,000원</td>
-						</tr>
-						<tr>
-							<th scope="row" class="divi1 type1">경로우대/장애인<span>국가유공자</span></th>
-							<td class="divi2">9,000원</td>
-							<td class="divi3">10,000원</td>
-						</tr>
-					</tbody>
-				</table>
-
-			</ul>
-
-
-			<div id=txt_tit>
-				<strong>[티켓교환 안내]</strong>
-			</div>
-			<ul class="dot-list">
-				<li>극장의 무인발권기(KIOSK)를 통해 예매번호 또는 고객확인번호(생년월일+휴대폰번호)를 입력하여 편리하게
-					티켓을 발권하실 수 있습니다.</li>
-				<li>무인발권기 이용이 어려우신경우, 티켓교환권을 출력하여 매표소에 방문하시면 티켓을 발권하실 수 있습니다.</li>
-				<li class="l">(티켓교환권 출력이 어려운경우 예매번호와 신분증을 지참하여 매표소에 방문하시면 티켓을
-					발권하실 수 있습니다.)</li>
-			</ul>
-
-			<div id=txt_tit>
-				<strong>[예매취소 안내]</strong>
-			</div>
-			<ul class="dot-list">
-				<li>온라인(홈페이지/모바일) 예매 취소는 상영시간 20분전까지 입니다.</li>
-				<li>공연 관람시 시작 시간 이후에는 입장이 제한 됩니다.</li>
-				<li>발권된 티켓은 상영시간 전까지 현장 방문 시에만 취소가 가능합니다.</li>
-			</ul>
-			<div id=txt_tit>
-				<strong>[영화 관람시 주의사항]</strong>
-			</div>
-			<ul class="dot-list">
-				<li><b>음식물 반입 금지</b></li>
-				<ul class="caution">
-					<li>- 소음 또는 향으로 인해 영화관람을 방해할 수 있는 음식물의 반입을 제한하고 있습니다.</li>
-
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;· 반입 가능: 생수, 물 종류 (뚜껑이 있는 페트병에 담긴
-						물)</li>
-					<li>&nbsp;&nbsp;&nbsp;&nbsp;· 반입 불가: 커피, 탄산음료, 주류, 캔음료, 과자,
-						김밥, 샌드위치 등 물을 제외한 모든 식·음료</li>
-
-					<li>- 상영관 입장 시에 음식물을 가지고 계실때에는 저희 직원의 안내에 따라주시길 부탁드리며, 가방등에
-						반입이 금지된 음식물을 가지고 </li><li>상영관에 입장하셨을 시 직원이 음식물을 수거할 수 있음을 안내해
-						드립니다.
-					</li>
-				</ul>
-				<li><b>광고 없이 정시 상영 시작 & 영화 상영 시작 10분 후 입장 불가</b></li>
-				<ul class="caution">
-					<li>- 상영 전 광고 없이, 정시 소등과 함께 영화 상영을 시작하며 상영이 시작되고 10분이 지나면 입장이
-						불가합니다. 이는 영화 시간에 맞춰 </li><li>방문해주신 관람객 분들께 영화를 관람하는데 있어 소음 및 소란을
-						최소화 하는 데에 그 이유가 있습니다.
-					</li>
-					<li>- 상영 시작 10분 후에는 발권 전산 시스템 상에서 지난 회차에 대한 발권이 자동 종료되어 티켓 판매가
-						불가 하며, 관람 티켓을 소지하셨거나 </li><li>예매를 하셨어도 입장 불가(티켓 교환, 환불 불가) 함을 안내해 드립니다.</li>
-
-				</ul>
-				<li><b> 엔딩 크레딧이 모두 올라가고 상영 종료 후 점등</b></li>
-				<ul class="caution">
-					<li>- 점등 되지 않은 어두운 영화관을 퇴장시에 안전 사고가 발생할 수 있사오니, 엔딩 크레딧이 모두
-						올라가고 상영 종료 후 불이 켜지면 퇴장해 </li><li>주시기 바랍니다.</li>
-				</ul>
-			</ul>
 		</div>
+
 	</div>
 </div>
 </body>

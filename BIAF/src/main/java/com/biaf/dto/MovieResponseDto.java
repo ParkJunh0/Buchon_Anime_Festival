@@ -57,13 +57,5 @@ public class MovieResponseDto {
 
 	}
 
-//	@QueryProjection // 
-//	public MovieResponseDto(Long id, String movieNm,String imgUrl,String startDay,String endDay){
-//	this.id = id;
-//	this.movieNm = movieNm;
-//	this.imgUrl = imgUrl;
-//	this.startDay = startDay;
-//	this.endDay = endDay;
-//	}
 }	
 
