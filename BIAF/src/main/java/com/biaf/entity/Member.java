@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -52,7 +52,7 @@ public class Member extends BaseEntity {
 	private Role role;
 
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="reservation_id")
 	private Reservation reservation;
 	

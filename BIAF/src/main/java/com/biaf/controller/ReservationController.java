@@ -11,14 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biaf.dto.ReservationFormDto;
-import com.biaf.entity.Reservation;
 import com.biaf.service.MovieService;
 import com.biaf.service.ReservationService;
 
@@ -45,22 +46,50 @@ public class ReservationController {
 		return "reservation/reservation-detail";
 	}
 
-	@GetMapping(value = "/ticket_information")
-	public String qna() {
-		return "reservation/ticket_information";
+	@GetMapping(value = "/reservationlist") // 회원 티켓예매내역
+	public String reservationlist(Model model, Principal principal) {
+		List<ReservationFormDto> reserformDto = reservationService.findAll();
+	    model.addAttribute("reservationFormDto", reserformDto);
+	    int statok=0;
+	    int statcan=0;
+	    for(ReservationFormDto reser : reserformDto) {
+	    	if(reser.getStatus().name() == "CANCLE") {
+	    		statcan=1;
+	    	}
+	    	if(reser.getStatus().name() == "OK") {
+	    		statok=1;
+	    	}
+	    }
+	    model.addAttribute("statok", statok);
+	    model.addAttribute("statcan", statcan);
+	    return "member/reservationlist";
 	}
-
-//    @GetMapping(value="/reserList")
-//    public void reservationList(Model model) {
-//    	reservationService.findAll();
-//    }
-
-	@GetMapping(value = "/reservationlist") // 회원 티켓예매내역 확인/취소
-	public String reservationlist(Model model) {
-	    model.addAttribute("reservationFormDto", reservationService.findAll());
-	    return "/member/reservationlist";
+	
+//	@GetMapping(value = "/reservationlist") // 회원 티켓예매내역
+//	public String reservationlist(Model model, Principal principal) {
+//	    List<ReservationFormDto> reserformDto = reservationService.findAll(principal.getName()); 
+//	    model.addAttribute("reservationFormDto", reserformDto);
+//	    int statok=0;
+//	    int statcan=0;
+//	    for(ReservationFormDto reser : reserformDto) {
+//	        if(reser.getStatus().name() == "CANCLE") {
+//	            statcan=1;
+//	        }
+//	        if(reser.getStatus().name() == "OK") {
+//	            statok=1;
+//	        }
+//	    }
+//	    model.addAttribute("statok", statok);
+//	    model.addAttribute("statcan", statcan);
+//	    return "member/reservationlist";
+//	}
+	
+	@PostMapping(value="/reservationlist/delete") //티켓예매취소 /	
+		public @ResponseBody ResponseEntity reservationdelete(@RequestParam Long Id) {
+	    reservationService.deleteres(Id);
+	    return new ResponseEntity<Long>(1L,HttpStatus.OK);
 	}
-
+	
 	@PostMapping(value = "/reservation_num")
 	public @ResponseBody ResponseEntity makeReservationNum(@Valid ReservationFormDto reservationFormDto,
 			BindingResult bindingResult, Model model, Principal principal) {
@@ -77,13 +106,12 @@ public class ReservationController {
 		try {
 
 			reservationService.saveNumber(reservationFormDto, principal);
-
 		} catch (IllegalStateException e) {
 			model.addAttribute("errorMessage", e.getMessage());
-			System.out.println("controller" + reservationFormDto);
 			return new ResponseEntity<String>("최소 1개 이상 담아주세요", HttpStatus.BAD_REQUEST);
 
 		}
-		return new ResponseEntity<Long>(HttpStatus.OK);
+		return new ResponseEntity<Long>(1L,HttpStatus.OK);
 	}
+	
 }

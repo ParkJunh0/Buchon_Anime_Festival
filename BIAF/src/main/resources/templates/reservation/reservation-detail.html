@@ -9,6 +9,7 @@
 </head>
 
 <th:block layout:fragment="script">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script>
 		$(function(){
 			var token = $("meta[name='_csrf']").attr("content");
@@ -71,14 +72,16 @@
             }
             seatsContainer.appendChild(row);
         }
+        // 자리 갯수
+        function updateSelectedCount() {
+            const selectedSeats = document.querySelectorAll(".seat.selected");
+            document.getElementById("count").textContent = selectedSeats.length;
+        }
+
 
         // 가격 출력
-       /*  function updateTotalPayment() {
-            const selectedSeats = document.querySelectorAll(".seat.selected");
-            const totalPayment = selectedSeats.length * 10;
-            document.getElementById("payment").textContent = "$" + totalPayment;
-        }
-*/
+         
+
         // 자리 클릭 이벤트
         seats.forEach(seat => {
             seat.addEventListener("click", () => {
@@ -88,17 +91,21 @@
 
         // 자리클릭시 선택된 자리, 선택된 가격 업데이트
         updateSelectedCount();
-        /* updateTotalPayment(); */
+        updateTotalPayment(); 
 	});
 	 // 좌석 저장
     function reserveSeat(seat) {
         if (!seat.classList.contains("reserved")) {
             seat.classList.toggle("selected");
             updateSelectedCount();
-            /* updateTotalPayment(); */
+            updateTotalPayment();
         }
     }
-
+    function updateTotalPayment() {
+        const selectedSeats = document.querySelectorAll(".seat.selected");
+        const totalPayment = selectedSeats.length;
+        document.getElementById("payment").textContent = totalPayment + "명" ;
+    }
     // 자리 확인(텍스트 출력)
     function updateSelectedCount() {
         const selectedSeats = document.querySelectorAll(".seat.selected");
@@ -124,23 +131,24 @@
       });
 	
 	 
-     
 //예메버튼 클릭시 데이터 보내줌 
 	$('.reser').on('click',function(){
     var c = $('#selectedDate').text();
     console.log(c);
-    console.log(b);
-    
+    console.log(b); 
     var d = $('#count').text();
     console.log(d); 
     var e= $('#movieid').text();
     console.log(e);
+    var f= $('#payment').text();
+    console.log(f);
     // Define the data object with the values you want to send
     var data = {
         'select_day': c,
         'seat': d,
         'movie_turn': b,
-        'movieId': e
+        'movieId': e,
+        'people_num' : f
     };
     
     $.ajax({
@@ -151,13 +159,18 @@
         beforeSend: function(xhr){
 	        xhr.setRequestHeader(header, token);
 	    },// Pass the data object to the server
-        success: function(response) {
+        success: function(result, response) {
             // Handle success response from server
-            console.log(response);
+            console.log(result);
+            swal("Success", "예매가 완료되었습니다", "success")
+            .then((value) => {
+        location.href = "/ko/reservationlist";
+            });
         },
         error: function(jqXHR, textStatus, errorThrown) {
             // Handle error response from server
-            console.log(textStatus, errorThrown);
+            console.log(jqXHR.responseText)
+     
         }
     });
 });
@@ -315,14 +328,17 @@
 			</div>
 			<div id="hour">
 				<ul>
-					<li><button type="button" class="selec_btn"><b>1회차</b> 14시
-							00분&nbsp;</button></li>
+					<li><button type="button" class="selec_btn">
+							<b>1회차</b> 14시 00분&nbsp;
+						</button></li>
 
-					<li><button type="button" class="selec_btn"><b>2회차</b> 17시
-							00분&nbsp;</button></li>
+					<li><button type="button" class="selec_btn">
+							<b>2회차</b> 17시 00분&nbsp;
+						</button></li>
 
-					<li><button type="button" class="selec_btn"><b>3회차</b> 20시
-							00분&nbsp;</button></li>
+					<li><button type="button" class="selec_btn">
+							<b>3회차</b> 20시 00분&nbsp;
+						</button></li>
 				</ul>
 			</div>
 
@@ -337,10 +353,10 @@
 				th:style="${'border:solid 1px black; text-align:center; background-color:black; color:white;'}">SCREEN</div>
 			<div id="seats"></div>
 
-			<button id="seatOff"><img src="/image/glass.png"> 크게 보기</button>
-			<!--  <p>
-                        Total Payment: <span id="payment">$0</span>
-                    </p> -->
+			<button id="seatOff">
+				<img src="/image/glass.png"> 크게 보기
+			</button>
+
 
 			</li>
 			</ul>
@@ -351,22 +367,24 @@
 				<p>예매 확인</p>
 			</div>
 			<div id="confirm">
-			<p>
-				날짜: <span id="selectedDate"></span>
-			</p>
-			<p>
-				회차: <span id="selectedturn"></span>
-			</p>
-			<p>
-				좌석: <span id="count"></span>
-			</p>
-
-			<div id="selection">
-				<button type="button" class="reset">다시 선택</button>
-				<button type="button" class="reser">예매</button>
-				<input type="hidden" th:name="${_csrf.parameterName}"
-					th:value="${_csrf.token}">
-			</div>
+				<p>
+					날짜: <span id="selectedDate"></span>
+				</p>
+				<p>
+					회차: <span id="selectedturn"></span>
+				</p>
+				<p>
+					좌석: <span id="count"></span>
+				</p>
+				<p>
+					인원: <span id="payment">0</span>
+				</p>
+				<div id="selection">
+					<button type="button" class="reset">다시 선택</button>
+					<button type="button" class="reser">예매</button>
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}">
+				</div>
 			</div>
 		</div>
 

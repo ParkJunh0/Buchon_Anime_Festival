@@ -1,10 +1,12 @@
 package com.biaf.dto;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 
+import com.biaf.constant.ReserStatus;
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
 import com.biaf.entity.Reservation;
@@ -22,16 +24,27 @@ public class ReservationFormDto {
 
 	private Member member;
 
-//	private int people_num; // 인원수 
-
+	private String people_num; // 인원수 
+	
 	private Long movieId;
 
+	private String movieNm;
+
+	private String cinema;
+	
 	private String reser_num;// 예매번호
 
 	private String movie_turn; // 회차
 
 	private String select_day; // 선택날짜
 
+	private String imgUrl;
+	
+	private ReserStatus status;
+	
+	 private String memberEmail; 
+	
+	private LocalDateTime updateTime; //등록일
 //	public static ReservationFormDto createReservationFormDto(Reservation reser) {
 //		ReservationFormDto reserFormDto = new ReservationFormDto();
 //		reserFormDto.Id=reser.getId();
@@ -52,12 +65,17 @@ public class ReservationFormDto {
 			reserDto = new ReservationFormDto();
 			reserDto.setId(res.getId());
 			reserDto.setSeat(res.getSeat());
-			reserDto.setMember(res.getMembers());
+			reserDto.setMember(res.getMember());
 			reserDto.setReser_num(res.getReser_num());
 			reserDto.setMovie_turn(res.getMovie_turn());
 			reserDto.setSelect_day(res.getSelect_day());
-			reserDto.setMovieId(res.getMovie().getId());
-
+			reserDto.setUpdateTime(res.getUpdateTime());
+			reserDto.setMovieNm(res.getMovie().getMovieNm());
+			reserDto.setCinema(res.getMovie().getCinema());
+			reserDto.setPeople_num(res.getPeople_num());
+			reserDto.setImgUrl(res.getMovie().getMovieImg().getImgUrl());
+			reserDto.setStatus(res.getReserStatus());
+			reserDto.setMemberEmail(res.getMemberEmail());
 			reserDtoList.add(reserDto);
 		}
 

@@ -1,5 +1,7 @@
 package com.biaf.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.biaf.dto.ReservationFormDto;
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
 import com.biaf.service.MemberService;
 import com.biaf.service.MovieService;
+import com.biaf.service.ReservationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminController {
 	private final MemberService memberService;
 	private final MovieService movieService;
+	private final ReservationService reservationService;
 	
 	@GetMapping(value = {"", "/memberList"}) // 회원 조회
 	public String memberList(Model model,
@@ -69,7 +74,13 @@ public class AdminController {
 	}
 	
 	@GetMapping(value = "/reservationadmin") // 예매관리
-	public String reservationadmin() {
+	public String reservationadmin(Model model) {
+		List<ReservationFormDto> reserformDto = reservationService.findAll();
+	    model.addAttribute("reservationFormDto", reserformDto);
 		return "/admin/reservationadmin";
 	}
+
 }
+
+
+
