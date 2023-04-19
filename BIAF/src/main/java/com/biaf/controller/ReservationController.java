@@ -48,7 +48,9 @@ public class ReservationController {
 
 	@GetMapping(value = "/reservationlist") // 회원 티켓예매내역
 	public String reservationlist(Model model, Principal principal) {
-		List<ReservationFormDto> reserformDto = reservationService.findAll();
+		List<ReservationFormDto> reserformDto = reservationService.findAll(principal.getName()); 
+	
+		
 	    model.addAttribute("reservationFormDto", reserformDto);
 	    int statok=0;
 	    int statcan=0;
@@ -65,32 +67,13 @@ public class ReservationController {
 	    return "member/reservationlist";
 	}
 	
-//	@GetMapping(value = "/reservationlist") // 회원 티켓예매내역
-//	public String reservationlist(Model model, Principal principal) {
-//	    List<ReservationFormDto> reserformDto = reservationService.findAll(principal.getName()); 
-//	    model.addAttribute("reservationFormDto", reserformDto);
-//	    int statok=0;
-//	    int statcan=0;
-//	    for(ReservationFormDto reser : reserformDto) {
-//	        if(reser.getStatus().name() == "CANCLE") {
-//	            statcan=1;
-//	        }
-//	        if(reser.getStatus().name() == "OK") {
-//	            statok=1;
-//	        }
-//	    }
-//	    model.addAttribute("statok", statok);
-//	    model.addAttribute("statcan", statcan);
-//	    return "member/reservationlist";
-//	}
-	
-	@PostMapping(value="/reservationlist/delete") //티켓예매취소 /	
+	@PostMapping(value="/reservationlist/delete") //티켓예매취소
 		public @ResponseBody ResponseEntity reservationdelete(@RequestParam Long Id) {
 	    reservationService.deleteres(Id);
 	    return new ResponseEntity<Long>(1L,HttpStatus.OK);
 	}
 	
-	@PostMapping(value = "/reservation_num")
+	@PostMapping(value = "/reservation_num") //예매페이지
 	public @ResponseBody ResponseEntity makeReservationNum(@Valid ReservationFormDto reservationFormDto,
 			BindingResult bindingResult, Model model, Principal principal) {
 

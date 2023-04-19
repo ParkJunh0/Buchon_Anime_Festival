@@ -134,12 +134,12 @@
 										<tr class="r_line" th:each="reser : ${reservationFormDto}">
 											<td><span th:text="${reser.reser_num}"></span></td>
 											<td><span th:text="${reser.memberEmail}"></span></td>
-											<td><span th:text="${reser.movieNm}"></span></td>
-											<td><span th:text="${reser.cinema}"></span></td>
+											<td><span th:text="${reser.movie.movieNm}"></span></td>
+											<td><span th:text="${reser.movie.cinema}"></span></td>
 											<td><span th:text="'10월'+${reser.select_day}+'일'"></span></td>
 											<td><span th:text="${reser.select_day}"></span></td>
 											<td><span th:text="${reser.seat}"></span></td>
-											<td><span th:text="${reser.status}"></span></td>
+											<td><span th:text="${reser.reserStatus}"></span></td>
 										</tr>
 
 									</tbody>
@@ -149,16 +149,16 @@
 
 						</div>
 
-						<!-- 	<div class="page_wrap">
-							페이징 
+						 	<div class="page_wrap">
+
 							<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
 								<a th:if="${page==0? page==1 : page != nowPage}"
-									th:href="@{/ko/admin/movie(page=${page-1})}" 
+									th:href="@{/ko/admin/reservationadmin(page=${page-1})}" 
 									th:text="${page}"></a>
 								<strong th:if="${page==nowPage}" th:text="${page}"
 									style="color: red"></strong>
 							</th:block>
-						</div> -->
+						</div>
 					</div>
 
 				</div>

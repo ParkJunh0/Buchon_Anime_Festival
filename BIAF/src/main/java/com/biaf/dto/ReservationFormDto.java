@@ -45,6 +45,7 @@ public class ReservationFormDto {
 	 private String memberEmail; 
 	
 	private LocalDateTime updateTime; //등록일
+	
 //	public static ReservationFormDto createReservationFormDto(Reservation reser) {
 //		ReservationFormDto reserFormDto = new ReservationFormDto();
 //		reserFormDto.Id=reser.getId();

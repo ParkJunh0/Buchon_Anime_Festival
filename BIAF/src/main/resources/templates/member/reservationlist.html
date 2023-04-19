@@ -365,17 +365,12 @@ table caption {
 						<div class="history-reservation"
 							th:each="reser : ${reservationFormDto}">
 
-							<span th:text="${reser.memberEmail}"></span>
+					<!-- 		 <span th:text="${reser.memberEmail}"></span>  -->
 							<th:block th:if="${reser.status.name() == 'OK'}">
 								<div></div>
 								<div>
 									<span hidden id="ids" th:text="${reser.Id}"></span>
 								</div>
-
-								<!--    <div class="board-list-util">
-                        <p class="result-count pt00"> <strong> 총 <b class="font-gblue">1</b>건 </strong> </p>
-                    </div> -->
-
 
 								<ul>
 									<li>

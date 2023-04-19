@@ -72,16 +72,12 @@
             }
             seatsContainer.appendChild(row);
         }
-        // 자리 갯수
+        // 선택된 좌석 갯수
         function updateSelectedCount() {
             const selectedSeats = document.querySelectorAll(".seat.selected");
             document.getElementById("count").textContent = selectedSeats.length;
         }
-
-
-        // 가격 출력
-         
-
+        
         // 자리 클릭 이벤트
         seats.forEach(seat => {
             seat.addEventListener("click", () => {
@@ -100,7 +96,7 @@
             updateSelectedCount();
             updateTotalPayment();
         }
-    }
+    } // 인원수 확인(텍스트 출력)
     function updateTotalPayment() {
         const selectedSeats = document.querySelectorAll(".seat.selected");
         const totalPayment = selectedSeats.length;
@@ -202,45 +198,53 @@
 		<div class="total" th:each="movie : ${movieResponseDto}"
 			th:if="${movie.id == movieids}">
 			<div th:style="${'display:none;'}" id="movieid" th:text="${movie.id}"></div>
+			
 			<div class="movie-info">
 				<div class="img_box">
 					<div id="mv">
 						<a href=""><img th:src="${movie.imgUrl}"></a>
 					</div>
 				</div>
-				<div class="sub1_content">
-					<div id="top">
-						<h1 th:text="${movie.movieNm}"></h1>
-					</div>
-					<hr>
-					<div id="middle">
-						<ul>
-							<li>상영관 :</li>
-							<li th:text="${movie.cinema}"></li>
-							<li>상영 시간 :</li>
-							<li th:text="${movie.movieTime}"></li>
-						</ul>
-					</div>
-					<div id="middle">
-						<ul>
-							<li>상영 날짜 :</li>
-							<li
-								th:text="|${movie.StartDay} ~ 
-                           ${movie.endDay}|"></li>
-							<li>영화 등급 :</li>
-							<li th:text="${movie.grade}"></li>
-						</ul>
-					</div>
-					<hr>
-					<div id="bottom">
-						<ul>
-							<li>가격 :</li>
-							<li th:text="${movie.price}"></li>
-						</ul>
-					</div>
+				<div class="info_table">
+					<table>
+						<colgroup>
+							<col style="width:;">
+							<col style="width:;">
+							<col style="width:;">
 
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row"><p>영화이름</p></th>
+								<td colspan="3"><span th:text="${movie.movieNm}"></span></td>
+							</tr>
+							<tr>
+
+								<th scope="row"><p>상영관</p></th>
+								<td><span th:text="${movie.cinema}"></span></td>
+								<th scope="row"><p>상영시간</p></th>
+								<td><span th:text="${movie.movieTime}"></span></td>
+							</tr>
+							<tr>
+
+								<th scope="row"><p>상영날짜</p></th>
+								<td><span th:text="|${movie.StartDay} ~ 
+                           ${movie.endDay}"></span></td>
+								<th scope="row"><p>영화등급</p></th>
+								<td><span th:text="${movie.grade}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row"><p>가격</p></th>
+								<td colspan="3"><span th:text="${movie.price} +'원'"></span></td>
+							</tr>
+							<tr>
+								<th scope="row" style="height:100px;">상세소개</th>
+								<td colspan="3"><span th:text="${movie.movieDetail}"></span></td>
+							</tr>
+
+						</tbody>
+					</table>
 				</div>
-
 			</div>
 		</div>
 
@@ -377,7 +381,7 @@
 					좌석: <span id="count"></span>
 				</p>
 				<p>
-					인원: <span id="payment">0</span>
+					인원: <span id="payment"></span>
 				</p>
 				<div id="selection">
 					<button type="button" class="reset">다시 선택</button>
@@ -390,6 +394,6 @@
 
 	</div>
 </div>
-
+</div>
 
 </html>

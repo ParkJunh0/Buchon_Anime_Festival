@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,8 +40,8 @@ public class ReservationService {
 		reservationRepository.save(reservation);
 	}
 
-	public List<ReservationFormDto> findAll() {
-		return ReservationFormDto.createReservationFormDto(reservationRepository.findAll());
+	public List<ReservationFormDto> findAll(String name) {
+		return ReservationFormDto.createReservationFormDto(reservationRepository.findAllByMemberEmail(name));
 	}
 
 	public void deleteres(Long Id) { // 예매취소
@@ -47,4 +49,8 @@ public class ReservationService {
 		Reservation reservation = reservationRepository.findById(Id).orElseThrow(EntityNotFoundException::new);
 		reservation.cancle();
 	}
+	
+	public Page<Reservation> reser(Pageable pageable){ //예매조회,페이징
+		return reservationRepository.findAll(pageable);
+	 }
 }

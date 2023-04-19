@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.biaf.dto.ReservationFormDto;
 import com.biaf.entity.Member;
 import com.biaf.entity.Movie;
+import com.biaf.entity.Reservation;
 import com.biaf.service.MemberService;
 import com.biaf.service.MovieService;
 import com.biaf.service.ReservationService;
@@ -72,14 +73,24 @@ public class AdminController {
 		
 		return "/admin/movieMng";
 	}
-	
+		
 	@GetMapping(value = "/reservationadmin") // 예매관리
-	public String reservationadmin(Model model) {
-		List<ReservationFormDto> reserformDto = reservationService.findAll();
-	    model.addAttribute("reservationFormDto", reserformDto);
-		return "/admin/reservationadmin";
-	}
+	public String reservationadmin(Model resmodel,
+			@PageableDefault(page = 0, size = 5, sort = "id" , direction = Sort.Direction.ASC) Pageable pageable) {
+					
+		Page<Reservation> reser = reservationService.reser(pageable);
+		resmodel.addAttribute("reservationFormDto", reser);
+		int resnowPage = reser.getPageable().getPageNumber() + 1; // 페이징
+		int resstartPage = Math.max(resnowPage - 4, 1);
+		int resendPage = Math.min(resnowPage + 9, reser.getTotalPages());
 
+		resmodel.addAttribute("reslist", reser);
+		resmodel.addAttribute("nowPage", resnowPage);
+		resmodel.addAttribute("startPage", resstartPage);
+		resmodel.addAttribute("endPage", resendPage);
+		
+		return "admin/reservationadmin";
+	}
 }
 
 
