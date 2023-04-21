@@ -2,6 +2,7 @@ package com.biaf.service;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,16 +14,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.biaf.dto.GoodsFormDto;
-import com.biaf.dto.GoodsImgDto;
+import com.biaf.dto.NoticeBoardDto;
 import com.biaf.dto.NoticeBoardFormDto;
 import com.biaf.dto.NoticeBoardImgDto;
-import com.biaf.entity.Goods;
-import com.biaf.entity.GoodsImg;
+import com.biaf.dto.QnaDto;
 import com.biaf.entity.NoticeBoard;
 import com.biaf.entity.NoticeBoardImg;
+import com.biaf.entity.Qna;
 import com.biaf.repository.BoardImgRepository;
 import com.biaf.repository.BoardRepository;
+import com.biaf.repository.QnaRepository;
 
 import lombok.RequiredArgsConstructor;
 @Transactional
@@ -32,10 +33,46 @@ public class NoticeBoardService {
 	private final BoardRepository boardRepository;
 	private final NoticeBoardImgService noticeBoardImgService;
 	private final BoardImgRepository boardImgRepository;
+	private final QnaRepository qnaRepository;
 	
 	
+public Page<Qna> qnaList(Pageable pageable) {
+		
+		return qnaRepository.findAll(pageable);
+		
+	}
+
+public Long saveBoard(QnaDto qnaDto)throws Exception{
+	
+	Qna qna = qnaDto.createQna();
+	qnaRepository.save(qna);
+	
+	return qna.getId();
+	
+}
+
+ public void deleteQna(Long id) {
+	 qnaRepository.deleteById(id);
+ }
+ 
+ public Long updateQna(QnaDto qnaDto) throws Exception{
+	 Qna qna = qnaRepository.findById(qnaDto.getId()).orElseThrow(EntityNotFoundException::new);
+	 qna.updateQna(qnaDto);
+	 return qna.getId();
+ }
 	public Page<NoticeBoard> boardList(Pageable pageable) {
 		return boardRepository.findAll(pageable);
+	}
+	
+
+	public List<NoticeBoardDto> mainboardlist(){
+		List<NoticeBoardDto> notice= new ArrayList<>();
+    	List<NoticeBoard> noticeE = boardRepository.mainboardlist();
+   		for(NoticeBoard noti : noticeE){
+			NoticeBoardDto notic= NoticeBoardDto.of(noti);
+			notice.add(notic);
+    	}
+    return notice;
 	}
 	
 	 public Long saveBoard(NoticeBoardFormDto noticeBoardFormDto, MultipartFile noticeBoardImgFileList ) throws Exception {
@@ -69,7 +106,6 @@ public class NoticeBoardService {
 	        
 	        noticeBoardFormDto.setNoticeBoardImgDtoList(noticeBoardImgDto);
 	       
-	        System.out.println("aaaa"+noticeBoardFormDto.getNoticeBoardImgDtoList().getId());
 	        return noticeBoardFormDto;
 	    }
 	 

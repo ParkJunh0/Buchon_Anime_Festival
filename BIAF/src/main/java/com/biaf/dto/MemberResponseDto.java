@@ -18,11 +18,13 @@ import lombok.ToString;
 @ToString
 public class MemberResponseDto {
 
-	private Long Id;
 	private Long memberId;
 	private String memberName;  
 	private String memberEmail;
 	private String memberTel;
+	private String postcode;
+	private String memberAddress;
+	private String wRestAddress;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -32,11 +34,13 @@ public class MemberResponseDto {
 		MemberResponseDto memResDto;
 		for(Member mem : memList) {
 			memResDto = new MemberResponseDto();
-			memResDto.Id = mem.getMemberId();
 			memResDto.memberId = mem.getMemberId();
 			memResDto.memberName = mem.getMemberName();
 			memResDto.memberEmail = mem.getMemberEmail();
 			memResDto.memberTel = mem.getMemberTel();
+			memResDto.postcode = mem.getPostcode();
+			memResDto.memberAddress = mem.getMemberAddress();
+			memResDto.wRestAddress = mem.getWRestAddress();
 			memResDto.role = mem.getRole();
 			memResDtoList.add(memResDto);
 		}

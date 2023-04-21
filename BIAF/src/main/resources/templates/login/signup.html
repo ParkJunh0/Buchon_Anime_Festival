@@ -22,13 +22,14 @@
 	<link rel="stylesheet" href="/login/css/join.css">
 	<link rel="stylesheet" href="/login/css/button.css">
 	<style>
-		
 	.all {
 		margin-top: 80px;
 	}
+
 	.all table{
 		text-align: left;
 	}
+
 	.section{
 		margin: 0 auto;
 		width: 450px;
@@ -39,7 +40,7 @@
 	}
 	</style>
 	</th:block>
-<div layout:fragment="content" >
+<div layout:fragment="content">
 <!-- 컨텐츠 메뉴 부분 -->
 <div class="cont_header"></div>
 	<div class="section">
@@ -81,22 +82,25 @@
 				</tr> -->
 				<tr>
 					<td><p>전화번호</p></td>
-					<td><input type="tel" name="memberTel" pattern="\d{3}-\d{3,4}-\d{4}"></td>
-				</tr>
-				
-				<tr>
-					<td><p>주소</p></td>
-					<td><input type="text" size="10" name="postcode" id="postcode"
-						placeholder="우편번호" readonly="readonly" onclick="kakaopost()">
-						<input type="button" onclick="kakaopost()" value="우편번호 찾기">
-						<br> <input type="text" name="memberAddress" id="address"
-						placeholder="도로명주소" readonly="readonly" onclick="kakaopost()">
-						<input type="text" name="wRestAddress" placeholder="나머지 주소"></td>
-				</tr>
-			</table>
-		
-		 <button type = "submit"  class="btn_order">가입완료</button>
-		 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+					<td><input type="tel" name="memberTel"
+							pattern="\d{3}-\d{3,4}-\d{4}"></td>
+					</tr>
+
+					<tr>
+						<td><p>주소</p></td>
+						<td><input type="text" size="10" name="postcode"
+							id="postcode" placeholder="우편번호" readonly="readonly"
+							onclick="kakaopost()"> <input type="button"
+							onclick="kakaopost()" value="우편번호 찾기"> <br> <input
+							type="text" name="memberAddress" id="address" placeholder="도로명주소"
+							readonly="readonly" onclick="kakaopost()"> <input
+							type="text" name="wRestAddress" placeholder="나머지 주소"></td>
+					</tr>
+				</table>
+
+				<button type="submit" class="btn_order">가입완료</button>
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}">
 		</div>
 	</form>
 </div>

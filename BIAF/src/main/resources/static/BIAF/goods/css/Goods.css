@@ -36,8 +36,12 @@
     text-align:center;
 }
 /* 굿즈 이미지 */
+.goods_item_header{
+    min-width: 492px;
+}
 .goods_item_header img{
     max-width: 492px;
+    max-height: 300px;
 }
 /* 굿즈 설명 */
 .goods_item_description{
@@ -64,6 +68,7 @@ strong{
 .goods_detail{
     min-width: 980px;
     width: 100%;
+    max-height: 320px;
     margin-top: 10px;
     padding: 10px;
     background: #f5f5f5;
@@ -73,8 +78,13 @@ strong{
     display: none;
 }
 /* 굿즈 상세페이지 이미지 */
-.goods_detail img{
+.goodsImg{
+    min-width: 492px;
+    text-align:center;
+}
+.goodsimg{
     max-width: 492px;
+    max-height: 300px;
 }
 /* 굿즈 상세페이지 오른쪽 부분 */
 .goods_description{
@@ -100,6 +110,19 @@ strong{
 .goods_detail_description p{
     margin: 10px 0;
 }
+/* 굿즈 상세페이지 총합 부분*/
+.totalsection{
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total > a{
+    font-size: 18px;
+}
+.totalprice{
+    font-size: 16px;
+}
 /* 굿즈 상세페이지 버튼들 */
 .goods_btn{
     text-align: right;
@@ -117,7 +140,6 @@ strong{
 .pay_btn{
     margin-left: 10px;
     padding: 5px 10px;
-    margin: 15px;
     border: 1px solid #2e8de5;
     border-radius: 0;
     background: #2e8de5;

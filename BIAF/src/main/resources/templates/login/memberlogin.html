@@ -8,8 +8,7 @@ layout:decorate="~{layouts/layout1}">
 <th:block layout:fragment="css">
 <link rel="stylesheet" th:href="@{/login/css/all.css}">     
   <style>
-      
-	
+
 	.login {
 	    width:100%;
 	    height:100%;
@@ -17,12 +16,12 @@ layout:decorate="~{layouts/layout1}">
   		padding-bottom: 40px;
   		background-repeat: no-repeat;
 	}
+
     .card {
         margin: 0 auto; 
         float: none; 
         margin-bottom: 10px; 
 	}
-
 	
 	.login .form-control {
   		position: relative;
@@ -34,7 +33,6 @@ layout:decorate="~{layouts/layout1}">
   		font-size: 16px;
 	}
     
-    
     .card-title{
         margin-left: 30px;
         margin-top:30px;
@@ -45,12 +43,16 @@ layout:decorate="~{layouts/layout1}">
         text-align: center;
         margin-bottom: 10px;
     }
+
    .login a{ 
-    	color: #007b73; text-decoration: none; 
+    	color: #007b73; 
+        text-decoration: none; 
     }
+
     .check{
-    	color : red;
+    	color: red;
     }
+
     #lgn1{
     	width: 100%;
     	background-color: #007b73;
@@ -63,21 +65,21 @@ layout:decorate="~{layouts/layout1}">
 <!-- 컨텐츠 메뉴 부분 -->
 <div class="cont_header"></div>
    <div class="himg" style="width: 100%; height: 70px;"></div>  
-   <div class ="login">
+   <div class="login">
 	<div class="card align-middle" style="width:25rem;">
 		<div class="card-title">
             
 			<h4 class="card-title">로그인</h4>
 		</div>
-      <form action="/ko/login"  method="POST" role="form" class="card-body">
+      <form action="/ko/login" method="POST" role="form" class="card-body">
 
 		<div class="form-group">
   		<label th:for="memberEmail">이메일 주소</label>
-        <input type="email" name="memberEmail"  class="form-control" placeholder="이메일을 입력하세요" ><br>
+        <input type="email" name="memberEmail" class="form-control" placeholder="이메일을 입력하세요" ><br>
         </div>
         <div class="form-group">
         <label th:for="memberPassword">비밀번호</label>
-        <input type="password" name="memberPassword"  class="form-control" placeholder="비밀번호를 입력하세요"><br>
+        <input type="password" name="memberPassword" class="form-control" placeholder="비밀번호를 입력하세요"><br>
         
 		<!-- <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
         <input id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit" value="로 그 인"> -->

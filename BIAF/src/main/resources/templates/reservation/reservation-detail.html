@@ -1,132 +1,137 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-   layout:decorate="~{layouts/layout1}">
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layouts/layout1}">
 <th:block>
-   <script src="js/script.js"></script>
-   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-   <script>
-      $(function() {
-         $("#datepicker").datepicker();
-      });
-   </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script th:inline="javascript">
+        $(function () {
+            $("#datepicker").datepicker();
+        });
+    </script>
 </th:block>
 
 <th:block layout:fragment="css">
-   <link rel="stylesheet" th:href="@{/css/style.css}">
-   <link rel="stylesheet"
-      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-   <link rel="stylesheet" href="/resources/demos/style.css">
-   <link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
 </th:block>
 <div layout:fragment="content">
-   <div class="cont_header"></div>
-   <form method="Get" action="/ko/reservation/detail}" role="form">
+    <div class="cont_header"></div>
+    <form method="Get" action="/ko/reservation/detail}" role="form">
 
-      <div class="total" th:each="movie : ${movieResponseDto}"
-         th:if="${movie.id == movieids}">
+        <div class="total" th:each="movie : ${movieResponseDto}" th:if="${movie.id == movieids}">
 
-         <div class="movie-info">
-            <div class="img_box">
-               <div id="mv">
-                  <a href=""><img th:src="${movie.imgUrl}"></a>
-               </div>
-            </div>
-            <div class="sub1_content">
-               <div id="top">
-                  <h1 th:text="${movie.movieNm}"></h1>
-               </div>
-               <hr>
-               <div id="middle">
-                  <ul>
-                     <li>ªÛøµ∞¸ :</li>
-                     <li th:text="${movie.cinema}"></li>
-                     <li>ªÛøµ Ω√∞£ :</li>
-                     <li th:text="${movie.movieTime}"></li>
-                  </ul>
-               </div>
-               <div id="middle">
-                  <ul>
-                     <li>ªÛøµ ≥Ø¬• :</li>
-                     <li th:text="|${movie.StartDay} ~ 
+            <div class="movie-info">
+                <div class="img_box">
+                    <div id="mv">
+                        <a href=""><img th:src="${movie.imgUrl}"></a>
+                    </div>
+                </div>
+                <div class="sub1_content">
+                    <div id="top">
+                        <h1 th:text="${movie.movieNm}"></h1>
+                    </div>
+                    <hr>
+                    <div id="middle">
+                        <ul>
+                            <li>ÏÉÅÏòÅÍ¥Ä :</li>
+                            <li th:text="${movie.cinema}"></li>
+                            <li>ÏÉÅÏòÅ ÏãúÍ∞Ñ :</li>
+                            <li th:text="${movie.movieTime}"></li>
+                        </ul>
+                    </div>
+                    <div id="middle">
+                        <ul>
+                            <li>ÏÉÅÏòÅ ÎÇ†Ïßú :</li>
+                            <li th:text="|${movie.StartDay} ~ 
                            ${movie.endDay}|"></li>
-                     <li>øµ»≠ µÓ±ﬁ :</li>
-                     <li th:text="${movie.grade}"></li>
-                  </ul>
-               </div>
-               <hr>
-               <div id="bottom">
-                  <ul>
-                     <li>∞°∞› :</li>
-                     <li th:text="${movie.price}"></li>
-                  </ul>
-               </div>
+                            <li>ÏòÅÌôî Îì±Í∏â :</li>
+                            <li th:text="${movie.grade}"></li>
+                        </ul>
+                    </div>
+                    <hr>
+                    <div id="bottom">
+                        <ul>
+                            <li>Í∞ÄÍ≤© :</li>
+                            <li th:text="${movie.price}"></li>
+                        </ul>
+                    </div>
+
+                </div>
 
             </div>
+        </div>
 
-         </div>
-      </div>
-
-   </form>
+    </form>
 
 
 
-   <div class="movie-detail">
-      <div id="step1">
-         <ul>
-            <li><p style="color: red;">
-                  <b>STEP1</b>
-               </p>
-               <p>≥Ø¬• º±≈√</p></li>
-         </ul>
-         <div id="calender">
-            <p>
-               Date: <input type="text" id="datepicker">&#xA0;
-            </p>
-         </div>
-      </div>
-
-      <div id="step2">
-         <ul>
-            <li><p style="color: red;">
-                  <b>STEP2</b>
-               </p>
-               <p>»∏¬˜ º±≈√</p></li>
-         </ul>
-         <div id="hour">
+    <div class="movie-detail">
+        <div id="step1">
             <ul>
-               <li><button type="submit">1»∏¬˜ 14Ω√ 00∫–</button></li>
-               <br>
-               <li><button type="submit">2»∏¬˜ 17Ω√ 00∫–</button></li>
+                <li>
+                    <p style="color: red;">
+                        <b>STEP1</b>
+                    </p>
+                    <p>ÎÇ†Ïßú ÏÑ†ÌÉù</p>
+                </li>
             </ul>
-         </div>
-      </div>
+            <div id="calender">
+                <p>
+                    Date: <input type="text" id="datepicker">&#xA0;
+                </p>
+            </div>
+        </div>
 
-      <div id="step3">
-         <ul>
-            <li><p style="color: red;">
-                  <b>STEP3</b>
-               </p>
-               <p>¡¬ºÆ«•</p></li>
-         </ul>
-      </div>
-      <div id="step4">
-         <ul>
-            <li><p style="color: red;">
-                  <b>STEP4</b>
-               </p>
-               <p>∞·¡¶</p></li>
-         </ul>
+        <div id="step2">
+            <ul>
+                <li>
+                    <p style="color: red;">
+                        <b>STEP2</b>
+                    </p>
+                    <p>ÌöåÏ∞® ÏÑ†ÌÉù</p>
+                </li>
+            </ul>
+            <div id="hour">
+                <ul>
+                    <li><button type="submit">1ÌöåÏ∞® 14Ïãú 00Î∂Ñ</button></li>
+                    <br>
+                    <li><button type="submit">2ÌöåÏ∞® 17Ïãú 00Î∂Ñ</button></li>
+                </ul>
+            </div>
+        </div>
 
-         <div id="selection">
-            <button type="submit">¥ŸΩ√ º±≈√</button>
-            <button type="submit">øπ∏≈</button>
+        <div id="step3">
+            <ul>
+                <li>
+                    <p style="color: red;">
+                        <b>STEP3</b>
+                    </p>
+                    <p>Ï¢åÏÑùÌëú</p>
+                </li>
+            </ul>
+        </div>
+        <div id="step4">
+            <ul>
+                <li>
+                    <p style="color: red;">
+                        <b>STEP4</b>
+                    </p>
+                    <p>Í≤∞Ï†ú</p>
+                </li>
+            </ul>
 
-         </div>
-      </div>
+            <div id="selection">
+                <button type="submit">Îã§Ïãú ÏÑ†ÌÉù</button>
+                <button type="submit">ÏòàÎß§</button>
 
-   </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
