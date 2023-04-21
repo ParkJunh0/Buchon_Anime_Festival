@@ -9,6 +9,7 @@
     align-items: center;
     box-shadow:0 4px 4px -4px #00554f;
     border-radius: 0 0 3px 3px;
+    user-select: none;
 /*  margin: 0 auto;*/
 }
 /* 상위 메뉴 부분 */
@@ -39,6 +40,7 @@
     flex-grow: 0.07;
 }
 #nav_sub a{
+
     font-size:14px;
     color:#fff;
 }
@@ -46,15 +48,16 @@
     color:black;
 }
 #nav_sub ul{
-	min-width: 150px;
+	min-width: 120px;
 	text-align: center;
 	padding: 0;
 	margin: 0;
 	display:flex;
 	justify-content: space-evenly;
+    align-items: center;
 }
 /* 검색바 부분 */
-#search{
+#search_{
 	position: fixed;
     width: 30%;
     right: 5px;
@@ -63,6 +66,7 @@
     border-radius: 1px 1px 20px 20px;
     display: none;
     box-shadow:0 4px 4px -4px #6ebb9f;
+    z-index: 99;
 }
 #search_input{
     position: relative;
@@ -73,13 +77,18 @@
     outline: none;
 }
 .search_btn{
+    padding: 1px 3px;
     position: absolute;
     align-items: center;
-    right: 8px;
+    right: 6px;
     background-color:#53b893;
     border: 0;
     border-radius: 5px;
     display:none;
+}
+.header_icon{
+    width: 23px;
+    height: 23px;
 }
 /* 하위 메뉴 부분 */
 .menu_popup{

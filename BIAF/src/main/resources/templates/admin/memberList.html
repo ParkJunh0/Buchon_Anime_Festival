@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
    layout:decorate="~{layouts/layout1}">
 
 <th:block layout:fragment="script">
-<script th:src="@{/js/memberList_modal.js}" type="text/javascript"></script>
+   <script th:src="@{/js/memberList_modal.js}" type="text/javascript"></script>
 </th:block>
-   <th:block layout:fragment="css">
-      <style>
+<th:block layout:fragment="css">
+   <style>
       #wrap {
-         width:100%;
-         margin-bottom: 150px;      
+         width: 100%;
+         margin-bottom: 150px;
          position: relative;
          top: 50px;
       }
@@ -27,43 +26,44 @@
          min-width: 1000px;
          height: 400px;
       }
-      
+
       .container {
          flex-direction: column;
          display: flex;
          align-items: center;
       }
-      
+
       .container_1 {
          width: 100%;
          height: 20%;
          flex-direction: column;
       }
-      
+
       .container_2 {
          flex-direction: column;
       }
-      
+
       .container_3 {
          width: 1000px;
          min-height: 100px;
          height: 40%;
          flex-direction: column;
       }
-      
+
       .title {
          margin: 0 auto;
       }
-      
-      .board_line td, th {
+
+      .board_line td,
+      th {
          border-bottom: 1px solid #A4A4A4;
          padding: 10px;
       }
-      
+
       .sub_head {
          margin-top: 30px;
       }
-      
+
       .m_management {
          height: 80px;
          margin-top: 30px;
@@ -71,50 +71,50 @@
          border-top: 1px solid #A4A4A4;
          border-collapse: collapse;
       }
-      
+
       .m_no {
          width: 10%;
       }
-      
+
       .m_name {
          width: 15%;
       }
-      
+
       .m_email {
          width: 25%;
       }
-      
+
       .m_Tel {
          width: 20%;
       }
-      
+
       .m_del {
          width: 15%;
       }
-      
+
       .write_btn {
          width: 100%;
          margin-top: 20px;
          text-align: right;
          text-decoration-color: white;
       }
-      
+
       .search {
          width: 100%;
          text-align: right;
          margin-top: 80px;
       }
-      
+
       #btn_2 {
          border: none;
          background-color: #0a537e;
          padding: 10px 15px;
       }
-      
+
       #btn_2>a {
          color: white;
       }
-      
+
       #btn_1 {
          border: none;
          background-color: #0a537e;
@@ -122,21 +122,21 @@
          height: 29px;
          border-radius: 0;
       }
-      
+
       .search>input {
          border-radius: 0;
          border: 1px solid #666;
          height: 25px;
       }
-      
+
       .page_nation {
          display: inline-block;
       }
-      
+
       .page_nation .none {
          display: none;
       }
-      
+
       .page_nation a {
          display: block;
          margin: 0 3px;
@@ -151,128 +151,165 @@
          color: black;
          text-decoration: none;
       }
-      
+
       .page_wrap {
          margin-top: 50px;
       }
 
-      .modal1{
+      .modal1 {
          width: 300px;
          height: 200px;
-         background: yellow;
-         display:none;
+         background: #fff;
+         border: 2px solid #666;
+         box-shadow: 2px 2px 3px 1px #666;
+         display: none;
       }
 
-      .close{
-         position:absolute;
+      .close {
+         position: absolute;
          width: 400px;
          height: 200px;
          top: 40%;
          left: 40%;
       }
 
-      .modal_del{
-         padding: 50px;
+      .modal_del {
+          padding-top: 50px;
+          padding-left: 100px;
+      }
+
+      .modal_del>span {
+         color: red;
+      }
+
+      .info_submit {
+         position: relative;
       }
 
       .del {
-      margin-left : 130px;
+         /* margin-left: 130px; */
+         width: 100px;
+         height: 30px;
+         font-size: 14px;
+         border: 1px solid black;
+         background-color: rgb(236, 236, 236);
+         position: absolute;
+         left: 80px;
+         top: 30px;
+         cursor: pointer;
       }
-      </style>
-   </th:block>
+
+      #hide {
+         display: none;
+      }
+
+      .cls2 {
+         border: 1px solid black;
+         background-color: rgb(236, 236, 236);
+         width: 100px;
+         height: 30px;
+         font-size: 14px;
+         text-align: center;
+         line-height: 30px;
+         box-sizing: border-box;
+         position: absolute;
+         right: 90px;
+         top: 30px;
+         cursor: pointer;
+      }
+   </style>
+</th:block>
 
 <div layout:fragment="content">
-   <dvi class="cont_header"></dvi>
+   <div class="cont_header"></div>
    <div id="wrap">
       <div id="section">
          <div id="sidenav"></div>
-         <form method="Get" action="/ko/memberList" role="form" >
-         <div id="slide">
-         
-            <div class="container">
-               <div class="container_2">
-                  <div align="center" class="title">
-                     <h1>회원조회</h1>
+         <form method="Get" action="/ko/memberList" role="form">
+            <div id="slide">
+
+               <div class="container">
+                  <div class="container_2">
+                     <div align="center" class="title">
+                        <h1>회원조회</h1>
+                     </div>
+
+                  </div>
+                  <div class="container_3">
+                     <!--<div class="search">
+                               <input type="text" placeholder="검색어를 입력하세요" >
+                               <button type="button" onclick="" id="btn_1"></button>
+                           </div>-->
+
+                     <div align="center" class="sub_head">
+                        <table class="m_management">
+                           <thead>
+                              <tr>
+                                 <!-- <th scope="col" class="m_no">번호</th> -->
+                                 <th scope="col" class="m_name">회원명</th>
+                                 <th scope="col" class="m_email">이메일</th>
+                                 <th scope="col" class="m_Tel">전화번호</th>
+                                 <th scope="col" class="m_address">주소</th>
+                                 <th scope="col" class="m_del">관리</th>
+                              </tr>
+                           </thead>
+                           <tbody align="center">
+                              <tr class="board_line" th:each="member : ${memberResponseDto}">
+                                 <td class="m_no" id="hide"><span th:text="${member.memberId}"></span></td>
+                                 <td class="m_name"><span th:text="${member.memberName}"></span></td>
+                                 <td class="m_email"><span th:text="${member.memberEmail}"></span></td>
+                                 <td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
+                                 <td class="m_address"><span th:text="${member.postcode}"></span>
+                                    <span th:text="${member.memberAddress}"></span> <span
+                                       th:text="${member.wRestAddress}"></span>
+                                 </td>
+                                 <td class="m_del"><a href="#" class="del1">탈퇴</a></td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
                   </div>
 
-               </div>
-               <div class="container_3">
-                  <!--<div class="search">
-          <input type="text" placeholder="검색어를 입력하세요" ><button type="button" onclick="" id="btn_1" ><img src="/Notice/image/icon_search.png"  width="10px"
-            height="10px"></button>
-      </div>-->
-      
-                  <div align="center" class="sub_head">
-                     <table class="m_management">
-                        <thead>
-                           <tr>
-                              <th scope="col" class="m_no">번호</th>
-                              <th scope="col" class="m_name">회원명</th>
-                              <th scope="col" class="m_email">이메일</th>
-                              <th scope="col" class="m_Tel">전화번호</th>
-                              <th scope="col" class="m_address">주소</th>
-                              <th scope="col" class="m_del">관리</th>
-                           </tr>
-                        </thead>
-                        <tbody align="center">
-                           <tr class="board_line" th:each="member, status: ${memberResponseDto}">
-                              <td class="m_no">
-                                 <span th:text="${status.count + ((nowPage-1) * 5)}"></span>
-                                 <input type="hidden" th:value="${member.memberId}">
-                              </td>
-                              <td class="m_name"><span th:text="${member.memberName}"></span></td>
-                              <td class="m_email"><span th:text="${member.memberEmail}"></span></td>
-                              <td class="m_Tel"><span th:text="${member.memberTel}"></span></td>
-                              <td class="m_address"><span th:text="${member.postcode}"></span>
-                                 <span th:text="${member.memberAddress}"></span> <span
-                                 th:text="${member.wRestAddress}"></span></td>
-                              <td class="m_del"><a href="#" class="del1">탈퇴</a></td>
-                           </tr>
-                        </tbody>
-                     </table>
+                  <div class="page_wrap">
+                     <!-- 페이징  -->
+                     <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                        <a th:if="${page==0? page==1 : page != nowPage}"
+                           th:href="@{/ko/admin/memberList(page=${page-1})}" th:text="${page}"></a>
+                        <!--th:if-if문 "${page==0? page==1 : page != nowPage}"  삼항식   -->
+                        <strong th:if="${page==nowPage}" th:text="${page}" style="color: red"></strong>
+                     </th:block>
                   </div>
                </div>
 
-                <div class="page_wrap">
-                  <!-- 페이징  -->
-                  <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
-                     <a th:if="${page==0? page==1 : page != nowPage}"
-                     th:href="@{/ko/admin/memberList(page=${page-1})}"
-                     th:text="${page}"></a>
-                  <!--th:if-if문 "${page==0? page==1 : page != nowPage}"  삼항식   -->
-                  <strong th:if="${page==nowPage}" th:text="${page}"
-                     style="color: red"></strong>
-                 </th:block>
-               </div>
             </div>
-            
-         </div>
-         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
          </form>
       </div>
    </div>
-   
-      <div class="modal1">
-            <div class="close">
-            <div class="modal_del">회원을 삭제시키시겠습니까?</div>
-            
-         <form th:action="@{/ko/admin/memdelete}" class="delete_form" th:method="delete"> 
-          <div class="info_submit">
-                <button type="submit" class="del" id="close" >탈퇴</button>
-                <input class="hidden_id" type="hidden" name="id">
+
+   <div class="modal1">
+      <div class="close">
+         <div class="modal_del">회원을 <span>탈퇴</span>시키시겠습니까?</div>
+
+         <form th:action="@{/ko/admin/memdelete}" class="delete_form" th:method="delete">
+            <div class="info_submit">
+               <button type="submit" class="del" id="close">탈퇴</button>
+               <input class="hidden_id" type="hidden" name="id">
+               <div class="cls2">취소</div>
             </div>
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-           </form>
-            
-            <script>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+         </form>
+
+         <script>
             <!-- 회원삭제  -->
-            var id=0;
-            $('.m_del').on('click', function(){
+            var id = 0;
+            $('.m_del').on('click', function () {
                id = $(this).parent().children('.m_no').children().text();
                $('.hidden_id').attr('value', id);
             });
-            </script>
-            </div>
+         </script>
       </div>
+   </div>
 </div>
+
 </html>

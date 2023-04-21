@@ -127,33 +127,10 @@ layout:decorate="~{layouts/layout1}">
             height: 25px;
         }
 
-        .page_nation {
-            display:inline-block;
-		}
-		.page_nation .none {
-            display:none;
-		}
-		.page_nation a {
-            display:block;
-			margin:0 3px;
-			float:left;
-			border:1px solid #e6e6e6;
-			width:28px;
-			height:28px;
-			line-height:28px;
-			text-align:center;
-			background-color:white;
-			font-size:13px;
-			color:black;
-			text-decoration:none;
-	    }
-        .page_wrap{
-            display:flex;
-            justify-content: center;
-        }
-        .page_wrap strong, .page_wrap a{
-            width: 15px;
-        }
+    .page_wrap{
+    	text-align: center;
+    
+    }
 
         
         </style>
@@ -172,7 +149,7 @@ layout:decorate="~{layouts/layout1}">
        <div class="search">
         <input type="text" placeholder="검색어를 입력하세요" >
         <button type="button" onclick="" id="btn_1" >
-            <img src="/image/icon_search.png"  width="10px" height="10px">
+            <img src="/board/Notice/image/icon_search.png"  width="10px" height="10px">
         </button>
       </div> 
         <div align="center" class="sub_head">
@@ -184,12 +161,12 @@ layout:decorate="~{layouts/layout1}">
                     <th scope="col" class="date_head">작성일자</th>
                     </tr>
                 </thead>
-                <tbody align="center" th:each="notice, status: ${noticeList}" ><!--  -->
+                <tbody align="center" th:each="notice, status : ${noticeList}"><!--  -->
                    <tr class="board_line">
                    
                        <td class="num_head">
-                        <span th:text="${status.count + ((nowPage-1) * 5)}"></span>
-                        <input type="hidden" th:value="${notice.id}">
+                        <span th:text="${status.count}" ></span> 
+                       	<input type="hidden" th:value="${notice.id}">
                        </td>
                        
                        <td class="title_head">

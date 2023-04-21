@@ -1,9 +1,11 @@
 package com.biaf.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.python.core.PyObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -83,4 +85,14 @@ public class MovieService {
 	   public Page<Movie> mvList(Pageable pageable){ //영화리스트조회,페이징
         return movieRepository.findAll(pageable);
      }
+
+	public List<MovieResponseDto> findAllByMovieNm(PyObject pyObject) {
+		List<Movie> movie =  movieRepository.findAllMovieNmSEWith(pyObject.toString());
+		List<MovieResponseDto> moviedto = new ArrayList<>();
+
+		for(Movie mo : movie){
+			moviedto.add(MovieResponseDto.of(mo));
+		}
+		return moviedto;
+	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
+import org.modelmapper.ModelMapper;
+
 import com.biaf.constant.Role;
 import com.biaf.entity.Member;
 
@@ -29,6 +31,8 @@ public class MemberResponseDto {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
+	private static ModelMapper modelMapper = new ModelMapper();
+	
 	public static List<MemberResponseDto> createMemberDto(List<Member> memList){
 		List<MemberResponseDto> memResDtoList = new ArrayList<MemberResponseDto>();
 		MemberResponseDto memResDto;
@@ -45,6 +49,9 @@ public class MemberResponseDto {
 			memResDtoList.add(memResDto);
 		}
 		return memResDtoList;
+	}
+	public static MemberResponseDto of(Member memlist){
+		return modelMapper.map(memlist, MemberResponseDto.class);
 	}
 	
 }

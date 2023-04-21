@@ -1,5 +1,8 @@
 package com.biaf.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -54,6 +58,9 @@ public class Movie extends BaseEntity{
 	@Enumerated(EnumType.STRING) // enum 타입 매핑 
 	private MovieStatus movieStatus; // 영화 상영 상태
 	
+	@OneToOne(mappedBy="movie")
+	private MovieImg movieImg;
+
 	   public static Movie createmovie(MovieFormDto movieFormDto) {
 		      Movie movie = new Movie();
 		      movie.setMovieNm(movieFormDto.getMovieNm());
@@ -82,8 +89,4 @@ public class Movie extends BaseEntity{
 		      this.movieStatus = movieFormDto.getMovieStatus();
 		      this.movieTime = movieFormDto.getMovieTime();
 		   }
-	   
-	   
-	   
-	   
 }

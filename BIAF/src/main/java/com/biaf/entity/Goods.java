@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.biaf.constant.GoodsSellStatus;
 import com.biaf.dto.GoodsFormDto;
+import com.biaf.dto.OrderDto;
 import com.biaf.exception.OutOfStockException;
 
 import lombok.Getter;
@@ -68,5 +69,14 @@ public class Goods extends BaseEntity {
 
 	public void addStock(int stockNumber) {
 		this.stockNumber += stockNumber;
+		if(this.stockNumber > 1 ){
+			this.goodsSellStatus = GoodsSellStatus.SELL;
+		}
+	}
+	public void down(OrderDto order){
+        this.stockNumber -= order.getCount();
+		if(this.stockNumber == 0){
+			this.goodsSellStatus = GoodsSellStatus.SOLD_OUT;
+		}
 	}
 }

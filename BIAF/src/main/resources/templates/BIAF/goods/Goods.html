@@ -25,7 +25,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<ul>
 				<li>구입문의 : publicity@biaf.or.kr</li>
 				<li>구입방법 : 아래에서 결제하거나 연략처, 주소, 구입 수량을 작성 후, e-mail(publicity@biaf.or.kr) 전송</li>
-				<li>결제방법 : 카드결제 (방문 시 현금 및 카드결제 가능)</li>
+				<li>결제방법 : 무통장 입금(방문 시 현금 및 카드결제 가능)</li>
 			</ul>
 		</div>
 		<!-- 굿즈 상품 부분 -->
@@ -38,7 +38,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<option value="solds">품절</option>
 				</select>
 			</div>
-			<div th:each="goods_patition : ${goodsDto}" class="goods_items">
+			<div th:if="${!#lists.isEmpty(goodsDto)}" th:each="goods_patition : ${goodsDto}" class="goods_items">
 				<!-- th:if="${goods.sellStat == T(com.biaf.constant.GoodsSellStatus).SELL}가 오류가 나서
 						goods.sellStat.name()으로 SELL과 비교하게 작성 -->
 				<!-- 판매중 -->
@@ -54,6 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 						<p class="goods_price">가격 <strong th:text="${goods.price}"></strong></p>
 						<p class="goods_item_detail_description" th:text="${goods.goodsDetail}"></p>
 					</div>
+					<input type="hidden" class="test1" th:value="${goods.stocknumber}">
 				</div>
 				<!-- 품절 -->
 				<div th:each="goods : ${goods_patition}" th:unless="${goods.sellStat.name() == 'SELL'}" class="goods_item solds">
@@ -71,6 +72,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					</div>
 				</div>
 			</div>
+			<div th:unless="${!#lists.isEmpty(goodsDto)}" class="goods_items">
+				<h1>굿즈가 현재 없습니다.</h1>
+			</div>
 			<!-- 굿즈 상세페이지 -->
 			<div class="goods_detail">
 				<!-- 굿즈 이미지(왼쪽) -->
@@ -83,8 +87,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div class="goods_detail_description">
 						<h1><b class="goodsNm"></b></h1>
 						<p>가격: <strong class="goodsprice"></strong>원</p>
-						<p>배달비: <strong class="goodspricep">10000</strong>원</p>
 						<p class="goodsdescription"></p>
+						<p class="goods_stocknum"></p>
 						<p><label>수량<input class="quantity" type="number" name="number_select" min="1" max="10" value="1"> </label></p>
 					</div>
 					<div class="totalsection">
@@ -100,14 +104,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 				</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!-- 모달창 -->
-	<div class="cart_modal">
-		<p>계속 쇼핑하시겠습니까?</p>
-		<div class="cart_modal_btn">
-			<input type="button" class="close" value="쇼핑계속">
-			<input type="button" class="cart_go" value="장바구니가기">
 		</div>
 	</div>
 	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">

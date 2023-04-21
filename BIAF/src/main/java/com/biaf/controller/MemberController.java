@@ -71,5 +71,4 @@ public class MemberController {
 	public String memberout1() {
 		return "/member/memberout1";
 	}
-
 }

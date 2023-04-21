@@ -1,5 +1,8 @@
 package com.biaf.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +17,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.biaf.constant.Role;
+import com.biaf.dto.MailDto;
 import com.biaf.dto.MemberFormDto;
 import com.biaf.entity.Member;
+import com.biaf.service.MailService;
 import com.biaf.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,8 +34,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping(value="/ko")
 @RequiredArgsConstructor
 public class LoginController {
-	
-
+	private final MailService mailservice;
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder; 
 	
@@ -129,14 +136,41 @@ public class LoginController {
 		return "/login/idfind";
 	}
 	
+	@RequestMapping(value = "/findId", method = RequestMethod.POST)
+	@ResponseBody		//requestparam("가져올데이터이름") 데이터타입 변수이름 
+	public String findId(@RequestParam("memName") String memberName,@RequestParam("memTel") String memberTel) {
+
+		String findEmail = memberService.findEmail(memberName, memberTel);
+		if(findEmail==null || findEmail == "") {
+			return null; 
+		}else {
+			return findEmail;
+		}
+		
+	}
+
 	@GetMapping(value="/pwfind")//비밀번호 찾기
 	public String pwfind() {
 		return "/login/pwfind";
 	}
 	
-	@GetMapping(value="/pwreset") // 비밀번호 리셋
-	public String pwreset() {
-		return "/login/pwreset";
+	@GetMapping("/check/findPw")
+    public @ResponseBody Map<String, Boolean> pw_find(String email, String memberName){
+        Map<String,Boolean> json = new HashMap<>();
+        boolean pwFindCheck = memberService.memberEmailCheck(email,memberName);
+
+        System.out.println(pwFindCheck);
+        json.put("check", pwFindCheck);
+        return json;
+    }
+	
+	
+	 @PostMapping("/check/findPw/sendEmail")
+	    public @ResponseBody void sendEmail(String email, String memberName){
+		
+		 
+	        MailDto dto = mailservice.createMailAndChangePassword(email, memberName, passwordEncoder);
+	        mailservice.mailSend(dto);
 	}
 	
 }

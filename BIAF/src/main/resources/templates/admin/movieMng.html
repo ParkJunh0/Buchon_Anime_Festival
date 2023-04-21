@@ -58,10 +58,10 @@
 	/*text-align: center;*/
 	/*    margin-top: 100px;*/
 }
-.board_line{
+.mv_line{
 	max-height: 50px;
 }
-.board_line td, th {
+.mv_line td, th {
 	border-bottom: 1px solid #A4A4A4;
 	padding: 10px;
 }
@@ -161,6 +161,28 @@
 .btn_range {
 	text-align: right;
 }
+
+.reg_Btn{
+   background-color: #77af9c;
+   color: #d7fff1;
+   border-radius: 10px;
+   border: none;
+   text-align: center;
+   text-decoration: none;
+   font-size: 15px;
+   font-weight: 600;
+   margin: 4px 2px;
+   width: 100px;
+   height: 30px;
+   cursor: pointer;
+
+}
+
+#n:hover{
+text-decoration: underline;
+color: blue;
+
+}
 </style>
 </th:block>
 
@@ -187,7 +209,7 @@
 								<table class="mv_management">
 									<thead>
 										<tr>
-											<th scope="col" class="mv_no">영화 아이디</th>
+											<th scope="col" class="mv_no">번호</th>
 											<th scope="col" class="mv_name">영화명</th>
 											<th scope="col" class="mv_status">상태</th>
 											<th scope="col" class="mv_price">가격</th>
@@ -195,9 +217,9 @@
 										</tr>
 									</thead>
 									<tbody align="center">
-										<tr class="board_line" th:each="movie : ${movieResponseDto}">
-											<td class="mv_no"><span th:text="${movie.Id}"></span></td>
-											<td class="mv_name"><a
+											<tr class="mv_line" th:each="movie, status: ${movieResponseDto}">
+											<td class="mv_no">    <span th:text="${status.count + ((nowPage-1) * 5)}"></span><input type="hidden" th:value="${movie.Id}"></td>
+											<td class="mv_name"><a id="n"
 												th:href="@{'/ko/admin/movie/' + ${movie.id} }"><span
 													th:text="${movie.movieNm}"></span></a></td>
 											<td class="mv_status"><span
@@ -227,7 +249,8 @@
 							<!-- 페이징  -->
 							<th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
 								<a th:if="${page==0? page==1 : page != nowPage}"
-									th:href="@{/ko/movie(page=${page-1})}" th:text="${page}"></a>
+									th:href="@{/ko/admin/movie(page=${page-1})}" 
+									th:text="${page}"></a>
 								<strong th:if="${page==nowPage}" th:text="${page}"
 									style="color: red"></strong>
 							</th:block>

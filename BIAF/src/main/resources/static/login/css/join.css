@@ -41,7 +41,7 @@ a[id="jo2"]:hover{
 
 div.stepLine{
   display: inline-block;
-  border-bottom: 1px solid #53b893;
+  border-bottom: 1px solid #77af9c;;
   height: 0;
 }
 
@@ -64,7 +64,7 @@ div.stepDot.activeStep{
 
 div.stepDot.activeStep ~ div.stepDot{
   background-color: #fff;
-  border: 1px solid #53b893;
+  border: 1px solid #77af9c;;
 }
 
 div.stepDot:after{

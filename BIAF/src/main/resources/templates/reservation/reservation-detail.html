@@ -1,138 +1,409 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/layout1}">
-<th:block>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script th:inline="javascript">
-        $(function () {
-            $("#datepicker").datepicker();
-        });
-    </script>
-</th:block>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
+<head>
+
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<th:block layout:fragment="script">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		$(function () {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var a;
+			$('#count').change(function () {
+				a = $('#count').text();
+				console.log(a);
+
+
+			});
+
+
+
+			var rows = document.getElementsByTagName('tr');
+			for (var i = 0; i < rows.length; i++) {
+				var cols = rows[i].getElementsByTagName('td');
+				for (var j = 0; j < cols.length; j++) {
+					cols[j].addEventListener('click', function () {
+						var selected = document.getElementsByClassName('selected');
+						if (selected.length > 0) {
+							selected[0].classList.remove('selected');
+						}
+						this.classList.add('selected');
+						printSelectedDate();
+					});
+				}
+			}
+
+			function printSelectedDate() {
+				var selectedCell = document.querySelector('.selected');
+
+				if (selectedCell) {
+					var selectedDate = selectedCell.textContent;
+					document.getElementById('selectedDate').textContent = selectedDate;
+				} else {
+					document.getElementById('selectedDate').textContent = "";
+				}
+			}
+
+
+			$("#seatOff").on('click', function () {
+				document.getElementById("seatOff").style.display = "none";
+				const seatsContainer = document.getElementById("seats");
+				const seats = [];
+				// 좌석
+				for (let i = 1; i <= 10; i++) {
+					const row = document.createElement("div");
+					row.style.display = "flex";
+					for (let j = 1; j <= 10; j++) {
+						const seat = document.createElement("div");
+						seat.classList.add("seat");
+						seat.dataset.seatNumber = String.fromCharCode(i + 96) + j;
+						const seatLabel = document.createElement("div");
+						seatLabel.textContent = String.fromCharCode(i + 96) + j;
+						seat.appendChild(seatLabel);
+						row.appendChild(seat);
+						seats.push(seat);
+					}
+					seatsContainer.appendChild(row);
+				}
+				// 선택된 좌석 갯수
+				function updateSelectedCount() {
+					const selectedSeats = document.querySelectorAll(".seat.selected");
+					document.getElementById("count").textContent = selectedSeats.length;
+				}
+
+				// 자리 클릭 이벤트
+				seats.forEach(seat => {
+					seat.addEventListener("click", () => {
+						reserveSeat(seat);
+					});
+				});
+
+				// 자리클릭시 선택된 자리, 선택된 가격 업데이트
+				updateSelectedCount();
+				updateTotalPayment();
+			});
+			// 좌석 저장
+			function reserveSeat(seat) {
+				if (!seat.classList.contains("reserved")) {
+					seat.classList.toggle("selected");
+					updateSelectedCount();
+					updateTotalPayment();
+				}
+			} // 인원수 확인(텍스트 출력)
+			function updateTotalPayment() {
+				const selectedSeats = document.querySelectorAll(".seat.selected");
+				const totalPayment = selectedSeats.length;
+				document.getElementById("payment").textContent = totalPayment + "명";
+			}
+			// 자리 확인(텍스트 출력)
+			function updateSelectedCount() {
+				const selectedSeats = document.querySelectorAll(".seat.selected");
+				const selectedSeatsNumbers = Array.from(selectedSeats).map(seat => seat.dataset.seatNumber);
+				document.getElementById("count").textContent = selectedSeatsNumbers.join(", ");
+			}
+
+			var b;
+			var c;
+			var d;
+			var e = $('#movieid').text();
+			$('.selec_btn').on('click', function () {
+
+				b = $(this).text();
+
+			});
+
+			$(document).ready(function () {
+				$('.selec_btn').on('click', function () {
+					var selectedTurn = $(this).text().trim();
+					$('#selectedturn').text(selectedTurn);
+				});
+			});
+
+
+			//예메버튼 클릭시 데이터 보내줌 
+			$('.reser').on('click', function () {
+				var c = $('#selectedDate').text();
+				console.log(c);
+				console.log(b);
+				var d = $('#count').text();
+				console.log(d);
+				var e = $('#movieid').text();
+				console.log(e);
+				var f = $('#payment').text();
+				console.log(f);
+				// Define the data object with the values you want to send
+				var data = {
+					'select_day': c,
+					'seat': d,
+					'movie_turn': b,
+					'movieId': e,
+					'people_num': f
+				};
+
+				$.ajax({
+					url: '/ko/reservation_num',
+					type: 'post',
+					dataType: 'json',
+					data: data,
+					beforeSend: function (xhr) {
+						xhr.setRequestHeader(header, token);
+					},// Pass the data object to the server
+					success: function (result, response) {
+						// Handle success response from server
+						console.log(result);
+						swal("Success", "예매가 완료되었습니다", "success")
+							.then((value) => {
+								location.href = "/ko/reservationlist";
+							});
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						// Handle error response from server
+						console.log(jqXHR.responseText)
+
+					}
+				});
+			});
+			$('.reset').on('click', function () {
+				location.href = "/ko/reservation/detail/" + $('#movieid').text();
+			});
+
+		});
+
+		$(document).ready(function () {
+			$('.selec_btn').click(function () {
+				$('.selec_btn').removeClass('selected'); // 선택되지 않은 버튼들의 'selected' 클래스 제거
+				$(this).addClass('selected'); // 선택된 버튼에 'selected' 클래스 추가
+			});
+		});
+
+
+
+	</script>
+</th:block>
 <th:block layout:fragment="css">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
+
+	<link th:href="@{/reservation/css/reservation.css}" rel="stylesheet">
 </th:block>
 <div layout:fragment="content">
-    <div class="cont_header"></div>
-    <form method="Get" action="/ko/reservation/detail}" role="form">
+	<div class="cont_header"></div>
+	<form method="Get" action="/ko/reservation/detail" role="form">
 
-        <div class="total" th:each="movie : ${movieResponseDto}" th:if="${movie.id == movieids}">
+		<div class="total" th:each="movie : ${movieResponseDto}" th:if="${movie.id == movieids}">
+			<div th:style="${'display:none;'}" id="movieid" th:text="${movie.id}"></div>
 
-            <div class="movie-info">
-                <div class="img_box">
-                    <div id="mv">
-                        <a href=""><img th:src="${movie.imgUrl}"></a>
-                    </div>
-                </div>
-                <div class="sub1_content">
-                    <div id="top">
-                        <h1 th:text="${movie.movieNm}"></h1>
-                    </div>
-                    <hr>
-                    <div id="middle">
-                        <ul>
-                            <li>상영관 :</li>
-                            <li th:text="${movie.cinema}"></li>
-                            <li>상영 시간 :</li>
-                            <li th:text="${movie.movieTime}"></li>
-                        </ul>
-                    </div>
-                    <div id="middle">
-                        <ul>
-                            <li>상영 날짜 :</li>
-                            <li th:text="|${movie.StartDay} ~ 
-                           ${movie.endDay}|"></li>
-                            <li>영화 등급 :</li>
-                            <li th:text="${movie.grade}"></li>
-                        </ul>
-                    </div>
-                    <hr>
-                    <div id="bottom">
-                        <ul>
-                            <li>가격 :</li>
-                            <li th:text="${movie.price}"></li>
-                        </ul>
-                    </div>
+			<div class="movie-info">
+				<div class="img_box">
+					<div id="mv">
+						<a href=""><img th:src="${movie.imgUrl}"></a>
+					</div>
+				</div>
+				<div class="info_table">
+					<table>
+						<colgroup>
+							<col style="width:;">
+							<col style="width:;">
+							<col style="width:;">
 
-                </div>
+						</colgroup>
+						<tbody>
+							<tr>
+								<th scope="row">
+									<p>영화이름</p>
+								</th>
+								<td colspan="3"><span th:text="${movie.movieNm}"></span></td>
+							</tr>
+							<tr>
 
-            </div>
-        </div>
+								<th scope="row">
+									<p>상영관</p>
+								</th>
+								<td><span th:text="${movie.cinema}"></span></td>
+								<th scope="row">
+									<p>상영시간</p>
+								</th>
+								<td><span th:text="${movie.movieTime}"></span></td>
+							</tr>
+							<tr>
 
-    </form>
+								<th scope="row">
+									<p>상영날짜</p>
+								</th>
+								<td><span th:text="|${movie.StartDay} ~ 
+                           ${movie.endDay}"></span></td>
+								<th scope="row">
+									<p>영화등급</p>
+								</th>
+								<td><span th:text="${movie.grade}"></span></td>
+							</tr>
+							<tr>
+								<th scope="row">
+									<p>가격</p>
+								</th>
+								<td colspan="3"><span th:text="${movie.price} +'원'"></span></td>
+							</tr>
+							<tr>
+								<th scope="row" style="height:100px;">상세소개</th>
+								<td colspan="3"><span th:text="${movie.movieDetail}"></span></td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</form>
 
 
 
-    <div class="movie-detail">
-        <div id="step1">
-            <ul>
-                <li>
-                    <p style="color: red;">
-                        <b>STEP1</b>
-                    </p>
-                    <p>날짜 선택</p>
-                </li>
-            </ul>
-            <div id="calender">
-                <p>
-                    Date: <input type="text" id="datepicker">&#xA0;
-                </p>
-            </div>
-        </div>
+	<div class="movie-detail">
+		<div id="step1">
+			<div id="con_s">
+				<p>날짜</p>
+			</div>
+			<div id="calender">
+				<table id="c">
+					<thead>
+						<tr>
+							<th colspan="7">2023.10</th>
+						</tr>
+						<tr>
+							<th class="sunday">Sun</th>
+							<th>Mon</th>
+							<th>Tue</th>
+							<th>Wed</th>
+							<th>Thu</th>
+							<th>Fri</th>
+							<th class="saturday">Sat</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="sunday">1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td class="saturday">7</td>
 
-        <div id="step2">
-            <ul>
-                <li>
-                    <p style="color: red;">
-                        <b>STEP2</b>
-                    </p>
-                    <p>회차 선택</p>
-                </li>
-            </ul>
-            <div id="hour">
-                <ul>
-                    <li><button type="submit">1회차 14시 00분</button></li>
-                    <br>
-                    <li><button type="submit">2회차 17시 00분</button></li>
-                </ul>
-            </div>
-        </div>
+						</tr>
+						<tr>
+							<td class="sunday">8</td>
+							<td>9</td>
+							<td>10</td>
+							<td>11</td>
+							<td>12</td>
+							<td>13</td>
+							<td class="saturday">14</td>
+						</tr>
+						<tr>
+							<td class="sunday">15</td>
+							<td>16</td>
+							<td>17</td>
+							<td>18</td>
+							<td>19</td>
+							<td>20</td>
+							<td class="saturday">21</td>
+						</tr>
+						<tr>
+							<td class="sunday">22</td>
+							<td>23</td>
+							<td>24</td>
+							<td>25</td>
+							<td>26</td>
+							<td>27</td>
+							<td class="saturday">28</td>
+						</tr>
+						<tr>
+							<td class="sunday">29</td>
+							<td>30</td>
+							<td>31</td>
+							<td class="prev-month"></td>
+							<td class="prev-month"></td>
+							<td class="prev-month"></td>
+							<td class="prev-month"></td>
+						</tr>
+					</tbody>
+				</table>
 
-        <div id="step3">
-            <ul>
-                <li>
-                    <p style="color: red;">
-                        <b>STEP3</b>
-                    </p>
-                    <p>좌석표</p>
-                </li>
-            </ul>
-        </div>
-        <div id="step4">
-            <ul>
-                <li>
-                    <p style="color: red;">
-                        <b>STEP4</b>
-                    </p>
-                    <p>결제</p>
-                </li>
-            </ul>
+			</div>
+		</div>
 
-            <div id="selection">
-                <button type="submit">다시 선택</button>
-                <button type="submit">예매</button>
+		<div id="step2">
+			<div id="con_s">
+				<p>시간</p>
+			</div>
+			<div id="hour">
+				<ul>
+					<li><button type="button" class="selec_btn">
+							<b>1회차</b> 14시 00분&nbsp;
+						</button></li>
 
-            </div>
-        </div>
+					<li><button type="button" class="selec_btn">
+							<b>2회차</b> 17시 00분&nbsp;
+						</button></li>
 
-    </div>
+					<li><button type="button" class="selec_btn">
+							<b>3회차</b> 20시 00분&nbsp;
+						</button></li>
+				</ul>
+			</div>
+
+
+		</div>
+
+		<div id="step3">
+			<div id="con_s">
+				<p>좌석</p>
+			</div>
+			<div th:style="${'border:solid 1px black; text-align:center; background-color:black; color:white;'}">SCREEN
+			</div>
+			<div id="seats"></div>
+
+			<button id="seatOff">
+				<img src="/image/glass.png"> 크게 보기
+			</button>
+
+
+			</li>
+			</ul>
+
+		</div>
+		<div id="step4">
+			<div id="con_s">
+				<p>예매 확인</p>
+			</div>
+			<div id="confirm">
+				<p>
+					날짜: <span id="selectedDate"></span>
+				</p>
+				<p>
+					회차: <span id="selectedturn"></span>
+				</p>
+				<p>
+					좌석: <span id="count"></span>
+				</p>
+				<p>
+					인원: <span id="payment"></span>
+				</p>
+				<div id="selection">
+					<button type="button" class="reset">다시 선택</button>
+					<button type="button" class="reser">예매</button>
+					<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
-
+</div>
 
 </html>

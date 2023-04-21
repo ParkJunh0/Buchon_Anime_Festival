@@ -8,9 +8,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.biaf.constant.Role;
@@ -40,9 +41,7 @@ public class Member extends BaseEntity {
 	private String memberPassword;  //비밀번호
 	
 	private String memberAddress; // 주소
-	/*
-	 * private String memberLoc; // 성별
-	 */	
+
 	private String postcode; //우편번호
 	private String wRestAddress; //상세주소
 	private String memberTel; // 전화번호
@@ -50,6 +49,10 @@ public class Member extends BaseEntity {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
+	@ManyToOne
+	@JoinColumn(name="reservation_id")
+	private Reservation reservation;
+	
 	public static Member createMem(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder) { // 회원수정하기
 		Member member = new Member();
 		member.setMemberId(memberFormDto.getMemberId());
@@ -84,8 +87,4 @@ public class Member extends BaseEntity {
 		return member;
 
 	}
-	 
-	
-	
-	
 }

@@ -4,19 +4,24 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
 <!-- css 추가시 -->
 <th:block layout:fragment="css">
-<style>
-
-</style>
+    <link rel="stylesheet" type="text/css" href="/css/search.css" >
 </th:block>
 <!-- 본문 부분 -->
 <div layout:fragment="content">
-    <p>입력한 검색어 입니다.</p>
-    <hr>
-	<p class="search_value"></p>
-    <script>
-        var search_val = $('.search_value');
-        const receivedData = location.href.split('?')[1];
-        search_val.append(decodeURI(receivedData));
-    </script>
+    <div class="cont_header"></div>
+    <div class="wrap">
+        <input th:value="searchv">
+        <p>검색결과</p>
+        <hr>
+        <p>무비검색</p>
+        <div th:each="movie : ${searchDto.movie}">
+            <a th:href="@{/ko/reservation/detail/{id}(id=${movie.id})}" th:text="${movie.movieNm}"></a>
+        </div>
+        <p>굿즈 검색</p>
+        <div th:each="goods : ${searchDto.goods}">
+            <a th:href="/ko/goods" th:text="${goods.goodsNm}"></a>
+        </div>
+    </div>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>
 </html>

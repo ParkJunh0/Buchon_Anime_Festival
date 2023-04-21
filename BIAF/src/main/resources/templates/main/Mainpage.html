@@ -40,43 +40,80 @@
 				navigationPosition: 'left',
 				navigationTooltips: ['First page', 'Second page', 'Third and last page', 'footer page'],
 				slidesNavigation: true,
+				afterSlideLoad: function( anchorLink, index, slideAnchor, slideIndex){
+        var loadedSlide = $(this);
+        var totalItems = loadedSlide.siblings().length;
+        var numContainer = loadedSlide.closest('.fp-section').find('.num');
+        numContainer.html("0" + slideIndex + ' / ' + totalItems);
+    }
 			});
 		});
 	</script>
 
 </head>
-<body style="background-image:url(mainpage/image/bg5.jpg)">
+<!-- 배경이미지 출처 https://www.behance.net/gallery/37136421/Space-Elevator -->
+<body style="background-image:url(mainpage/image/bg5.gif)"> 
 <!-- 상단 헤더 부분 -->
 <div class="header"></div>
 
 <!-- 분문 부분 -->
 <div id="fullpage">
 <!-- 첫번째 영역 -->
-	<div class="section " id="section0">
-		<div class="slide" id="slide1" data-anchor="slide1">
-			<div class="intro">
-				<h1>Clickable</h1>
-				<p>
-					You can even click on the navigation and jump directly to another section.
-				</p>
+	<div class="section" id="section0" th:if="${!#lists.isEmpty(bannerlist)}">
+		<div class="slide" id="slide1" th:each="banner : ${bannerlist}" data-anchor="slide1">
+			<div class="intro bannerimg">
+				<img th:src="${banner.imgUrl}">
 			</div>
 		</div>
-
-	    <div class="slide" id="slide2" data-anchor="slide2">
-			<h1>Slide 2</h1>
-		</div>
-		<div class="slide" id="slide2" data-anchor="slide2">
-			<h1>Slide 2</h1>
+		<div class="fp-slidesNav bottom"></div>
+	</div>
+	<div class="section" id="section0" th:unless="${!#lists.isEmpty(bannerlist)}">
+		<div class="intro">
+			<h1>배너가 없습니다.</h1>
 		</div>
 	</div>
 	<!-- 두번째 영역 -->
 	<div class="section" id="section1">
+		<div class="movie_list">
 			<div class="intro">
-				<h1>Clickable</h1>
-				<p>
-					You can even click on the navigation and jump directly to another section.
-				</p>
+				<h1>현재상영작</h1>
 			</div>
+			<div class="a movie_border">
+				<div class="movie_img movie_border">
+					<img class="movieimg">
+				</div>
+				<div class="movie_lists movie_border">
+					<div class="movieNm movie_border">
+						<div class="titles">
+							<div class="moviegrade"></div>
+							<div class="movieNm_title"></div>
+						</div>
+						<div class="moviedetail"><a>+</a></div>
+					</div>
+					<div class="movielist movie_border">
+						<ul>
+							<li class="movies" th:each="movie : ${movielist}">
+								<th:block th:if="${#strings.substring(movie.grade,0,2) == '전체'}">
+									<div class="gradecolor" th:text="${#strings.substring(movie.grade,0,2)}" style="background-color: #0f9c1a";></div>
+								</th:block>
+								<th:block th:if="${#strings.substring(movie.grade,0,2) == '12'}">
+									<div class="gradecolor" th:text="${#strings.substring(movie.grade,0,2)}" style="background-color: #0e55c0";></div>
+								</th:block>
+								<th:block th:if="${#strings.substring(movie.grade,0,2) == '15'}">
+									<div class="gradecolor" th:text="${#strings.substring(movie.grade,0,2)}" style="background-color: #ae08bd";></div>
+								</th:block>
+								<th:block th:if="${#strings.substring(movie.grade,0,2) == '19'}">
+									<div class="gradecolor" th:text="${#strings.substring(movie.grade,0,2)}" style="background-color: #b80909";></div>
+								</th:block>
+								<a class="movie" th:text="${movie.movieNm}"></a>
+								<input class="movielink" type="hidden" th:value="${movie.id}">
+								<input class="movieimgUrl" type="hidden" th:value="${movie.imgUrl}">
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- 세번째 영역 -->
 	<div class="section" id="section2">
@@ -113,30 +150,30 @@
 		</div>
 		<div class="freeboard boards">
 			<p class="boardtitle">자유게시판<a href="/ko/freeboard">+</a></p>
-			<div class="last_sentence" th:if="${lnotnotice != 1}">
+			<div class="last_sentence" th:if="${lnotfree != 1}">
 				<div class="sen_date">
-					<div class="sen_date_top" th:text="${last_datet}"></div>
-					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
+					<div class="sen_date_top" th:text="${last_fdatet}"></div>
+					<div class="sen_date_bottom" th:text="${last_fdateb}"></div>
 				</div>
 				<div class="sen_content">
-					<a th:href="@{/ko/notice/detail/{id}(id=${last_notice.id})}">
-					<p class="sen_title" th:text="${last_notice.notice_title}"></p>
-					<p class="sent" th:text="${last_notice.notice_content}"></p>
+					<a th:href="@{/ko/freeboard/detail/{id}(id=${last_free.id})}">
+					<p class="sen_title" th:text="${last_free.freeboard_title}"></p>
+					<p class="sent" th:text="${last_free.freeboard_content}"></p>
 					</a>
 				</div>
 			</div>
-			<div class="last_sentence" th:unless="${lnotnotice != 1}">
-				<div class="notnotice">
-					공지사항이 없습니다
+			<div class="last_sentence" th:unless="${lnotfree != 1}">
+				<div class="notfree">
+					자유게시글이 없습니다
 				</div>
 			</div>
-			<div class="sentence" th:if="${notnotice != 1}">
-				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
-						<a th:href="@{/ko/notice/detail/{id}(id=${notice.id})}" th:text="${notice.notice_title}"></a>
+			<div class="sentence" th:if="${notfree != 1}">
+				<ul><li class="sentitle" th:each="free : ${freeDto}">
+						<a th:href="@{/ko/notice/detail/{id}(id=${free.id})}" th:text="${free.freeboard_title}"></a>
 					</li></ul>
 			</div>
-			<div class="sentence" th:unless="${notnotice != 1}">
-					<div class="notnotice">
+			<div class="sentence" th:unless="${notfree != 1}">
+					<div class="notfree">
 					공지사항이 없습니다.
 					</div>
 			</div>

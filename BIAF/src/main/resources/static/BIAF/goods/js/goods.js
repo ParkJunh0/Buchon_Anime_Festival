@@ -13,6 +13,7 @@ $(document).ready(function(){
     var goodsprice = $('.goodsprice');      // 굿즈 상세페이지 가격
     var goodspricep = $('.goodspricep');    // 굿즈 상세페이지 배송비
     var goodsd = $('.goodsdescription');    // 굿즈 상세페이지 설명
+    var goods_stocknum = $('.goods_stocknum'); // 굿즈 상세페이지 재고
     var goodsquantity = $('.quantity');     // 굿즈 상세페이지 수량
     var totalprice = $('.totalprice');      // 굿즈 상세페이지 총합
     var token = $("meta[name='_csrf']").attr("content");        // 토큰
@@ -36,8 +37,13 @@ $(document).ready(function(){
 	goodsquantity.change(function() {
         if($(this).val() > 0)
 			calculateToalPrice();
-        else
-            alert('수량은 1개이상 선택해주세요')
+        else{
+            document.body.style.overflow = 'hidden';
+
+            swal('수량 오류','수량은 1개이상 선택해주세요',"warning").then(function(result){
+                document.body.style.removeProperty('overflow');
+            });
+        }
 	});
 	function calculateToalPrice() {
 		totalPrice = goodsprice.text() * goodsquantity.val();
@@ -45,6 +51,7 @@ $(document).ready(function(){
 	}
     // 상품 상태 정렬 변경
     $("#select_SellStat").change(function(){
+        goods_detail.clearQueue().slideUp(5);
         switch($(this).val()){
             case 'sells':
                 sells.css('display', 'block');
@@ -70,8 +77,9 @@ $(document).ready(function(){
         goodsprice.text(this_.children('.goods_price > strong').text());
         goodspricep.text('10000');
         goodsd.text(this_.parent().children('.goods_item_detail_description').text());
+        goods_stocknum.text("재고: "+ this_t.children('.test1').val());
     }
-        function addCart() {
+    function addCart(typess) {
 
 			$.ajax({
 				url : url,
@@ -85,16 +93,91 @@ $(document).ready(function(){
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
+                    if(typess == 1){
+                        document.body.style.overflow = 'hidden';
+        
+                        Swal.fire({
+                            title:"구매완료",
+                            text :"구매가 완료되었습니다.",
+                            icon:"success",
+                            confirmButtonColor: '#1f50f1',
+                        }).then((result)=>{
+                            if(result.isConfirmed) {
+                                document.body.style.removeProperty('overflow');
+                                location.href="/ko/goods";
+                            }
+                        });
+                    }else if(typess = 2){
+                        // 페이지 스크롤 제거
+                        document.body.style.overflow = 'hidden';
+                        Swal.fire({
+                            title:"장바구니 등록완료",
+                            text : "장바구니로 가시겠습니까?",
+                            icon: "success",
+                            showCancelButton: true,
+                            confirmButtonColor: '#1f50f1',
+                            cancelButtonColor: '#7e7e7e',
+                            confirmButtonText: "장바구니로 이동",
+                            cancelButtonText: "계속쇼핑",
+                            confirmButtonClass: 'btn-success',
+                            cancelButtonClass: 'btn-canncel', 
+                            reverseButtons: true // 버튼 순서 거꾸로
+                        }).then((result)=> {
+                            if(result.isConfirmed) {
+                                document.body.style.removeProperty('overflow');
+                                location.href = '/ko/cart';
+                            }else{
+                                document.body.style.removeProperty('overflow');
+                                location.href="/ko/goods";
+                            }
+                        });
+                    }else{
+                        Swal.fire({
+                            title: "처리완료", 
+                            text: "근데 뭘한거죠?",
+                            icon: "quetion",
+                            confirmButtonColor: '#1f50f1',
+                        })
+                    }
 				},
 
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요');
-						location.href = '/members/login';
-					} else {
-						// alert(jqXHR.responseText);
-                        alert('로그인 후 이용해주세요');
-                        location.href = '/members/login';
+						Swal.fire({
+                            title:"비로그인",
+                            text :"로그인 후 이용해주세요",
+                            icon:"error",
+                            confirmButtonColor: '#1f50f1',
+                        }).then(function(result){
+                            if(result) {
+                                location.href = '/ko/login';
+                            }
+                        });
+					}else if (jqXHR.responseText == '300'){
+                        Swal.fire({
+                            title: "수량에러", 
+                            text: "수량이 맞지 않습니다", 
+                            icon:"warning",
+                            confirmButtonColor: '#1f50f1',
+                        });
+                    }else if(jqXHR.responseText == "user가 아닙니다"){
+                        Swal.fire({
+                            title: "권한에러", 
+                            text: jqXHR.responseText, 
+                            icon: "error",
+                            confirmButtonColor: '#1f50f1',
+                        });
+                    }else {
+						Swal.fire({
+                            title: '비로그인',
+                            text: '로그인 후 이용해주세요',
+                            icon: 'error',
+                            confirmButtonColor: '#1f50f1',
+                        }).then(function(result){
+                            if(result) {
+                                location.href = '/ko/login';
+                            }
+                        });
 					}
 				}
 			});
@@ -119,7 +202,12 @@ $(document).ready(function(){
                 }
             }
         }else{
-            alert('품절된 상품입니다.');
+            Swal.fire({
+                title: '없어요',
+                text: '품절된 상품입니다.', 
+                icon: 'error',
+                confirmButtonColor: '#1f50f1',
+            });
         }
     });
 
@@ -133,13 +221,8 @@ $(document).ready(function(){
         };
         param = JSON.stringify(paramData);
 
-        addCart();
+        addCart(2);
 
-        modal.append($('.cart_modal'));
-        $('.cart_modal').fadeIn();
-        modal.fadeIn().css('display', 'flex');
-        // 페이지 스크롤 제거
-        document.body.style.overflow = 'hidden';
     });
     // 구매 버튼 클릭
     pay_btn.on("click", function(){
@@ -149,18 +232,6 @@ $(document).ready(function(){
             count: goodsquantity.val()
         };
         param = JSON.stringify(paramData);
-        addCart();
-    });
-
-    // 모달 계속 쇼핑 버튼 클릭
-    $('.close').on("click", function(e){
-        e.preventDefault();
-        modal.fadeOut();
-        $('.cart_modal').fadeOut();
-        // 페이지 스크롤 되살리기
-        document.body.style.removeProperty('overflow');
-    });
-    $('.cart_go').on("click", function(){
-    	location.href = '/ko/cart';
+        addCart(1);
     });
 });
