@@ -45,14 +45,7 @@ a[class="dosirak"]:hover{
   border: 1px solid transparent;
   border-radius: 4px;
 }
-.btn_rufwo{
 
-  border:dotted 0px white; 
-  background:#f67001;color:#fff;    
-  border-radius:10px 10px 10px 10px;  
-  width:155px; height:50px;   
-  font-size: 20px;
-}
 
 
 .btn_cancel{
@@ -64,6 +57,7 @@ a[class="dosirak"]:hover{
   width:155px; 
   height:50px; 
   font-size: 20px;
+  cursor: pointer;
 }
 
 .btn_order{ 
@@ -74,6 +68,12 @@ a[class="dosirak"]:hover{
   border-radius:7px 7px 7px 7px;  
   width:115px; height:34px;   
   font-size: 15px;
+  cursor: pointer;
+}
+
+.btn_order:hover {
+	color: #fff;
+    background-color: #007b73;
 }
 
 .btn_cancel1{

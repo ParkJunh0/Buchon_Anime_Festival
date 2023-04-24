@@ -25,16 +25,12 @@ layout:decorate="~{layouts/layout1}">
             .container_1{
                 width: 100%;
                 height: 20%;
+                margin-top : 20px;
             }
             .container_2{
                 width: 100%;
-                height: 60%;
-                margin-top: 50px;
-                border: 1px solid #0a537e;
-                border-radius: 5px;
-                display:flex;
-                flex-direction: column;
-                min-height: 800px;
+                height: 40%;
+                margin-top: 30px;
                 
             }
             .container_2 > textarea{
@@ -47,10 +43,25 @@ layout:decorate="~{layouts/layout1}">
         
             .container_3{
                 width: 100%;
-                height: 20%;
-                margin-top: 30px;
+                height: 40%;
+                margin-top: 10px;
+                border: 1px solid #0a537e;
+                border-radius: 5px;
+                display:flex;
+                flex-direction: column;
+                min-height: 400px;
             }
-            
+           /*  .container_4{
+                width: 100%;
+                height: 40%;
+                margin-top: 50px;
+                border: 1px solid #0a537e;
+                border-radius: 5px;
+                display:flex;
+                flex-direction: column;
+                min-height: 400px;
+            }
+             */
             .text_area{
                 text-align: left;
             }
@@ -95,19 +106,35 @@ layout:decorate="~{layouts/layout1}">
             #btn_2{
                 border: none;
             background-color: #0a537e;
-            padding: 10px 15px;
+            padding: 10px 13px;
+            color: white;
+            cursor:pointer;
+             border-radius : 10px;
         }
 
          #btn_2> a{
              color: white;
-             text-decoration: none;
+             text-decoration: none;                          
             }
 
             .write_btn{
-                width: 100%;
+            width: 100%;
             margin-top: 20px;
             text-align: right;
             text-decoration-color: white;
+            position: absolute;
+            bottom: 2%;
+            right: 29.5%;
+        }
+        
+        .write_btn_2{
+            width: 83.31px;
+            margin-top: 20px;
+            text-align: right;
+            color: white;
+            position: absolute;
+            bottom:2%;
+            right:23.5%;
         }
         
         #input{
@@ -115,9 +142,20 @@ layout:decorate="~{layouts/layout1}">
         outline: none;
     }
     
-    .textarea{
-        margin : auto;
+  
+   textarea{
+        width: 100%;
+        height: 400px;
+        text-align: center;
+
     }
+    .tt{
+    border-right: 1px solid #0a537e; 
+    text-align: center; 
+    width:5%;
+    
+    }
+   
     
     </style>
     </th:block> 
@@ -133,8 +171,8 @@ layout:decorate="~{layouts/layout1}">
                     
                     <div class="title_area">
                         <div class="title_text1">
-                            <a class="tt" style="border-right: 1px solid #0a537e; text-align: center;">제목</a>
-                            <input style="border: none; outline: none;"  th:value="${notice.notice_title}">
+                            <a class="tt" >제목</a>
+                            <input style="border: none; outline: none; width:100%; margin-left: 10px;"  th:value="${notice.notice_title}" readonly>
                     </div>
                   <!--   <div class="title_text2">
                         
@@ -147,38 +185,44 @@ layout:decorate="~{layouts/layout1}">
     <div class="container_2" >
         <div class="text_area">
             <div class="text_text">
-            <div>
-                 <img style="width:50%; height:40%;" th:src="${notice.NoticeBoardImgDtoList.imgUrl}">	
+            <div th:if="${notice.NoticeBoardImgDtoList.imgUrl != null}">
+                 <img style="width:100%; height:400px;" th:src="${notice.NoticeBoardImgDtoList.imgUrl}">	
                    <input type="hidden" name="noticeImgIds" th:value="${notice.noticeImgIds}">
                  
            		</div>
-           		<div class="textarea">
+           		</div>
+           		
+            
+        </div>
+         </div>
+        <div class="container_3">
+      
            		 
            		 <textarea style="border: none; outline: none; resize: none;"  th:text="${notice.notice_content}" readonly></textarea>
-           		 </div>
-            </div>
+           		 
+        
         </div>
         
        
-    </div>
-    <div class="container_3">
+   
+    <div class="container_4">
      
     </div>
      <div class="write_btn">
-     <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                <button type="button" id="btn_2"><a th:href="@{/ko/notice/modify/}+${notice.id}">수정하기</a></button>
+
+                <button type="button" id="btn_2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')"><a th:href="@{/ko/notice/modify/}+${notice.id}" >수정하기</a></button>
                 
-     </li>
+
     </div>
    </div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    </form>
     <form role="form" th:method="delete">
-    <div class="write_btn">
-     <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-   <button type="submit" th:formaction="@{/ko/notice/delete/{id}(id=${noticeBoardFormDto.id})}"  id="btn_2">삭제하기</button>
+    <div class="write_btn_2">
+
+   <button type="submit" th:formaction="@{/ko/notice/delete/{id}(id=${noticeBoardFormDto.id})}"  id="btn_2" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">삭제하기</button>
     <input type="hidden" name="noticeImgIds" th:value="${noticeBoardFormDto.noticeBoardImgDtoList.id}">
-    </li>
+
    </div>
    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    </form>

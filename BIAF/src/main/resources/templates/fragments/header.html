@@ -44,7 +44,6 @@
                 <div id="Reservation_menu" class="menu_popup">
                     <ul>
                         <li id="schedule_" class="menu_item_s"><a href="#">현재상영작</a></li>
-                        <li id="ticket_reservation_" class="menu_item_s"><a href="#">티켓예매</a></li>
                         <li id="ticket_information_"class="menu_item_s"><a href="#">티켓안내</a></li>
                     </ul>
                 </div>
@@ -81,7 +80,7 @@
 			<a id="cart_" class="sub_nav" href="/ko/cart"><img class="header_icon" src="/image/icon_cart.png" title="장바구니"></a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_USER')">
-			<a id="mypage_" class="sub_nav" href="/ko/mypage/{memberId}"><img class="header_icon" src="/image/icon_mypage.png" title="마이페이지"></a>
+			<a id="mypage_" class="sub_nav" href="/ko/mypage"><img class="header_icon" src="/image/icon_mypage.png" title="마이페이지"></a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
 			<a id="admin_"class="sub_nav" href="/ko/admin"><img class="header_icon" src="/image/icon_admin.png" title="관리자페이지"></a>

@@ -94,4 +94,8 @@ public class ReservationController {
 		}
 		return new ResponseEntity<Long>(1L,HttpStatus.OK);
 	}
+	 @GetMapping(value="/ticket_information") //티켓 안내
+     public String ticket_information(){
+         return "reservation/ticket_information";
+     }
 }

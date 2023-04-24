@@ -1,24 +1,56 @@
 .wrap {
-    width: 100%;
-    margin-bottom: 150px;
-    position: relative;
-    top: 50px;
-    display: flex;
-    justify-content: space-evenly;
- }
-
- .section {
-    width: 1000px;
-    text-align: center;
- }
-.banners{
-   height:300px;
+   width: 100%;
+   margin-bottom: 150px;
+   position: relative;
+   top: 50px;
+   display: flex;
+   justify-content: space-evenly;
 }
- .bannerimgs{
-    width: 300px;
-    height: 300px;
- }
 
- .bannertitle{
+.section {
+   width: 1000px;
+   text-align: center;
+}
+
+.banners {
+   height: 300px;
+}
+
+.bannerimgs {
+   width: 300px;
+   height: 300px;
+}
+
+.bannertitle {
    margin-bottom: 20px;
- }
+}
+
+button.btn.btn_re, button.btn.btn_save, button.btn.btn_delete {
+   background-color: #77af9c;
+   color: #d7fff1;
+   border-radius: 10px;
+   border: none;
+   text-align: center;
+   text-decoration: none;
+   font-size: 15px;
+   font-weight: 600;
+   margin: 4px 2px;
+   width: 100px;
+   height: 30px;
+   cursor: pointer;
+}
+
+button.btn.btn_delete:hover {
+   color: #fff;
+   background-color: #007b73;
+}
+
+button.btn.btn_re:hover {
+   color: #fff;
+   background-color: #007b73;
+}
+
+button.btn.btn_save:hover {
+   color: #fff;
+   background-color: #007b73;
+}

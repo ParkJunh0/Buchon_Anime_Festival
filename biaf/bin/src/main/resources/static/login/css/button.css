@@ -19,7 +19,7 @@ a[class="dosirak"]:hover{
   font-size:18px;
   font-weight:normal;
    
-  color:#007b73;
+  color:#77af9c;;
 
 }
 
@@ -69,7 +69,7 @@ a[class="dosirak"]:hover{
 .btn_order{ 
 
   border:dotted 0px white; 
-  background:#007b73;
+  background:#77af9c;;
   color:#fff;    
   border-radius:7px 7px 7px 7px;  
   width:115px; height:34px;   
@@ -107,7 +107,7 @@ border:dotted 0px white; background:#a4dfcb;color:#fff;    border-radius:10px 10
 .btn_cancel1:hover,
 .btn_cancel2:hover,
 .btn_cancel3:hover{
-  background:#007b73;
+  background:#77af9c;;
 }
 
 

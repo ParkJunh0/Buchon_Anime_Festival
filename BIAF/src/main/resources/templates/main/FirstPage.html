@@ -5,7 +5,28 @@
 <meta charset="UTF-8">
 <title>BIAF 2023. 10.20 ~ 24 부천국제애니메이션페스티벌</title>
 <link rel="stylesheet" type="text/css" href="firstpage/css/firstpage.css" />
+
 </head>
+<th:block layout:fragment="script">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script th:inline="javascript">
+    window.onload = function() {
+           var dDay = new Date('2023-10-20T00:00:00+09:00');
+           var today = new Date(new Date().toLocaleString("en-US", {timeZone: "Asia/Seoul"}));
+           var gap = dDay.getTime() - today.getTime();
+           var dDayText = '';
+           if (gap < 0) {
+               dDayText = '이미 종료되었습니다.';
+           } else {
+               var day = Math.floor(gap / (1000 * 60 * 60 * 24));
+               
+               dDayText = 'D-' + day;
+           }
+           document.querySelector('.dDay').textContent = dDayText;
+       }
+      
+   </script>
+</th:block>
 
 <body>
 <div id="wrap">
@@ -16,7 +37,7 @@
                 <img src="firstpage/image/lg_intro_2023.png" alt="25 BIAF 2023. 10.20~10.24. 부천국제애니메이션페스티벌">
             </picture>
             <ul class="date">
-                <li><b>D-237</b></li>
+                <li><span class="dDay"></span></li>
                 /
                 <li><span>2023.10.20(금) ~ 24(화)</span></li>
             </ul>
@@ -30,16 +51,16 @@
             <img src="firstpage/image/bg_intro2022.jpg">
         </div>
     </div>
-	<footer id="footer">
-	   <div class="footerWrap">
-		<ul class="util">
-			<li><a href="https://www.instagram.com/biaf.ani" target="_blank"><img src="firstpage/image/icon_instagram(dark).png" alt="MOBILE"></a></li>
-			<li><a href="https://www.facebook.com/ani.biaf" target="_blank"><img src="firstpage/image/icon_facebook(dark).png" alt="페이스북"></a></li>
-			<li><a href="https://www.youtube.com/user/anipisaf" target="_blank"><img src="firstpage/image/icon_youtube(dark).png" alt="유튜브"></a></li>
-		</ul>
-		   <p class="copyright">Copyrightⓒ2023 BIAF ALL rights reserved.</p>
-		</div>
-	</footer>
+   <footer id="footer">
+      <div class="footerWrap">
+      <ul class="util">
+         <li><a href="https://www.instagram.com/biaf.ani" target="_blank"><img src="firstpage/image/icon_instagram(dark).png" alt="MOBILE"></a></li>
+         <li><a href="https://www.facebook.com/ani.biaf" target="_blank"><img src="firstpage/image/icon_facebook(dark).png" alt="페이스북"></a></li>
+         <li><a href="https://www.youtube.com/user/anipisaf" target="_blank"><img src="firstpage/image/icon_youtube(dark).png" alt="유튜브"></a></li>
+      </ul>
+         <p class="copyright">Copyrightⓒ2023 BIAF ALL rights reserved.</p>
+      </div>
+   </footer>
 </div>
 </body>
 </html>

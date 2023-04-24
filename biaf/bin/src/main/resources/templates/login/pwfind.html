@@ -3,9 +3,15 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layouts/layout1}">
 
+<head>
+	<meta name="_csrf" th:content="${_csrf.token}"/>
+	<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+</head>
 
 <th:block layout:fragment="script">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
  <script type="text/javascript">
+	 $(document).ready(function(){
 	  	//아이디 정규식
 		var idJ = /^[a-z0-9]{5,20}$/;
 		
@@ -37,6 +43,49 @@ layout:decorate="~{layouts/layout1}">
 	     }
 	     });
   
+		 $("#checkEmail").click(function () {
+    	 var token = $("meta[name='_csrf']").attr("content");
+         var header = $("meta[name='_csrf_header']").attr("content");
+         let email = $("#email").val();
+         let memberName = $("#memberName").val();
+        $.ajax({
+            type: "GET",
+            url: "/ko/check/findPw",
+            data: {
+                "email": email,
+                "memberName": memberName
+            },beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+            success: function (res) {
+                if (res['check']) {
+                    swal("발송 완료!", "입력하신 이메일로 임시비밀번호가 발송되었습니다.", "success").then((OK) => {
+                        if(OK) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/ko/check/findPw/sendEmail",
+                                beforeSend: function(xhr){
+                    		        xhr.setRequestHeader(header, token);
+                    		    },
+                                data: {
+                                    "email":email,
+                                    "memberName": memberName
+                                }
+                            })
+                           
+                        }
+
+
+                    }
+                	)
+                    $('#checkMsg').html('<p style="color:darkblue"></p>');
+                } else {
+                    $('#checkMsg').html('<p style="color:red">일치하는 정보가 없습니다.</p>');
+                }
+            }
+        });
+    });
+ });
   </script>
   </th:block>
 <th:block layout:fragment="css">
@@ -47,19 +96,18 @@ layout:decorate="~{layouts/layout1}">
 	    width:100%;
 	    height:100%;
 	    margin: 0;
-/*   		padding-top: 200px; */
   		padding-bottom: 40px;
   		background-repeat: no-repeat;
 	}
 	
     .card {
-        margin: 0 auto; /* Added */
-        float: none; /* Added */
-        margin-bottom: 10px; /* Added */
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 10px; 
 	}
 
-    #btn-Yes{
-        background-color: #007b73;
+    .btn-Yes{
+        background-color: #77af9c;
         border: none;
     }
 	
@@ -74,9 +122,9 @@ layout:decorate="~{layouts/layout1}">
 	}
 
     .card-title{
-        margin-left: 30px;
-        margin-top:30px;
-        color:#007b73;
+		margin-top:30px;
+		color: #77af9c;
+        text-align: center;
     }
 
 	 .links{
@@ -106,12 +154,12 @@ layout:decorate="~{layouts/layout1}">
 		</div>
         
 		<div class="card-body">
-      <form action="findPw" class="form-signin" method="POST">
-        <input type="text" name="member_id" id="member_id" class="form-control" placeholder="아이디" required><br>
-        <input type="text" name="name" id="name" class="form-control" placeholder="이름" required><BR>
-        <input type="email" name="email" id="email" class="form-control" placeholder="이메일" required><br>
+			<form class="form-signin">
+				<input type="text" name="name" id="memberName" class="form-control" placeholder="이름을 입력해주세요 " required><BR>
+				<input type="email" name="email" id="email" class="form-control" placeholder="이메일을 입력해 주세요 " required><br>
       <!--   <p class="checks" id="checks">${findpw_checkf}</p><br/> -->
-        <button id="btn-Yes" class="btn btn-lg btn-primary btn-block" type="submit">비밀번호 찾기</button>
+	  <button id="checkEmail" class="btn btn-lg btn-primary btn-block btn-Yes" type="button">비밀번호 찾기</button>
+	  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
       </form>
       
 		</div>

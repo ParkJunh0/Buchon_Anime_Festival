@@ -42,13 +42,21 @@ public class SearchService {
         SearchResultDto searchresultdto = new SearchResultDto();
         List<MovieResponseDto> instantmovie = new ArrayList<>();
         List<GoodsDto> instantgoods = new ArrayList<>();
+        Words wordm = null;
+        int wordb = 0;
+        int wordg = 0;
         for(int i = 0; i < pyArr.length; i++){
             movie = movieService.findAllByMovieNm(pyArr[i]);
             for(MovieResponseDto mo : movie){
                 if(pyArr[i].toString().equals(mo.getMovieNm())){
-                    Words pyd = new Words();
-                    pyd.create(pyArr[i]);
-                    searchRepository.save(pyd);
+                    List<Words> word = searchRepository.findAll();
+                    wordb = 0;
+                    for(Words wo : word){
+                        if(pyArr[i].toString().equals(wo.getSearchstr())){
+                            wordm = wo;
+                            wordb = 1;
+                        }
+                    }
                     instantmovie.add(mo);
                 }
             }
@@ -57,17 +65,30 @@ public class SearchService {
             goods = goodsService.findAllBysearch(pyArr[i]);
             for(GoodsDto go : goods){
                 if(pyArr[i].toString().equals(go.getGoodsNm())){
-                    Words pyd = new Words();
-                    pyd.create(pyArr[i]);
-                    searchRepository.save(pyd);
+                    List<Words> word = searchRepository.findAll();
+                    wordg = 0;
+                    for(Words wo : word){
+                        if(pyArr[i].toString().equals(wo.getSearchstr())){
+                            wordm = wo;
+                            wordg = 1;
+                        }
+                    }
                     instantgoods.add(go);
                 }
             }
+            if(wordm != null){
+            if(wordb == 0){
+                Words pyd = new Words();
+                pyd.create(pyArr[i]);
+                searchRepository.save(pyd);
+            }else if(wordb == 1){
+                wordm.countup();
+            }
+        }
             searchresultdto.goodsadd(instantgoods);
         }
         List<Words> words = searchRepository.findAllByOrderByCountsDesc();
         searchresultdto.rank(words);
-        System.out.println(searchresultdto.getMovie().get(0).getId());
         return searchresultdto;
     }
 }

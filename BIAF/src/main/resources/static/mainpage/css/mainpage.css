@@ -26,11 +26,11 @@ body{
 /* 배너부분 */
 .bannerimg{
     width: 100%;
-    height: 570px;
+    height: 760px;
 }
 .bannerimg img{
     width: 100%;
-    height: 720px;
+    height: 850px;
 }
 .controlArrow.prev {
     left: 50px;

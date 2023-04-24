@@ -12,7 +12,7 @@
         function cancelOrder(orderId) {
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
-            var url = "/order/" + orderId + "/cancel";
+            var url = "/ko/order/" + orderId + "/cancel";
             var paramData = {
                 orderId: orderId,
             };
@@ -29,16 +29,35 @@
                 dataType: "json",
                 cache: false,
                 success: function (result, status) {
-                    alert("주문이 취소 되었습니다.");
-                    location.href = '/orders/' + [[${ page }]];
+                    Swal.fire({
+                     title: "취소완료",
+                     text: "주문이 취소 되었습니다.",
+                     icon: "success",
+                     confirmButtonColor: '#1f50f1',
+                    }).then(function(){
+                        location.href = '/ko/orders/';
+                    });
                 },
                 error: function (jqXHR, status, error) {
                     if (jqXHR.status == '401') {
-                        alert('로그인후 이용해주세요 ');
-                        location.href = '/ko/login';
+                        Swal.fire({
+                            title: '비로그인',
+                            text: '로그인후 이용해주세요',
+                            icon: 'error',
+                            confirmButtonColor: '#1f50f1',
+                        }).then(function(){
+                            location.href = '/ko/login';
+                        });
                     }
                     else {
-                        alert(jqXHR.responseText);
+                        Swal.fire({
+                            title: 'error',
+                            text: jqXHR.responseText,
+                            icon: 'error',
+                            confirmButtonColor: '#1f50f1',
+                        }).then(function(){
+                            location.href = '/ko/login';
+                        });
                     }
                 }
             });
@@ -49,6 +68,13 @@
 <!-- 사용자 CSS 추가 -->
 <th:block layout:fragment="css">
     <style>
+        .wrap {
+            top: 50px;
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+        }
+
         .content-mg {
             margin-left: 30%;
             margin-right: 30%;
@@ -57,7 +83,12 @@
         }
 
         .all {
+            width: 1000px;
             text-align: center;
+        }
+        .order_each{
+            min-height: 300px;
+            height: 300px;
         }
 
         .repImgDiv {
@@ -89,56 +120,55 @@
 </th:block>
 <div layout:fragment="content">
     <div class="cont_header"></div>
-    <div id="sidenav"></div>
-    <div class="all">
-        <h2 class="mb-4">
-            구매 이력
-        </h2>
-        <div th:each="order : ${orders.getContent()}">
-            <div class="d-flex mb-3 align-self-center">
-                <h4 th:text="${#strings.substring(order.orderDate, 0, 10)} + ' 주문'"></h4>
-                <div class="ml-3">
-                    <th:block th:if="${order.orderstatus != 'ORDER'}">
-                        <button type="button" class="btn btn-outline-secondary" th:value="${order.orderId}"
-                            onclick="cancelOrder(this.value)">주문취소</button>
-                    </th:block>
-                    <th:block th:unless="${order.orderstatus != 'ORDER'}">
-                        <h4>(취소 완료)</h4>
-                    </th:block>
-                </div>
-            </div>
-            <div class="card d-flex">
-                
-                    <div class="repImgDiv">
-                        <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
-                    </div>
-                    <div class="align-self-center w-75">
-                        <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
-                        <div class="fs18 font-weight-light">
-                            <span th:text="${order.orderPrice} +'원'"></span>
-                            <span th:text="${order.count} +'개'"></span>
+    <div class="wrap">
+        <div id="sidenav"></div>
+        <div class="all">
+            <h2 class="mb-4">
+                구매 이력
+            </h2>
+            <div th:each="orders : ${OrderGoodsDto}" th:if="${!#lists.isEmpty(OrderGoodsDto.content)}" class="order_each">
+                <h4 th:text="${#strings.substring(orders.orderdate, 0, 10)} + ' 주문'"></h4>
+                <div th:each="order : ${orders.ordergoods}">
+                    <div th:text="${order.GoodsNm}"></div>
+                    <div class="d-flex mb-3 align-self-center">
+                        <div class="ml-3">
+                            <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
+                                <button type="button" class="btn btn-outline-secondary" th:value="${order.id}"
+                                    onclick="cancelOrder(this.value)">주문취소</button>
+                            </th:block>
+                            <th:block th:unless="${order.orderStatus.name() == 'ORDER'}">
+                                <h4>(취소 완료)</h4>
+                            </th:block>
                         </div>
                     </div>
-           
+                    <div class="card d-flex">
+
+                        <div class="repImgDiv">
+                            <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
+                        </div>
+                        <div class="align-self-center w-75">
+                            <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
+                            <div class="fs18 font-weight-light">
+                                <span th:text="${order.orderPrice} +'원'"></span>
+                                <span th:text="${order.count} +'개'"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
-        <div th:with="start=${(orders.number/maxPage)*maxPage + 1}, end=(${(orders.totalPages == 0) ? 1 : (start + (maxPage - 1) < orders.totalPages ? start + (maxPage - 1) : orders.totalPages)})" >
-            <ul class="pagination justify-content-center">
-                <li class="page-item" th:classappend="${orders.number eq 0}?'disabled':''">
-                    <a th:href="@{'ko/orders/' + ${orders.number-1}}" aria-label='Previous' class="page-link">
-                        <span aria-hidden='true'>Previous</span>
-                    </a>
-                </li>
-                <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}"
-                    th:classappend="${orders.number eq page-1}?'active':''">
-                    <a th:href="@{'/orders/' + ${page-1}}" th:inline="text" class="page-link">[[${page}]]</a>
-                </li>
-                <li class="page-item" th:classappend="${orders.number+1 ge orders.totalPages}?'disabled':''">
-                    <a th:href="@{'ko/orders/' + ${orders.number+1}}" aria-label='Next' class="page-link">
-                        <span aria-hidden='true'>Next</span>
-                    </a>
-                </li>
-            </ul>
+            <div th:unless="${!#lists.isEmpty(OrderGoodsDto.content)}" class="order_each">
+                <h1>구매내역이 없습니다</h1>
+            </div>
+            <div class="page_wrap">
+                <!-- 페이징  -->
+                <th:block th:each="page:${#numbers.sequence(startPage,endPage)}">
+                    <a th:if="${page==0? page==1 : page != nowPage}" th:href="@{/ko/orders(page=${page-1})}"
+                        th:text="${page}"></a>
+                    <strong th:if="${page==nowPage}" th:text="${page}" style="color: red"></strong>
+                </th:block>
+            </div>
+
         </div>
     </div>
 </div>

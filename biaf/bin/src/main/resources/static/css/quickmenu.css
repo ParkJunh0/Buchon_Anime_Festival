@@ -1,4 +1,7 @@
 /* 퀵메뉴 부분 */
+.quickmenu{
+    user-select: none;
+}
 a{
     color: black;
 }

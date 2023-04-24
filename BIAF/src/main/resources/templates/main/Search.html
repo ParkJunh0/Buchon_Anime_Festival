@@ -10,17 +10,22 @@ layout:decorate="~{layouts/layout1}">
 <div layout:fragment="content">
     <div class="cont_header"></div>
     <div class="wrap">
-        <input th:value="searchv">
+        <input th:value="${searchv}">
         <p>검색결과</p>
         <hr>
+        <th:block th:if="${!#lists.isEmpty(searchDto)}">
         <p>무비검색</p>
         <div th:each="movie : ${searchDto.movie}">
             <a th:href="@{/ko/reservation/detail/{id}(id=${movie.id})}" th:text="${movie.movieNm}"></a>
         </div>
         <p>굿즈 검색</p>
         <div th:each="goods : ${searchDto.goods}">
-            <a th:href="/ko/goods" th:text="${goods.goodsNm}"></a>
+            <a th:href="@{/ko/goods}" th:text="${goods.goodsNm}"></a>
         </div>
+        </th:block>
+        <th:block th:unless="${!#lists.isEmpty(searchDto)}">
+            <div>없어</div>
+        </th:block>
     </div>
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
 </div>

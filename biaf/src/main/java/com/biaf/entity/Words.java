@@ -32,4 +32,7 @@ public class Words {
         this.counts = 1;
         this.searchstr = pyArr.toString();
     }
+    public void countup(){
+        this.counts++;
+    }
 }

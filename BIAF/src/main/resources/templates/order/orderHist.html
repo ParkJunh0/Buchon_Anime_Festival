@@ -88,7 +88,6 @@
         }
         .order_each{
             min-height: 300px;
-            height: 300px;
         }
 
         .repImgDiv {
@@ -106,6 +105,7 @@
             width: 750px;
             height: 100%;
             padding: 30px;
+            margin: 0 auto;
             margin-bottom: 20px;
         }
 
@@ -115,6 +115,14 @@
 
         .fs24 {
             font-size: 24px
+        }
+        .d-flex{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+        .goodsinfom{
+            min-width: 500px;
         }
     </style>
 </th:block>
@@ -129,8 +137,19 @@
             <div th:each="orders : ${OrderGoodsDto}" th:if="${!#lists.isEmpty(OrderGoodsDto.content)}" class="order_each">
                 <h4 th:text="${#strings.substring(orders.orderdate, 0, 10)} + ' 주문'"></h4>
                 <div th:each="order : ${orders.ordergoods}">
-                    <div th:text="${order.GoodsNm}"></div>
-                    <div class="d-flex mb-3 align-self-center">
+                    
+                    <div class="card d-flex">
+                        
+                        <div class="repImgDiv">
+                            <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
+                        </div>
+                        <div class="goodsinfom d-flex">
+                            <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
+                            <div class="fs18 font-weight-light">
+                                <span th:text="${order.orderPrice} +'원'"></span>
+                                <span th:text="${order.count} +'개'"></span>
+                            </div>
+                        </div>
                         <div class="ml-3">
                             <th:block th:if="${order.orderStatus.name() == 'ORDER'}">
                                 <button type="button" class="btn btn-outline-secondary" th:value="${order.id}"
@@ -140,25 +159,12 @@
                                 <h4>(취소 완료)</h4>
                             </th:block>
                         </div>
-                    </div>
-                    <div class="card d-flex">
-
-                        <div class="repImgDiv">
-                            <img th:src="${order.imgUrl}" class="rounded repImg" th:alt="${order.GoodsNm}">
-                        </div>
-                        <div class="align-self-center w-75">
-                            <span th:text="${order.GoodsNm}" class="fs24 font-weight-bold"></span>
-                            <div class="fs18 font-weight-light">
-                                <span th:text="${order.orderPrice} +'원'"></span>
-                                <span th:text="${order.count} +'개'"></span>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
             </div>
             <div th:unless="${!#lists.isEmpty(OrderGoodsDto.content)}" class="order_each">
-                <h1>구매내역이 없습니다</h1>
+                <img src="/image/deliveryicon.png">
             </div>
             <div class="page_wrap">
                 <!-- 페이징  -->

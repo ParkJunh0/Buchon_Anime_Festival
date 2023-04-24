@@ -23,6 +23,12 @@ $(function(){
 	    
 	    // 메뉴들 공통클래스 변수 선언
 	    var menu_item_s=$(".menu_item_s");
+
+		// 헤더 검색 변수들 선언
+		var btn_search=$("#search_btn"); // 검색 버튼 변수선언
+		var search_bar=$("#search_");	// 검색 바 영역 변수선언
+		var search_stat=false;			// 검색 바 온/오프 확인용 변수
+
 	
 	    // 헤더 메뉴 마우스 올리면/내리면 세부메뉴 활성화/비활성화
 	    biaf_menu.hover(function(){
@@ -66,6 +72,23 @@ $(function(){
 	    $('.menu_item_s>a').click(function(){
 	        location.href="/ko/" + $(this).parent().attr('id').replace(/_$/, '');
 	    });
+
+		btn_search.click(function(e){
+			e.preventDefault();			// 클릭된 곳의 이벤트 제거
+			if(search_stat == false){	// 검색 바가 나와있지 않으면 나오게 함
+				search_bar.slideDown();
+				$(".search_btn").slideDown();
+				search_stat = true;
+
+			}else{						// 검색 바가 나와있으면 들어가게 함
+				search_bar.slideUp();
+				$(".search_btn").slideUp();
+				search_stat = false;
+			}
+	});
+	function searchform(search){ 	// 검색버튼 클릭시 검색값 주소를 통해 전송 임시
+		location.href="/ko/search?"+ search;
+	}
 	    
 	}
 	function footermenu(){
@@ -80,4 +103,34 @@ $(function(){
 	        location.href="/ko/" + $(this).attr('id').replace(/_$/, '');
 	    });
 	}
+	var moviehref;
+	textchange($('.movielist > ul > li:first-child'));
+
+	function textchange(thist){
+		$('.movieNm_title').text(thist.children('.movie').text());
+		$('.moviegrade').text(thist.children('div').text());
+		$('.movieimg').attr('src', thist.children('.movieimgUrl').val());
+		$('.moviegrade').css('background-color', thist.children('.gradecolor').css('background-color'));
+		moviehref=thist.children('.movielink').val();
+	}
+
+	$('.movielist').on('mousewheel', function(e) {
+			if (e.originalEvent.wheelDelta >= 120) {
+				this.scrollTop -= 50;
+			} else if (e.originalEvent.wheelDelta <= -120) {
+				this.scrollTop += 50;
+			}
+			return false;
+	});
+	$('.movies').on('click', function(){
+		textchange($(this));
+	});
+
+	$('.moviedetail > a').on('click', function(){
+		if(moviehref != null){
+			location.href="/ko/reservation/detail/"+moviehref;
+		}
+	});
+
+	
 });

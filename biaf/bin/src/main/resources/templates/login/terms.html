@@ -6,6 +6,7 @@ layout:decorate="~{layouts/layout1}">
  
 
    <th:block layout:fragment="script">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   	  <script type="text/javascript">
     function Check(){  /* 체크박스 미선택시 얼럿창 */
     	
@@ -20,7 +21,7 @@ layout:decorate="~{layouts/layout1}">
     	if(count >= 2){
     	location.href = "/ko/signup";
     	}else{
-    	alert("이용약관을 동의해주세요");
+    	swal("이용약관을 동의해주세요");
     	}
     }
      /* 체크박스 전체선택  */

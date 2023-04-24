@@ -23,13 +23,19 @@ input{
 }
 .email_btn{
     border: dotted 0px white;
-    background: #007b73;
+    background: #77af9c;
     color: #fff;
     border-radius: 7px 7px 7px 7px;
     width: 115px;
     height: 34px;
     font-size: 15px;
+    cursor: pointer;
 }
+.email_btn:hover {
+    color: #fff;
+    background-color: #007b73;
+}
+
 .all_pwd{
     position: relative;
     margin-bottom: 20px;

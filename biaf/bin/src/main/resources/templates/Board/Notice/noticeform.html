@@ -77,6 +77,9 @@ layout:decorate="~{layouts/layout1}">
             color: white;
             
         }
+        textarea{
+        resize:none;
+        }
         
         
         
@@ -95,7 +98,7 @@ layout:decorate="~{layouts/layout1}">
                      <div class="title_text">
                       
                         <label for="title">글 제목</label>
-                         <input type="text" class="title_size" th:field="*{notice_title}" placeholder="제목을 입력해주세요">  <!--   -->
+                         <input type="text" class="title_size" th:field="*{notice_title}" placeholder="제목을 입력해주세요" >  <!--   -->
                      </div>
                  </div>
              </div>
@@ -103,7 +106,7 @@ layout:decorate="~{layouts/layout1}">
                      <div class="write_text">
                     
                          <label for="write">글 내용</label>
-                         <textarea cols="71" rows="30" th:field="*{notice_content}"  placeholder="내용을 입력하세요"></textarea> <!--  -->
+                         <textarea cols="71" rows="30" th:field="*{notice_content}"  placeholder="내용을 입력하세요" ></textarea> <!--  -->
                      </div>
                     </div>
                  <div class="container_3" >

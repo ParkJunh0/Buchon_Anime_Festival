@@ -50,6 +50,9 @@ public class LoginController {
 	      memberFormDto.setMemberPassword("123123123");
 	      memberFormDto.setMemberName("관리자");
 	      memberFormDto.setMemberTel("010-0000-0000");
+	      memberFormDto.setPostcode("35235");
+	      memberFormDto.setMemberAddress("대전 서구 둔산서로 17");
+	      memberFormDto.setWRestAddress("양호빌딩 6층");
 	     
 	      
 	      Member member = Member.createMember(memberFormDto , passwordEncoder);
@@ -67,6 +70,10 @@ public class LoginController {
 		      memberFormDto.setMemberPassword("123123123");
 		      memberFormDto.setMemberName("테스트"+i);
 		      memberFormDto.setMemberTel("010-0000-000"+i);
+		      memberFormDto.setPostcode("24856");
+		      memberFormDto.setMemberAddress("대전 서구 둔산서로 10");
+		      memberFormDto.setWRestAddress("중앙빌 "+i+"차");
+		      
 		      member = Member.createMember(memberFormDto, passwordEncoder);
 		      password = passwordEncoder.encode(memberFormDto.getMemberPassword());
 		      member.setMemberPassword(password);
