@@ -1,21 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
 <head>
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
-    </head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
 
-   <th:block layout:fragment="script"> 
-    <script th:inline="javascript">
+<th:block layout:fragment="script">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script th:inline="javascript">
 		$(document).ready(function() {
 			$("input[name=cartChkBox]").change(function() { // 주문할 상품을 체크하거나 해제할 경우 총 주문 금액을 구하는 함수를 호출한다.
 				getOrderTotalPrice();
 				getOrderTotalCount();
 			});
 		});
+
+		// 체크박스에 저장된 카트 아이디 값 불러오기(체크 박스 선택시 삭제)
+		function selectDelete() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			var checkBoxes = document.getElementsByName("cartChkBox");
+
+			for (var i = 0; i < checkBoxes.length; i++) {
+				if (checkBoxes[i].checked) {
+					/* 	console.log(checkBoxes[i].value); */
+
+					var url = "/ko/cartGoods/" + checkBoxes[i].value
+
+					$.ajax({
+						url : url,
+						type : "DELETE", // 장바구니 상품을 삭제하는 경우이므로 DELETE TYPE을 사용한다. 
+						beforeSend : function(xhr) {
+							/* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+							xhr.setRequestHeader(header, token);
+						},
+						dataType : "json",
+						cache : false,
+						success : function(result, status) {
+							location.href = '/ko/cart'; // 삭제 요청이 정상적으로 처리되면 장바구니 페이지를 새로고침한다. 
+						},
+						error : function(jqXHR, status, error) {
+
+							if (jqXHR.status == '401') {
+								swal("Error!", "로그인 후 이용해주세요", "warning");
+								location.href = '/members/login';
+							} else {
+								alert(jqXHR.responseJSON.message);
+							}
+						}
+					});
+				} else {
+					swal("Oops!", "상품을 선택해주세요", "error");
+				}
+			}
+		}
 
 		function getOrderTotalCount() { // 총 주문 수량을 구하는 함수
 			var orderTotalCount = 0;
@@ -38,6 +79,10 @@ layout:decorate="~{layouts/layout1}">
 			});
 			$("#orderTotalPrice").html(orderTotalPrice + '원');
 		}
+		
+		
+		
+		
 
 		function changeCount(obj) { // 장바구니에 들어있는 상품의 수량 변경 시 상품의 가격과 상품의 수량을 곱해서 상품 금액을 변경해준다. 변경된 총 주문 금액을 계산
 			// 하기 위해서 마지막에 getOrderTotalPrice() 함수를 호출한다.
@@ -47,6 +92,7 @@ layout:decorate="~{layouts/layout1}">
 			var totalPrice = count * price;
 			$("#totalPrice_" + cartGoodsId).html(totalPrice + "원");
 			getOrderTotalPrice();
+			getOrderTotalCount();
 
 			updateCartGoodsCount(cartGoodsId, count);
 		}
@@ -75,11 +121,11 @@ layout:decorate="~{layouts/layout1}">
 				dataType : "json",
 				cache : false,
 				success : function(result, status) {
-					console.log("cartItem count update success");
+					console.log("cartGoods count update success");
 				},
 				error : function(jqXHR, status, error) {
 					if (jqXHR.status == '401') {
-						alert('로그인 후 이용해주세요');
+						swal("Error!", "로그인 후 이용해주세요", "warning");
 						location.href = '/members/login';
 					} else {
 						alert(jqXHR.responseJSON.message);
@@ -110,154 +156,277 @@ layout:decorate="~{layouts/layout1}">
 				error : function(jqXHR, status, error) {
 
 					if (jqXHR.status == '401') {
+						swal("Error!", "로그인 후 이용해주세요", "warning");
+						location.href = '/members/login';
+					} else {
+						alert(jqXHR.responseJSON.message);
+					}
+				}
+			});
+		}
+		// 장바구니 주문하기
+		function orders() {
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+
+			var url = "/ko/cart/orders";
+
+			var dataList = new Array();
+			var paramData = new Object();
+
+			$("input[name=cartChkBox]:checked").each(function() { // 체크된 장바구니 상품 아이디를 전달하기 위해서
+				// dataList 배열에 장바구니 상품 아이디를 객체로 만들어서 저장한다. 
+				var cartGoodsId = $(this).val();
+				var data = new Object();
+				data["cartGoodsId"] = cartGoodsId;
+				dataList.push(data);
+			});
+
+			paramData['cartOrderDtoList'] = dataList; // 장바구니 상품 아이디를 저장하고 있는 dataList 배열을 paramData 객체에 추가한다. 
+
+			var param = JSON.stringify(paramData);
+
+			$.ajax({
+				url : url,
+				type : "POST",
+				contentType : "application/json",
+				data : param,
+				beforeSend : function(xhr) {
+					/* 데이터를 전송하기 전에 헤더에 csrf값을 설정 */
+					xhr.setRequestHeader(header, token);
+				},
+				dataType : "json",
+				cache : false,
+				success : function(result, status) {
+					swal("Success!", "주문이 완료되었습니다.", "success");
+					location.href = '/ko/orders'; // 주문 요청 결과 성공하였다면 구매이력 페이지로 이동한다. 
+				},
+				error : function(jqXHR, status, error) {
+
+					if (jqXHR.status == '401') {
 						alert('로그인 후 이용해주세요');
 						location.href = '/members/login';
 					} else {
 						alert(jqXHR.responseJSON.message);
 					}
 				}
-        });
-    }         
-    </script>
+			});
+		}
+		
+	</script>
 </th:block>
 
 <th:block layout:fragment="css">
-    <!-- <link rel="stylesheet" th:href="@{css/style.css}"> -->
+	<!-- <link rel="stylesheet" th:href="@{css/style.css}"> -->
 
-<style>
-    /* 사이드바 */
-     #wrap {
-            width: 100%;
-            position: relative;
-            margin-bottom: 150px;
-            top: 50px;
-        }
+	<style>
+/* 사이드바 */
+#wrap {
+	width: 100%;
+	position: relative;
+	margin-bottom: 150px;
+	top: 50px;
+}
 
-        #section {
-            display: flex;
-            justify-content: space-evenly;
-        }
+#section {
+	display: flex;
+	justify-content: space-evenly;
+}
 
-     /* 장바구니 부분*/  
-    .all{
-        min-width: 1000px;
-    }
-    
-    .top th, .top td {
-        border-bottom: 1px solid cadetblue;
-        padding: 10px;
-    }
-    
-    .top{
-        margin-top: 50px;
-        width: 100%;
-        border-top: 1px solid #444444;
-        border-collapse: collapse;
-    }
+/* 장바구니 부분*/
+.all {
+	min-width: 1000px;
+}
 
-    .hed{
-        background-color:cadetblue;
-    }
-    
-    td img{        
-        width: 80px;
-        height: 100px;      
-    }
-    
-    tbody{
-        text-align: center;
-    }
-    
-    .btn{
-        margin-top: 50px;
-    }
-    
-    .bottom{
-        margin-top: 10px;   
-    }
-    
-    .order{
-        margin-top: 10px;
-    }
+.top th, .top td {
+	border-bottom: 1px solid cadetblue;
+	padding: 10px;
+}
+
+.top {
+	margin-top: 50px;
+	width: 100%;
+	border-top: 1px solid #444444;
+	border-collapse: collapse;
+}
+
+.hed {
+	border-top: 1px solid cadetblue;
+	background-color: #7DBDA1;
+}
+
+td img {
+	width: 80px;
+	height: 100px;
+}
+
+tbody {
+	text-align: center;
+}
+
+.btn {
+	margin-top: 50px;
+}
+
+.bottom {
+	padding-top: 10px;
+	padding-left: 900px;
+}
+
+#cart_i {
+	width: 348px;
+	height: 134px;
+}
+
+.btn_sty {
+	display: flex;
+	justify-content: center
+}
+
+.btn_sty button {
+	background-color: #77af9c;
+	color: #d7fff1;
+	border-radius: 10px;
+	border: none;
+	/* padding: 15px 30px; */
+	text-align: center;
+	text-decoration: none;
+	/* 	display: inline-block; */
+	font-size: 12px;
+	font-weight: 600;
+	margin: 4px 2px;
+	width: 100px;
+	height: 30px;
+}
 
 </style>
 </th:block>
 <div layout:fragment="content">
-    <div class="cont_header"></div>
- <div id="wrap">
-        <div id="section">
-            <div id="sidenav"></div>
+	<div class="cont_header"></div>
+	<div id="wrap">
+		<div id="section">
+			<div id="sidenav"></div>
 
-<div class="all">
-    <h1>장바구니</h1>
-   <table class="top">
-     <thead>
-      <tr class="hed">
-        <th width="100px;"><input type="checkbox" id="checkall"
-            onclick="checkAll()">전체 선택</th>
-        <!-- <th width="50px;">No</th> -->
-          <th width="100px;">이미지</th>
-          <th width="150px;">상품명</th>
-          <th width="100px;">가격</th>
-          <th width="100px;">수량</th>
-          <th width="100px;">합계</th>
-          <th width="100px;">삭제</th>        
-      </tr>
-      </thead>
-      <tbody>
-        <tr th:each="cartGoods : ${cartGoods}">
-            <td><input type="checkbox" name="cartChkBox"
-                th:value="${cartGoods.cartGoodsId}"></td>
-            <!-- 		<td th:text="${status.count}"></td> -->
-            <td><img th:src="${cartGoods.imgUrl}" /></td>
-            <td th:text="${cartGoods.goodsNm}"></td>
-            <td th:id="'price_' + ${cartGoods.cartGoodsId}"
-                th:data-price="${cartGoods.price}"
-                th:text="${cartGoods.price} + '원'"></td>
-            <td>
-                <p>
-                    <input type="number" name="count"
-                        th:id="'count_' + ${cartGoods.cartGoodsId}"
-                        th:value="${cartGoods.count}" min="1"
-                        onchange="changeCount(this)"
-                        style="width: 40px; height: 10px;">
-                </p>
-            </td>
-            <td th:id="'totalPrice_' + ${cartGoods.cartGoodsId}"
-                name="totalPrice"
-                th:text="${cartGoods.price * cartGoods.count} + '원'"></td>
-            <td><button type="button" class="close" aria-label="Close">
-                    <span aria-hidden="true" th:data-id="${cartGoods.cartGoodsId}"
-                        onclick="deleteCartGoods(this)">&times;</span>
-                </button></td>
-      </tr>
-      </tbody>       
-   </table>
+			<div class="all">
+				<h1>장바구니</h1>
+				<div class="carts" th:if="${!cartGoods.isEmpty()}">
+					<table class="top">
+						<thead>
+							<tr class="hed">
+								<th width="100px;"><input type="checkbox" id="checkall"
+									onclick="checkAll()">전체 선택</th>
+								<!-- <th width="50px;">No</th> -->
+								<th width="100px;">이미지</th>
+								<th width="150px;">상품명</th>
+								<th width="100px;">가격</th>
+								<th width="100px;">수량</th>
+								<th width="100px;">합계</th>
+								<th width="100px;">삭제</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="cartGoods : ${cartGoods}">
+
+								<td><input type="checkbox" name="cartChkBox"
+									id="cartChkBox" th:value="${cartGoods.cartGoodsId}"></td>
+								<!-- 		<td th:text="${status.count}"></td> -->
+								<td><img th:src="${cartGoods.imgUrl}" /></td>
+								<td th:text="${cartGoods.goodsNm}"></td>
+								<td th:id="'price_' + ${cartGoods.cartGoodsId}"
+									th:data-price="${cartGoods.price}"
+									th:text="${cartGoods.price} + '원'"></td>
+								<td>
+									<p>
+										<input type="number" name="count"
+											th:id="'count_' + ${cartGoods.cartGoodsId}"
+											th:value="${cartGoods.count}" min="1"
+											onchange="changeCount(this)"
+											style="width: 40px; height: 15px; text-align: center;">
+									</p>
+								</td>
+								<td th:id="'totalPrice_' + ${cartGoods.cartGoodsId}"
+									name="totalPrice"
+									th:text="${cartGoods.price * cartGoods.count} + '원'"></td>
+								<td><button type="button" class="close" aria-label="Close">
+										<span aria-hidden="true" th:data-id="${cartGoods.cartGoodsId}"
+											onclick="deleteCartGoods(this)">&times;</span>
+
+									</button></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="carts" th:if="${cartGoods.isEmpty()}">
+					<table class="top">
+						<thead>
+							<tr class="hed">
+								<th width="100px;"><input type="checkbox" id="checkall"
+									onclick="checkAll()">전체 선택</th>
+								<!-- <th width="50px;">No</th> -->
+								<th width="100px;">이미지</th>
+								<th width="150px;">상품명</th>
+								<th width="100px;">가격</th>
+								<th width="100px;">수량</th>
+								<th width="100px;">합계</th>
+								<th width="100px;">삭제</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td colspan="7"><p>
+										<img id="cart_i" src="/image/cart_img.gif">
+									</p></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 				<!-- 	<div class="btn">
 					<button type="submit">선택상품삭제</button>
 				</div> -->
-   
-   <table class="bottom">
-        <tr>
-            <td>총 수량</td>
-            <td><span id="orderTotalCount"></span></td>
-            
-        </tr>
-        <tr>
-            <td>총 금액</td>
-            <td><span id="orderTotalPrice"></span></td>
-        </tr>
-        
-       
-   </table>
-   
-   <div class="order">
-       <button type="submit">선택한 상품 주문</button>    
 
-   
-    </div>
-    </div>
-    </div>
-    </div>
+				<table class="bottom">
+				<!-- <tr>
+						<td>배송비</td>
+						<td style="width: 70px; text-align: right;"><span
+							id="delivery"></span></td>
+					</tr> -->
+					<tr>
+						<td>총 수량</td>
+						<td style="width: 70px; text-align: right;"><span
+							id="orderTotalCount"></span></td>
+					</tr>
+
+					<tr>
+						<td>총 금액</td>
+						<td style="width: 70px; text-align: right;"><span
+							id="orderTotalPrice"></span></td>
+					</tr>
+
+				</table>
+				<div class="btn_sty">
+
+					<div class="deletebtn">
+						<button type="button" onclick="selectDelete()">선택상품삭제</button>
+					</div>
+					<div class="order">
+						<button type="submit" onclick="orders()">선택상품주문</button>
+					</div>
+
+					<div>
+
+						<div class="continue">
+							<button type="button">
+								<a href="/ko/goods" style="color: #d7fff1;">쇼핑계속하기
+							</button>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 </html>

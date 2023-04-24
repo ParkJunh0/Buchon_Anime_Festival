@@ -80,7 +80,7 @@ public class GoodsController {
     }
 
     @PostMapping(value = "/admin/goods/{goodsId}")
-    public String goodsUpdate(@Valid GoodsFormDto goodsFormDto, BindingResult bindingResult,
+    public String goodsUpdate(@Valid GoodsFormDto goodsFormDto, BindingResult bindingResult,@RequestParam("goodsid") Long id,
             @RequestParam("goodsImgFile") MultipartFile goodsImgFileList, Model model) {
         if (bindingResult.hasErrors()) {
             return "admin/goodsForm";
@@ -90,7 +90,7 @@ public class GoodsController {
             return "admin/goodsForm";
         }
         for(GoodsDto gooods : goodsService.findAll()){
-            if(goodsFormDto.getGoodsNm().equals(gooods.getGoodsNm())){
+            if(goodsFormDto.getGoodsNm().equals(gooods.getGoodsNm()) && id != gooods.getId()){
                 model.addAttribute("errorMessage", "이미 있는 상품 이름 입니다.");
                 return "admin/goodsForm";
             }

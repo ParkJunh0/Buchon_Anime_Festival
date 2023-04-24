@@ -26,7 +26,7 @@ $(function(){
 
 		// 헤더 검색 변수들 선언
 		var btn_search=$("#search_btn"); // 검색 버튼 변수선언
-		var search_bar=$("#search");	// 검색 바 영역 변수선언
+		var search_bar=$("#search_");	// 검색 바 영역 변수선언
 		var search_stat=false;			// 검색 바 온/오프 확인용 변수
 
 	
@@ -127,7 +127,9 @@ $(function(){
 	});
 
 	$('.moviedetail > a').on('click', function(){
-		location.href="/ko/reservation/detail/"+moviehref;
+		if(moviehref != null){
+			location.href="/ko/reservation/detail/"+moviehref;
+		}
 	});
 
 	

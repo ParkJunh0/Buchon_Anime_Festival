@@ -1,9 +1,11 @@
 package com.biaf.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.python.core.PyObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -80,5 +82,14 @@ public class GoodsService {
     public Page<Goods> gdList(Pageable pageable){
         //기존 List<Goods>값으로 넘어가지만 페이징 설정을 해주면 Page<Goods>로 넘어갑니다.
         return goodsRepository.findAll(pageable);
+    }
+
+    public List<GoodsDto> findAllBysearch(PyObject pyArr) {
+        List<Goods> goods = goodsRepository.findAllBysearch(pyArr.toString());
+        List<GoodsDto> goodsdto = new ArrayList<>();
+        for(Goods go : goods){
+            goodsdto.add(GoodsDto.of(go));
+        }
+        return goodsdto;
     }
 }

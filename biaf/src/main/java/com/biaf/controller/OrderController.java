@@ -55,7 +55,8 @@ public class OrderController {
         
         String email = principal.getName(); // 현재 로그인 유저의 정보를 얻기 위해서 @Controller가 선언된 클래스에서 메소드 인자로
         Member userstat = memberService.findByEmail(email);
-        if(principal.getName() == userstat.getMemberEmail()){
+        System.out.println("AAAAaaaaaaaa"+userstat.getRole().name() != "USER");
+        if(userstat.getRole().name() != "USER"){
             return new ResponseEntity<String>("user가 아닙니다", HttpStatus.BAD_REQUEST);
         }
 

@@ -155,6 +155,34 @@
    text-align: right;
 }
 
+
+.reg_Btn{
+   background-color: #77af9c;
+   color: #d7fff1;
+   border-radius: 10px;
+   border: none;
+   text-align: center;
+   text-decoration: none;
+   font-size: 15px;
+   font-weight: 600;
+   margin: 4px 2px;
+   width: 100px;
+   height: 30px;
+   cursor: pointer;
+
+}
+
+.reg_Btn:hover {
+    color: #fff;
+    background-color: #007b73;
+}
+
+#n:hover{
+text-decoration: underline;
+color: blue;
+
+}
+
 </style>
 </th:block>
 
@@ -193,7 +221,7 @@
                               <tr class="board_line" th:each="goods : ${goodsDto}">
                                 
                                  <td class="goods_no"><span th:text="${goods.Id}"></span></td>
-                                 <td class="goods_name"><a th:href="@{/ko/admin/goods/}+ ${goods.id}"><span th:text="${goods.goodsNm}"></span></a></td>
+                                 <td class="goods_name"><a id="n" th:href="@{/ko/admin/goods/}+ ${goods.id}"><span th:text="${goods.goodsNm}"></span></a></td>
                                  <td class="goods_status"><span
                                     th:text="${goods.goodsSellStatus}"></span></td>
                                  <td class="goods_price"><span th:text="${goods.price}"></span></td>

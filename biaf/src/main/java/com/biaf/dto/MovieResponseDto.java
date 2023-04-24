@@ -4,7 +4,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
+
 import com.biaf.constant.MovieStatus;
+import com.biaf.entity.Movie;
 import com.biaf.entity.MovieImg;
 
 import lombok.Getter;
@@ -28,6 +31,7 @@ public class MovieResponseDto {
 	private String movieTime; //관람시간
 	private String grade; //관람등급
 
+	private static ModelMapper modelMapper = new ModelMapper();
 
 	public static List<MovieResponseDto> createMovieDto(List<MovieImg> mvList){
 		List<MovieResponseDto> mvResDtoList = new ArrayList<MovieResponseDto>();
@@ -56,6 +60,11 @@ public class MovieResponseDto {
 		return mvResDtoList;
 
 	}
+
+	public static MovieResponseDto of(Movie movie) {
+        return modelMapper.map(movie, MovieResponseDto.class);
+    }
+
 
 //	@QueryProjection // 
 //	public MovieResponseDto(Long id, String movieNm,String imgUrl,String startDay,String endDay){

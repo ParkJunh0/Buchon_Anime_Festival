@@ -28,7 +28,7 @@ public class MemberController {
 	private final MemberService memberService;
 	private final PasswordEncoder passwordEncoder;
 	
-	@GetMapping(value = "/mypage/{memberId}") // 내정보 조회 //principal이랑 AuthenticationPrincipal비슷
+	@GetMapping(value = "/mypage") // 내정보 조회 //principal이랑 AuthenticationPrincipal비슷
 	public String mypage(@AuthenticationPrincipal User user, Model model) { // @AuthenticationPrincipal 무조건 User여야함 user
 																			// 아이디,패스워드+권한추가
 		MemberFormDto memFormDto = memberService.mypagefindByMemberEmail(user.getUsername()); // getUsername-아이디
@@ -71,5 +71,4 @@ public class MemberController {
 	public String memberout1() {
 		return "/member/memberout1";
 	}
-
 }

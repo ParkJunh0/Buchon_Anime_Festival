@@ -57,7 +57,7 @@
     align-items: center;
 }
 /* 검색바 부분 */
-#search{
+#search_{
 	position: fixed;
     width: 30%;
     right: 5px;
@@ -77,9 +77,10 @@
     outline: none;
 }
 .search_btn{
+    padding: 1px 3px;
     position: absolute;
     align-items: center;
-    right: 8px;
+    right: 6px;
     background-color:#53b893;
     border: 0;
     border-radius: 5px;

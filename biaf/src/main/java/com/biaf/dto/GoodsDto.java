@@ -3,7 +3,10 @@ package com.biaf.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
+
 import com.biaf.constant.GoodsSellStatus;
+import com.biaf.entity.Goods;
 import com.biaf.entity.GoodsImg;
 
 import lombok.Getter;
@@ -26,6 +29,7 @@ public class GoodsDto {
 
     private String  imgUrl;
     
+    private static ModelMapper modelMapper = new ModelMapper();
     
     public static List<GoodsDto> createGoodsDto(List<GoodsImg> gdList){
         List<GoodsDto> mvResDtoList = new ArrayList<GoodsDto>();
@@ -45,4 +49,9 @@ public class GoodsDto {
         return mvResDtoList;
   
      }
+
+
+    public static GoodsDto of(Goods goods) {
+        return modelMapper.map(goods, GoodsDto.class);
+    }
 }

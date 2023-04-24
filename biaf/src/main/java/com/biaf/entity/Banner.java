@@ -23,8 +23,8 @@ import lombok.ToString;
 public class Banner {
     @Id // 테이블의 기본키에 사용할 속성을 지정
 	@Column(name = "banner_id") // 테이블의 필드와 엔터티의 칼럼 매핑
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ordergoods_seq")
-	@SequenceGenerator(name = "ordergoods_seq", sequenceName = "ordergoods_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "banner_seq")
+	@SequenceGenerator(name = "banner_seq", sequenceName = "banner_seq", allocationSize = 1)
 	private Long id;
 
     private String imgName;

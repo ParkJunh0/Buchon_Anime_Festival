@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
- 
 
-   <th:block layout:fragment="script">
-  	  <script type="text/javascript">
+
+<th:block layout:fragment="script">
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript">
     function Check(){  /* 체크박스 미선택시 얼럿창 */
     	
     	var arrSelect = document.getElementsByName("chkSelect");
@@ -20,7 +21,7 @@ layout:decorate="~{layouts/layout1}">
     	if(count >= 2){
     	location.href = "/ko/signup";
     	}else{
-    	alert("이용약관을 동의해주세요");
+    	swal("","이용약관을 동의해주세요","warning");
     	}
     }
      /* 체크박스 전체선택  */
@@ -31,60 +32,69 @@ layout:decorate="~{layouts/layout1}">
             })
         }  
     </script>
-    
+
 </th:block>
 <th:block layout:fragment="css">
-   <link rel="stylesheet" href="/login/css/join.css">
-    <link rel="stylesheet" href="/login/css/base.css">
-    <link rel="stylesheet" href="/login/css/button.css">
-<style>
-.con table{margin: auto;}
-.bt {text-align:center;}
-.terms_title{text-align:center;}
+	<link rel="stylesheet" href="/login/css/join.css">
+	<link rel="stylesheet" href="/login/css/base.css">
+	<link rel="stylesheet" href="/login/css/button.css">
+	<style>
+.con table {
+	margin: auto;
+}
+
+.bt {
+	text-align: center;
+}
+
+.terms_title {
+	text-align: center;
+}
 </style>
 </th:block>
 
 
 <div layout:fragment="content">
-<!-- 컨텐츠 메뉴 부분 -->
-<div class="cont_header"></div>
-   <div class="himg" style="width: 100%; height: 70px;"></div>  
-<div class="con">
-  <table width=960px align=center>
-    <tr>
-      <td class="terms_title">
-    <h4>회원가입</h4>
-    <h1>통합 회원가입</h1>
-    </td>
-    </tr>
+	<!-- 컨텐츠 메뉴 부분 -->
+	<div class="cont_header"></div>
+	<div class="himg" style="width: 100%; height: 70px;"></div>
+	<div class="con">
+		<table width=960px align=center>
+			<tr>
+				<td class="terms_title">
+					<h4>회원가입</h4>
+					<h1>통합 회원가입</h1>
+				</td>
+			</tr>
 
-    <tr>
-    
-    <td align=center>
-      <div class="stepLine">
-        <div title="약관동의" class="stepDot activeStep"></div>
-        <div title="정보입력" class="stepDot"></div>
-        <div title="가입완료" class="stepDot"></div>
-      </div>
-      <br><br><br>
-    </td>
-    </tr>
+			<tr>
+
+				<td align=center>
+					<div class="stepLine">
+						<div title="약관동의" class="stepDot activeStep"></div>
+						<div title="정보입력" class="stepDot"></div>
+						<div title="가입완료" class="stepDot"></div>
+					</div> <br>
+				<br>
+				<br>
+				</td>
+			</tr>
 
 
-     <tr>
-      <td align=center>
-          <!--이용약관 테이블 시작-->
-          <table width=810>
-            <tr>
-              <td>
-                <div>
-                 <font color="#a4dfcb" size=4>01</font> <font size=3>통합 회원약관</font>
-                </div>
-             </td>
-           </tr>
-           <tr>
-             <td align=center>
-               <textarea name="tos" rows=15 cols=100>
+			<tr>
+				<td align=center>
+					<!--이용약관 테이블 시작-->
+					<table width=810>
+						<tr>
+							<td>
+								<div>
+									<font color="#a4dfcb" size=4>01</font> <font size=3>통합
+										회원약관</font>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td align=center><textarea name="tos" rows=15 cols=100>
 제 1 장 총 칙 
 제 1 조 (목적)
 
@@ -263,24 +273,25 @@ layout:decorate="~{layouts/layout1}">
 부칙
 (시행일) 이 약관은 2010년 8월 9일부터 적용합니다. 
 
-                </textarea>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" value="1" name="chkSelect">통합회원 이용약관에 동의합니다.<br><br><br><br>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div>
-                 <font color="#a4dfcb" size=4>02</font> <font size=3>개인정보 수집 이용 약관</font>
-                </div>
-             </td>
-           </tr>
-           <tr>
-             <td align=center>
-               <textarea name="tos" rows=15 cols=100>
+                </textarea></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" value="1" name="chkSelect">통합회원
+								이용약관에 동의합니다.<br>
+							<br>
+							<br>
+							<br></td>
+						</tr>
+						<tr>
+							<td>
+								<div>
+									<font color="#a4dfcb" size=4>02</font> <font size=3>개인정보
+										수집 이용 약관</font>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td align=center><textarea name="tos" rows=15 cols=100>
 부천시 홈페이지는 홈페이지 통합회원과 맞춤 정보제공 서비스에 대해 개인정보 수집 및 이용을 다음과 같이 관리하고 있습니다.
 단, 맞춤 정보제공 서비스의 경우에는 이용자가 추가 가입시 개인정보를 수집 및 이용하고 있습니다.
 
@@ -306,28 +317,31 @@ layout:decorate="~{layouts/layout1}">
 5.14세 미만 사용자와 14세 이상 사용자를 구분하여 회원가입 절차 제공
 홈페이지 통합회원 가입시에는 14세 미만사용자는 법정대리인의 동의 절차를 받아 진행됩니다.               
 
-                </textarea>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <input type="checkbox" value="2" name="chkSelect" >개인정보 수집 및 이용안내를 숙지하였습니다.<br>
-                <input type="checkbox" id="chkSelect" name="chkSelect" value="checkAll" onclick="chkSelect(this)">전체 동의
-              </td>
-            </tr>
-          </table>
+                </textarea></td>
+						</tr>
+						<tr>
+							<td><input type="checkbox" value="2" name="chkSelect">개인정보
+								수집 및 이용안내를 숙지하였습니다.<br> <input type="checkbox"
+								id="chkSelect" name="chkSelect" value="checkAll"
+								onclick="chkSelect(this)">전체 동의</td>
+						</tr>
+					</table>
 
-      </td>
-    </tr>
-</table>
-</div>
-<br><br>
-<div class="bt">
-  <a> <button type="button" class="btn_order" style="margin:10px;" onClick="Check();">다 음</button></a>
-  <a href="/ko"><button type="button"  class="btn_order" style="margin:10px;">처음으로</button></a>
-</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<br>
+	<br>
+	<div class="bt">
+		<a>
+			<button type="button" class="btn_order" style="margin: 10px;"
+				onClick="Check();">다 음</button>
+		</a> <a href="/ko"><button type="button" class="btn_order"
+				style="margin: 10px;">처음으로</button></a>
+	</div>
 
- 
-  </div>
+
+</div>
 </html>
 

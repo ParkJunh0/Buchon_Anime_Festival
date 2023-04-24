@@ -1,6 +1,6 @@
 $(function(){
 var btn_search=$("#search_btn"); // 검색 버튼 변수선언
-var search_bar=$("#search");	// 검색 바 영역 변수선언
+var search_bar=$("#search_");	// 검색 바 영역 변수선언
 var search_stat=false;			// 검색 바 온/오프 확인용 변수
 
 btn_search.click(function(e){
@@ -17,6 +17,3 @@ btn_search.click(function(e){
     }
 });
 });
-function searchform(search){ 	// 검색버튼 클릭시 검색값 주소를 통해 전송 임시
-    location.href="/ko/search?"+ search;
-}

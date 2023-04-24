@@ -150,30 +150,30 @@
 		</div>
 		<div class="freeboard boards">
 			<p class="boardtitle">자유게시판<a href="/ko/freeboard">+</a></p>
-			<div class="last_sentence" th:if="${lnotnotice != 1}">
+			<div class="last_sentence" th:if="${lnotfree != 1}">
 				<div class="sen_date">
-					<div class="sen_date_top" th:text="${last_datet}"></div>
-					<div class="sen_date_bottom" th:text="${last_dateb}"></div>
+					<div class="sen_date_top" th:text="${last_fdatet}"></div>
+					<div class="sen_date_bottom" th:text="${last_fdateb}"></div>
 				</div>
 				<div class="sen_content">
-					<a th:href="@{/ko/notice/detail/{id}(id=${last_notice.id})}">
-					<p class="sen_title" th:text="${last_notice.notice_title}"></p>
-					<p class="sent" th:text="${last_notice.notice_content}"></p>
+					<a th:href="@{/ko/freeboard/detail/{id}(id=${last_free.id})}">
+					<p class="sen_title" th:text="${last_free.freeboard_title}"></p>
+					<p class="sent" th:text="${last_free.freeboard_content}"></p>
 					</a>
 				</div>
 			</div>
-			<div class="last_sentence" th:unless="${lnotnotice != 1}">
-				<div class="notnotice">
-					공지사항이 없습니다
+			<div class="last_sentence" th:unless="${lnotfree != 1}">
+				<div class="notfree">
+					자유게시글이 없습니다
 				</div>
 			</div>
-			<div class="sentence" th:if="${notnotice != 1}">
-				<ul><li class="sentitle" th:each="notice : ${noticeDto}">
-						<a th:href="@{/ko/notice/detail/{id}(id=${notice.id})}" th:text="${notice.notice_title}"></a>
+			<div class="sentence" th:if="${notfree != 1}">
+				<ul><li class="sentitle" th:each="free : ${freeDto}">
+						<a th:href="@{/ko/notice/detail/{id}(id=${free.id})}" th:text="${free.freeboard_title}"></a>
 					</li></ul>
 			</div>
-			<div class="sentence" th:unless="${notnotice != 1}">
-					<div class="notnotice">
+			<div class="sentence" th:unless="${notfree != 1}">
+					<div class="notfree">
 					공지사항이 없습니다.
 					</div>
 			</div>

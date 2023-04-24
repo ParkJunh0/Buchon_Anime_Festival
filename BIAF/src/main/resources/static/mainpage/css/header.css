@@ -72,7 +72,7 @@ li{
 }
 
 /* 검색바 부분 */
-#search{
+#search_{
     width: 30%;
     float: right;
     border-radius: 1px 1px 20px 20px;
@@ -90,10 +90,10 @@ li{
     color: #7CD2B3;
 }
 .search_btn{
+    padding: 1.5px 6px;
     position: absolute;
     align-items: center;
-    right: 3px;
-    background: none;
+    right: 5px;
     border: 0;
     border-radius: 5px;
     background: #7CD2B3;

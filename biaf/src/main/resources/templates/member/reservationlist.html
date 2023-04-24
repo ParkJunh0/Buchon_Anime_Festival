@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="~{layouts/layout1}">
+
+<head>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+
+<th:block layout:fragment="script">
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script>
+$(function(){
+
+$('.cancle').on('click',function(){
+   var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+   
+    var a= $('#ids').text();
+   console.log(a);
+    // Define the data object with the values you want to send
+   var data = {
+       'Id' : a
+    };
+    
+    $.ajax({
+        url: '/ko/reservationlist/delete',
+        type: 'post',
+        dataType: 'json',
+        data: data,
+        beforeSend: function(xhr){
+           xhr.setRequestHeader(header, token);
+       },// Pass the data object to the server
+        success: function(result, response) {
+            // Handle success response from server
+            swal("Success", "예매취소가 완료되었습니다", "success")
+            .then((value) => {
+              location.href = "/ko/reservationlist";
+            });
+        },
+        error: function() {
+            // Handle error response from server
+        /*     console.log(jqXHR.responseText) */
+     
+        }
+    }); 
+});
+});
+</script>
+
+</th:block>
+<th:block layout:fragment="css">
+   <!-- <link rel="stylesheet" th:href="@{css/style.css}"> -->
+
+   <style>
+
+/* 사이드바 */
+#wrap {
+   width: 100%;
+   position: relative;
+   margin-bottom: 150px;
+   top: 50px;
+}
+
+#section {
+   display: flex;
+   justify-content: space-evenly;
+}
+/* 예매내역 */
+#wrap ol, ul {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+
+.h_tit {
+   padding-bottom: 30px;
+}
+
+.board-list-util {
+   margin: 50px 0 15px 0;
+   text-align: right;
+}
+
+#bokdList>div.history-reservation {
+   padding-left: 10px;
+}
+
+#bokdList>div.history-reservation>ul {
+   width: 900px;
+}
+
+.board-list-util .result-count {
+   position: relative;
+   float: left;
+   margin: 0;
+   padding-top: 15px;
+   line-height: 1.1;
+   vertical-align: top;
+}
+
+.history-reservation ul li:first-child {
+   padding: 0;
+}
+
+.history-reservation ul li .round {
+   overflow: hidden;
+   position: relative;
+   height: auto;
+   padding: 25px 30px 30px 194px;
+   border: 1px solid #d8d9db;
+   border-radius: 10px;
+}
+
+.history-reservation ul li .round .r_img {
+   display: block;
+   position: absolute;
+   left: 30px;
+   top: 30px;
+   width: 135px;
+   height: 194px;
+   font-size: 0;
+   line-height: 0;
+}
+
+.r_img img {
+   width: 150px;
+}
+
+#wrap a:link {
+   color: #444;
+   text-decoration: none;
+}
+
+.history-reservation ul li .round .table {
+   width: 100%;
+   table-layout: fixed;
+   empty-cells: show;
+   border-collapse: collapse;
+}
+
+.history-reservation ul li .round .table th {
+   font-weight: 700;
+   text-align: right;
+}
+
+.a-r {
+   width: 100px;
+}
+
+.history-reservation ul li .round .table td, .history-reservation ul li .round .table th
+   {
+   height: 32px;
+   padding: 0;
+   vertical-align: middle;
+   text-align: left;
+   font-size: .9333em;
+   line-height: 1.3;
+   font-weight: 400;
+}
+
+.history-reservation ul li .round .table td {
+   padding: 0 10px;
+}
+
+.history-reservation ul li .round .table td .num {
+   color: #01738b;
+   font-size: 1.2em;
+}
+
+.history-reservation p {
+   margin: 0;
+   padding: 0;
+}
+
+.history-reservation ul li .round .bg-round {
+   overflow: hidden;
+   margin: 5px 0 0 0;
+   padding: 5px 0;
+   background-color: #f3f4f6;
+   border-radius: 5px;
+}
+
+.button.gray-line.x-small {
+   line-height: 28px;
+}
+
+.button.gray-line {
+   color: #444;
+   line-height: 36px;
+   border: 1px solid #c1c1c1;
+   background-color: #fff;
+}
+
+.button.x-small {
+   height: 28px;
+   padding: 0 8px;
+   line-height: 26px;
+   font-size: .8667em;
+   letter-spacing: 0;
+}
+
+.history-reservation ul li .round .btn-group {
+   padding: 15px 0 0 0;
+   text-align: right;
+}
+
+a.button.gray:active, a.button.gray:focus, a.button.gray:hover, a.button.gray:visited
+   {
+   color: #fff;
+}
+
+a.button:active, a.button:focus, a.button:hover, a.button:visited {
+   color: #503396;
+}
+
+.btn-group .button {
+   margin: 0 3px;
+}
+
+.button.gray {
+   color: #fff;
+   line-height: 36px;
+   border: 0;
+   background: #666;
+}
+
+.button {
+   display: inline-block;
+   height: 36px;
+   padding: 0 15px;
+   text-align: center font-weight: 400;
+   border-radius: 4px;
+   font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+   vertical-align: middle;
+   cursor: pointer;
+}
+
+/*    예매취소내역*/
+.del {
+   margin: 0;
+   padding: 0 0 16px 0;
+   font-size: 1.6em;
+   font-weight: 400;
+   color: #007b73;
+   line-height: 1.1;
+   margin-top: 40px;
+}
+
+.dot-list>li {
+   position: relative;
+   padding: 0 0 0 8px;
+}
+
+.mt10 {
+   margin-top: 10px;
+   width: 900px;
+}
+
+.table-wrap {
+   position: relative;
+   border-top: 1px solid #555;
+}
+
+table caption {
+   overflow: hidden;
+   width: 0;
+   height: 0;
+   font-size: 0;
+   line-height: 0;
+   opacity: 0;
+}
+
+.board-list {
+   width: 900px;
+}
+
+.board-list>thead>tr>th {
+   height: 45px;
+   padding: 3px 10px;
+   color: #222;
+   border: 1px solid #eaeaea;
+   border-width: 0 0 1px 0;
+   background-color: #f2f4f5;
+}
+
+.a-c {
+   text-align: center;
+}
+
+/*    예매내역이 없을 시 div */
+.no-history-reservation {
+   display: block;
+   height: 160px;
+   padding: 0;
+   text-align: center;
+   line-height: 160px;
+   border: 1px solid #ddd;
+   border-width: 1px 0;
+}
+
+.list td {
+   text-align: center;
+   border-bottom: 1px solid #d8d9db;
+   border-collapse: collapse;
+}
+
+.cancle {
+   color: #fff;
+   line-height: 36px;
+   border: 0;
+   background: #666;
+}
+
+.btn-group button {
+   display: inline-block;
+   height: 36px;
+   padding: 0 15px;
+   text-align: center font-weight: 400;
+   border-radius: 4px;
+   font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+   vertical-align: middle;
+   cursor: pointer;
+}
+
+.round_e {
+   overflow: hidden;
+   position: relative;
+   height: auto;
+   padding: 25px 30px 30px 194px;
+   border: 1px solid #d8d9db;
+   border-radius: 10px;
+}
+
+.no-history-reservation {
+   display: block;
+   height: 160px;
+   padding: 0;
+   text-align: center;
+   line-height: 160px;
+   border: 1px solid #ddd;
+   border-width: 1px 0;
+}
+
+tr.list {
+    height: 45px;
+}
+</style>
+</th:block>
+<div layout:fragment="content">
+   <div class="cont_header"></div>
+   <div id="wrap">
+      <div id="section">
+         <div id="sidenav"></div>
+
+         <form method="Get" role="form" action="/ko/reservationlist">
+            <div class="tab-cont-wrap">
+
+               <h1 class="h_tit">예매 내역</h1>
+
+               <!--       예매내역이 없을때 -->
+
+               <div class="no-history-reservation mt20" th:if="${statok == 0}">
+                  예매 내역이 없습니다.</div>
+
+               <!-- 예매 영화 목록 -->
+               <div id="bokdList">
+                  <div class="history-reservation"
+                     th:each="reser : ${reservationFormDto}">
+
+               <!--        <span th:text="${reser.memberEmail}"></span>  -->
+                     <th:block th:if="${reser.status.name() == 'OK'}">
+                        <div></div>
+                        <div>
+                           <span hidden id="ids" th:text="${reser.Id}"></span>
+                        </div>
+
+                        <ul>
+                           <li>
+                              <!--                예매내역이 있을때 -->
+                              <div class="round"
+                                 th:if="${statok == 1} and ${reser.status.name() == 'OK'}">
+                                 <a href="/ko/reservationlist" class="r_img"><img
+                                    th:src="${reser.imgUrl}"></a>
+                                 <table class="r">
+                                    <colgroup>
+                                       <col style="width: 75px;">
+                                       <col style="width: 230px;">
+                                       <col style="width: 80px;">
+                                       <col>
+                                    </colgroup>
+                                    <tbody>
+                                       <tr>
+                                          <th scope="row" class="a-r">예매번호</th>
+                                          <td colspan="3"><em class="num"><span
+                                                th:text="${reser.reser_num}"></span></em></td>
+                                       </tr>
+                                       <tr>
+                                          <th scope="row" class="a-r">영화명</th>
+                                          <td colspan="3">
+                                             <p class="tit-movie">
+                                                <span th:text="${reser.movieNm}"></span>
+                                             </p>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <th scope="row" class="a-r">극장/상영관</th>
+                                          <td><span th:text="${reser.cinema}"></span></td>
+                                          <th scope="row">관람인원</th>
+                                          <td><span th:text="${reser.people_num}"></span></td>
+                                       </tr>
+                                       <tr>
+                                          <th scope="row" class="a-r">관람일시</th>
+                                          <td><span th:text="'10월'+${reser.select_day}+'일'"></span></td>
+                                          <th scope="row">관람좌석</th>
+                                          <td><span th:text="${reser.seat}"></span></td>
+                                       </tr>
+                                    </tbody>
+
+                                 </table>
+                                 <div class="bg-round">
+                                    <table class="r">
+                                       <colgroup>
+                                          <col style="width: 75px;">
+                                          <col style="width: 230px;">
+                                          <col style="width: 100px;">
+                                       </colgroup>
+                                    </table>
+                                 </div>
+                                 <div class="btn-group">
+                                    <button type="button" class="cancle">예매취소</button>
+                                 </div>
+
+                              </div>
+                           </li>
+                        </ul>
+                  </div>
+                  </th:block>
+               </div>
+
+
+               <h3 class="del">예매취소내역</h3>
+
+               <ul class="dot-list">
+                  <li>상영일 기준 7일간 취소내역을 확인하실 수 있습니다.</li>
+               </ul>
+
+
+               <div class="table-wrap mt10">
+                  <table class="board-list">
+                     <caption>취소일시, 영화명, 극장, 상영일시, 취소금액 항목을 가진 취소내역 목록 표</caption>
+                     <colgroup>
+                        <col style="width: 225px;">
+                        <col style="width: 225px;">
+                        <col style="width: 225px;">
+                        <col style="width: 225px;">
+                     </colgroup>
+                     <thead>
+                        <tr>
+                           <th scope="col">취소일시</th>
+                           <th scope="col">영화명</th>
+                           <th scope="col">극장</th>
+                           <th scope="col">상영일시</th>
+
+                        </tr>
+                     </thead>
+                     <tbody
+                        th:if="${statcan == 1} and ${reser.status.name() == 'CANCLE'}"
+                        th:each="reser : ${reservationFormDto}">
+                        <tr class="list">
+                           <td><span
+                              th:text="${#temporals.format(reser.updateTime, 'yyyy-MM-dd HH:mm')}"></span>
+                           <td><span th:text="${reser.movieNm}"></span></td>
+                           <td><span th:text="${reser.cinema}"></span></td>
+                           <td><span th:text="'10월'+${reser.select_day}+'일'"></span></td>
+                        </tr>
+                     </tbody>
+                     <tbody th:if="${statcan == 0}"}>
+                        <tr class="list">
+                           <td style="height: 50px;" colspan="4">취소내역이 없습니다.</td>
+                        </tr>
+                     </tbody>
+
+                  </table>
+               </div>
+
+            </div>
+            <input type="hidden" th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}">
+         </form>
+      </div>
+   </div>
+</div>
+
+</html>

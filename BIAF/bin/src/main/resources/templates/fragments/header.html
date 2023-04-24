@@ -66,33 +66,36 @@
     <div id="nav_sub">
         <a href="#" id="search_btn"><img id="icon_search" src="/image/icon_search.png" widht="22" height="22"></a>
         <ul>
-        <!-- 비로그인시 -->
-        <li sec:authorize='isAnonymous()'>
-	        <a id="login_" class="sub_nav" href='/ko/login' >로그인</a>
+            <li sec:authorize='isAnonymous()'>
+            <!-- 비로그인시 -->
+	        <a id="login_" class="sub_nav" href='/ko/login' ><img class="header_icon" src="/image/icon_login.png" title="로그인"></a>
         </li>
         <li sec:authorize='isAnonymous()'>
-	        <a id="signup_" class="sub_nav" href='/ko/terms'>회원가입</a>
+	        <a id="signup_" class="sub_nav" href='/ko/terms'><img class="header_icon" src="/image/icon_signup.png" title="회원가입"></a>
 	    </li>
-        <!-- 로그인시 -->
         <li sec:authorize='isAuthenticated()'>
-        	<a id="logout_" class="sub_nav" href='/ko/logout' >로그아웃</a>
+            <!-- 로그인시 -->
+        	<a id="logout_" class="sub_nav" href='/ko/logout' ><img class="header_icon" src="/image/icon_logout.png" title="로그아웃"></a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_USER')">
-			<a id="cart_" class="sub_nav" href="/ko/cart">장바구니</a>
+			<a id="cart_" class="sub_nav" href="/ko/cart"><img class="header_icon" src="/image/icon_cart.png" title="장바구니"></a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_USER')">
-			<a id="cart_" class="sub_nav" href="/ko/mypage/{memberId}">마이페이지</a>
+			<a id="mypage_" class="sub_nav" href="/ko/mypage/{memberId}"><img class="header_icon" src="/image/icon_mypage.png" title="마이페이지"></a>
         </li>
         <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-			<a id="admin_"class="sub_nav" href="/ko/admin">관리자페이지</a>
+			<a id="admin_"class="sub_nav" href="/ko/admin"><img class="header_icon" src="/image/icon_admin.png" title="관리자페이지"></a>
 		</li>
+        <!-- 아이콘 출처 https://www.flaticon.com/kr/ -->
         </ul>
     </div>
 </div>
 <!-- 검색바 부분 -->
-<div id="search">
-    <input type="text" id="search_input" name="search" required placeholder="Search" title="검색어를 입력하세요">
-    <button type="button" class="search_btn" onclick="searchform(search_input.value);"><img src="/image/icon_search.png" widht="26" height="26"></button>
+<div id="search_">
+    <form action="/ko/search">
+        <input type="text" id="search_input" name="search" required placeholder="Search" title="검색어를 입력하세요">
+        <button type="submit" class="search_btn"><img src="/image/icon_search.png" widht="26" height="26"></button>
+    </form>
 </div>
 </div>
 </html>

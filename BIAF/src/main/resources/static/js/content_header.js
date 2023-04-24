@@ -30,7 +30,6 @@ $(function(){
         content_header_html+='<h1>예매</h1></div>';
         content_header_html+='<div class="content_menu"><ul>';
         content_header_html+='<li><a id="schedule" class="content_menu_items" href="#">현재 상영작</a></li>';
-        content_header_html+='<li><a id="ticket_reservation" class="content_menu_items" href="#">티켓예매</a></li>';
         content_header_html+='<li><a id="ticket_information" class="content_menu_items" href="#">티켓안내</a></li>';
         content_header_html+='</ul>';
     }
@@ -67,7 +66,7 @@ $(function(){
         content_header_html+='<h1>관리자페이지</h1></div>';
     }
     // 마이페이지 부분
-    if(conthref == "mypage" || conthref == "cart" || conthref == "orders" || conthref=="memberout" || conthref=="memberout1"){
+    if(conthref == "mypage" || conthref == "myedit" || conthref == "cart" || conthref == "orders" || conthref=="memberout" || conthref=="memberout1"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>마이페이지</h1></div>';
     }
@@ -85,6 +84,11 @@ $(function(){
     if(conthref == "email_rejection"){
         content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
         content_header_html+='<h1>이메일무단수집동거부</h1></div>';
+    }
+    // 검색페이지 부분
+    if(conthref == "search"){
+        content_header_html='<div class="content_header" style="background-image:url(/image/bg_visual1.jpg);">';
+        content_header_html+='<h1>검색결과</h1></div>';
     }
     // 페이지 메뉴 입력 받은 값 cont_header 클래스의 가장 앞에 삽입
     $('.cont_header').prepend(content_header_html);

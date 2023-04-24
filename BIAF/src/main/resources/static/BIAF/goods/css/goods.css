@@ -27,6 +27,7 @@
 /* 굿즈 상품들 부분*/
 .goods_items{
     min-width: 1000px;
+    min-height: 200px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

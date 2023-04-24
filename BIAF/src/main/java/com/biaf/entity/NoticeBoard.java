@@ -28,8 +28,10 @@ public class NoticeBoard extends BaseTimeEntity {
 	private Long id;
 //	private String notice_title;
 	
+	
 	private String notice_title;
 	
+	@Column(length = 30000)
 	private String notice_content;
 	
 	public  static NoticeBoard createnoiticeBoard(NoticeBoardDto noiticeBoardDto) {

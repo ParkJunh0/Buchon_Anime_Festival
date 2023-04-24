@@ -13,7 +13,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         <div class="movie">
             <h1>현재 상영작</h1>
         </div>
-        <hr>
+<hr>
         <div class="movie-image">
             <div id="first-mv" th:each="movie : ${movieResponseDto}">
                 <p hidden th:text="${movie.id}"></p>
@@ -21,15 +21,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
                     <img th:src="${movie.imgUrl}" width="250" height="347" alt="">
                     <p class="hover_text" th:text="${movie.movieDetail}"></p>
                 </a>
-                <h1 th:text="${movie.movieNm}"></h1>
+                <div id="m_tit"><h1 th:text="${movie.movieNm}"></h1></div>
                 <!--     <p th:text="${movie.startDay}"></p>
         <p th:text="${movie.endDay}"></p> -->
+        <div id="r_bty">
                 <a th:href="@{'/ko/reservation/detail/' + ${movie.id} }">
-                    <input type="button" value="예매하기"></a>
+                    <input class="btn_sty" type="button" value="예매"></a>
+                    </div>
             </div>
 
         </div>
     </form>
 </div>
-
 </html>

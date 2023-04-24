@@ -235,18 +235,14 @@ body{
 }
 .sentence ul{
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
 .sentence ul li a{
     color: black;
 }
-.sentence li{
-    list-style: circle;
-}
 .sentitle{
     margin: 0;
+    margin-bottom: 20px;
+    list-style: circle;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;

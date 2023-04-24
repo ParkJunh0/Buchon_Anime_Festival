@@ -1,0 +1,91 @@
+.join{
+    text-align: center;
+}
+.all p{
+    display: inline-block;
+}
+.all_email{
+    position: relative;
+    margin-bottom: 20px;
+}
+.all_email>p{
+    position: absolute;
+    left: -60px;
+    top: 1px;
+}
+input{
+    height: 30px;
+    width: 250px;
+}
+#email{
+    display: block;
+    margin-bottom: 10px;
+}
+.email_btn{
+    border: dotted 0px white;
+    background: #007b73;
+    color: #fff;
+    border-radius: 7px 7px 7px 7px;
+    width: 115px;
+    height: 34px;
+    font-size: 15px;
+}
+.all_pwd{
+    position: relative;
+    margin-bottom: 20px;
+}
+.all_pwd>p:first-child{
+    position: absolute;
+    left: -75px;
+    top: 1px;
+}
+.all_pwd>input{
+    display: block;
+}
+#pw{
+    margin-bottom: 10px;
+}
+.all_pwd>.all_pwd_chk{
+    position: absolute;
+    left: -115px;
+    top: 37px;
+}
+.all_name{
+    position: relative;
+    margin-bottom: 20px;
+}
+.all_name>p{
+    position: absolute;
+    left: -44px;
+    top: 1px;
+}
+.all_tel{
+    position: relative;
+    margin-bottom: 20px;
+}
+.all_tel>p{
+    position: absolute;
+    left: -75px;
+    top: 1px;
+}
+.all_add{
+    position: relative;
+    margin-bottom: 20px;
+}
+.all_add>p{
+    position: absolute;
+    left: -44px;
+    top: 1px;
+}
+#postcode{
+    margin-bottom: 10px;
+}
+.btn_order{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.content{
+    height: 1000px;
+}

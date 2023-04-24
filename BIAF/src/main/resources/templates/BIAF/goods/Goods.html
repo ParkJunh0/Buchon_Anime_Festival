@@ -24,7 +24,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 			<h1>굿즈</h1>
 			<ul>
 				<li>구입문의 : publicity@biaf.or.kr</li>
-				<li>구입방법 : 아래에서 결제하거나 연략처, 주소, 구입 수량을 작성 후, e-mail(publicity@biaf.or.kr) 전송</li>
+				<li>구입방법 : 아래에서 결제하거나 연락처, 주소, 구입 수량을 작성 후, e-mail(publicity@biaf.or.kr) 전송</li>
 				<li>결제방법 : 무통장 입금(방문 시 현금 및 카드결제 가능)</li>
 			</ul>
 		</div>
@@ -38,7 +38,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<option value="solds">품절</option>
 				</select>
 			</div>
-			<div th:each="goods_patition : ${goodsDto}" class="goods_items">
+			<div th:if="${!#lists.isEmpty(goodsDto)}" th:each="goods_patition : ${goodsDto}" class="goods_items">
 				<!-- th:if="${goods.sellStat == T(com.biaf.constant.GoodsSellStatus).SELL}가 오류가 나서
 						goods.sellStat.name()으로 SELL과 비교하게 작성 -->
 				<!-- 판매중 -->
@@ -72,6 +72,9 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					</div>
 				</div>
 			</div>
+			<div th:unless="${!#lists.isEmpty(goodsDto)}" class="goods_items">
+				<h1>굿즈가 현재 없습니다.</h1>
+			</div>
 			<!-- 굿즈 상세페이지 -->
 			<div class="goods_detail">
 				<!-- 굿즈 이미지(왼쪽) -->
@@ -84,7 +87,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 					<div class="goods_detail_description">
 						<h1><b class="goodsNm"></b></h1>
 						<p>가격: <strong class="goodsprice"></strong>원</p>
-						<p>배달비: <strong class="goodspricep">10000</strong>원</p>
 						<p class="goodsdescription"></p>
 						<p class="goods_stocknum"></p>
 						<p><label>수량<input class="quantity" type="number" name="number_select" min="1" max="10" value="1"> </label></p>

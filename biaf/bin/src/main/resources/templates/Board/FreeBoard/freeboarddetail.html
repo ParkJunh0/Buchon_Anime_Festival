@@ -7,14 +7,29 @@ layout:decorate="~{layouts/layout1}">
     <title>Document</title>
 </head>
 
-<div layout:fragment="content" class="content">
-    <th:block>
-        <style>
+
+<th:block layout:fragment="script">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script th:inline="javascript">
+$(document).ready(function(){
+	var errorMessage=[[${errorMessage}]];
+	console.log([[${errorMessage}]]);
+	if (errorMessage != null){
+		 swal("Oops!", errorMessage , "error");
+	}
+
+});
+
+</script>
+
+    <style>
             *{
                 list-style: none;
+                box-sizing: border-box;
             }
             .container{
-                min-height: 1000px;
+                min-height: 1400px;
                 height: 100%;
                 display: flex;
                 flex-direction: column;
@@ -25,132 +40,329 @@ layout:decorate="~{layouts/layout1}">
             }
             .container_1{
                 width: 100%;
-                height: 20%;
+                height: 10%;
             }
             .container_2{
                 width: 100%;
-                height: 60%;
-                margin-top: 50px;
-                border: 1px solid #0a537e;
-                border-radius: 5px;
+                height: 20%;
+                margin-top: 30px;
+                
             }
+            .container_2 > textarea{
+             display:block;
+            }
+            
+            .container_2 > img{
+            display:block;
+        }
+        
             .container_3{
                 width: 100%;
                 height: 20%;
                 margin-top: 30px;
+                align-items: center;
+            }
+            .container_4{
+                width: 700px;
+                height: 40px;
+                margin-top: 5px;
+                
+
+                
+            }
+            .container_5{
+                width: 100%;
+                height: 40%;
+                margin-top: 10px;
+                border-top: 1px solid #b7b7b7;
+                border-bottom: 1px solid #b7b7b7;
+               
+                display:flex;
+                background-color: white;
+                flex-direction: column;
+                
+            }
+            .container_6{
+                width: 100%;
+                height: 400px;
+                margin-top: 10px;
+                border-top: 1px solid #b7b7b7;
+                border-bottom: 1px solid #b7b7b7;
+                display:flex;
+                flex-direction: column;
+                min-height: 400px;
+            }
+            
+            .text_content{
+            margin-top:40px;
             }
             .text_area{
                 text-align: left;
             }
+
             .title_text1 {
-                
                 border-collapse: collapse;
                 border: 1px solid #0a537e;
                 font-weight: bold;
                 display: flex;
-                
             }
             .title_text1 > a{
                 padding: 5px;
                 padding-right: 21px;
-                
             }
             
             
-            .title_text2{
+            /* .title_text2{
                text-align: left;
-                border-left: 1px solid #0a537e;
-                border-right: 1px solid #0a537e;
-                border-bottom: 1px solid #0a537e;
-                font-weight: bold;  
-                display: flex;
+               border-left: 1px solid #0a537e;
+               border-right: 1px solid #0a537e;
+               border-bottom: 1px solid #0a537e;
+               font-weight: bold;  
+               display: flex;
             }
             .title_text2 > a{
                 padding: 5px;
-            }
+            } */
             .write_size{
                 width: 80%;
                 height: 30px;
             }
+            
             .reply_list{
                 text-align: left;
-                margin-left: 95px;
-                border: 1px solid black;
-                width: 80.6%;
-                margin-top: 3px;
-                border-radius: 5px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #b7b7b7;
+                background-color: white;
+                
             }
-            #btn_2{
-            border: none;
+
+           #btn_2{
+                border: none;
             background-color: #0a537e;
             padding: 10px 15px;
-           
-            
-            
-        }
-         #btn_2> a{
             color: white;
-            text-decoration: none;
+            cursor:pointer;
+            border-radius : 10px;
         }
-        .write_btn{
+
+         #btn_2> a{
+             color: white;
+             text-decoration: none;
+            }
+            #btn_1{
+                border: none;
+            background-color: #0a537e;
+            padding: 6px 3px;
+            color: white;
+             text-decoration: none;
+             border-radius: 3px;
+        }
+        #btn_4{
+            border: none;
+            background-color: #0a537e;
+            padding: 4px 4px;
+            color: white;
+             text-decoration: none;
+             border-radius: 3px;
+        }
+           
+           
+
+           .write_btn{
             width: 100%;
             margin-top: 20px;
             text-align: right;
             text-decoration-color: white;
-            
-            
+            position: absolute;
+            bottom: 2%;
+            right: 30%;
         }
+        
+        .write_btn_2{
+            width: 83.31px;
             
-        </style>
+            text-align: right;
+            color: white;
+            position: absolute;
+            bottom:2%;
+            right:24%;
+        }
+        
+        #input{
+            border: none;
+        outline: none;
+    }
+    
+    .textarea{
+        margin : auto;
+        resize : none;
+        width: 100%;
+        height: 100%;
+        
+    }
+    textarea{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+
+    }
+    .repply_list{
+        display: flex;
+        justify-content: space-around;
+        align-items: baseline;
+        
+    }
+    .reply_text{
+        width: 90%;
+        resize: none;
+        
+    }
+    .wirte_text{
+       display: flex;
+       
+       align-items: center;
+    }
+    .wirte_text > .reply_text{
+       margin-right: 30px;
+    }
+    .reply_content_list{
+        /* vertical-align: middle; */
+        line-height: 25px;
+    }
+    .reply_img{
+        width: 23px;
+        height: 23px;
+        /* padding-top: 5px; */
+        vertical-align: top;
+    }
+    .tt{
+    border-right: 1px solid #0a537e; 
+    text-align: center; 
+    width:8%;
+    
+    }
+    .reply_delete{
+    float : right;
+    }
+    
+    </style>
     </th:block> 
-<div class="container">
-   <div class="write_head">
-       <h2>자유 게시판</h2>
-   </div>
-   <div class="text_content">
-    <div class="container_1">
-        <div class="title_area">
-                    <div class="title_text1">
-                          <a class="tt" style="border-right: 1px solid #0a537e; text-align: center;">제목</a>
-                          <a>가슴이 웅장해진다 귀칼 실화냐?</a>
+    <div layout:fragment="content">
+        <div class="cont_header"></div>
+    <div class="container">
+        <div class="write_head">
+            <h2>자유게시판</h2>
+        </div>
+        <form action="/freeboard/detail" method="GET"  role="form"  >
+            <div class="text_content" th:each="freeboard : ${freeBoardFormDto}">
+                <div class="container_1">
+                    
+                    <div class="title_area">
+                        <div class="title_text1">
+                            <a class="tt" >제목</a>
+                            <input style="border: none; outline: none; width: 100%; margin-left:10px;"  th:value="${freeboard.freeboard_title}" readonly>
                     </div>
-                    <div class="title_text2">
+                  <!--   <div class="title_text2">
                         
                           <a class="wr" style="border-right: 1px solid #0a537e ;">작성자</a>
                           <a>익절민</a>
                       
-                    </div>
+                    </div> -->
         </div>
     </div>
-    <div class="container_2">
+    <div class="container_2" >
         <div class="text_area">
             <div class="text_text">
-                <img src="/Freeboard/image/ghost.png" style="width: 100%"><p>몇년을 기다린거냐.. 얼른 개봉해라 바로 봐줄게~</p>
+            <div th:if="${freeboard.FreeBoardImgDtoList.imgUrl != null}">
+                 <img style="width:100%; height:400px;" th:src="${freeboard.FreeBoardImgDtoList.imgUrl}">	
+                   <input type="hidden" name="freeboardImgIds" th:value="${freeboard.freeboardImgIds}">
+                 
+           		</div>
+           		<div th:unless="${freeboard.FreeBoardImgDtoList.imgUrl != null}">
+           		
+           		</div>
+           		
             </div>
         </div>
+        
+       
     </div>
+    <div class="container_6">
+    <div class="textarea">
+           		 
+           		 <textarea style="border: none; outline: none; resize: none;"  th:text="${freeboard.freeboard_content}" readonly></textarea>
+           		 </div>
+    </div>
+   
+     <div class="write_btn">
+     
+                <button type="button" id="btn_2"><a th:href="@{/ko/freeboard/modify/}+${freeboard.id}">수정하기</a></button>
+                
+     
+    </div>
+   </div>
+   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+   </form>
+    <form role="form" th:method="delete">
+    <div class="write_btn_2">
+     
+   <button type="submit" th:formaction="@{/ko/freeboard/delete/{id}(id=${freeBoardFormDto.id})}"  id="btn_2">삭제하기</button>
+    <input type="hidden" name="freeboardImgIds" th:value="${freeBoardFormDto.freeBoardImgDtoList.id}">
+    
+   </div>
+   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+   </form>
+     <form method="POST" role="form" th:object="${freeBoardReplyFormDto}" enctype="multipart/form-data">
     <div class="container_3">
-        <div class="reply_text">
-            <div class="reply_text">
-                <label for="write">답글</label>
-                        <input type="text" class="write_size" style="border-radius: 5px;" placeholder="내용을 입력해주세요">
-            </div>
-        </div>
-        <div class="reply_list">
-            <div style="border-bottom: 1px solid black;">
-               <a>장 혁:</a>
-                <a>김선민 죽이고 싶다.</a>
-            </div>
-            <div>
-               <a>조 원:</a>
-                <a>김선민 패 죽이고 싶다.</a>
-            </div>
-        </div>
-         <div class="write_btn">
-                <button type="button" onclick="" id="btn_2"><a href="/ko/notice/form">수정하기</a></button>
-                <button type="button" onclick="" id="btn_2"><a href="">삭제하기</a></button>
+        <div class="wirte_text">
+
+   
+        <input type="hidden" th:value="${freeBoardFormDto.id}" name="freeBoardId">
+         <textarea class="reply_text"   th:field="*{freeboard_reply_content}" placeholder="댓글을 입력하세요"></textarea> 
+         <button th:formaction="@{/ko/freeboard/replywrite}" type="submit" id="btn_1">글작성</button>
+    </div>
+    
+     
+    
+    
+    </div>
+ <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+   </form> 
+  <div class="container_5">
+   <div th:each="freeboard : ${freeBoardReplyDto}" class="repply_list">
+   <form method="GET"  role="form" th:object="${freeBoardReplyDto}">
+   <div class="container_4">
+    	<div class="reply_list"> 
+         <tr>
+            <td class="reply">
+                <img class="reply_img" src="/board/FreeBoard/image/profile.png">
+                <span class="reply_content_list" th:text="${freeboard.freeboard_reply_content}"></span>
+         
+            </td>
+             <td class="date_head">
+                       <span class="reply_delete" th:if="${freeboard.regTime == freeboard.updateTime}" th:text="${#temporals.format(freeboard.RegTime, 'yyyy-MM-dd')}"></span>
+                       <span class="reply_delete" th:if="${freeboard.regTime != freeboard.updateTime}" th:text="${#temporals.format(freeboard.updateTime, 'yyyy-MM-dd')}"></span>
+                      
+                        <!-- <span th:text="${notice.createdBy}"></span> -->
+                   		
+                      	</td>
+        </tr>
     </div>
     </div>
+     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+</form>
+
+ <form role="form" th:method="delete">
+    <div class="write_btn_4">
+     
+  <button th:formaction="@{/ko/freeboard/replydelete/{id}(id=${freeboard.id})}" type="submit" id="btn_4"> X </button>
+        
+            
+       
+   </div>
+   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+   </form>
+   </div>
    </div>
 </div>   
 </div>

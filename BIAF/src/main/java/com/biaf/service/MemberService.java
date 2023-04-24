@@ -77,7 +77,29 @@ public void memDelete(Long memberId) { //관리자가 멤버삭제
 		 return MemberFormDto.createMemberFormDto(mem);
 	 return null;
  }
+ 
+ public MemberFormDto findByEmaild(String email) {
+	Member member = memberRepository.findByMemberEmail(email);
+	if(member !=null) 
+		return MemberFormDto.createMemberFormDto(member);
+	return null;
+}
+ public String findEmail(String memberName, String memberTel) {
 
+	List<Member> member = memberRepository.findByMemberNameAndMemberTel(memberName ,memberTel);
+
+	String membere = member.get(0).getMemberEmail();
+	// entity dto 변환
+//		List<MemberResponseDto> membere = new ArrayList<MemberResponseDto>();
+//		for(Member mem : member) {
+//			MemberResponseDto memberea = new MemberResponseDto();
+//			memberea = MemberResponseDto.of(mem);
+//			
+//			membere.add(memberea);
+//		}
+	return  membere;
+		
+}
  public Member findByEmail(String email) { // 마이페이지 수정할때 회원찾기
 	return memberRepository.findByMemberEmail(email);
 }
@@ -89,4 +111,14 @@ public void updateMember(Member member) { // 마이페이지 수정하고 저장
  public void deletemember(String memberEmail) { //회원탈퇴
 	 memberRepository.deleteByMemberEmail(memberEmail);
  }
+ public boolean memberEmailCheck(String email, String memberName) {
+
+	Member member = memberRepository.findByMemberEmail(email);
+	if(member!=null && member.getMemberName().equals(memberName)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 }

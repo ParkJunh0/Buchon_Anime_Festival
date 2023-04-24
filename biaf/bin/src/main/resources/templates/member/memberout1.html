@@ -1,37 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layouts/layout1}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout1}">
 
 
-<th:block layout:fragment="css">    
-<link rel="stylesheet" href="/login/css/button.css">
-<style>
-	.center {
-		text-align: center;
-	}
+<th:block layout:fragment="css">
+	<link rel="stylesheet" href="/login/css/button.css">
+	<style>
+		.center {
+			text-align: center;
+		}
 
-	.content {
-		margin-top: 250px;
-		text-align: center;
-	}
+		.content {
+			margin-top: 250px;
+			text-align: center;
+		}
 
-	.content h1 {
-		text-align: center;
-	}
-</style>
+		.content h1 {
+			text-align: center;
+		}
+
+		#check {
+			width: 130px;
+			height: 110px;
+
+		}
+	</style>
 </th:block>
 
 <div layout:fragment="content">
-    <div class=content>
-	 <h1>회원탈퇴가 완료되었습니다</h1>
-	 <br><br><br><br>
-	 <div id="nb">
+	<div class=content>
+		<p><img id="check" src="/image/checkicon.jpg"></p>
+		<h1>회원탈퇴완료</h1>
+		<br>
+		<h3>회원탈퇴가 정상적으로 되었습니다.</h3>
+		<h3>그 동안 이용해주셔서 감사합니다.</h3>
+		<br> <br> <br> <br>
 
-	  <a href="/ko">
-		<button type="button" class="btn_order" style="margin:10px;">처음으로</button>
-	</a>
-	  </div>
-  </div>
+		<div id="nb">
+
+			<a href="/ko">
+				<button type="button" class="btn_order" style="margin: 10px;">확인</button>
+			</a>
+		</div>
+	</div>
+
+
 </div>
+
 </html>

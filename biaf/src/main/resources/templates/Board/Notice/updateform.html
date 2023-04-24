@@ -76,6 +76,12 @@ layout:decorate="~{layouts/layout1}">
             color: white;
            
         }
+        textarea{
+        resize:none;
+        }
+        .write_text{
+        width:512px;
+        }
     </style>
     </th:block>
     <div layout:fragment="content">
@@ -99,7 +105,7 @@ layout:decorate="~{layouts/layout1}">
                      <div class="write_text">
                     
                          <label for="write">글 내용</label>
-                         <textarea cols="71"  name="content" rows="30" th:field="${noticeBoardFormDto.notice_content}" ></textarea> <!--  -->
+                         <textarea cols="69"  name="content" rows="30" th:field="${noticeBoardFormDto.notice_content}" ></textarea> <!--  -->
                      </div>
                     </div>
               <div class="container_3">
